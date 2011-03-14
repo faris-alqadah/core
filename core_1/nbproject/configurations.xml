@@ -2,50 +2,220 @@
 <configurationDescriptor version="69">
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <df name="core" root="..">
+      <df name=".git">
+        <df name="branches" kind="SOURCE_LOGICAL_FOLDER">
+        </df>
+        <df name="hooks" kind="SOURCE_LOGICAL_FOLDER">
+          <in>applypatch-msg.sample</in>
+          <in>commit-msg.sample</in>
+          <in>post-commit.sample</in>
+          <in>post-receive.sample</in>
+          <in>post-update.sample</in>
+          <in>pre-applypatch.sample</in>
+          <in>pre-commit.sample</in>
+          <in>pre-rebase.sample</in>
+          <in>prepare-commit-msg.sample</in>
+          <in>update.sample</in>
+        </df>
+        <df name="info" kind="SOURCE_LOGICAL_FOLDER">
+          <in>exclude</in>
+        </df>
+        <df name="logs" kind="SOURCE_LOGICAL_FOLDER">
+          <df name="refs" kind="SOURCE_LOGICAL_FOLDER">
+            <df name="heads" kind="SOURCE_LOGICAL_FOLDER">
+              <in>master</in>
+            </df>
+            <df name="remotes" kind="SOURCE_LOGICAL_FOLDER">
+              <df name="origin" kind="SOURCE_LOGICAL_FOLDER">
+                <in>master</in>
+              </df>
+            </df>
+          </df>
+          <in>HEAD</in>
+        </df>
+        <df name="objects" kind="SOURCE_LOGICAL_FOLDER">
+          <df name="0c" kind="SOURCE_LOGICAL_FOLDER">
+            <in>2218faa1838e71c6ff396388f287e5302b41f8</in>
+          </df>
+          <df name="13" kind="SOURCE_LOGICAL_FOLDER">
+            <in>141ed4e4498a6afbe7f229594a2a748344130d</in>
+            <in>54c92905380bef3db4042d8fa4657d546a95a4</in>
+          </df>
+          <df name="18" kind="SOURCE_LOGICAL_FOLDER">
+            <in>068fcea1b1e056ae2e4d4f232630c9568f72a8</in>
+          </df>
+          <df name="22" kind="SOURCE_LOGICAL_FOLDER">
+            <in>cec12425f5a0a93fc62a32812cb508b611fbf9</in>
+          </df>
+          <df name="26" kind="SOURCE_LOGICAL_FOLDER">
+            <in>a57a0c7656426852f3482aebb641bc4f1cafcd</in>
+          </df>
+          <df name="2d" kind="SOURCE_LOGICAL_FOLDER">
+            <in>e54e5cf790e550f2ba843558c7c7ceedc78317</in>
+          </df>
+          <df name="37" kind="SOURCE_LOGICAL_FOLDER">
+            <in>29479c1c76c6bcf9c79acce7be7fed40fbedc7</in>
+          </df>
+          <df name="3a" kind="SOURCE_LOGICAL_FOLDER">
+            <in>48c09cad6c6f1cd4667775edde19b4139b6ab5</in>
+          </df>
+          <df name="40" kind="SOURCE_LOGICAL_FOLDER">
+            <in>38f54918ca93efd5a549184597f0d6b4ef0965</in>
+          </df>
+          <df name="42" kind="SOURCE_LOGICAL_FOLDER">
+            <in>61453249dfd6cd64431ca956bd67174742895a</in>
+          </df>
+          <df name="46" kind="SOURCE_LOGICAL_FOLDER">
+            <in>6ac77a77111c196fe2ecc682c7f1f273e90c2f</in>
+          </df>
+          <df name="47" kind="SOURCE_LOGICAL_FOLDER">
+            <in>f8648b9c177221d9d49c382e60163c6dcfc094</in>
+          </df>
+          <df name="4a" kind="SOURCE_LOGICAL_FOLDER">
+            <in>3a3ad3728d5f02f8a45bea3a7729bf5beab100</in>
+            <in>7a2af363dc403c40453a1ba7f982353124d04d</in>
+          </df>
+          <df name="65" kind="SOURCE_LOGICAL_FOLDER">
+            <in>c3a4439fdc7097b67cd5b3a9f491fc30315433</in>
+          </df>
+          <df name="66" kind="SOURCE_LOGICAL_FOLDER">
+            <in>f10065489585c8f58602ec38317e9d74ae5a8e</in>
+          </df>
+          <df name="6a" kind="SOURCE_LOGICAL_FOLDER">
+            <in>4f35a1f1ce948d3b387ce99883d0e300af09c0</in>
+          </df>
+          <df name="72" kind="SOURCE_LOGICAL_FOLDER">
+            <in>702347b253e65d805cc0bd069d120bc3c51e21</in>
+          </df>
+          <df name="74" kind="SOURCE_LOGICAL_FOLDER">
+            <in>25d804058f4d632713455c2a6a1282814aad4b</in>
+          </df>
+          <df name="77" kind="SOURCE_LOGICAL_FOLDER">
+            <in>27d5d9332a06b12b4f76f3bcafa26223b5d341</in>
+            <in>dc6d9c8fc4d8eab0b2ca8b8f902003e1f367b7</in>
+            <in>ef0b5814dee379733c5911ec78352698dcac09</in>
+          </df>
+          <df name="7a" kind="SOURCE_LOGICAL_FOLDER">
+            <in>ae334145551769d4c8992fdc96abd13fe49f8d</in>
+          </df>
+          <df name="7f" kind="SOURCE_LOGICAL_FOLDER">
+            <in>ec26f5d3e0494d065049e28a763c43f2741a9c</in>
+          </df>
+          <df name="8c" kind="SOURCE_LOGICAL_FOLDER">
+            <in>3409941f6153520841ae4ce26513b63de6f16e</in>
+          </df>
+          <df name="8e" kind="SOURCE_LOGICAL_FOLDER">
+            <in>5290639cd6828923f9c964d5ebb8afac7f540a</in>
+          </df>
+          <df name="99" kind="SOURCE_LOGICAL_FOLDER">
+            <in>9dff715477fbd6cc74cfd003f0aed232737069</in>
+          </df>
+          <df name="9a" kind="SOURCE_LOGICAL_FOLDER">
+            <in>427dbe6b1ff181a19768701c454e170b8e7470</in>
+          </df>
+          <df name="9c" kind="SOURCE_LOGICAL_FOLDER">
+            <in>929b386fcb0053e7ecada5caf7d10a4d86a3e4</in>
+          </df>
+          <df name="ab" kind="SOURCE_LOGICAL_FOLDER">
+            <in>912896b93043bdf7ca43cb8d35a557dbcfd0a6</in>
+          </df>
+          <df name="b1" kind="SOURCE_LOGICAL_FOLDER">
+            <in>d1ca011fc14bdb724ef96ef21c723d0e7be6ac</in>
+          </df>
+          <df name="b4" kind="SOURCE_LOGICAL_FOLDER">
+            <in>c435c8ba9d5804eff13eb81b7708a23b635d6f</in>
+          </df>
+          <df name="b5" kind="SOURCE_LOGICAL_FOLDER">
+            <in>50766573e6686170d48844fb380547762df565</in>
+          </df>
+          <df name="ba" kind="SOURCE_LOGICAL_FOLDER">
+            <in>94ac7a1f82939f1c07f700a41906a4740cbf59</in>
+          </df>
+          <df name="c0" kind="SOURCE_LOGICAL_FOLDER">
+            <in>505cbc86cd3c0c0c41103b3d97e3896be508c0</in>
+          </df>
+          <df name="ce" kind="SOURCE_LOGICAL_FOLDER">
+            <in>d2c7ea0bbe2d4a0cc2d5f53ec26a7046555083</in>
+          </df>
+          <df name="d7" kind="SOURCE_LOGICAL_FOLDER">
+            <in>f013ba36b44d3f78954bb865a538eb71ff8069</in>
+          </df>
+          <df name="e6" kind="SOURCE_LOGICAL_FOLDER">
+            <in>9de29bb2d1d6434b8b29ae775ad8c2e48c5391</in>
+          </df>
+          <df name="e7" kind="SOURCE_LOGICAL_FOLDER">
+            <in>7e254a0dea5607ce5d8e04b9a5c1b641fe6a9a</in>
+          </df>
+          <df name="eb" kind="SOURCE_LOGICAL_FOLDER">
+            <in>cd90c38fb37ca251412adf119b516bce179e20</in>
+          </df>
+          <df name="ec" kind="SOURCE_LOGICAL_FOLDER">
+            <in>9de690e53a4d149efe22428359088b44605367</in>
+          </df>
+          <df name="ee" kind="SOURCE_LOGICAL_FOLDER">
+            <in>0ef11898892fb467e289880c78a42bad3b6f8d</in>
+          </df>
+          <df name="f6" kind="SOURCE_LOGICAL_FOLDER">
+            <in>17fd6c8b7e1e9ac610a82269e4a807c00a92a5</in>
+          </df>
+          <df name="f7" kind="SOURCE_LOGICAL_FOLDER">
+            <in>a174f1c4e05f69611526996754556737f9a137</in>
+          </df>
+          <df name="info" kind="SOURCE_LOGICAL_FOLDER">
+          </df>
+          <df name="pack" kind="SOURCE_LOGICAL_FOLDER">
+          </df>
+        </df>
+        <df name="refs" kind="SOURCE_LOGICAL_FOLDER">
+          <df name="heads" kind="SOURCE_LOGICAL_FOLDER">
+            <in>master</in>
+          </df>
+          <df name="remotes" kind="SOURCE_LOGICAL_FOLDER">
+            <df name="origin" kind="SOURCE_LOGICAL_FOLDER">
+              <in>master</in>
+            </df>
+          </df>
+          <df name="tags" kind="SOURCE_LOGICAL_FOLDER">
+          </df>
+        </df>
+        <in>COMMIT_EDITMSG</in>
+        <in>HEAD</in>
+        <in>config</in>
+        <in>description</in>
+        <in>index</in>
+      </df>
       <df name="core_1" kind="SOURCE_LOGICAL_FOLDER">
       </df>
       <df name="headers" kind="SOURCE_LOGICAL_FOLDER">
         <in>Context.h</in>
-        <in>Globals.h</in>
         <in>HashNode.h</in>
         <in>HashTable.h</in>
         <in>IOSet.h</in>
-        <in>LatticeOps.h</in>
         <in>NCluster.h</in>
         <in>NameMap.h</in>
-        <in>Numerical.h</in>
         <in>Ops.h</in>
         <in>PostProcess.h</in>
         <in>PreProcess.h</in>
         <in>RelationGraph.h</in>
         <in>RelationNode.h</in>
-        <in>SimMeasures.h</in>
         <in>Tail.h</in>
         <in>Timing.h</in>
-        <in>TreeCluAlgs.h</in>
       </df>
       <df name="source" kind="SOURCE_LOGICAL_FOLDER">
-        <in>ClusterConcepts.cpp</in>
         <in>Context.cpp</in>
-        <in>EnumLattice.cpp</in>
-        <in>Globals.cpp</in>
         <in>HashTable.cpp</in>
         <in>IOSet.cpp</in>
         <in>LatticeOps.cpp</in>
         <in>Main.cpp</in>
         <in>NCluster.cpp</in>
         <in>NameMap.cpp</in>
-        <in>Numerical.cpp</in>
         <in>Ops.cpp</in>
         <in>PostProcess.cpp</in>
         <in>PreProcess.cpp</in>
         <in>RelationGraph.cpp</in>
         <in>RelationNode.cpp</in>
-        <in>SimMeasures.cpp</in>
-        <in>StarClu.cpp</in>
         <in>Tail.cpp</in>
         <in>Timing.cpp</in>
-        <in>TreeCluAlgs.cpp</in>
       </df>
     </df>
     <logicalFolder name="ExternalFiles"

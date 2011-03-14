@@ -5,10 +5,13 @@
  * This program is available for only academic use. Commercial use is not allowed.
  * Modification and re-distribution is permited only for academic use.
  * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Operations for search
+ * Basic operations for sets. Also included are some set similarity measures
+ * such as jaccard and Sorensen coefficent.
  *
+ *External variables included to keep track of the number of times these
+ * basic operations are invoked
  *
- *
+ * Any template functions for set / vector operations should also be placed here
  *______________________________________________________________________________
  *_____________________________________________________________________________*/
  
@@ -18,23 +21,28 @@
 
 
 #include"IOSet.h"
-//#include"Globals.h"
 #include <algorithm>
 using namespace std;
 
 
-//stats of operations
+//external variables that can
+//be used to keep track of the number of basic
+//set operations
+extern int numIntersection; //number of intersections performed
+extern int numSubset; //number of subset checks performed
+extern int numUnion; //number of set unions performed
+extern int numDifference; //number of set differences performed
 
-extern int numIntersection;
-extern int numSubset;
-extern int numUnion;
-extern int numDifference;
 
 
-
-
+/********************************************************************/
+// DstryVector (vector<t*> *v>: deallocated and destroy all elements of the vector pointed to by v
+//  Pre-Condition: none
+//  Post-Condition:  v is destroyed and so are all of its elements
+//  returns: none
+//  output: none
+/********************************************************************/
 template <class t>
-
 void DstryVector( vector<t*> *v){
     for(int i=0; i < v->size(); i++){
         if (v->at(i) != NULL){
@@ -45,62 +53,77 @@ void DstryVector( vector<t*> *v){
     delete v;
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-//Intersects two IOSets
-//Precondition: both IOSets are sorted
-//Postcondition: returns the intersection of the IOSets
-////////////////////////////////////////////////////////////////////////////////
+/********************************************************************/
+// Intersect(IOSet *a, IOSet *b): Set intersection
+//  Pre-Condition: a and b non-null AND a and b are sorted
+//  Post-Condition:  numIntersection++
+//  returns: set intersection of a and b
+//  output: none
+/********************************************************************/
 IOSet * Intersect( IOSet*, IOSet*);
 
-////////////////////////////////////////////////////////////////////////////////
-//Set difference of two IOSets
-//Precondition: both IOSets are sorted
-//Postcondition: returns the set difference of the IOSets
-////////////////////////////////////////////////////////////////////////////////
+/********************************************************************/
+// Difference(IOSet *a, IOSet *b): Set difference
+//  Pre-Condition: a and b non-null AND a and b are sorted
+//  Post-Condition:  numDifference++
+//  returns: set difference of a and b
+//  output: none
+/********************************************************************/
 IOSet * Difference( IOSet*,  IOSet*);
 
-////////////////////////////////////////////////////////////////////////////////
-//Set symmetric difference of two IOSets
-//Precondition: both IOSets are sorted
-//Postcondition: returns the set symmetric difference of the IOSets
-////////////////////////////////////////////////////////////////////////////////
+/********************************************************************/
+// SymmDifference(IOSet *a, IOSet *b): Symmetric Set difference
+//  Pre-Condition: a and b non-null AND a and b are sorted
+//  Post-Condition:  numDifference incremented by number of operations
+//  returns: set symmetric set difference of a and b
+//  output: none
+/********************************************************************/
 IOSet *SymmDifference( IOSet*, IOSet*);
 
-////////////////////////////////////////////////////////////////////////////////
-//Set union of two IOSets
-//Precondition: both IOSets are sorted
-//Postcondition: returns the set union of the IOSets
-////////////////////////////////////////////////////////////////////////////////
+/********************************************************************/
+// Union(IOSet *a, IOSet *b): Set union
+//  Pre-Condition: a and b non-null AND a and b are sorted
+//  Post-Condition:  numUnion++
+//  returns: set union of a and b
+//  output: none
+/********************************************************************/
 IOSet* Union( IOSet*,  IOSet*);
 
-////////////////////////////////////////////////////////////////////////////////
-//Returns true if the first IOSet contains the second IOSet
-//Precondition: both IOSets are sorted
-//Postcondition: returns true if IOSet 1 is a superset of IOSet 2
-////////////////////////////////////////////////////////////////////////////////
+/********************************************************************/
+// Contains(IOSet *a, IOSet *b): Contains
+//  Pre-Condition: a and b non-null AND a and b are sorted
+//  Post-Condition:  numSubset++
+//  returns: true if b is subset of a false otherwise
+//  output: none
+/********************************************************************/
 bool Contains( IOSet*,  IOSet* );
 
-////////////////////////////////////////////////////////////////////////////////
-//Returns true if the first IOSet is a proper subset of the second
-//Precondition: both IOSets are sorted
-//Postcondition: returns true if IOSet 1 is a proper subset of IOSet 2
-////////////////////////////////////////////////////////////////////////////////
+/********************************************************************/
+// ProperContains(IOSet *a, IOSet *b): Contains
+//  Pre-Condition: a and b non-null AND a and b are sorted
+//  Post-Condition:  numSubset++ (possibly)
+//  returns: true if b is proper subset of a false otherwise
+//  output: none
+/********************************************************************/
 bool ProperSubSet(IOSet *, IOSet*);
 
-////////////////////////////////////////////////////////////////////////////////
-//Returns the Jaccard Coefficient of the two IOSets
-//Precondition: both IOSets are sorted
-//Postcondition: Jaccard coefficient of the two IOSets
-////////////////////////////////////////////////////////////////////////////////
+/********************************************************************/
+// PercentOverlap(IOSet *a, IOSet *b): Compute Jaccard Coefficent
+//  Pre-Condition: a and b non-null AND a and b are sorted
+//  Post-Condition:  intersection and union counters incremented
+//  returns: the Jaccard coefficient between a and b
+//  output: none
+/********************************************************************/
 double PercentOverlap( IOSet*, IOSet* );
 
 
-////////////////////////////////////////////////////////////////////////////////
-//Returns the Jaccard Coefficient of the two IOSets
-//Precondition: both IOSets are sorted
-//Postcondition: Jaccard coefficient of the two IOSets
-////////////////////////////////////////////////////////////////////////////////
+/********************************************************************/
+// PercentOverlap_Sorensen(IOSet *a, IOSet *b): Compute Sorensen Coefficent
+//  Pre-Condition: a and b non-null AND a and b are sorted
+//  Post-Condition:  intersection and union counters incremented
+//  returns: the  Sorensent coefficient between a and b
+//  output: none
+/********************************************************************/
 double PercentOverlap_Sorensen( IOSet*, IOSet* );
 
 

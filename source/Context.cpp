@@ -1,80 +1,58 @@
 #include "../Headers/Context.h"
 
 
-Context::Context(int r ,int c){
-    numRows = r;
-    numCols=c;
-    rows.resize(numRows);
-    cols.resize(numCols);
-    id =-1;
-    rowsId=-1;
-    colsId=-1;
+Context::Context(int n1 ,int n2){
+    domain1 = new NCluster(n1);
+    domain2 = new NCluster(n2);
+    domain1.SetId(0);
+    domain2.SetId(1);
+    id =0;
     name="~";
 }
 Context::Context( Context &a){
-    id=a.id;
-    rowsId=a.rowsId;
-    colsId=a.colsId;
-    numRows=a.numRows;
-    numCols=a.numCols;
-    name=a.name;
-    rows.resize(numRows);
-    cols.resize(numCols);
-    for(int i=0; i < numRows; i++){
-        rows[i] = new IOSet;
-        rows[i]->DeepCopy(a.rows[i]);
-    }
-    for(int i=0; i < numCols; i++){
-        cols[i] = new IOSet;
-        cols[i]->DeepCopy(a.cols[i]);
-    }
+    domain1->DeepCopy(*a.domain1);
+    domain2->DeepCopy(*a.domain2);
+    id = a.id;
+    name = a.name;
 }
-Context::Context(vector<IOSet*> &rr, vector<IOSet*> &cc){
-    numRows = rr.size();
-    numCols = cc.size();
-    name="~";
-    id=-1;
-    rowsId=-1;
-    colsId=-1;
-    rows.resize(numRows);
-    cols.resize(numCols);
-    for(int i=0; i < numRows; i++){
-        rows[i] = new IOSet;
-        rows[i]->DeepCopy(rr[i]);
-    }
-    for(int i=0; i < numCols; i++){
-        cols[i] = new IOSet;
-        cols[i]->DeepCopy(cc[i]);
-    }
-
+Context::Context(NCluster *d1, NCluster *d2){
+    assert(d1 != NULL && d2 != NULL);
+    domain1 = new NCluster(*d1);
+    domain2 = new NCluster(*d2);
+    id = 0;
+    name = "~";
+}
+Context::~Context(){
+    if (domain1 != NULL) delete domain1;
+    if (domain2 != NULL) delete domain2;
+    domain1 = NULL;
+    domain2 = NULL;
 }
 IOSet * Context::GetSet(int domain,int setNum){
-    if(domain == rowsId) return GetRow(setNum);
-    else return GetCol(setNum);
+    assert(setNum > 0);
+    assert(domain == domain1->GetId() || domain == domain2->GetId());
+    if (domain == domain1->GetId()){
+        assert(setNum < domain1->GetN());
+        return domain1->GetSet(setNum);
+    }else{
+        assert(setNum < domain2->GetN());
+        return domain2->GetSet(setNum);
+    }
 }
-IOSet * Context::GetRow(int rowNum){
-    //IOSet *ret = new IOSet(*rows[rowNum]);
-    return rows[rowNum];
-}
-IOSet * Context::GetCol(int colNum){
-   // IOSet *ret = new IOSet(*cols[colNum]);
-    return cols[colNum];
-}
-IOSet * Context::GetAllRowLabels(){
+IOSet * Context::GetLabels(int domain){
+    assert(domain == domain1->GetId() || domain == domain2->GetId());
     IOSet *ret = new IOSet;
-    for(int i=0; i < numRows; i++) ret->Add(i);
+    if(domain == domain1->GetId() ){
+        for(int i=0; i < domain1->GetN(); i++) ret->Add(domain1->GetSet(i)->Id());
+    }else{
+        for(int i=0; i < domain2->GetN(); i++) ret->Add(domain2->GetSet(i)->Id());
+    }
     return ret;
 }
-IOSet * Context::GetAllColLabels(){
-    IOSet *ret = new IOSet;
-    for(int i=0; i < numCols; i++) ret->Add(i);
-    return ret;
-}
+
 int Context::GetId(){return id;}
-void Context::SetRowsId(int rid){ rowsId = rid;}
-void Context::SetColsId(int cid){ colsId = cid;}
-int Context::GetRowsId(){ return rowsId;}
-int Context::GetColsId(){ return colsId;}
+
+
 void Context::SetId(int iid){id = iid;}
 string Context::GetName(){return name;}
 void Context::SetName(string &n){ name = n;}
@@ -114,8 +92,6 @@ Context * Context::GetSubContext(IOSet *a, IOSet *b,int aId, int bId){
 
     aa.resize(numRows);
     bb.resize(numCols);
-    cout<<"\nis a Cols: "<<(aId == colsId);
-    cout<<"\n\n";
     for(int i=0; i < numRows; i++)  {
        IOSet *t = this->GetSet(aId,i);
        aa[i] = Intersect(t,b);
@@ -143,25 +119,6 @@ void Context::PrintAsFIMI(ofstream &out){
         out<<"\n";
     }
   }
-
-double Context::ExpectedConn(IOSet *a, IOSet *b){
-
-    double e1,e2;
-    double sum=0;
-    //iterate over rows
-    for(int i=0; i < a->Size(); i++) sum += rows[a->At(i)]->Size();
-    e1 = ( (double) b->Size()/ (double) numCols ) *  sum;
-    sum=0;
-    for(int i=0; i < b->Size(); i++) sum += cols[b->At(i)]->Size();
-    e2 = ( (double) a->Size()/ (double) numRows ) * sum;
-    return (e1+e2)/2;
-    //if (e1 > e2) return e1;
-    //else return e2;
-}
-double Context::ExpectedIdxConn(IOSet *a, IOSet *b){
-    cout<<"\nexpected conn: "<<ExpectedConn(a,b);
-     return (double) ExpectedConn(a,b) / ((double) a->Size()*b->Size());
- }
 
 int Context::GetNumOnes(){
     int cnt=0;

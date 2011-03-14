@@ -15,6 +15,7 @@ IOSet* SymmDifference( IOSet *a,  IOSet *b){
     return ret;
 }
 IOSet * Difference( IOSet *a, IOSet *b){
+    assert(a != NULL && b != NULL);
      IOSet *ret = new IOSet(a->Size());
      vector<int>::iterator it =set_difference (a->GetBegin(), a->GetBegin()+a->Size(),
                                                 b->GetBegin(), b->GetBegin()+b->Size(),
@@ -28,6 +29,7 @@ IOSet * Difference( IOSet *a, IOSet *b){
 
 
 IOSet * Intersect( IOSet *a,  IOSet *b ){
+    assert(a != NULL && b != NULL);
     if (a->Size() == 0 || b->Size() == 0)
         return new IOSet;
     IOSet *ret = new IOSet;
@@ -45,7 +47,7 @@ IOSet * Intersect( IOSet *a,  IOSet *b ){
 
 IOSet * Union(IOSet *a,  IOSet *b ){
     //int maxSize =  (a->Size() > b->Size()) ? a->Size() : b->Size();
-
+    assert(a != NULL && b != NULL);
      IOSet *ret = new IOSet(a->Size()+b->Size());
      vector<int>::iterator it =set_union (a->GetBegin(), a->GetBegin()+a->Size(),
                                                 b->GetBegin(), b->GetBegin()+b->Size(),
@@ -56,12 +58,13 @@ IOSet * Union(IOSet *a,  IOSet *b ){
 }
 
 bool Contains( IOSet *a,  IOSet *b){
+    assert(a != NULL && b != NULL);
     numSubset++;
    return includes(a->GetBegin(),a->GetBegin()+a->Size(),b->GetBegin(),b->GetBegin()+b->Size());
 }
 bool ProperSubSet(IOSet *a, IOSet *b){
-    if(a->Size() < b->Size()){
-        return Contains(b,a);
+    if(a->Size() > b->Size()){
+        return Contains(a,b);
     }else return false;
 }
 double PercentOverlap( IOSet *a,  IOSet *b){

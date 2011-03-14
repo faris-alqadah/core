@@ -21,63 +21,162 @@ using namespace std;
 
 class NCluster {
 public:
-    NCluster(unsigned int); //constructor that only specifies n
+/********************************************************************/
+// NCluster(int n): Constructor for an n-cluster, allocates memory for n IOSets in the cluster
+//  Pre-Condition: none
+//  Post-Condition: a fully initialized n-cluster, self.quality=0, self.n=n, self.id = 0
+//  returns: initialized n-cluster
+//  output: none
+/********************************************************************/
+    NCluster(unsigned int);
+/********************************************************************/
+// NCluster(int n, bool): Constructor for an n-cluster, without allocating memory to IOSets
+//  Pre-Condition: none
+//  Post-Condition: a fully initialized n-cluster, self.n=n, self.id = 0
+//  returns: initialized n-cluster
+//  output: none
+/********************************************************************/
     NCluster(unsigned int, bool);
-    NCluster(unsigned int, vector<IOSet*> &); //constructor that assigns n and all data to ncluster
-    NCluster(NCluster &); //copy constructor for deep copy
-    ~NCluster(); //destructor
+/********************************************************************/
+// NCluster(int n, vector<IOSet*> A ): Constructor for an n-cluster, assigns n and all data from vector to the ncluster
+//                              NOTE: this only re-assigns pointers AND DOES NOT perform a deep copy
+//  Pre-Condition: A.size() == n
+//  Post-Condition: a fully initialized n-cluster, self.n=n, self.id = 0, all IOSets point to IOSets of A
+//  returns: initialized n-cluster
+//  output: none
+/********************************************************************/
+    NCluster(unsigned int, vector<IOSet*> &);
+/********************************************************************/
+// NCluster(NCluster &a ): Copy constructor of NCluster
+//  Pre-Condition: none
+//  Post-Condition: a fully initialized n-cluster, self.n=a.n, self.id = a.id, all IOSets initialized to a copy of the argument
+//  returns: initialized n-cluster
+//  output: none
+/********************************************************************/
+    NCluster(NCluster &);
+/********************************************************************/
+// ~NCluster(): Destructor for n-cluster, deallocates all memory
+//  Pre-Condition: none
+//  Post-Condition: self is destroyed
+//  returns: initialized n-cluster
+//  output: none
+/********************************************************************/
+    ~NCluster();
+/********************************************************************/
+// DeepCopy(NCluster &a): Make a deep copy of a
+//  Pre-Condition: none
+//  Post-Condition: self is a copy of a, self.quality = a.quality, a.d[0] = self.d[1],...,a.d[n-1]=self.d[n-1]
+//  returns: none
+//  output: none
+/********************************************************************/
+    void DeepCopy(NCluster&);
+/********************************************************************/
+// Output: Output the elements of self
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: none
+//  output: Prints each IOSet on a seperate line preceeded by the identity of each IOSET
+/********************************************************************/
+    void Output();
+/********************************************************************/
+// Output(ofstream &): Output the elements of self to a file
+//  Pre-Condition: ofstream is open
+//  Post-Condition: none
+//  returns: none
+//  output: Prints each IOSet on a seperate line preceeded by the identity of each IOSET to the specified stream
+/********************************************************************/
+    void Output(ofstream&);
+/********************************************************************/
+// Output(ofstream a, vector<namemap> nm): Output the elements of self mapped by name maps in nm
+//  Pre-Condition: nm.size() == n and ofsteram is open
+//  Post-Condition: none
+//  returns: none
+//  output: Prints each IOSet on a seperate line preceeded by the identity of each IOSET
+/********************************************************************/
+    void Output(ofstream&, vector<NameMap *>&nm); 
+/********************************************************************/
+// GetN()
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: self.n
+//  output: none
+/********************************************************************/
+    int GetN(); 
+/********************************************************************/
+// GetSet(int i)
+//  Pre-Condition: i >= 0 AND i < n
+//  Post-Condition: none
+//  returns: pointer to the ith set in self
+//  output: none
+/********************************************************************/
+    IOSet * GetSet(int);
+ /********************************************************************/
+// AssignSet(int i, IOSet *a): Assign the ith set to a
+//  Pre-Condition: i >= 0 AND i < n
+//  Post-Condition: self.d[i] is deleted and self.d[i] = a
+//  returns: none
+//  output: none
+/********************************************************************/
+    void AssignSet(int, IOSet*);
+  /********************************************************************/
+// GetQuality()
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: self.quality
+//  output: none
+/********************************************************************/
+    double GetQuality();
+  /********************************************************************/
+// SetQuality(double q)
+//  Pre-Condition: none
+//  Post-Condition: self.quality = q
+//  returns: none
+//  output: none
+/********************************************************************/
+   void SetQuality(double);
+   /********************************************************************/
+// SetQuality(double q)
+//  Pre-Condition: none
+//  Post-Condition: self.quality = q
+//  returns: none
+//  output: none
+/********************************************************************/
 
-    void DeepCopy(NCluster&); //make a deep copy of an ncluster
-    void Output(); //output the nCluster (all the sets)
-    void Output(ofstream&); //output the ncluster to a file
-    void Output(ofstream&, vector<NameMap *>&nm); //outptut ncluster with names to file
-    bool IsHeight(int); //returns if the set specified by i contributes to height of the ncluster
-    void SetAsHeight(int); //make the set specified by the parameter a "height" set
-    double GetHeight(); // get the height of an ncluster
-    double GetWidth(); //get the width of the ncluster
-    void SetHeight(double); //Set the height
-    void SetWidth(double); //set the width
-    int GetN(); //get n
-    vector<NCluster*>* GetUppers(); //return pointer to the upper neighbors
-    vector<NCluster*>* GetLowers(); //return pointer to the lower neighbors
-    void SetUpperNeighbors(vector<NCluster*> &); //set the upper neighbors
-    void SetLowerNeighbors(vector<NCluster*> &); //set the lower neighbors
-    IOSet * GetSet(int); //get pointer to the specified by the argument
-    void AssignSet(int, IOSet*); //assign the set specified by the first argument to the set specified in the 2nd argument
-    double GetQuality(); //return the quality of a cluster
-    double SetQuality(double); //set the quality of a cluster
-    void InitalizeSet(int,IOSet*);  //set the ith set to its intial value of the pointer
-        void ComputeHeight();   //compute the height of the ncluster
-    void ComputeWidth();    //compute the width of the ncluster
+    int GetId();
+  /********************************************************************/
+// GetId()
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: self.id
+//  output: none
+/********************************************************************/
+   void SetId(int);
+   /********************************************************************/
+// SetId(int id)
+//  Pre-Condition: none
+//  Post-Condition: self.id = id
+//  returns: none
+//  output: none
+/********************************************************************/
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // Reads concepts from a pre-computed lattice
-    //Assumes global variable latticeInputFile is defined
-    ////////////////////////////////////////////////////////////////////////////////
-   friend void ReadConcepts(ifstream&,int,int,int);
-
-   ////////////////////////////////////////////////////////////////////////////////
-    //Function used by ReadLattice to process each concept
-    ////////////////////////////////////////////////////////////////////////////////
-    friend NCluster * ProcessNode(string&,bool);
-
-    ////////////////////////////////////////////////////////////////////////////////
-    // Reads in a lattice from a file of pre-computed concept lattice
-    //Global variable latticeInputFile should be declared. This function is called by'
-    // ReadPreLattice()
-    ////////////////////////////////////////////////////////////////////////////////
-    friend void ReadLattice(ifstream&,int,int,int);
 
 private:
     unsigned int n; //degree of cluster
     vector<IOSet*> sets; //the sets
     double quality;  //quality of the ncluster
-
+    int id; // the id of the n-cluster
 
 
 };
 
-
+/********************************************************************/
+// Compare_Quality(NCluster *a, NCluster * b): Primarly inteded to be used with std:sort, to sort a collection of NClusters by their size
+//  Pre-Condition: a and b are non-null
+//  Post-Condition: none
+//  returns: true if a.quality > b.quality false otherwise
+//  output: none
+/********************************************************************/
+bool Compare_Quality(NCluster *a, NCluster *b);
 
 
 
