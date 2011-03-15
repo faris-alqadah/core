@@ -6,6 +6,7 @@ NCluster::NCluster(unsigned int nn) {
     for(int i=0; i < n;i++) sets[i] = new IOSet;
     quality=0;
     id=0;
+    marked=false;
 }
 NCluster::NCluster(unsigned int nn, vector<IOSet*> &v) {
     assert(v.size() == nn);
@@ -14,6 +15,7 @@ NCluster::NCluster(unsigned int nn, vector<IOSet*> &v) {
     for(int i=0; i < n;i++) sets[i] = v[i];
     quality=0;
     id = 0;
+    marked=false;
 
 }
 NCluster::NCluster(unsigned int nn, bool dontAllocate){
@@ -21,6 +23,7 @@ NCluster::NCluster(unsigned int nn, bool dontAllocate){
     sets.resize(n);
     quality=0;
     id =0;
+    marked=false;
 
 }
 
@@ -44,6 +47,7 @@ void NCluster::DeepCopy(NCluster& a){
    for(int i=0; i < n; i++){
        sets[i] = new IOSet( (a.GetSet(i) ));
    }
+   marked = a.marked;
 }
 void NCluster::Output(){
     for(int i=0; i < n; i++){
@@ -92,7 +96,8 @@ void NCluster::SetQuality(double q){quality = q;}
 
 void NCluster::GetId(){return id;}
 void NCluster::SetId(int a){ id = a;}
-
+void NCluster::GetMarked(){return marked;}
+void NCluster::SetMarked(bool m){marked =m;}
 bool Compare_Quality(NCluster *a, NCluster *b){
     assert (a != NULL && b != NULL);
     return a->GetQuality() > b->GetQuality();

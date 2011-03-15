@@ -52,80 +52,105 @@ IOSet * Context::GetLabels(int domain){
 
 int Context::GetId(){return id;}
 
-
 void Context::SetId(int iid){id = iid;}
+
 string Context::GetName(){return name;}
 void Context::SetName(string &n){ name = n;}
 
-int Context::GetNumRows(){return numRows;}
-int Context::GetNumCols(){return numCols;}
+void Context::SetDomainId(int domain, int id){
+    assert(domain == 0 || domain == 1);
+    if(domain == 0) domain1->SetId(id);
+    else domain2->SetId(id);
+}
+void Context::GetDomainId(int domain){
+    assert(domain == 0 || domain == 1);
+    if(domain == 0) return domain1->GetId();
+    else return domain2->GetId();
+}
+
+
 
 void Context::PrintAsMatrix(){
-    for(int i=0; i < numRows; i++){
-        for(int j=0; j < numCols; j++){
+    for(int i=0; i < domain1->GetN(); i++){
+        IOSet *currRow = domain1->GetSet(i);
+        for(int j=0,onesPtr=0; j < currRow->Size() && onesPtr < currRow->Size(); j++){
             if (j > 0)
                 cout<<"\t";
-
-            if( rows[i]->Contains(j)) cout<<"1";
-            else cout<<"0";
+            if( j == currRow->At(onesPtr)){
+                cout<<"1";
+                onesPtr++;
+            }
+            else cout<<"0"; // j can only be <= currRow[onesPtr]
+            
         }
         cout<<"\n";
     }
 }
 
 void Context::PrintAsMatrix(ofstream &out){
-       for(int i=0; i < numRows; i++){
-        for(int j=0; j < numCols; j++){
+     for(int i=0; i < domain1->GetN(); i++){
+        IOSet *currRow = domain1->GetSet(i);
+        for(int j=0,onesPtr=0; j < currRow->Size() && onesPtr < currRow->Size(); j++){
             if (j > 0)
                 out<<"\t";
-            if( rows[i]->Contains(j)) out<<"1";
-            else out<<"0";
+            if( j == currRow->At(onesPtr)){
+                out<<"1";
+                onesPtr++;
+            }
+            else out<<"0"; // j can only be <= currRow[onesPtr]
+
         }
         out<<"\n";
     }
 }
 
+Context * Context::GetSubContext(IOSet *a, IOSet *b){
+    assert(a->Size() > 0 && b->Size() > 0);
+    NCluster* d1(a->Size());
+    NCluster *d2(b->Size());
 
-Context * Context::GetSubContext(IOSet *a, IOSet *b,int aId, int bId){
-    vector<IOSet*> aa;
-    vector<IOSet*>bb;
-
-    aa.resize(numRows);
-    bb.resize(numCols);
-    for(int i=0; i < numRows; i++)  {
-       IOSet *t = this->GetSet(aId,i);
-       aa[i] = Intersect(t,b);
-
-    }
-    for(int i=0; i < numCols; i++)  {
-       IOSet *t = this->GetSet(bId,i);
-       bb[i] = Intersect(t,a);
-    }
-    Context *tt = new Context(aa,bb);
-    return tt;
-
-   }
+    for(int i=0; i < a->Size(); i++)  d1->AssignSet(i,Intersect(domain1->GetSet(a->At(i)),b));
+    for(int i=0; i < b->Size(); i++)  d2->AssignSet(i,Intersect(domain2->GetSet(b->At(i)),a));
+    Context *ret= new Context(d1,d2);
+    delete d1;
+    delete d2;
+    return ret;
+}
 
 void Context::PrintAsFIMI(){
-    for(int i=0; i < numRows; i++){
-        rows[i]->Output();
+    for(int i=0; i < domain1->GetN(); i++){
+        domain1->GetSet(i)->Output();
         cout<<"\n";
     }
 
 }
 void Context::PrintAsFIMI(ofstream &out){
-        for(int i=0; i < numRows; i++){
-        rows[i]->Output(out);
+       for(int i=0; i < domain1->GetN(); i++){
+        domain1->GetSet(i)->Output(out);
         out<<"\n";
     }
   }
 
+int Context::GetNumSets(int domainId){
+     assert(domainId == domain1->GetId() || domainId == domain2->GetId());
+     if (domainId == domain1->GetId()) return domain1->GetN();
+     else return domain2->GetN();
+
+}
+
 int Context::GetNumOnes(){
     int cnt=0;
-    for(int i=0; i < rows.size(); i++) cnt += rows[i]->Size();
+    for(int i=0; i < domain1->GetN(); i++) cnt += domain1->GetSet(i)->Size();
     return cnt;
 }
 
 double Context::GetDensity(){
-    return (double)GetNumOnes() / ( (double)rows.size()*(double)cols.size() );
+    return (double)GetNumOnes() / ( (double)domain1.GetN()*(double)domain2.GetN() );
+}
+
+pair<int,int> Context::GetDomainIds(){
+    pair<int,int> ret;
+    ret.first=domain1.GetId();
+    ret.second=domain2.GetId();
+    return ret;
 }

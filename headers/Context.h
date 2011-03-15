@@ -68,30 +68,132 @@ public:
 //  output: none
 /********************************************************************/
     IOSet *GetLabels(int domain);
-
+/********************************************************************/
+// GetId():
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: returns id of the context
+//  output: none
+/********************************************************************/
     int GetId();
-    void SetId(int);
-    
-    void SetDomainId(int setNum, int id);
-    int GetDomainId(int setNum);
+/********************************************************************/
+// GetDomainIds():
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: domain1.id and domain2.id as a pair
+//  output: none
+/********************************************************************/
+     pair<int,int> GetDomainIds();
+/********************************************************************/
+// SetId(int iid):
+//  Pre-Condition: none
+//  Post-Condition: self.id = iid
+//  returns: none
+//  output: none
+/********************************************************************/
+ void SetId(int);
+/********************************************************************/
+// GetName():
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: returns name of the context
+//  output: none
+/********************************************************************/
     string GetName();
+/********************************************************************/
+// SetName(string s):
+//  Pre-Condition: none
+//  Post-Condition: self.name = s
+//  returns: none
+//  output: none
+/********************************************************************/
     void SetName(string &);
+/********************************************************************/
+// SetDomainId(int domain,int id):
+//  Pre-Condition: domain is in the set {0,1}
+//  Post-Condition: self.domain[domain].id = id
+//  returns: none
+//  output: none
+/********************************************************************/
+    void SetDomainId(int domain, int id);
+ /********************************************************************/
+// GetDomainId(int domain):
+//  Pre-Condition: domain is in the set {0,1}
+//  Post-Condition: none
+//  returns: the id of self.domain[domain]
+//  output: none
+/********************************************************************/
+    int GetDomainId(int domain);
+ /********************************************************************/
+// PrintAsMatrix():
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: none
+//  output: Prints the context as a binary matrix to stdout, where domain1 forms the rows
+//            and domain2 forms the columns
+/********************************************************************/
     void PrintAsMatrix();
+ /********************************************************************/
+// PrintAsMatrix(ofstream out):
+//  Pre-Condition: out is open and points to a file
+//  Post-Condition: none
+//  returns: none
+//  output: Prints the context as a binary matrix to out where domain1 forms the rows
+//          and domain2 forms the columns
+/********************************************************************/
     void PrintAsMatrix(ofstream&);
-
-    Context * GetSubContext(IOSet *a, IOSet *b,int aId, int bId); //return a sub context that contains the rows in a and columns in b
-
+ /********************************************************************/
+// GetSubContext(IOSet *a, IOSet *b):
+//  Pre-Condition:  a and b are sorted and have size > 0. The values in a are within the bounds 0 and domain1.size()-1 and same holds for b
+//  Post-Condition: none
+//  returns: a context containng only those sets specified by a and b
+//  output: none
+/********************************************************************/
+    Context * GetSubContext(IOSet *a, IOSet *b); 
+ /********************************************************************/
+// PrintAsFIMI():
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: none
+//  output: Prints the context as in "FIMI" format, or sparse matrix format
+//          where only the indices of the 1s are displayed...prints to stdout
+/********************************************************************/
     void PrintAsFIMI();
+/********************************************************************/
+// PrintAsFIMI():
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: none
+//  output: Prints the context as in "FIMI" format, or sparse matrix format
+//          where only the indices of the 1s are displayed...prints to out
+/********************************************************************/
     void PrintAsFIMI(ofstream &);
+/********************************************************************/
+// GetNumSets:
+//  Pre-Condition: domainId is a valid domainId for this context
+//  Post-Condition: none
+//  returns: number of objects in the domain with domainId
+//  output: none
+/********************************************************************/
     int GetNumSets(int domainId);
-
-
-    int GetNumOnes();
+/********************************************************************/
+// GetNumOnes():
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: the number of 1s in the context, equivalentley the number of pairs in
+//            domain1 and domain2 that are in relation
+//  output: none
+/********************************************************************/
+ int GetNumOnes();
+/********************************************************************/
+// GetDensity():
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: self.GetNumOnes/ (domain1.size*domain2.size)
+//  output: none
+/********************************************************************/
     double GetDensity();
 
-    friend class RelationNode;
-    friend class RelationEdge;
-    friend class RelationGraph;
 private:
     NCluster *domain1; //represent first domain
     NCluster *domain2; //represent second domain

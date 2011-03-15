@@ -24,7 +24,7 @@ public:
 /********************************************************************/
 // NCluster(int n): Constructor for an n-cluster, allocates memory for n IOSets in the cluster
 //  Pre-Condition: none
-//  Post-Condition: a fully initialized n-cluster, self.quality=0, self.n=n, self.id = 0
+//  Post-Condition: a fully initialized n-cluster, self.quality=0, self.n=n, self.id = 0, marked=false
 //  returns: initialized n-cluster
 //  output: none
 /********************************************************************/
@@ -32,7 +32,7 @@ public:
 /********************************************************************/
 // NCluster(int n, bool): Constructor for an n-cluster, without allocating memory to IOSets
 //  Pre-Condition: none
-//  Post-Condition: a fully initialized n-cluster, self.n=n, self.id = 0
+//  Post-Condition: a fully initialized n-cluster, self.n=n, self.id = 0, marked=false
 //  returns: initialized n-cluster
 //  output: none
 /********************************************************************/
@@ -41,7 +41,7 @@ public:
 // NCluster(int n, vector<IOSet*> A ): Constructor for an n-cluster, assigns n and all data from vector to the ncluster
 //                              NOTE: this only re-assigns pointers AND DOES NOT perform a deep copy
 //  Pre-Condition: A.size() == n
-//  Post-Condition: a fully initialized n-cluster, self.n=n, self.id = 0, all IOSets point to IOSets of A
+//  Post-Condition: a fully initialized n-cluster, self.n=n, self.id = 0, all IOSets point to IOSets of A, marked=false
 //  returns: initialized n-cluster
 //  output: none
 /********************************************************************/
@@ -49,7 +49,7 @@ public:
 /********************************************************************/
 // NCluster(NCluster &a ): Copy constructor of NCluster
 //  Pre-Condition: none
-//  Post-Condition: a fully initialized n-cluster, self.n=a.n, self.id = a.id, all IOSets initialized to a copy of the argument
+//  Post-Condition: a fully initialized n-cluster, self.n=a.n, self.id = a.id, all IOSets initialized to a copy of the argument, marked=a.marked
 //  returns: initialized n-cluster
 //  output: none
 /********************************************************************/
@@ -134,15 +134,6 @@ public:
 //  output: none
 /********************************************************************/
    void SetQuality(double);
-   /********************************************************************/
-// SetQuality(double q)
-//  Pre-Condition: none
-//  Post-Condition: self.quality = q
-//  returns: none
-//  output: none
-/********************************************************************/
-
-    int GetId();
   /********************************************************************/
 // GetId()
 //  Pre-Condition: none
@@ -150,7 +141,7 @@ public:
 //  returns: self.id
 //  output: none
 /********************************************************************/
-   void SetId(int);
+int GetId();
    /********************************************************************/
 // SetId(int id)
 //  Pre-Condition: none
@@ -158,14 +149,35 @@ public:
 //  returns: none
 //  output: none
 /********************************************************************/
+ void SetId(int);
+
+  /********************************************************************/
+// GetMarked()
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: self.marked
+//  output: none
+/********************************************************************/
+ bool GetMarked();
+ /********************************************************************/
+// SetMarked(bool m)
+//  Pre-Condition: none
+//  Post-Condition: self.marked = m
+//  returns: none
+//  output: none
+/********************************************************************/
+ void SetMarked( bool m);
 
 
-private:
+
+
+
+protected:
     unsigned int n; //degree of cluster
     vector<IOSet*> sets; //the sets
     double quality;  //quality of the ncluster
     int id; // the id of the n-cluster
-
+    bool marked; //is the ncluster marked or flagged
 
 };
 
