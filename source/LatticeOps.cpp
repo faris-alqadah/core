@@ -11,33 +11,44 @@
  *
  *______________________________________________________________________________
  *_____________________________________________________________________________*/
-#include "../Headers/LatticeOps.h"
+#include "../headers/LatticeOps.h"
 
-void OutputMaxModList(list<IOSet*> *a) {
-    list<IOSet*>::iterator it = a->begin();
-    while (it != a->end()) {
-        (*it)->Output();
-        cout << ", ";
-        it++;
-    }
-
+NCluster *GetTop(Context *c){
+    NCluster *ret = new NCluster(2);
+    pair<int,int> domainIds = c->GetDomainIds();
+    ret->GetSet(0)->SetId(domainIds.first);
+    ret->GetSet(1)->SetId(domainIds.second);
+    //add all objects from domain2
+    for(int i=0; i < c->GetNumSets(domainIds.second); i++) ret->GetSet(1)->Add(i);
+    //find objects in domain1 that contain all objects of domain2
+    for(int i=0; i < c->GetNumSets(domainIds.first);i++)
+        if(c->GetSet(domainIds.first,i)->Size() ==  c->GetNumSets(domainIds.second))
+            ret->GetSet(0)->Add(i);
+     return ret;
 }
 
-NCluster * GetTop(Context *ctx) {
-    vector<IOSet*> v(2);
-    v[OBJECTS] = new IOSet;
-    v[ATTRIBUTES] = new IOSet;
-    for (int i = 0; i < ctx->GetNumRows(); i++) v[OBJECTS]->Add(i);
-    return new NCluster(2, v);
+NCluster * GetBottom(Context *c) {
+     NCluster *ret = new NCluster(2);
+    pair<int,int> domainIds = c->GetDomainIds();
+    ret->GetSet(0)->SetId(domainIds.first);
+    ret->GetSet(1)->SetId(domainIds.second);
+    //add all objects from domain2
+    for(int i=0; i < c->GetNumSets(domainIds.first); i++) ret->GetSet(0)->Add(i);
+    //find objects in domain1 that contain all objects of domain2
+    for(int i=0; i < c->GetNumSets(domainIds.second);i++)
+        if(c->GetSet(domainIds.second,i)->Size() ==  c->GetNumSets(domainIds.first))
+            ret->GetSet(1)->Add(i);
+     return ret;
 }
 
-NCluster * GetBottom(Context *ctx) {
-    vector<IOSet*> v(2);
-    v[OBJECTS] = new IOSet;
-    v[ATTRIBUTES] = new IOSet;
-    for (int i = 0; i < ctx->GetNumCols(); i++) v[ATTRIBUTES]->Add(i);
-    return new NCluster(2, v);
+NCluster *Prime(NCluster *a, RelationGraph *g, int s,int t){
+    assert(g->IsEdge(s,t) && a->ContainsIOSetId(s)&& a->ContainsIOSetId(t));
+    NCluster *ret = new NCluster(*a);
+    if(a->GetSetById(s)->Size() == 0) return ret;
+        
 }
+
+
 
 NCluster * GetMatch(IOSet *cand, int contextNum, int firstSetId, int secondId) {
     NCluster *ret = new NCluster(2, false);
@@ -154,116 +165,8 @@ IOSet* Prime(IOSet* set, Context *ctx, int rowCols) {
     }
 }
 
-void AddConcept(NCluster *a) {
 
-    //iterate through all clusters
-    //if find similarity too close, then keep concept wtih greater mutual information
-    /* if (H.Size() < 1 || !clusterConcepts) {
-         NCluster *cpy = new NCluster(*a);
-         H.Add(cpy);
-         return;
 
-     }
-     HTable::iterator it = H.hashTbl.begin();
-     while (it != H.hashTbl.end()){
-         double sim;
-         if(simMeasure == JACCARD) sim = Weighted_Jaccard(a, (*it).second->a,0.5);
-         else if(simMeasure == SORENSEN) sim = Weighted_Sorensen(a, (*it).second->a,0.5);
-         else if(simMeasure == ZEROS_INDUCED) sim = Zeros_Induced(a, (*it).second->a);
-
-         if (sim >= simThreshold){
-             IOSet *atts =Union(a->GetSet(ATTRIBUTES), (*it).second->a->GetSet(ATTRIBUTES));
-             IOSet *objs = Union(a->GetSet(OBJECTS), (*it).second->a->GetSet(OBJECTS));
-              NCluster * newConcept = new NCluster(2,false);
-              newConcept->InitalizeSet(ATTRIBUTES,atts);
-              newConcept->InitalizeSet(OBJECTS,objs);
-              H.Remove((*it).second);
-              H.Add(newConcept);
-              return;
-
-         }
-         it++;
-     }
-     NCluster *cpy = new NCluster(*a);
-     H.Add(cpy);*/
-}
-
-/*void DFConcepts(NCluster* currConcept, IOSet* marked, int ctxNum) {
-    //1. Compute partition of currConcept->attributes into maxmods
-    IOSet *currAtts = currConcept->GetSet(ATTRIBUTES);
-    list<IOSet*> * maxmods = MaxMod_Partition(contextVector[ctxNum], currAtts, currConcept->GetSet(OBJECTS));
-    vector<IOSet*> *maxmodsV = new vector<IOSet*>(maxmods->size());
-    // cout<<"\nafter maxmods: \n"; currConcept->Output();
-    int cnt = 0;
-    for (list<IOSet*>::iterator it = maxmods->begin(); it != maxmods->end(); it++) {
-        maxmodsV->at(cnt) = *it;
-        cnt++;
-        *it = NULL;
-    }
-    delete maxmods;
-    //2. Find the set of non-dominating maxmods
-    vector<IOSet*>* primes = new vector<IOSet*>;
-    vector<IOSet*>* domInfo = new vector<IOSet*>;
-    domInfo->resize(maxmodsV->size());
-    primes->resize(maxmodsV->size());
-    list<IOSet*> * ndMaxMods = NonDominating_MaxMods(contextVector[ctxNum],
-            currAtts, currConcept->GetSet(OBJECTS),
-            maxmodsV,
-            primes, domInfo);
-    if (computeCover)Cover(currConcept, ndMaxMods, primes);
-    //3. Compute NEW which is ndMaxMods minus any maxmod containnig an element of MARKED
-    RemoveMarked(ndMaxMods, marked);
-    // possible to reverse the order of steps 2 and 3 for possible faster execution
-    for (list<IOSet*>::iterator it = ndMaxMods->begin(); it != ndMaxMods->end(); it++) {
-        if (!(*it)->GetMarked()) {
-            NCluster * newConcept = new NCluster(2, false);
-            IOSet *atts = Union(currAtts, *it);
-            IOSet *objs = Intersect(currConcept->GetSet(OBJECTS), primes->at((*it)->Id()));
-            newConcept->InitalizeSet(ATTRIBUTES, atts);
-            newConcept->InitalizeSet(OBJECTS, objs);
-            newConcept->ComputeHeight();
-            if (objs->Size() >= minHeight && atts->Size() >= minWidth) {
-                numConcepts++;
-                // AddConcept(newConcept);
-                // cout<<"\nGot concept: \n";
-                //newConcept->Output();
-                // cout<<"\nexpected index of connectivity: "<<contextVector[ctxNum]->ExpectedIdxConn(newConcept->GetSet(0),newConcept->GetSet(1));
-                if (dispProgress) {
-                    if (numConcepts % 1000 == 1)
-                        cout << "\nGot: " << numConcepts << " concepts";
-                }
-
-            }
-            if (newConcept->GetHeight() > minHeight) {
-                IOSet *newMarked = new IOSet(marked);
-                DFConcepts(newConcept, newMarked, ctxNum);
-                //delete newMarked;
-            }
-            delete newConcept;
-            //update marked
-            IOSet *tmp = marked;
-            marked = Union(marked, (*it));
-            delete tmp;
-            tmp = NULL;
-            IOSet *lclDomInfo = domInfo->at((*it)->Id());
-            int numDom = lclDomInfo->Size();
-            for (int i = 0; i < numDom; i++) {
-                IOSet *domMaxmod = maxmodsV->at(lclDomInfo->At(i));
-                IOSet *tmp1 = marked;
-                marked = Union(domMaxmod, marked);
-                delete tmp1;
-            }
-        } else {
-        }
-        (*it) = NULL;
-    }
-
-    DstryVector(maxmodsV);
-    DstryVector(primes);
-    DstryVector(domInfo);
-    delete marked;
-    delete ndMaxMods;
-}*/
 
 void EnumCands(NCluster* currConcept, IOSet* marked, int attSetId, int objSetId, int ctxNum, vector<int> &neighborCtx) {
     srchLvl++;

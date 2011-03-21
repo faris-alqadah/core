@@ -12,7 +12,7 @@
 
 
 
-#include "../Headers/Globals.h"
+#include "Globals.h"
 
 #ifndef _POSTPROCESS_H
 #define	_POSTPROCESS_H

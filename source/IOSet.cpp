@@ -1,9 +1,15 @@
-#include "../Headers/IOSet.h"
+#include "../headers/IOSet.h"
 
 IOSet::IOSet(){
     size=0;
     id = -1;
     marked=false;
+}
+IOSet::IOSet(int sz){
+    size = sz;
+    id=-1;
+    marked=false;
+    d.resize(sz);
 }
 IOSet::IOSet( IOSet * a){
     assert(a != NULL);
@@ -13,7 +19,6 @@ IOSet::IOSet( IOSet * a){
 IOSet::~IOSet(){}
 
     int IOSet::Size(){return size;}
-   int IOSet::RealSize(){return d.size();}
    int IOSet::Id(){return id;}
    void IOSet::SetId(int newId){id = newId;}
    void IOSet::Output() {
@@ -81,7 +86,7 @@ IOSet::~IOSet(){}
    }
 
    void IOSet::FindRemove(int a){
-       vector<int>::iterator it = find(d.begin(),d.end(),a);
+       vector<unsigned int>::iterator it = find(d.begin(),d.end(),a);
        if (it != d.end()) d.erase(it);
        size--;
    }
@@ -98,10 +103,15 @@ IOSet::~IOSet(){}
    }
    void IOSet::SetMarked(bool a){ marked = a;}
    bool IOSet::GetMarked(){return marked;}
-   vector<int>::iterator IOSet::GetBegin(){ return d.begin();}
+   vector<unsigned int>::iterator IOSet::GetBegin(){ return d.begin();}
 
-   vector<int>::iterator IOSet::GetEnd(){return d.end();}
+   vector<unsigned int>::iterator IOSet::GetEnd(){return d.end();}
 
+   int IOSet::GetMaxElement(){
+       if (size > 0)
+        return *max_element(d.begin(),d.begin()+size);
+       else return -1;
+   }
 
 bool Compare_Sup(IOSet *a, IOSet *b){
     assert(a != NULL && b != NULL);

@@ -19,6 +19,8 @@
 #include<sstream>
 #include<iostream>
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 using namespace std;
 
 class NameMap {
@@ -35,6 +37,14 @@ public:
     // NameMap(string filename, unsigned int size): parameter constructor
     //  Pre-Condition: filename is an actual file and can be read, size is non-negative and > 0
     //  Post-Condition:   new NameMap with self.fileName = filename, self.numEntries = size
+    //  returns: new NameMap object
+    //  output:none
+    /********************************************************************/
+    NameMap(string &);
+      /********************************************************************/
+    // NameMap(string filename): parameter constructor
+    //  Pre-Condition: filename is an actual file and can be read, size is non-negative and > 0
+    //  Post-Condition:   new NameMap with self.fileName = filename, self.numEntries = num of entries in the file
     //  returns: new NameMap object
     //  output:none
     /********************************************************************/

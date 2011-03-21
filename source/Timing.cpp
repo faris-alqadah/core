@@ -1,5 +1,5 @@
 
-#include "../Headers/Timing.h"
+#include "../headers/Timing.h"
 
 struct tms startTime;
 struct tms endTime;

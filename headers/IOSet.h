@@ -28,7 +28,7 @@
 #include <numeric>
 #include <assert.h>
 
-#include "../Headers/NameMap.h"
+#include "NameMap.h"
 using namespace std;
 
 
@@ -46,6 +46,14 @@ public:
     //  output:none
     /********************************************************************/
     IOSet();
+       /********************************************************************/
+    // IOSet(int sz): constructor that pre-allocates memory
+    //  Pre-Condition: none
+    //  Post-Condition:   size =sz,id=-1,marked=false
+    //  returns: new IOSet object
+    //  output:none
+    /********************************************************************/
+    IOSet(int sz);
     /********************************************************************/
     // IOSet( IOSet *): copy constructor
     //  Pre-Condition: IOSet* is not null
@@ -207,7 +215,7 @@ public:
     //  returns: a std:vector:iterator that points to the begging of self.d
     //  output: none
     /********************************************************************/
-    vector<int>::iterator GetBegin();
+    vector<unsigned int>::iterator GetBegin();
     /********************************************************************/
     // GetBegin():
     //  Pre-Condition: none
@@ -215,7 +223,7 @@ public:
     //  returns: a std:vector:iterator that points to the end of self.d
     //  output: none
     /********************************************************************/
-    vector<int>::iterator GetEnd();
+    vector<unsigned int>::iterator GetEnd();
     /********************************************************************/
     // SetMarked(bool a):
     //  Pre-Condition: none
@@ -232,7 +240,15 @@ public:
     //  output: none
     /********************************************************************/
     bool GetMarked();
-
+ /********************************************************************/
+// GetMaxElement()
+//  Pre-Condition: self.size > 0
+//  Post-Condition: none
+//  returns: the maximum element in the IOSet or -1 if size <= 0
+//  output: none
+/********************************************************************/
+    int GetMaxElement();
+    
 
 private:
     int size; // maintain the size of the ioset

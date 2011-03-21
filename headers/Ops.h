@@ -20,7 +20,7 @@
 #define _OPS_H
 
 
-#include"IOSet.h"
+#include"NCluster.h"
 #include <algorithm>
 using namespace std;
 
@@ -125,7 +125,14 @@ double PercentOverlap( IOSet*, IOSet* );
 //  output: none
 /********************************************************************/
 double PercentOverlap_Sorensen( IOSet*, IOSet* );
-
+/********************************************************************/
+// TransposeFimi(NCluster *a)
+//  Pre-Condition: a is not null
+//  Post-Condition: none
+//  returns: the transpose of the fimi matrix a is returned
+//  output: none
+/********************************************************************/
+NCluster *TransposeFimi(NCluster *a);
 
 
 #endif	/* _OPS_H */

@@ -1,5 +1,5 @@
 
-#include "../Headers/Ops.h"
+#include "../headers/Ops.h"
 
 
 int numIntersection=0;
@@ -17,7 +17,7 @@ IOSet* SymmDifference( IOSet *a,  IOSet *b){
 IOSet * Difference( IOSet *a, IOSet *b){
     assert(a != NULL && b != NULL);
      IOSet *ret = new IOSet(a->Size());
-     vector<int>::iterator it =set_difference (a->GetBegin(), a->GetBegin()+a->Size(),
+     vector<unsigned int>::iterator it =set_difference (a->GetBegin(), a->GetBegin()+a->Size(),
                                                 b->GetBegin(), b->GetBegin()+b->Size(),
                                                 ret->GetBegin());
 
@@ -36,7 +36,7 @@ IOSet * Intersect( IOSet *a,  IOSet *b ){
      
      int minSize =  (a->Size() > b->Size()) ? b->Size() : a->Size();
      ret->Resize(minSize);
-     vector<int>::iterator it =set_intersection (a->GetBegin(), a->GetBegin()+a->Size(),
+     vector<unsigned int>::iterator it =set_intersection (a->GetBegin(), a->GetBegin()+a->Size(),
                                                 b->GetBegin(), b->GetBegin()+b->Size(),
                                                 ret->GetBegin());
      int newSz = int(it - ret->GetBegin());
@@ -49,7 +49,7 @@ IOSet * Union(IOSet *a,  IOSet *b ){
     //int maxSize =  (a->Size() > b->Size()) ? a->Size() : b->Size();
     assert(a != NULL && b != NULL);
      IOSet *ret = new IOSet(a->Size()+b->Size());
-     vector<int>::iterator it =set_union (a->GetBegin(), a->GetBegin()+a->Size(),
+     vector<unsigned int>::iterator it =set_union (a->GetBegin(), a->GetBegin()+a->Size(),
                                                 b->GetBegin(), b->GetBegin()+b->Size(),
                                                 ret->GetBegin());
      ret->SetSize(int(it - ret->GetBegin()));
@@ -82,4 +82,13 @@ double PercentOverlap_Sorensen( IOSet *a, IOSet *b ){
     return ret;
 
 }
+NCluster *TransposeFimi(NCluster *a){
+    assert(a != NULL);
+    NCluster *ret = new NCluster(a->GetMaxElement()+1);
+    for(int i=0; i < a->GetN(); i++)
+        for(int j=0; j < a->GetSet(i)->Size(); j++)
+            ret->GetSet(a->GetSet(i)->At(j))->Add(i);
+    return ret;
+    }
+
 

@@ -14,8 +14,9 @@
 #ifndef _CONTEXT_H
 #define	_CONTEXT_H
 
-#include "../Headers/NCluster.h"
-#include "../Headers/Ops.h"
+#include "NCluster.h"
+#include "Ops.h"
+#include "NameMap.h"
 
 class Context{
     
@@ -85,6 +86,23 @@ public:
 /********************************************************************/
      pair<int,int> GetDomainIds();
 /********************************************************************/
+// SetNameMap(int dId, NameMap *nm):
+//  Pre-Condition: dId is a valid domain id for the context, nm is not null
+//  Post-Condition: namemap of the correspodoning id is set
+//  returns: none
+//  output: none
+/********************************************************************/
+  void SetNameMap(int dId, NameMap *nm);
+  /********************************************************************/
+// GetNameMap(int dId):
+//  Pre-Condition: dId is a valid domain id
+//  Post-Condition: none
+//  returns: name map corresponding to dId if dId is valie, NULL otherwise
+//  output: none
+/********************************************************************/
+  NameMap * GetNameMap(int dId);
+
+/********************************************************************/
 // SetId(int iid):
 //  Pre-Condition: none
 //  Post-Condition: self.id = iid
@@ -109,21 +127,21 @@ public:
 /********************************************************************/
     void SetName(string &);
 /********************************************************************/
-// SetDomainId(int domain,int id):
-//  Pre-Condition: domain is in the set {0,1}
-//  Post-Condition: self.domain[domain].id = id
+// SetDomainId(int setNum,int id):
+//  Pre-Condition: setNum is in the set {0,1}
+//  Post-Condition: self.domain[setNum].id = id
 //  returns: none
 //  output: none
 /********************************************************************/
-    void SetDomainId(int domain, int id);
+    void SetDomainId(int setNum, int id);
  /********************************************************************/
-// GetDomainId(int domain):
+// GetDomainId(int setNum):
 //  Pre-Condition: domain is in the set {0,1}
 //  Post-Condition: none
 //  returns: the id of self.domain[domain]
 //  output: none
 /********************************************************************/
-    int GetDomainId(int domain);
+    int GetDomainId(int setNum);
  /********************************************************************/
 // PrintAsMatrix():
 //  Pre-Condition: none
@@ -199,6 +217,8 @@ private:
     NCluster *domain2; //represent second domain
     int id;  //id of the context
     string name; //name of the context
+    NameMap *nameMap1; //name map associated with domain 1
+    NameMap *nameMap2; //name map associated with domain 2
 };
 
 

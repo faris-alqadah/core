@@ -1,6 +1,6 @@
 #include <fstream>
 
-#include "../Headers/NameMap.h"
+#include "../headers/NameMap.h"
 
 NameMap::NameMap(){}
 
@@ -23,10 +23,33 @@ NameMap::NameMap(string _fileName, unsigned int _numEntries){
     }
   }
   else{
-      cerr<<"\nCoult not open NAME file!! "<<fileName<<endl;
-      cerr<<"\nERROR!!\n";
+      cerr<<"\nCoult not open NAME file!! "<<fileName<<endl<<"\n";
+      exit(-1);
   }
     
+}
+NameMap::NameMap(string &_fileName){
+ fileName = _fileName;
+ numEntries=0;
+  ifstream myfile;
+
+  myfile.open(fileName.c_str());
+  assert(myfile.is_open());
+  if (myfile.is_open()){
+    int lineNum = 0;
+    string line;
+    while (! myfile.eof() ){
+        if(lineNum == numEntries) break;
+        getline (myfile,line);
+        mapping.push_back(line);
+        lineNum++;
+        numEntries++;
+    }
+  }
+  else{
+      cerr<<"\nCoult not open NAME file!! "<<fileName<<endl<<"\n";
+      exit(-1);
+  }
 }
 string NameMap::GetName(unsigned int x){
     assert ( x < numEntries);

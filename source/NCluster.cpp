@@ -1,5 +1,11 @@
-#include "../Headers/NCluster.h"
-
+#include "../headers/NCluster.h"
+    NCluster::NCluster(){
+        n=0;
+        sets.resize(0);
+        quality=0;
+        id=0;
+        marked=false;
+    }
 NCluster::NCluster(unsigned int nn) {
     n = nn;
     sets.resize(n);
@@ -83,6 +89,17 @@ IOSet * NCluster::GetSet(int idx){
     assert(idx >= 0 && idx < n);
     return sets[idx];
 }
+IOSet * NCluster::GetSetById(int id){
+    for(int i=0; i < n; i++)
+        if (sets[i]->Id() == id)
+            return sets[i];
+      return NULL;
+ }
+void NCluster::AddSet(IOSet* a){
+      assert(a != NULL);
+      sets.push_back(a);
+      n++;
+  }
 
 void NCluster::AssignSet(int idx, IOSet *a){
     assert(idx >= 0 && idx < n);
@@ -94,10 +111,25 @@ void NCluster::AssignSet(int idx, IOSet *a){
 double NCluster::GetQuality(){return quality;}
 void NCluster::SetQuality(double q){quality = q;}
 
-void NCluster::GetId(){return id;}
+int NCluster::GetId(){return id;}
 void NCluster::SetId(int a){ id = a;}
-void NCluster::GetMarked(){return marked;}
+bool NCluster::GetMarked(){return marked;}
 void NCluster::SetMarked(bool m){marked =m;}
+bool NCluster::ContainsIOSetId(int id){
+    assert(id >= 0);
+    for(int i=0; i < n; i++)
+        if (sets[i]->Id() == id) return true;
+    return false;
+}
+ int NCluster::GetMaxElement(){
+     int max=-1;
+     for(int i=0; i < n; i++){
+         int m = sets[i]->GetMaxElement();
+         if ( m> max)
+             max = m;
+     }
+     return max;
+ }
 bool Compare_Quality(NCluster *a, NCluster *b){
     assert (a != NULL && b != NULL);
     return a->GetQuality() > b->GetQuality();
