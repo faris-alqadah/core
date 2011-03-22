@@ -22,6 +22,9 @@ OBJECTS = 	$(OBJ)/IOSet.o \
 		$(OBJ)/Context.o \
 		$(OBJ)/RelationGraph.o \
 		$(OBJ)/LatticeOps.o \
+		$(OBJ)/LatticeAlgos.o \
+		$(OBJ)/LatticeAlgosExternals.o \
+		$(OBJ)/bordat.o \
 		$(OBJ)/Timing.o 
 
 
@@ -72,6 +75,12 @@ $(OBJ)/Timing.o: $(SOURCE)/Timing.cpp
 
 $(OBJ)/LatticeOps.o: $(SOURCE)/LatticeOps.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeOps.cpp -o $@
+$(OBJ)/LatticeAlgos.o: $(SOURCE)/LatticeAlgos.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeAlgos.cpp -o $@
+$(OBJ)/LatticeAlgosExternals.o: $(SOURCE)/LatticeAlgosExternals.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeAlgosExternals.cpp -o $@
+$(OBJ)/bordat.o: $(SOURCE)/nclusters/bordat.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/nclusters/bordat.cpp -o $@
 
 $(HEADER)/NCluster.h: $(HEADER)/IOSet.h
 $(HEADER)/Ops.h:  $(HEADER)/IOSet.h

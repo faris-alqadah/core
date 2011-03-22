@@ -1,4 +1,4 @@
-#include "../headers/LatticeOpsExternals.h"
+#include "../headers/LatticeAlgosExternals.h"
 
 int srchLvl =0;
 int numConcepts=0;
