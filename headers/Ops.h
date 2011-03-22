@@ -25,13 +25,7 @@
 using namespace std;
 
 
-//external variables that can
-//be used to keep track of the number of basic
-//set operations
-extern int numIntersection; //number of intersections performed
-extern int numSubset; //number of subset checks performed
-extern int numUnion; //number of set unions performed
-extern int numDifference; //number of set differences performed
+
 
 
 
@@ -134,6 +128,16 @@ double PercentOverlap_Sorensen( IOSet*, IOSet* );
 /********************************************************************/
 NCluster *TransposeFimi(NCluster *a);
 
+
+/********************************************************************/
+//      EXTERNALS
+//Use these to keep count of the number of basic set operations used
+//within a particular algorithm
+/********************************************************************/
+extern int numIntersection; //number of intersections performed
+extern int numSubset; //number of subset checks performed
+extern int numUnion; //number of set unions performed
+extern int numDifference; //number of set differences performed
 
 #endif	/* _OPS_H */
 

@@ -13,6 +13,23 @@
  *_____________________________________________________________________________*/
 #include "../headers/LatticeOps.h"
 
+
+int srchLvl =0;
+int numConcepts=0; 
+bool dispProgress=false;
+
+const int ENUM_MEM=1;
+const int ENUM_FILE=2;
+int enumerationMode=ENUM_MEM;
+
+const int PRUNE_SIZE=1;
+int pruneMode=PRUNE_SIZE;
+
+vector<NCluster*> CONCEPTS;
+ofstream OUTFILE;
+vector<int> PRUNE_SIZE_VECTOR; 
+
+
 NCluster *GetTop(Context *c){
     NCluster *ret = new NCluster(2);
     pair<int,int> domainIds = c->GetDomainIds();
@@ -44,131 +61,87 @@ NCluster * GetBottom(Context *c) {
 NCluster *Prime(NCluster *a, RelationGraph *g, int s,int t){
     assert(g->IsEdge(s,t) && a->ContainsIOSetId(s)&& a->ContainsIOSetId(t));
     NCluster *ret = new NCluster(*a);
-    if(a->GetSetById(s)->Size() == 0) return ret;
-        
-}
-
-
-
-NCluster * GetMatch(IOSet *cand, int contextNum, int firstSetId, int secondId) {
-    NCluster *ret = new NCluster(2, false);
-    IOSet *a = PrimeId(cand, contextNum, firstSetId);
-    if (a == NULL) return NULL;
-    else {
-        ret->InitalizeSet(0, a);
-        ret->InitalizeSet(1, PrimeId(a, contextNum, secondId));
-        return ret;
-    }
-}
-
-IOSet *PrimeId(IOSet *set, int contextNum, int setId) {
-    //cout<<"\n***\ngot set : < "; set->Output(); cout<<" >";
-    //cout<<"\ncontext num: "<<contextNum<<"\tset id: "<<setId;
-    int otherId;
-    if (contextVector[contextNum]->GetColsId() == setId) otherId = contextVector[contextNum]->GetRowsId();
-    else otherId = contextVector[contextNum]->GetColsId();
-
-    if (set->Size() == 0) {
-        return NULL;
-    } else if (set->Size() == 1) {
-        IOSet *t = new IOSet(contextVector[contextNum]->GetSet(setId, set->At(0)));
-        if (t->Size() < minCard[otherId]) {
-            return NULL;
-        } else return t;
-    } else {
-        IOSet *ret = new IOSet;
-        ret->DeepCopy(contextVector[contextNum]->GetSet(setId, set->At(0)));
-        if (ret->Size() < minCard[otherId]) {
-            return NULL;
-        }
-        for (int i = 1; i < set->Size(); i++) {
-            IOSet * r = contextVector[contextNum]->GetSet(setId, set->At(i));
-            if (r->Size() < minCard[otherId]) {
-                r = NULL;
-                return NULL;
-            }
-            IOSet *tmp = ret;
-            ret = Intersect(ret, r);
+    Context *ctx = g->GetContext(s,t);
+    if(a->GetSetById(s)->Size() == 0) return ret; //since 0 return as is
+    else{                            //compute the prime as set intersections (this is a fairly naive method)
+        IOSet *sSet = a->GetSetById(s);
+        IOSet *rslt = new IOSet(ctx->GetSet(s,sSet->At(0)));
+        for(int i=1; i < sSet->Size(); i++){
+            IOSet *tmp = rslt;
+            rslt = Intersect(rslt,ctx->GetSet(s,sSet->At(i)));
             delete tmp;
-            if (ret->Size() < minCard[otherId]) {
-                r = NULL;
-                return NULL;
-            }
-        }
-        return ret;
-    }
-
-
-}
-
-IOSet* CheckMinPrime(IOSet *set, int contextNum, int firstSetId, int secondId, int min) {
-    if (set->Size() == 0) return NULL;//false;
-    else if (set->Size() == 1) {
-        IOSet *t = contextVector[contextNum]->GetSet(firstSetId, set->At(0));
-        if (t->Size() >= min) {
-            //t = NULL;
-            return new IOSet(*t);
-        } else {
-            t = NULL;
-            return NULL;//false;
-        }
-    } else {
-        IOSet *ret = new IOSet;
-        ret->DeepCopy(contextVector[contextNum]->GetSet(firstSetId, set->At(0)));
-        if (ret->Size() < min) {
-            delete ret;
-            return NULL;//false;
-        }
-        for (int i = 1; i < set->Size(); i++) {
-            IOSet * r = contextVector[contextNum]->GetSet(firstSetId, set->At(i));
-            if (r->Size() < min) {
-                r = NULL;
-                delete ret;
-                return NULL;//false;
-            }
-            IOSet *tmp = ret;
-            ret = Intersect(ret, r);
-            delete tmp;
-            if (ret->Size() < min) {
-                r = NULL;
-                delete ret;
-                return NULL;//false;
-            }
-        }
-        // cout<<"\nend of check "<<ret->Size()<<" compared to min: "<<min;
-        //delete ret;
-        return ret;//true;
-    }
-    //return true;
-}
-
-IOSet* Prime(IOSet* set, Context *ctx, int rowCols) {
-    if (set->Size() == 0) return NULL;
-    else if (set->Size() == 1) {
-        if (rowCols == ATTRIBUTES) return new IOSet(*ctx->GetCol(set->At(0)));
-        else return new IOSet(*ctx->GetRow(set->At(0)));
-    } else {
-        IOSet *ret = new IOSet;
-        if (rowCols == ATTRIBUTES) ret->DeepCopy(ctx->GetCol(set->At(0)));
-        else ret->DeepCopy(ctx->GetRow(set->At(0)));
-        for (int i = 1; i < set->Size(); i++) {
-            IOSet *tmp;
-            if (rowCols == ATTRIBUTES) tmp = Intersect(ret, ctx->GetCol(set->At(i)));
-            else tmp = Intersect(ret, ctx->GetRow(set->At(i)));
-            IOSet *tmp2 = ret;
-            ret = tmp;
-            delete tmp2;
             tmp = NULL;
-            tmp2 = NULL;
         }
+        ret->AssignSetById(t,rslt);
         return ret;
+    }        
+}
+
+void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, int s, int t){
+
+}
+
+void Star_N_Concepts(RelationGraph *g,int lrnrContext){
+    //check all pre conditions
+    //if they are met then call Enum_NConcepts
+    IOSet *artDomains = g->GetArtDomains();
+    if( artDomains->Size() != 1) {
+        string errMsg = "Star_N_Concepts must be called with a star shaped hin";
+        cerr<<errMsg; exit(-1);
     }
+    if( g->GetContext(lrnrContext) == NULL){
+        string errMsg = "Star_N_Concepts called with invalid learner context id for the given hin";
+        cerr<<errMsg; exit(-1);
+    }
+    if(enumerationMode == ENUM_FILE && !OUTFILE.is_open()){
+         string errMsg = "Star_N_Concepts called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set";
+        cerr<<errMsg; exit(-1);
+    }
+    if( PRUNE_SIZE_VECTOR.size() < g->GetNumNodes()){
+        string errMsg = "Star_N_Concepts called with size pruning, however, PRUNE_SIZE_VECTOR does not contain threshold values for all domains";
+        cerr<<errMsg; exit(-1);
+    }
+    //check values of prune_size_vector are all >= 1,
+    for(int i=0; i < g->GetNumNodes(); i++)
+        if(PRUNE_SIZE_VECTOR[i] < 1){
+            PRUNE_SIZE_VECTOR[i] = 1;
+            cout<<"\nReset prune size vector at "<<i<<" to 1\n";
+        }
+    //reset variables
+     srchLvl=0;
+     numConcepts=0;
+    //done check and setting genering variables call enumeration algorithm
+    //for now only Bordat is implemented
+    //compute the top level concept of lrnr context and call function
+     IOSet *domainIds = g->GetAllDomainIds();
+     NCluster *strt = new NCluster(g->GetNumNodes());
+     for(int i=0; i < strt->GetN(); i++) strt->GetSet(i)->SetId(domainIds->At(i));
+
+     int artDomain = artDomains->At(0);
+     Context *ctx = g->GetContext(lrnrContext);
+     pair<int,int> lrnrDomainIds = ctx->GetDomainIds();
+     int otherDomain;
+     NCluster *strt1;
+     if(lrnrDomainIds.first == artDomain){
+         otherDomain = lrnrDomainIds.second;
+         strt1 = GetBottom(ctx);
+         strt1->GetSet(0)->SetId(artDomain);
+         strt1->GetSet(1)->SetId(otherDomain);
+         
+     }else{
+         otherDomain = lrnrDomainIds.first;
+         strt1 = GetTop(ctx);
+         strt1->GetSet(0)->SetId(otherDomain);
+         strt1->GetSet(1)->SetId(artDomain);
+     }
+     strt->AssignSetById(artDomain,strt1->GetSetById(artDomain));
+     strt->AssignSetById(otherDomain,strt1->GetSetById(otherDomain));
+     Enum_NConcepts_Bordat(strt,g,artDomain,otherDomain);
 }
 
 
 
-
-void EnumCands(NCluster* currConcept, IOSet* marked, int attSetId, int objSetId, int ctxNum, vector<int> &neighborCtx) {
+/*void EnumCands(NCluster* currConcept, IOSet* marked, int attSetId, int objSetId, int ctxNum, vector<int> &neighborCtx) {
     srchLvl++;
     //1. Compute partition of currConcept->attributes into maxmods
     IOSet *currAtts = currConcept->GetSet(ATTRIBUTES);
@@ -395,7 +368,7 @@ void Cover(NCluster *currConcept, list<IOSet*>*nd, vector<IOSet*> *primes) {
     }
 
 }
-
+*/
 
 
 

@@ -108,6 +108,18 @@ void NCluster::AssignSet(int idx, IOSet *a){
     delete tmp;
     tmp = NULL;
 }
+void NCluster::AssignSetById(int id, IOSet* a){
+    assert(ContainsIOSetId(id));
+    for(int i=0; i < n; i++){
+        if(sets[i]->Id() == id){
+            IOSet *tmp = sets[i];
+            sets[i] = a;
+            delete tmp;
+            tmp=NULL;
+            return;
+        }
+    }
+  }
 double NCluster::GetQuality(){return quality;}
 void NCluster::SetQuality(double q){quality = q;}
 

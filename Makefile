@@ -21,6 +21,7 @@ OBJECTS = 	$(OBJ)/IOSet.o \
 		$(OBJ)/Ops.o \
 		$(OBJ)/Context.o \
 		$(OBJ)/RelationGraph.o \
+		$(OBJ)/LatticeOps.o \
 		$(OBJ)/Timing.o 
 
 
@@ -69,11 +70,13 @@ $(OBJ)/Context.o: $(SOURCE)/Context.cpp
 $(OBJ)/Timing.o: $(SOURCE)/Timing.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/Timing.cpp -o $@
 
+$(OBJ)/LatticeOps.o: $(SOURCE)/LatticeOps.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeOps.cpp -o $@
 
 $(HEADER)/NCluster.h: $(HEADER)/IOSet.h
 $(HEADER)/Ops.h:  $(HEADER)/IOSet.h
 $(HEADER)/Context.h: $(HEADER)/IOSet.h
-
+$(HEADER)/LatticeOps.h: $(HEADER)/RelationGraph.h
 
 
 

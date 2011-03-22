@@ -138,11 +138,19 @@ public:
     /********************************************************************/
     // AssignSet(int i, IOSet *a): Assign the ith set to a
     //  Pre-Condition: i >= 0 AND i < n
-    //  Post-Condition: self.d[i] is deleted and self.d[i] = a, n++
+    //  Post-Condition: self.d[i] is deleted and self.d[i] = a,
     //  returns: none
     //  output: none
     /********************************************************************/
     void AssignSet(int, IOSet*);
+     /********************************************************************/
+    // AssignSetById(int id, IOSet *a): Assign the set with id=id set to a
+    //  Pre-Condition: id is a valid set id in the ncluster AND
+    //  Post-Condition: self.d[i].id=id is deleted and self.d[i].id = a
+    //  returns: none
+    //  output: none
+    /********************************************************************/
+    void AssignSetById(int, IOSet*);
     /********************************************************************/
     // GetQuality()
     //  Pre-Condition: none
