@@ -141,6 +141,14 @@ int GetNumNodes();
 //  output: none
 /********************************************************************/
     Context* GetContext(int s, int t);
+  /********************************************************************/
+// GetNameMaps()
+//  Pre-Condition: none
+//  Post-Condition: none
+//  returns: return a vector of pointers of all the name maps associated with the relation graph
+//  output: none
+/********************************************************************/
+    vector<NameMap*> * GetNameMaps();
 
 private:
     NCluster domainContextMap; //maps domains to contexts

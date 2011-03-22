@@ -18,15 +18,21 @@
 
 
 
-void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, int s, int t);
+void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, int t);
 
-list<IOSet*>* MaxMod_Partition(Context *ctx, NCluster *c, int s, int t);
+vector<IOSet*>* MaxMod_Partition(Context *ctx, NCluster *c, int s, int t);
 
 list<IOSet*>* NonDominating_MaxMods(Context *ctx, NCluster * c, int s, int t,
         vector<IOSet*>* maxmods,
         vector<IOSet*>* primes, vector<IOSet*>* domInfo);
 
 void RemoveMarked(list<IOSet*> * ndMaxMods, IOSet *marked);
+
+void DispProgress(int ctr,int total);
+
+void StoreCluster(NCluster *c);
+
+
 
 #endif	/* BORDAT_H */
 

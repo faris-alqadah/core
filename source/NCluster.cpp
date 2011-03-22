@@ -70,12 +70,20 @@ void NCluster::Output(ofstream &out){
     }
 }
 void NCluster::Output(ofstream& out, vector<NameMap*>& nm){
-    assert(out.is_open() && nm.size() == n);
+    assert(out.is_open());
     for(int i=0; i < n; i++){
-        int id = sets[i]->Id();
-        out<<"\n"<<id<<")\n";
-        
-        sets[i]->Output(out,nm[id]);
+        bool found=false;
+        for(int j=0; j < nm.size(); j++){
+            if (nm[j]->GetId() == sets[i]->Id()){
+                out<<"\n"<<id<<")\n";
+                sets[i]->Output(out,nm[id]);
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            sets[i]->Output(out);
+        } 
     }
 }
 

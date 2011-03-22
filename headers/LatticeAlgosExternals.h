@@ -22,7 +22,10 @@ extern int enumerationMode; // the mode of an enumeration algorithm
 extern const int ENUM_MEM; //ENUM_MEM mode for enumeration algorithms
 extern const int ENUM_FILE; //ENUM_FILE mode for enumeration algorithms
 extern vector<NCluster*> CONCEPTS; //if ENUM_MEM mode is set then concepts stored in this vector
-extern ofstream OUTFILE; //if ENUM_FILE is selected then this stream is used to output the concepts
+extern string OUTFILE; //if ENUM_FILE is selected then this file is used to output the concepts
+
+extern ofstream OUT1;  //ofstream used to output to OUTFILE.concepts
+extern ofstream OUT2;  //ofsteram used to output to OUTFILE.concept.names
 
 extern int pruneMode;  //the mode of pruning for enumeration algorithms
                        //for now 1 mode exists:

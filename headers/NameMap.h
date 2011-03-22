@@ -28,7 +28,7 @@ public:
     /********************************************************************/
     // NameMap(): default constructor
     //  Pre-Condition: none
-    //  Post-Condition:   new NameMap created
+    //  Post-Condition:   new NameMap created, new NameMap with self.fileName = filename, self.numEntries = size id =0
     //  returns: new NameMap object
     //  output:none
     /********************************************************************/
@@ -36,7 +36,7 @@ public:
     /********************************************************************/
     // NameMap(string filename, unsigned int size): parameter constructor
     //  Pre-Condition: filename is an actual file and can be read, size is non-negative and > 0
-    //  Post-Condition:   new NameMap with self.fileName = filename, self.numEntries = size
+    //  Post-Condition:   new NameMap with self.fileName = filename, self.numEntries = size, id = 0
     //  returns: new NameMap object
     //  output:none
     /********************************************************************/
@@ -44,7 +44,7 @@ public:
       /********************************************************************/
     // NameMap(string filename): parameter constructor
     //  Pre-Condition: filename is an actual file and can be read, size is non-negative and > 0
-    //  Post-Condition:   new NameMap with self.fileName = filename, self.numEntries = num of entries in the file
+    //  Post-Condition:   new NameMap with self.fileName = filename, self.numEntries = num of entries in the file, id =0
     //  returns: new NameMap object
     //  output:none
     /********************************************************************/
@@ -73,10 +73,27 @@ public:
     //  output:none
     /********************************************************************/
     int GetNumEntries();
+    /********************************************************************/
+    // SetId(unsigned int x):
+    //  Pre-Condition: none
+    //  Post-Condition: selfl.id = id
+    //  returns: none
+    //  output:none
+    /********************************************************************/
+    void SetId(int);
+    /********************************************************************/
+    // GetId():
+    //  Pre-Condition: none
+    //  Post-Condition: none
+    //  returns: id of the name map
+    //  output:none
+    /********************************************************************/
+    int GetId();
 private:
     vector<string> mapping; //indcies of the vector map to strings
     int numEntries; //number of entries
     string fileName; //name of file containing the mapping
+    int id; //id of the name map
 
 
 };

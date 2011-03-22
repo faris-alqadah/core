@@ -151,3 +151,13 @@ void RelationGraph::Print(){
             }
         }else return NULL;
     }
+
+    vector<NameMap*> * RelationGraph::GetNameMaps(){
+        vector<NameMap*> * ret = new vector<NameMap*>;
+        for(int i=0; i < contexts.size(); i++){
+            pair<int,int> dIds = contexts[i]->GetDomainIds();
+            ret->push_back(contexts[i]->GetNameMap(dIds.first));
+            ret->push_back(contexts[i]->GetNameMap(dIds.second));
+        }
+        return ret;
+    }

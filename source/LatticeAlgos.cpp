@@ -3,6 +3,12 @@
 void Star_N_Concepts(RelationGraph *g,int lrnrContext){
     //check all pre conditions
     //if they are met then call Enum_NConcepts
+    string file1 = OUTFILE+".concepts";
+    string file2 = OUTFILE+".concepts.names";
+
+    OUT1.open(file1.c_str());
+    OUT2.open(file2.c_str());
+
     IOSet *artDomains = g->GetArtDomains();
     if( artDomains->Size() != 1) {
         string errMsg = "Star_N_Concepts must be called with a star shaped hin";
@@ -12,7 +18,7 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext){
         string errMsg = "Star_N_Concepts called with invalid learner context id for the given hin";
         cerr<<errMsg; exit(-1);
     }
-    if(enumerationMode == ENUM_FILE && !OUTFILE.is_open()){
+    if(enumerationMode == ENUM_FILE && !OUT1.is_open()){
          string errMsg = "Star_N_Concepts called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set";
         cerr<<errMsg; exit(-1);
     }
@@ -20,6 +26,7 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext){
         string errMsg = "Star_N_Concepts called with size pruning, however, PRUNE_SIZE_VECTOR does not contain threshold values for all domains";
         cerr<<errMsg; exit(-1);
     }
+
     //check values of prune_size_vector are all >= 1,
     for(int i=0; i < g->GetNumNodes(); i++)
         if(PRUNE_SIZE_VECTOR[i] < 1){
@@ -55,6 +62,6 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext){
      }
      strt->AssignSetById(artDomain,strt1->GetSetById(artDomain));
      strt->AssignSetById(otherDomain,strt1->GetSetById(otherDomain));
-     Enum_NConcepts_Bordat(strt,g,artDomain,otherDomain);
+     Enum_NConcepts_Bordat(strt,g,new IOSet(),artDomain,otherDomain);
 }
 

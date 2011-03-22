@@ -42,7 +42,9 @@ RelationGraph* MakeRelationGraph(string &inputFile){
                  domainNames.push_back(line);
                  domainName_id_map[line]=i;
                  getline(myfile,line); //this is the path to the namefile
-                 nameMaps.push_back(new NameMap(line));
+                 NameMap *nmp = new NameMap(line);
+                 nmp->SetId(i);
+                 nameMaps.push_back(nmp);
                }
                //now get contexts and relation graph
               RelationGraph *grph = new RelationGraph();

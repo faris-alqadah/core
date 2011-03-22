@@ -96,7 +96,7 @@ public:
     void Output(ofstream&);
     /********************************************************************/
     // Output(ofstream a, vector<namemap> nm): Output the elements of self mapped by name maps in nm
-    //  Pre-Condition: nm.size() == n and ofsteram is open
+    //  Pre-Condition:  ofsteram is open
     //  Post-Condition: none
     //  returns: none
     //  output: Prints each IOSet on a seperate line preceeded by the identity of each IOSET

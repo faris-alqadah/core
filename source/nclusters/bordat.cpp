@@ -1,6 +1,6 @@
 #include "../../headers/nclusters/bordat.h"
 
-list<IOSet*>* MaxMod_Partition(Context *ctx, NCluster *c, int s, int t) {
+vector<IOSet*>* MaxMod_Partition(Context *ctx, NCluster *c, int s, int t) {
     IOSet *sSet= c->GetSetById(s);
     IOSet *tSet = c->GetSetById(t);
     list<IOSet*> *partition = new list<IOSet*>;
@@ -33,7 +33,14 @@ list<IOSet*>* MaxMod_Partition(Context *ctx, NCluster *c, int s, int t) {
             } else it++;
         }
     }
-    return partition;
+    //copy to vector
+    //list was used for more efficeint insertion and deletion
+    vector<IOSet*> * partitionV = new vector<IOSet*>;
+    for (list<IOSet*>::iterator it = partition->begin(); it != partition->end(); it++)
+        partitionV->push_back(*it);
+
+    partition = NULL;
+    return partitionV;
 }
 
 list<IOSet*>* NonDominating_MaxMods(Context *ctx, NCluster * c, int s, int t,
@@ -83,12 +90,85 @@ void RemoveMarked(list<IOSet*> * ndMaxMods, IOSet *marked) {
     }
 }
 
-void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, int s, int t){
+void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, int t){
+    srchLvl++;
+    Context *ctx = g->GetContext(s,t);
+    //1. Compute partition of the (s,t) pair into maxmods of the s set
+    vector<IOSet*>* maxmods = MaxMod_Partition(ctx,a,s,t);
+    //2. Find the set of non-dominating maxmods
+    vector<IOSet*>* primes = new vector<IOSet*>(maxmods->size());
+    vector<IOSet*>* domInfo = new vector<IOSet*>(maxmods->size());
+    list<IOSet*> * ndMaxMods = NonDominating_MaxMods(ctx,a,s,t,maxmods,primes,domInfo);
+    //3. Compute NEW which is ndMaxMods minus any maxmod containnig an element of MARKED
+    RemoveMarked(ndMaxMods, marked);
+    int ctr=1;
+    for (list<IOSet*>::iterator it = ndMaxMods->begin(); it != ndMaxMods->end(); it++) {
+        if(dispProgress) DispProgress(ctr,ndMaxMods->size());
+           if (!(*it)->GetMarked()) {
+                NCluster * lrnrConcept = new NCluster;
+                lrnrConcept->AddSet(Union(a->GetSetById(s),*it));
+                lrnrConcept->GetSet(0)->SetId(s);
+                lrnrConcept->AddSet(Intersect(a->GetSetById(t),primes->at((*it)->Id())));
+                lrnrConcept->GetSet(1)->SetId(t);
+                //enumerated a concept in the learnere
+                //pruning can only occur if the t set does not match size
+                //if s set does not match size then
+                //check other contexts for support, if possibe then continue
+                //other wise prune
+                if(lrnrConcept->GetSetById(t)->Size() >= PRUNE_SIZE_VECTOR[t]){
+                    bool sSat = lrnrConcept->GetSetById(s)->Size() >= PRUNE_SIZE_VECTOR[s];
+                    NCluster *nCluster = MakeMatch(lrnrConcept,g,s,t);
+                    bool simPrune = false;
+                    if (nCluster == NULL) simPrune = true;
+                    else if( sSat && enumerationMode == ENUM_MEM) StoreCluster(nCluster);
+                    else if( sSat && enumerationMode == ENUM_FILE) OutputCluster(nCluster,g);
+
+                    if(!simPrune)
+                         Enum_NConcepts_Bordat(nCluster,g,new IOSet,s,t);
+                    srchLvl--;
+                } // end if t sat
+                delete lrnrConcept;
+                //update marked
+                IOSet *tmp = marked;
+                marked = Union(marked, (*it));
+                delete tmp;
+                IOSet *lclDomInfo = domInfo->at((*it)->Id());
+                int numDom = lclDomInfo->Size();
+                for (int i = 0; i < numDom; i++) {
+                 IOSet *domMaxmod = maxmods->at(lclDomInfo->At(i));
+                 IOSet *tmp1 = marked;
+                 marked = Union(domMaxmod, marked);
+                 delete tmp1;
+                }
+             } // end if marked
+             (*it) = NULL;
+             ctr++;
+    } //end for
+    //clean up
+    DstryVector(maxmods);
+    DstryVector(primes);
+    DstryVector(domInfo);
+    delete ndMaxMods;
+    delete marked;
+}
+
+NCluster * MakeMatch(NCluster *lrnrConcept, RelationGraph *g, int s, int t){
 
 }
 
+void OutputCluster(NCluster *c, RelationGraph *g){
+    c->Output(OUT2,*g->GetNameMaps());
+    c->Output(OUT1);
+}
 
+void StoreCluster(NCluster *c){
+    CONCEPTS.push_back(c);
+}
 
+void DispProgress(int counter, int total){
+    if (srchLvl == 1)
+                cout << "\n" << counter << " of " << total;
+}
 
 //void EnumCands(NCluster* currConcept, IOSet* marked, int attSetId, int objSetId, int ctxNum, vector<int> &neighborCtx) {
 //    srchLvl++;

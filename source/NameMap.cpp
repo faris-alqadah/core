@@ -9,7 +9,7 @@ NameMap::NameMap(string _fileName, unsigned int _numEntries){
   numEntries=_numEntries;
   ifstream myfile;
   mapping.resize(numEntries);
-
+  id = 0;
   myfile.open(fileName.c_str());
   assert(myfile.is_open() && numEntries > 0);
   if (myfile.is_open()){
@@ -31,8 +31,8 @@ NameMap::NameMap(string _fileName, unsigned int _numEntries){
 NameMap::NameMap(string &_fileName){
  fileName = _fileName;
  numEntries=0;
-  ifstream myfile;
-
+ ifstream myfile;
+ id = 0;
   myfile.open(fileName.c_str());
   assert(myfile.is_open());
   if (myfile.is_open()){
@@ -60,6 +60,9 @@ string NameMap::GetName(unsigned int x){
 
 string NameMap::GetFileName(){return fileName;}
 int NameMap::GetNumEntries(){return numEntries;}
+
+void NameMap::SetId(int idd){id=idd;}
+int  NameMap::GetId(){return id;}
 
  
 
