@@ -12,6 +12,10 @@
 
 #include "../../headers/LatticeOps.h"
 #include "../../headers/LatticeAlgosExternals.h"
+#include "../algos_helpers/basic.h"
+#include "../algos_helpers/topk.h"
+#include "../QualityMeasures.h"
+
 
 #ifndef BORDAT_H
 #define	BORDAT_H
@@ -68,29 +72,9 @@ list<IOSet*>* NonDominating_MaxMods(Context *ctx, NCluster * c, int s, int t,
 /********************************************************************/
 void RemoveMarked(list<IOSet*> * ndMaxMods, IOSet *marked);
 
-/********************************************************************/
-// DispProgress(int ctr,int total);
-//
-//  Display the progress of the algorithm
-//
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: none
-//  output: ctr / total if srchLvl == 1
-/********************************************************************/
-void DispProgress(int ctr,int total);
 
-/********************************************************************/
-// StoreCluster(NCluster *c);
-//
-//
-//
-//  Pre-Condition: none
-//  Post-Condition: CONCEPTS.push_back(c)
-//  returns: none
-//  output: none
-/********************************************************************/
-void StoreCluster(NCluster *c);
+
+
 
 /********************************************************************/
 //  MakeMatch(NCluster *lrnrConcept, RelationGraph *g, int s, int t);
@@ -106,17 +90,7 @@ void StoreCluster(NCluster *c);
 /********************************************************************/
 NCluster * MakeMatch(NCluster *lrnrConcept, RelationGraph *g, int s, int t);
 
-/********************************************************************/
-//  OutputCluster(NCluster *c)
-//
-//   Outputs c to the files defined by streams OUT1 and OUT2
-//
-//  Pre-Condition: c is not null and OUT1 and OUT2 are valid ofstreams and open
-//  Post-Condition: none
-//  returns: none
-//  output: outputs the contents of c, both as indices and as the actual names
-/********************************************************************/
-void OutputCluster(NCluster *c);
+
 
 /********************************************************************/
 //  UpperNeighbors(NCluster c, RelationGraph g, int s, int t)

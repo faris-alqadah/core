@@ -119,6 +119,19 @@ double PercentOverlap( IOSet*, IOSet* );
 //  output: none
 /********************************************************************/
 double PercentOverlap_Sorensen( IOSet*, IOSet* );
+
+
+/********************************************************************/
+// AverageOverlap(NCluster *a, NCluster *b)
+//  Computes the "average overlap" between a and b by averaging the Jaccard
+//  coefficient over each set in a and b
+//  Pre-Condition: a and b non-null AND sets in a and b are sorted, a and b have the same number of sets
+//  Post-Condition:  none
+//  returns: AverageOverlap as described above
+//  output: none
+/********************************************************************/
+double AverageOverlap(NCluster *a, NCluster *b);
+
 /********************************************************************/
 // TransposeFimi(NCluster *a)
 //  Pre-Condition: a is not null

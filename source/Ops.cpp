@@ -82,6 +82,14 @@ double PercentOverlap_Sorensen( IOSet *a, IOSet *b ){
     return ret;
 
 }
+double AverageOverlap(NCluster *a, NCluster *b){
+    assert(a != NULL && b != NULL);
+    assert(a->GetN() == b->GetN());
+    double accum=0;
+    for(int i=0; i < a->GetN(); i++) accum += PercentOverlap( a->GetSet(i), b->GetSet(i) );
+    return accum/(double) a->GetN();
+}
+
 NCluster *TransposeFimi(NCluster *a){
     assert(a != NULL);
     NCluster *ret = new NCluster(a->GetMaxElement()+1);

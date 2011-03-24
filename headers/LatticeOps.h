@@ -41,17 +41,21 @@ NCluster *GetBottom(Context *c);
 
 
 /********************************************************************/
-// Prime(NCluster a, RelationGraph *g, int s, int t): Computes the prime operator (defined by FCA)
+// Prime(NCluster a, RelationGraph *g, int s, int t,int min): Computes the prime operator (defined by FCA)
 //     s: indicates the source domain id in a to serve as the input for the prime operator
 //     t: indicates the target domain
 //    The operation differs slighty from the strict FCA definition in that if a[s] is empty
 //    then the result is a NULL set
-//  Pre-Condition: s and t are valid domain ids that form an edge in g, and are valid set ids in a
+//
+//      Moreover this PrimeOperator is "min-aware" so that if at any time during the compution
+//      the results has cardinality < min no more operations are perfomed and NULL is returned
+//
+//  Pre-Condition: s and t are valid domain ids that form an edge in g, and are valid set ids in a, min >= 0
 //  Post-Condition: none
-//  returns: an IOset as a result of the prime or NULL if empty or prime does not exist
+//  returns: an IOset as a result of the prime and with id set to t, or NULL if empty,prime does not exist, or |prime| < min
 //  output: none
 /********************************************************************/
-IOSet *Prime(NCluster *a, RelationGraph *g, int s, int t);
+IOSet *Prime(NCluster *a, RelationGraph *g, int s, int t, int min);
 
 
 

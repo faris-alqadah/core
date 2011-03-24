@@ -11,41 +11,64 @@
 #include "RelationGraph.h"
 
 
-extern int srchLvl; //the current search level of a lattice enumeration algorithm
-extern int numConcepts; // the number concepts enumerated
-extern bool dispProgress; //display progress of execution
+    
+extern int srchLvl; 
+extern int numConcepts;
+ extern bool dispProgress;
 
-extern int enumerationMode; // the mode of an enumeration algorithm
-                            //for now 2 modes exist,
-                            //ENUM_MEM: enumerate all concepts and store in memory (in a vector)
-                            //ENUM_FILE: output concepts to a file as soon as a concept is discovered
-extern const int ENUM_MEM; //ENUM_MEM mode for enumeration algorithms
-extern const int ENUM_FILE; //ENUM_FILE mode for enumeration algorithms
-extern vector<NCluster*> CONCEPTS; //if ENUM_MEM mode is set then concepts stored in this vector
-
-extern vector<NameMap*> NAME_MAPS;  //vector of name maps that can be used to output clusters with
-
+///////////////////Data structs and files////////////////////////////////////////////
+extern vector<NCluster*> CONCEPTS;
+extern vector<NameMap*> NAME_MAPS;
 extern string OUTFILE; //if ENUM_FILE is selected then this file is used to output the concepts
 
 extern ofstream OUT1;  //ofstream used to output to OUTFILE.concepts
 extern ofstream OUT2;  //ofsteram used to output to OUTFILE.concept.names
 
-extern int pruneMode;  //the mode of pruning for enumeration algorithms
-                       //for now 1 mode exists:
-                       //  PRUNE_SIZE: inidcates to prune the concepts by size
-extern const int PRUNE_SIZE; //PRUNE_SIZE mode for enumeration algorithms
-extern vector<int> PRUNE_SIZE_VECTOR; //this vector will hold the size bouns for pruning by size
+
+///////////////////ENUMERATION MODES////////////////////////////////////////////
+extern const int ENUM_MEM;
+extern const int ENUM_FILE;
+extern const int ENUM_TOPK_FILE;
+extern const int ENUM_TOPK_MEM;
+
+extern int enumerationMode; //seting default
+
+///////////////////QUALITY MODES////////////////////////////////////////////
+extern const int AREA;
+extern const int BETA;
+
+extern int qualityMode;
+
+extern double(*qualityFunction)(NCluster*, vector<double> &);
+extern vector<double> params; //store the parameters for a quality function here
+
+///////////////////Overlap MODES////////////////////////////////////////////
+extern const int AVG_JACCARD;
+ extern int ovlpMode;
+
+extern double(*ovlpFunction)(NCluster*,NCluster*);
+extern double ovlpThresh;
 
 
-//////algorithm selections/////////////////////////
+///////////////////TOP K MODES////////////////////////////////////////////
+extern int topKK;
 
-extern int neighborAlgo; //which algorithm to use for computing neighbors in concept lattice
-extern int conceptEnumerationAlgo; //which algorithm to use for enumeration of concepts abd n-concepts
+///////////////////PRUNE MODES////////////////////////////////////////////
+extern const int PRUNE_SIZE;
+extern int pruneMode; 
 
 
-//algorithm types
+extern vector<int> PRUNE_SIZE_VECTOR;
 
-extern const int BORDAT;  //an algorithm type associated with enumeration and neighbor computation
+
+///////////////////Algorithm Seletions////////////////////////////////////////////
+extern  const int BORDAT ;
+
+extern int neighborAlgo;
+extern int conceptEnumerationAlgo;
+
+
+
 
 
 #endif	

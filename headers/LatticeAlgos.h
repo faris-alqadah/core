@@ -18,6 +18,7 @@
 
 #include<fstream>
 using namespace std;
+
 /************************ENUMERATION ALGORITHMS********************************************/
 //  All enumeration algorithms contain many different options.
 //  These options should be set by the user by setting the different externally

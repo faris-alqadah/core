@@ -46,38 +46,39 @@ NCluster * GetBottom(Context *c) {
 }
 
 
-IOSet *Prime(NCluster *a, RelationGraph *g, int s, int t){
-    assert(g->IsEdge(s,t));
-    IOSet *ret = new IOSet;
-    ret->SetId(t);
+IOSet *Prime(NCluster *a, RelationGraph *g, int s, int t,int min){
+    assert(g->IsEdge(s,t));    
+    IOSet *sSet = a->GetSetById(s);
+    if(min < 0) min=0;
     Context *ctx = g->GetContext(s,t);
     if(a->GetSetById(s)->Size() == 0) return NULL; //since 0 return as is
     else{                            //compute the prime as set intersections (this is a fairly naive method)
-        IOSet *sSet = a->GetSetById(s);
+    
         IOSet *rslt = new IOSet(ctx->GetSet(s,sSet->At(0)));
+        if(rslt->Size() < min){  //if sSet only has a single object then perform min check here
+            delete rslt;
+            return NULL;
+        }
         for(int i=1; i < sSet->Size(); i++){
+            if(rslt->Size() < min ||ctx->GetSet(s,sSet->At(i))->Size() < min ){ // no point in performing intersection if size < min
+                delete rslt;
+                return NULL;
+            }
             IOSet *tmp = rslt;
             rslt = Intersect(rslt,ctx->GetSet(s,sSet->At(i)));
             delete tmp;
             tmp = NULL;
         }
-        return ret;
+        if( rslt->Size() >= min) {//final check for satasfaction
+            rslt->SetId(t);
+            return rslt;
+        }else{
+            delete rslt;
+            return NULL;
+        }
     }
 }
-//void Cover(NCluster *currConcept, list<IOSet*>*nd, vector<IOSet*> *primes) {
-//    //cout<<"\nneighbors of: \n";
-//    //currConcept->Output();
-//    for (list<IOSet*>::iterator it = nd->begin(); it != nd->end(); it++) {
-//        IOSet * atts = Union(currConcept->GetSet(ATTRIBUTES), (*it));
-//        IOSet *objs = Intersect(currConcept->GetSet(OBJECTS), primes->at((*it)->Id()));
-//        numEdges++;
-//        // cout<<"\n";         atts->Output();
-//        // cout<<"\n";         objs->Output();
-//        delete atts;
-//        delete objs;
-//    }
-//
-//}
+
 
 
 

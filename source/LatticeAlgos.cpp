@@ -5,10 +5,8 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext, int algo){
     //if they are met then call Enum_NConcepts
     string file1 = OUTFILE+".concepts";
     string file2 = OUTFILE+".concepts.names";
-
     OUT1.open(file1.c_str());
     OUT2.open(file2.c_str());
-
     IOSet *artDomains = g->GetArtDomains();
 
     if( artDomains->Size() != 1 && g->GetNumNodes() > 2) {
@@ -27,6 +25,10 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext, int algo){
         NAME_MAPS = *g->GetNameMaps();
         cout<<"\nNum entries "<<NAME_MAPS[0]->GetNumEntries()<<"\t"<<NAME_MAPS[0]->GetId();
     }
+    if(enumerationMode == ENUM_TOPK_FILE &&!OUT1.is_open()){
+         string errMsg = "Star_N_Concepts called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set\n";
+        cerr<<errMsg; exit(-1);
+    }
     if( PRUNE_SIZE_VECTOR.size() < g->GetNumNodes()){
         string errMsg = "Star_N_Concepts called with size pruning, however, PRUNE_SIZE_VECTOR does not contain threshold values for all domains\n";
         cerr<<errMsg; exit(-1);
@@ -41,6 +43,19 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext, int algo){
     //reset variables
      srchLvl=0;
      numConcepts=0;
+
+
+     //set the quality function pointer and the ovlp function pointer
+     if(qualityMode == AREA){
+        qualityFunction=&Area;
+     }else if(qualityMode == BETA){
+         qualityFunction=&Beta;
+     }
+     //set the overlap function pointer
+     if(ovlpMode == AVG_JACCARD){
+         ovlpFunction=&AverageOverlap;
+     }
+
     //done check and setting genering variables call enumeration algorithm
     //for now only Bordat is implemented
     //compute the top level concept of lrnr context and call function
@@ -70,6 +85,7 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext, int algo){
 
      }
      cout<<"\nThe articuluation domain id is: "<<artDomain<<"\n";
+     cout<<"\nThe learner contex is: "<<ctx->GetName();
      strt->AssignSetById(artDomain,strt1->GetSetById(artDomain));
      strt->AssignSetById(otherDomain,strt1->GetSetById(otherDomain));
      if(algo == BORDAT)
@@ -107,3 +123,4 @@ vector<NCluster *> * LowerNeighbors(NCluster *c, RelationGraph *g, int s, int t,
     
     
 }
+

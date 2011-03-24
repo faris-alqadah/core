@@ -37,8 +37,6 @@ vector<IOSet*>* MaxMod_Partition(Context *ctx, NCluster *c, int s, int t) {
     //list was used for more efficeint insertion and deletion
     vector<IOSet*> * partitionV = new vector<IOSet*>;
     for (list<IOSet*>::iterator it = partition->begin(); it != partition->end(); it++){
-//        cout<<"\nmaxmod list: \n";
-//        (*it)->Output();
         partitionV->push_back(*it);
     }
 
@@ -107,7 +105,7 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
     RemoveMarked(ndMaxMods, marked);
     int ctr=1;
     for (list<IOSet*>::iterator it = ndMaxMods->begin(); it != ndMaxMods->end(); it++) {
-        if(dispProgress) DispProgress(ctr,ndMaxMods->size());
+        if(dispProgress && srchLvl == 1) DispProgress(ctr,ndMaxMods->size());
            if (!(*it)->GetMarked()) {
                 NCluster * lrnrConcept = new NCluster;
                 lrnrConcept->AddSet(Union(a->GetSetById(s),*it));
@@ -123,14 +121,23 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
                     bool sSat = lrnrConcept->GetSetById(s)->Size() >= PRUNE_SIZE_VECTOR[s-1];
                     NCluster *nCluster = MakeMatch(lrnrConcept,g,s,t);
                     bool simPrune = false;
+                    //different output options
                     if (nCluster == NULL) simPrune = true;
-                    else if( sSat && enumerationMode == ENUM_MEM)StoreCluster(nCluster);                                               
-                    else if( sSat && enumerationMode == ENUM_FILE) OutputCluster(nCluster);
-
+                    else if( sSat && enumerationMode == ENUM_MEM)
+                        StoreCluster(CONCEPTS,nCluster);
+                    else if( sSat && enumerationMode == ENUM_FILE) {
+                        OutputCluster(nCluster,OUT1);
+                        OutputCluster(nCluster,OUT2,NAME_MAPS);
+                    }
+                    else if( (sSat && enumerationMode == ENUM_TOPK_MEM) || (sSat && enumerationMode == ENUM_TOPK_FILE)){
+                        SetQuality(nCluster,params,qualityFunction);
+                        RetainTopK_Overlap(CONCEPTS,nCluster,ovlpFunction,ovlpThresh,topKK);
+                    }
                     delete lrnrConcept;
-                    if(!simPrune)
+                    if(!simPrune){
                          Enum_NConcepts_Bordat(nCluster,g,new IOSet(marked),s,t);
-                    srchLvl--;
+                        srchLvl--;
+                    }
                 } 
                 else{
                     delete lrnrConcept;
@@ -160,21 +167,15 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
 }
 
 NCluster * MakeMatch(NCluster *lrnrConcept, RelationGraph *g, int s, int t){
-    NCluster *ret = new NCluster(2);
-    ret->GetSet(0)->DeepCopy(lrnrConcept->GetSetById(s));
-    ret->GetSet(1)->DeepCopy(lrnrConcept->GetSetById(t));
+    NCluster *ret = new NCluster(*lrnrConcept);
     IOSet * domainIds = g->GetAllDomainIds();
     for(int i=0; i < domainIds->Size(); i++){
         if (domainIds->At(i) != s && domainIds->At(i) != t){
-            IOSet *tt = Prime(ret,g,s,domainIds->At(i));
-            if ( tt != NULL){
+            IOSet *tt = Prime(lrnrConcept,g,s,domainIds->At(i),PRUNE_SIZE_VECTOR[domainIds->At(i)-1]);
+            if ( tt != NULL ){
                 tt->SetId(domainIds->At(i));
                 ret->AddSet(tt);
 
-            }else if (tt->Size() < PRUNE_SIZE_VECTOR[domainIds->At(i)] ){
-                delete tt;
-                delete ret;
-                return NULL;
             }else{
                 delete ret;
                 return NULL;
@@ -185,23 +186,7 @@ NCluster * MakeMatch(NCluster *lrnrConcept, RelationGraph *g, int s, int t){
     return ret;
 }
 
-void OutputCluster(NCluster *c){
-    c->Output(OUT2,NAME_MAPS);
-    c->Output(OUT1);
-    OUT1<<";;;\n";
-    OUT2<<";;;\n";
-}
 
-void StoreCluster(NCluster *c){
-
-    CONCEPTS.push_back(c);
-}
-
-void DispProgress(int counter, int total){
-    if (srchLvl == 1){
-                cout << "\n" << counter << " of " << total<<"\t"<<"Enumerated "<<CONCEPTS.size()<<" clusters";
-    }
-}
 
 vector<NCluster*> * UpperNeighbors_Bordat(NCluster *c, RelationGraph *g, int s, int t){
     Context *ctx = g->GetContext(s,t);

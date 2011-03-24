@@ -23,13 +23,16 @@ OBJECTS = 	$(OBJ)/IOSet.o \
 		$(OBJ)/RelationGraph.o \
 		$(OBJ)/LatticeOps.o \
 		$(OBJ)/LatticeAlgos.o \
-		$(OBJ)/LatticeAlgosExternals.o \
+		$(OBJ)/LatticeAlgosExternals.o\
 		$(OBJ)/bordat.o \
+		$(OBJ)/basic.o \
+		$(OBJ)/topk.o \
+		$(OBJ)/QualityMeasures.o \
 		$(OBJ)/Timing.o 
 
 
 MAINOBJS =	$(OBJ)/Main.o
-TARGET	=	test
+TARGET	=	nclu
 
 
 .cpp.o:
@@ -81,6 +84,12 @@ $(OBJ)/LatticeAlgosExternals.o: $(SOURCE)/LatticeAlgosExternals.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeAlgosExternals.cpp -o $@
 $(OBJ)/bordat.o: $(SOURCE)/nclusters/bordat.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/nclusters/bordat.cpp -o $@
+$(OBJ)/basic.o: $(SOURCE)/algos_helpers/basic.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/algos_helpers/basic.cpp -o $@
+$(OBJ)/topk.o: $(SOURCE)/algos_helpers/topk.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/algos_helpers/topk.cpp -o $@
+$(OBJ)/QualityMeasures.o: $(SOURCE)/QualityMeasures.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/QualityMeasures.cpp -o $@
 
 $(HEADER)/NCluster.h: $(HEADER)/IOSet.h
 $(HEADER)/Ops.h:  $(HEADER)/IOSet.h
