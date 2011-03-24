@@ -37,8 +37,8 @@ vector<IOSet*>* MaxMod_Partition(Context *ctx, NCluster *c, int s, int t) {
     //list was used for more efficeint insertion and deletion
     vector<IOSet*> * partitionV = new vector<IOSet*>;
     for (list<IOSet*>::iterator it = partition->begin(); it != partition->end(); it++){
-        cout<<"\nmaxmod list: \n";
-        (*it)->Output();
+//        cout<<"\nmaxmod list: \n";
+//        (*it)->Output();
         partitionV->push_back(*it);
     }
 
@@ -66,7 +66,7 @@ list<IOSet*>* NonDominating_MaxMods(Context *ctx, NCluster * c, int s, int t,
             //remove maxmods which dominate X
             for (int j = i + 1; j < maxmods->size(); j++) {
                 if (!maxmods->at(j)->GetMarked()) {
-                    if (ProperSubSet(primes->at(j), primes->at(i))) {
+                    if (ProperSubSet(primes->at(i), primes->at(j))) {
                         domInfo->at(i)->Add(j); //add to domination info
                         maxmods->at(j)->SetMarked(true);
                     }
@@ -99,11 +99,6 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
     Context *ctx = g->GetContext(s,t);
     //1. Compute partition of the (s,t) pair into maxmods of the s set
     vector<IOSet*>* maxmods = MaxMod_Partition(ctx,a,s,t);
-
-    cout<<"\nmaxmods: ";
-    for(int i=0; i < maxmods->size(); i++) {
-        cout<<"\n"; maxmods->at(i)->Output();
-    }
     //2. Find the set of non-dominating maxmods
     vector<IOSet*>* primes = new vector<IOSet*>(maxmods->size());
     vector<IOSet*>* domInfo = new vector<IOSet*>(maxmods->size());
@@ -114,8 +109,6 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
     for (list<IOSet*>::iterator it = ndMaxMods->begin(); it != ndMaxMods->end(); it++) {
         if(dispProgress) DispProgress(ctr,ndMaxMods->size());
            if (!(*it)->GetMarked()) {
-               cout<<"\nNd max mod: ";
-               (*it)->Output();
                 NCluster * lrnrConcept = new NCluster;
                 lrnrConcept->AddSet(Union(a->GetSetById(s),*it));
                 lrnrConcept->GetSet(0)->SetId(s);
@@ -126,15 +119,13 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
                 //if s set does not match size then
                 //check other contexts for support, if possibe then continue
                 //other wise prune
-                cout<<"\nlrnr concept: \n";
-                lrnrConcept->Output();
                 if(lrnrConcept->GetSetById(t)->Size() >= PRUNE_SIZE_VECTOR[t-1]){
                     bool sSat = lrnrConcept->GetSetById(s)->Size() >= PRUNE_SIZE_VECTOR[s-1];
                     NCluster *nCluster = MakeMatch(lrnrConcept,g,s,t);
                     bool simPrune = false;
                     if (nCluster == NULL) simPrune = true;
-                    else if( sSat && enumerationMode == ENUM_MEM) StoreCluster(nCluster);
-                    else if( sSat && enumerationMode == ENUM_FILE) OutputCluster(nCluster,g);
+                    else if( sSat && enumerationMode == ENUM_MEM)StoreCluster(nCluster);                                               
+                    else if( sSat && enumerationMode == ENUM_FILE) OutputCluster(nCluster);
 
                     delete lrnrConcept;
                     if(!simPrune)
@@ -194,21 +185,55 @@ NCluster * MakeMatch(NCluster *lrnrConcept, RelationGraph *g, int s, int t){
     return ret;
 }
 
-void OutputCluster(NCluster *c, RelationGraph *g){
+void OutputCluster(NCluster *c){
     c->Output(OUT2,NAME_MAPS);
     c->Output(OUT1);
+    OUT1<<";;;\n";
+    OUT2<<";;;\n";
 }
 
 void StoreCluster(NCluster *c){
+
     CONCEPTS.push_back(c);
-    cout<<"\nstore cluster \n";
-    c->Output();
 }
 
 void DispProgress(int counter, int total){
-    cout<<"\nGot "<<CONCEPTS.size()<<" clusters";
-    if (srchLvl == 1)
-                cout << "\n" << counter << " of " << total;
+    if (srchLvl == 1){
+                cout << "\n" << counter << " of " << total<<"\t"<<"Enumerated "<<CONCEPTS.size()<<" clusters";
+    }
+}
+
+vector<NCluster*> * UpperNeighbors_Bordat(NCluster *c, RelationGraph *g, int s, int t){
+    Context *ctx = g->GetContext(s,t);
+    //1.compute maxmods
+    vector<IOSet*>* maxmods = MaxMod_Partition(ctx,c,s,t);
+     //2. Find the set of non-dominating maxmods
+   vector<IOSet*>* primes = new vector<IOSet*>(maxmods->size());
+   vector<IOSet*>* domInfo = new vector<IOSet*>(maxmods->size());
+   list<IOSet*> * ndMaxMods = NonDominating_MaxMods(ctx,c,s,t,maxmods,primes,domInfo);
+   vector<NCluster*> *ret = new vector<NCluster*>;
+   for (list<IOSet*>::iterator it = ndMaxMods->begin(); it != ndMaxMods->end(); it++) {
+            if (!(*it)->GetMarked()) {
+                NCluster * neighbor = new NCluster;
+                neighbor->AddSet(Union(c->GetSetById(s),*it));
+                neighbor->GetSet(0)->SetId(s);
+                neighbor->AddSet(Intersect(c->GetSetById(t),primes->at((*it)->Id())));
+                neighbor->GetSet(1)->SetId(t);
+                ret->push_back(neighbor);
+            }
+            (*it) = NULL;
+   }
+   DstryVector(maxmods);
+   DstryVector(primes);
+   DstryVector(domInfo);
+   delete ndMaxMods;
+   return ret;
+}
+
+
+vector<NCluster*> * LowerNeighbors_Bordat(NCluster *c, RelationGraph *g, int s, int t){
+    return UpperNeighbors_Bordat(c,g,t,s);
+    
 }
 
 

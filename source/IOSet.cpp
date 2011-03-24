@@ -36,7 +36,7 @@ IOSet::~IOSet(){}
    void IOSet::Output(ofstream& out, NameMap* nm){
         for(int i=0; i < size; i++){
             out<<nm->GetName(d[i]);
-            out<<"\n";
+            out<<"\t";
        }
    }
    void IOSet::SetSize(int sz){
@@ -65,7 +65,7 @@ IOSet::~IOSet(){}
    bool IOSet::Contains(int a){
        for(int i=0; i < size; i++){
            if( d[i] == a) return true;
-           else if( d[i] > a) return false;
+           //else if( d[i] > a) return false;
        }
        return false;
    }

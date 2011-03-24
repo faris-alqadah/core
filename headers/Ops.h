@@ -84,7 +84,7 @@ IOSet *SymmDifference( IOSet*, IOSet*);
 IOSet* Union( IOSet*,  IOSet*);
 
 /********************************************************************/
-// Contains(IOSet *a, IOSet *b): Contains
+// Contains(IOSet *a, IOSet *b): 
 //  Pre-Condition: a and b non-null AND a and b are sorted
 //  Post-Condition:  numSubset++
 //  returns: true if b is subset of a false otherwise
@@ -93,7 +93,7 @@ IOSet* Union( IOSet*,  IOSet*);
 bool Contains( IOSet*,  IOSet* );
 
 /********************************************************************/
-// ProperContains(IOSet *a, IOSet *b): Contains
+// ProperSubset(IOSet *a, IOSet *b): 
 //  Pre-Condition: a and b non-null AND a and b are sorted
 //  Post-Condition:  numSubset++ (possibly)
 //  returns: true if b is proper subset of a false otherwise

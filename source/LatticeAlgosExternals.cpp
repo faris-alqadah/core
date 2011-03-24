@@ -19,3 +19,13 @@ ofstream OUT1;  //ofstream used to output to OUTFILE.concepts
 ofstream OUT2;  //ofsteram used to output to OUTFILE.concept.names
 
 vector<int> PRUNE_SIZE_VECTOR;
+
+
+
+int neighborAlgo=1;
+int conceptEnumerationAlgo=1;
+
+
+
+
+const int BORDAT =1;

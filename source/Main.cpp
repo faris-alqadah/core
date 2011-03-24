@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
     RelationGraph *hin = MakeRelationGraph(inputFile);
     hin->Print();
     cout<<"\nRunning n-cluster enumeration algorithm...";
-    Star_N_Concepts(hin,lrnr);
+    Star_N_Concepts(hin,lrnr,BORDAT);
     cout<<"\n";
     return (EXIT_SUCCESS);
 }

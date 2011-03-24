@@ -47,7 +47,7 @@ NCluster * GetBottom(Context *c) {
 
 
 IOSet *Prime(NCluster *a, RelationGraph *g, int s, int t){
-    assert(g->IsEdge(s,t) && a->ContainsIOSetId(s)&& a->ContainsIOSetId(t));
+    assert(g->IsEdge(s,t));
     IOSet *ret = new IOSet;
     ret->SetId(t);
     Context *ctx = g->GetContext(s,t);

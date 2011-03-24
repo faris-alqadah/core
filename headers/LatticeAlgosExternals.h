@@ -36,5 +36,17 @@ extern int pruneMode;  //the mode of pruning for enumeration algorithms
 extern const int PRUNE_SIZE; //PRUNE_SIZE mode for enumeration algorithms
 extern vector<int> PRUNE_SIZE_VECTOR; //this vector will hold the size bouns for pruning by size
 
+
+//////algorithm selections/////////////////////////
+
+extern int neighborAlgo; //which algorithm to use for computing neighbors in concept lattice
+extern int conceptEnumerationAlgo; //which algorithm to use for enumeration of concepts abd n-concepts
+
+
+//algorithm types
+
+extern const int BORDAT;  //an algorithm type associated with enumeration and neighbor computation
+
+
 #endif	
 

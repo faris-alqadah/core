@@ -1,6 +1,6 @@
 #include "../headers/LatticeAlgos.h"
 
-void Star_N_Concepts(RelationGraph *g,int lrnrContext){
+void Star_N_Concepts(RelationGraph *g,int lrnrContext, int algo){
     //check all pre conditions
     //if they are met then call Enum_NConcepts
     string file1 = OUTFILE+".concepts";
@@ -25,7 +25,7 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext){
     }else if(enumerationMode == ENUM_FILE){
         //setup name maps
         NAME_MAPS = *g->GetNameMaps();
-        cout<<"\nNum entries "<<NAME_MAPS[0]->GetNumEntries();
+        cout<<"\nNum entries "<<NAME_MAPS[0]->GetNumEntries()<<"\t"<<NAME_MAPS[0]->GetId();
     }
     if( PRUNE_SIZE_VECTOR.size() < g->GetNumNodes()){
         string errMsg = "Star_N_Concepts called with size pruning, however, PRUNE_SIZE_VECTOR does not contain threshold values for all domains\n";
@@ -58,24 +58,52 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext){
      NCluster *strt1;
      if(lrnrDomainIds.first == artDomain){
          otherDomain = lrnrDomainIds.second;
-         cout<<"\nGot top...";
          strt1 = GetTop(ctx);
          strt1->GetSet(0)->SetId(artDomain);
          strt1->GetSet(1)->SetId(otherDomain);
 
      }else{
-         cout<<"\nGot bottom...";
          otherDomain = lrnrDomainIds.first;
          strt1 = GetBottom(ctx);
          strt1->GetSet(0)->SetId(otherDomain);
          strt1->GetSet(1)->SetId(artDomain);
 
      }
+     cout<<"\nThe articuluation domain id is: "<<artDomain<<"\n";
      strt->AssignSetById(artDomain,strt1->GetSetById(artDomain));
      strt->AssignSetById(otherDomain,strt1->GetSetById(otherDomain));
-
-     cout<<"\nInitial concept: \n";
-     strt->Output();
-     Enum_NConcepts_Bordat(strt,g,new IOSet(),artDomain,otherDomain);
+     if(algo == BORDAT)
+        Enum_NConcepts_Bordat(strt,g,new IOSet(),artDomain,otherDomain);
+     else{
+         cerr <<"\nValid algorithm for n-cluster enumeration not specified!\n";
+         exit(-1);
+     }
 }
 
+vector<NCluster *> * UpperNeighbors(NCluster *c, RelationGraph *g, int s, int t,int algo){
+    assert( g->IsEdge(s,t) && c->ContainsIOSetId(s) && c->ContainsIOSetId(t));
+    //check if the concept is a top or bottom concept, if so then return empty vector
+    if( c->GetSetById(s)->Size() == 0 || c->GetSetById(t)->Size() == 0)
+        return new vector<NCluster*> ;
+    else if(algo == BORDAT)
+        return UpperNeighbors_Bordat(c,g,s,t);
+    else{
+         cerr<<"\nInvalid algorithm of upper neighbor computation specified!\n";
+         exit(-1);
+    }
+}
+
+
+vector<NCluster *> * LowerNeighbors(NCluster *c, RelationGraph *g, int s, int t,int algo){
+    assert( g->IsEdge(s,t) && c->ContainsIOSetId(s) && c->ContainsIOSetId(t));
+    if( c->GetSetById(s)->Size() == 0 || c->GetSetById(t)->Size() == 0)
+        return new vector<NCluster*> ;
+    else if(algo == BORDAT)
+        return LowerNeighbors_Bordat(c,g,s,t);
+    else{
+        cerr<<"\nInvalid algorithm of lower neighbor computation specified!\n";
+        exit(-1);
+    }
+    
+    
+}

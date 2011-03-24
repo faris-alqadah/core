@@ -14,8 +14,7 @@ NameMap::NameMap(string _fileName, unsigned int _numEntries){
   assert(myfile.is_open() && numEntries > 0);
   if (myfile.is_open()){
     int lineNum = 0;
-    string line;
-    while (! myfile.eof() ){
+    for (string line; getline(myfile, line);) {
         if(lineNum == numEntries) break;
         getline (myfile,line);
         mapping[lineNum] = line;
@@ -25,9 +24,9 @@ NameMap::NameMap(string _fileName, unsigned int _numEntries){
   else{
       cerr<<"\nCoult not open NAME file!! "<<fileName<<endl<<"\n";
       exit(-1);
-  }
-    
+  }    
 }
+
 NameMap::NameMap(string &_fileName){
  fileName = _fileName;
  numEntries=0;
@@ -37,14 +36,10 @@ NameMap::NameMap(string &_fileName){
   assert(myfile.is_open());
   if (myfile.is_open()){
     int lineNum = 0;
-    string line;
-     getline (myfile,line);
-    while (! myfile.eof() ){
-       
+    for (string line; getline(myfile, line);) {
         mapping.push_back(line);
         lineNum++;
         numEntries++;
-        getline(myfile,line);
     }
   }
   else{

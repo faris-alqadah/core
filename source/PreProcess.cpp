@@ -101,21 +101,15 @@ NCluster *MakeNClusterFromFimi(string &inputFile){
       if (myfile.is_open()){
           vector<IOSet *> sets;
           int cnt=0;
-          string line;
-          getline(myfile,line);
-         while (! myfile.eof() ){
-             vector<string> entries;
-             Tokenize(line,entries," ");
-             IOSet *t = new IOSet;
-             for(int i=0; i < entries.size(); i++) t->Add(atoi(entries[i].c_str()));
-             t->SetId(cnt);
-             sets.push_back(t);
-             cout<<"\n";
-             t->Output();
-             cnt++;
-             getline(myfile,line);
-
-        }
+          for (string line; getline(myfile, line);) {
+                vector<string> entries;
+                 Tokenize(line,entries," ");
+                IOSet *t = new IOSet;
+                for(int i=0; i < entries.size(); i++) t->Add(atoi(entries[i].c_str()));
+                t->SetId(cnt);
+                sets.push_back(t);
+                cnt++;
+          }
           cout<<"\nsets size: "<<sets.size();
         return new NCluster(sets.size(),sets);
   }else{

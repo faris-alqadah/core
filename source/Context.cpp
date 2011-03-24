@@ -167,9 +167,6 @@ void Context::SetNameMap(int dId, NameMap* nm){
     }
 }
 NameMap* Context::GetNameMap(int dId){
-    cout<<"\nchck2 "<<nameMap1->GetNumEntries();
-    cout<<"\nchck2 "<<nameMap2->GetNumEntries();
-    cout<<"\n";
     if(dId == domain1->GetId()){
         return nameMap1;
     }else if (dId == domain2->GetId()){

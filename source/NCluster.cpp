@@ -67,6 +67,7 @@ void NCluster::Output(ofstream &out){
     for(int i=0; i < n; i++){
         out<<"["<<i+1<<"]\t";
         sets[i]->Output(out);
+        out<<"\n";
     }
 }
 void NCluster::Output(ofstream& out, vector<NameMap*>& nm){
@@ -75,14 +76,16 @@ void NCluster::Output(ofstream& out, vector<NameMap*>& nm){
         bool found=false;
         for(int j=0; j < nm.size(); j++){
             if (nm[j]->GetId() == sets[i]->Id()){
-                out<<"\n"<<id<<")\n";
-                sets[i]->Output(out,nm[id]);
+                out<<"["<<sets[i]->Id()<<"]\t";
+                sets[i]->Output(out,nm[j]);
                 found = true;
+                out<<"\n";
                 break;
             }
         }
         if(!found){
             sets[i]->Output(out);
+            out<<"\n";
         } 
     }
 }
