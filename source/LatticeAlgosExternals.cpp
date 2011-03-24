@@ -12,6 +12,7 @@ const int PRUNE_SIZE=1;
 int pruneMode=PRUNE_SIZE;
 
 vector<NCluster*> CONCEPTS;
+vector<NameMap*> NAME_MAPS;
 string OUTFILE; //if ENUM_FILE is selected then this file is used to output the concepts
 
 ofstream OUT1;  //ofstream used to output to OUTFILE.concepts

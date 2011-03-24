@@ -126,6 +126,7 @@ void RelationGraph::Print(){
         for(int i=0; i < contexts.size(); i++){
             pair<int,int> dIds = contexts[i]->GetDomainIds();
             cout<<"\n\nContext "<<contexts[i]->GetName()
+                 <<"\n\tId: "<<contexts[i]->GetId()
                 <<"\n\tConnecting domains "<<dIds.first<<" AND "<<dIds.second
                 <<"\n\t Num elements in domain "<<dIds.first<<": "<<contexts[i]->GetNumSets(dIds.first)
                 <<"\n\tNum elements in domain "<<dIds.second<<": "<<contexts[i]->GetNumSets(dIds.second)
@@ -156,6 +157,10 @@ void RelationGraph::Print(){
         vector<NameMap*> * ret = new vector<NameMap*>;
         for(int i=0; i < contexts.size(); i++){
             pair<int,int> dIds = contexts[i]->GetDomainIds();
+            cout<<"\ndids: "<<dIds.first<<" "<<dIds.second;
+            cout<<"\nt";
+            cout<<"\nchck "<<contexts[i]->GetNameMap(dIds.first)->GetNumEntries();
+            cout<<"\nt";
             ret->push_back(contexts[i]->GetNameMap(dIds.first));
             ret->push_back(contexts[i]->GetNameMap(dIds.second));
         }

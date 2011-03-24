@@ -22,6 +22,9 @@ extern int enumerationMode; // the mode of an enumeration algorithm
 extern const int ENUM_MEM; //ENUM_MEM mode for enumeration algorithms
 extern const int ENUM_FILE; //ENUM_FILE mode for enumeration algorithms
 extern vector<NCluster*> CONCEPTS; //if ENUM_MEM mode is set then concepts stored in this vector
+
+extern vector<NameMap*> NAME_MAPS;  //vector of name maps that can be used to output clusters with
+
 extern string OUTFILE; //if ENUM_FILE is selected then this file is used to output the concepts
 
 extern ofstream OUT1;  //ofstream used to output to OUTFILE.concepts

@@ -38,12 +38,13 @@ NameMap::NameMap(string &_fileName){
   if (myfile.is_open()){
     int lineNum = 0;
     string line;
+     getline (myfile,line);
     while (! myfile.eof() ){
-        if(lineNum == numEntries) break;
-        getline (myfile,line);
+       
         mapping.push_back(line);
         lineNum++;
         numEntries++;
+        getline(myfile,line);
     }
   }
   else{

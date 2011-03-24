@@ -57,7 +57,7 @@ void NCluster::DeepCopy(NCluster& a){
 }
 void NCluster::Output(){
     for(int i=0; i < n; i++){
-        cout<<"["<<i+1<<"]\t";
+        cout<<"["<<sets[i]->Id()<<"]\t";
         if(sets[i])       sets[i]->Output();
         cout<<"\n";
     }

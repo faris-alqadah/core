@@ -33,7 +33,7 @@ Context::~Context(){
     nameMap2 = NULL;
 }
 IOSet * Context::GetSet(int domain,int setNum){
-    assert(setNum > 0);
+    assert(setNum >= 0);
     assert(domain == domain1->GetId() || domain == domain2->GetId());
     if (domain == domain1->GetId()){
         assert(setNum < domain1->GetN());
@@ -167,6 +167,9 @@ void Context::SetNameMap(int dId, NameMap* nm){
     }
 }
 NameMap* Context::GetNameMap(int dId){
+    cout<<"\nchck2 "<<nameMap1->GetNumEntries();
+    cout<<"\nchck2 "<<nameMap2->GetNumEntries();
+    cout<<"\n";
     if(dId == domain1->GetId()){
         return nameMap1;
     }else if (dId == domain2->GetId()){

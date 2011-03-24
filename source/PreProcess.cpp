@@ -40,10 +40,10 @@ RelationGraph* MakeRelationGraph(string &inputFile){
               for(int i=0; i < numDomains; i++){
                  getline(myfile,line); //this is the domain name
                  domainNames.push_back(line);
-                 domainName_id_map[line]=i;
+                 domainName_id_map[line]=i+1;
                  getline(myfile,line); //this is the path to the namefile
                  NameMap *nmp = new NameMap(line);
-                 nmp->SetId(i);
+                 nmp->SetId(i+1);
                  nameMaps.push_back(nmp);
                }
                //now get contexts and relation graph
@@ -67,7 +67,7 @@ RelationGraph* MakeRelationGraph(string &inputFile){
                   }
                   ctxName = currDomainNames[0]+"__"+currDomainNames[1];
                   getline(myfile,line);  //this line specifies the fimi file
-                  grph->AddContext(MakeContext(line,dId1,dId2,ctxName,i,nameMaps[dId2],nameMaps[dId2]));
+                  grph->AddContext(MakeContext(line,dId1,dId2,ctxName,i+1,nameMaps[dId1-1],nameMaps[dId2-1]));
               }
 	      myfile.close();
               return grph;
@@ -100,15 +100,23 @@ NCluster *MakeNClusterFromFimi(string &inputFile){
      ifstream myfile(inputFile.c_str());
       if (myfile.is_open()){
           vector<IOSet *> sets;
+          int cnt=0;
+          string line;
+          getline(myfile,line);
          while (! myfile.eof() ){
-             string line;
              vector<string> entries;
-             getline(myfile,line); //this line specifies the two domains
              Tokenize(line,entries," ");
              IOSet *t = new IOSet;
              for(int i=0; i < entries.size(); i++) t->Add(atoi(entries[i].c_str()));
+             t->SetId(cnt);
              sets.push_back(t);
+             cout<<"\n";
+             t->Output();
+             cnt++;
+             getline(myfile,line);
+
         }
+          cout<<"\nsets size: "<<sets.size();
         return new NCluster(sets.size(),sets);
   }else{
           string errMsg = "Could not open the FIMI file: "+inputFile;

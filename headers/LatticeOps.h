@@ -38,18 +38,20 @@ NCluster *GetTop(Context *c);
 /********************************************************************/
 NCluster *GetBottom(Context *c);
 
+
+
 /********************************************************************/
 // Prime(NCluster a, RelationGraph *g, int s, int t): Computes the prime operator (defined by FCA)
 //     s: indicates the source domain id in a to serve as the input for the prime operator
 //     t: indicates the target domain
 //    The operation differs slighty from the strict FCA definition in that if a[s] is empty
-//    then the result is exactly a and not the top or bottom concept of the context
+//    then the result is a NULL set
 //  Pre-Condition: s and t are valid domain ids that form an edge in g, and are valid set ids in a
 //  Post-Condition: none
-//  returns: an ncluster in whcih all sets are equivalent to the sets of a, except set with domain id t
+//  returns: an IOset as a result of the prime or NULL if empty or prime does not exist
 //  output: none
 /********************************************************************/
-NCluster *Prime(NCluster *a, RelationGraph *g, int s, int t);
+IOSet *Prime(NCluster *a, RelationGraph *g, int s, int t);
 
 
 

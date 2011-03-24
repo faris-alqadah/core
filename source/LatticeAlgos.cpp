@@ -10,20 +10,25 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext){
     OUT2.open(file2.c_str());
 
     IOSet *artDomains = g->GetArtDomains();
-    if( artDomains->Size() != 1) {
-        string errMsg = "Star_N_Concepts must be called with a star shaped hin";
+
+    if( artDomains->Size() != 1 && g->GetNumNodes() > 2) {
+        string errMsg = "Star_N_Concepts must be called with a star shaped hin\n";
         cerr<<errMsg; exit(-1);
     }
     if( g->GetContext(lrnrContext) == NULL){
-        string errMsg = "Star_N_Concepts called with invalid learner context id for the given hin";
+        string errMsg = "Star_N_Concepts called with invalid learner context id for the given hin\n";
         cerr<<errMsg; exit(-1);
     }
     if(enumerationMode == ENUM_FILE && !OUT1.is_open()){
-         string errMsg = "Star_N_Concepts called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set";
+         string errMsg = "Star_N_Concepts called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set\n";
         cerr<<errMsg; exit(-1);
+    }else if(enumerationMode == ENUM_FILE){
+        //setup name maps
+        NAME_MAPS = *g->GetNameMaps();
+        cout<<"\nNum entries "<<NAME_MAPS[0]->GetNumEntries();
     }
     if( PRUNE_SIZE_VECTOR.size() < g->GetNumNodes()){
-        string errMsg = "Star_N_Concepts called with size pruning, however, PRUNE_SIZE_VECTOR does not contain threshold values for all domains";
+        string errMsg = "Star_N_Concepts called with size pruning, however, PRUNE_SIZE_VECTOR does not contain threshold values for all domains\n";
         cerr<<errMsg; exit(-1);
     }
 
@@ -40,6 +45,9 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext){
     //for now only Bordat is implemented
     //compute the top level concept of lrnr context and call function
      IOSet *domainIds = g->GetAllDomainIds();
+     if(g->GetNumNodes() == 2)
+         artDomains->Add(domainIds->At(0));
+     
      NCluster *strt = new NCluster(g->GetNumNodes());
      for(int i=0; i < strt->GetN(); i++) strt->GetSet(i)->SetId(domainIds->At(i));
 
@@ -50,18 +58,24 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext){
      NCluster *strt1;
      if(lrnrDomainIds.first == artDomain){
          otherDomain = lrnrDomainIds.second;
-         strt1 = GetBottom(ctx);
+         cout<<"\nGot top...";
+         strt1 = GetTop(ctx);
          strt1->GetSet(0)->SetId(artDomain);
          strt1->GetSet(1)->SetId(otherDomain);
 
      }else{
+         cout<<"\nGot bottom...";
          otherDomain = lrnrDomainIds.first;
-         strt1 = GetTop(ctx);
+         strt1 = GetBottom(ctx);
          strt1->GetSet(0)->SetId(otherDomain);
          strt1->GetSet(1)->SetId(artDomain);
+
      }
      strt->AssignSetById(artDomain,strt1->GetSetById(artDomain));
      strt->AssignSetById(otherDomain,strt1->GetSetById(otherDomain));
+
+     cout<<"\nInitial concept: \n";
+     strt->Output();
      Enum_NConcepts_Bordat(strt,g,new IOSet(),artDomain,otherDomain);
 }
 

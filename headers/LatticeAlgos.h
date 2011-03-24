@@ -13,8 +13,7 @@
 #ifndef LATTICEALGOS_H
 #define	LATTICEALGOS_H
 
-#include "LatticeOps.h"
-#include "LatticeAlgosExternals.h"
+
 #include "nclusters/bordat.h"
 
 #include<fstream>

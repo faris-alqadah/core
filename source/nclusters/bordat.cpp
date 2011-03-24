@@ -36,8 +36,12 @@ vector<IOSet*>* MaxMod_Partition(Context *ctx, NCluster *c, int s, int t) {
     //copy to vector
     //list was used for more efficeint insertion and deletion
     vector<IOSet*> * partitionV = new vector<IOSet*>;
-    for (list<IOSet*>::iterator it = partition->begin(); it != partition->end(); it++)
+    for (list<IOSet*>::iterator it = partition->begin(); it != partition->end(); it++){
+        cout<<"\nmaxmod list: \n";
+        (*it)->Output();
         partitionV->push_back(*it);
+    }
+
 
     partition = NULL;
     return partitionV;
@@ -95,6 +99,11 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
     Context *ctx = g->GetContext(s,t);
     //1. Compute partition of the (s,t) pair into maxmods of the s set
     vector<IOSet*>* maxmods = MaxMod_Partition(ctx,a,s,t);
+
+    cout<<"\nmaxmods: ";
+    for(int i=0; i < maxmods->size(); i++) {
+        cout<<"\n"; maxmods->at(i)->Output();
+    }
     //2. Find the set of non-dominating maxmods
     vector<IOSet*>* primes = new vector<IOSet*>(maxmods->size());
     vector<IOSet*>* domInfo = new vector<IOSet*>(maxmods->size());
@@ -105,6 +114,8 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
     for (list<IOSet*>::iterator it = ndMaxMods->begin(); it != ndMaxMods->end(); it++) {
         if(dispProgress) DispProgress(ctr,ndMaxMods->size());
            if (!(*it)->GetMarked()) {
+               cout<<"\nNd max mod: ";
+               (*it)->Output();
                 NCluster * lrnrConcept = new NCluster;
                 lrnrConcept->AddSet(Union(a->GetSetById(s),*it));
                 lrnrConcept->GetSet(0)->SetId(s);
@@ -115,19 +126,24 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
                 //if s set does not match size then
                 //check other contexts for support, if possibe then continue
                 //other wise prune
-                if(lrnrConcept->GetSetById(t)->Size() >= PRUNE_SIZE_VECTOR[t]){
-                    bool sSat = lrnrConcept->GetSetById(s)->Size() >= PRUNE_SIZE_VECTOR[s];
+                cout<<"\nlrnr concept: \n";
+                lrnrConcept->Output();
+                if(lrnrConcept->GetSetById(t)->Size() >= PRUNE_SIZE_VECTOR[t-1]){
+                    bool sSat = lrnrConcept->GetSetById(s)->Size() >= PRUNE_SIZE_VECTOR[s-1];
                     NCluster *nCluster = MakeMatch(lrnrConcept,g,s,t);
                     bool simPrune = false;
                     if (nCluster == NULL) simPrune = true;
                     else if( sSat && enumerationMode == ENUM_MEM) StoreCluster(nCluster);
                     else if( sSat && enumerationMode == ENUM_FILE) OutputCluster(nCluster,g);
 
+                    delete lrnrConcept;
                     if(!simPrune)
-                         Enum_NConcepts_Bordat(nCluster,g,new IOSet,s,t);
+                         Enum_NConcepts_Bordat(nCluster,g,new IOSet(marked),s,t);
                     srchLvl--;
+                } 
+                else{
+                    delete lrnrConcept;
                 } // end if t sat
-                delete lrnrConcept;
                 //update marked
                 IOSet *tmp = marked;
                 marked = Union(marked, (*it));
@@ -153,152 +169,46 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
 }
 
 NCluster * MakeMatch(NCluster *lrnrConcept, RelationGraph *g, int s, int t){
+    NCluster *ret = new NCluster(2);
+    ret->GetSet(0)->DeepCopy(lrnrConcept->GetSetById(s));
+    ret->GetSet(1)->DeepCopy(lrnrConcept->GetSetById(t));
+    IOSet * domainIds = g->GetAllDomainIds();
+    for(int i=0; i < domainIds->Size(); i++){
+        if (domainIds->At(i) != s && domainIds->At(i) != t){
+            IOSet *tt = Prime(ret,g,s,domainIds->At(i));
+            if ( tt != NULL){
+                tt->SetId(domainIds->At(i));
+                ret->AddSet(tt);
 
+            }else if (tt->Size() < PRUNE_SIZE_VECTOR[domainIds->At(i)] ){
+                delete tt;
+                delete ret;
+                return NULL;
+            }else{
+                delete ret;
+                return NULL;
+            }
+        }
+
+    }
+    return ret;
 }
 
 void OutputCluster(NCluster *c, RelationGraph *g){
-    c->Output(OUT2,*g->GetNameMaps());
+    c->Output(OUT2,NAME_MAPS);
     c->Output(OUT1);
 }
 
 void StoreCluster(NCluster *c){
     CONCEPTS.push_back(c);
+    cout<<"\nstore cluster \n";
+    c->Output();
 }
 
 void DispProgress(int counter, int total){
+    cout<<"\nGot "<<CONCEPTS.size()<<" clusters";
     if (srchLvl == 1)
                 cout << "\n" << counter << " of " << total;
 }
 
-//void EnumCands(NCluster* currConcept, IOSet* marked, int attSetId, int objSetId, int ctxNum, vector<int> &neighborCtx) {
-//    srchLvl++;
-//    //1. Compute partition of currConcept->attributes into maxmods
-//    IOSet *currAtts = currConcept->GetSet(ATTRIBUTES);
-//    list<IOSet*> * maxmods = MaxMod_Partition(contextVector[ctxNum], currAtts, currConcept->GetSet(OBJECTS));
-//    vector<IOSet*> *maxmodsV = new vector<IOSet*>(maxmods->size());
-//    int cnt = 0;
-//    for (list<IOSet*>::iterator it = maxmods->begin(); it != maxmods->end(); it++) {
-//        maxmodsV->at(cnt) = *it;
-//        cnt++;
-//        *it = NULL;
-//    }
-//    delete maxmods;
-//    //2. Find the set of non-dominating maxmods
-//    vector<IOSet*>* primes = new vector<IOSet*>;
-//    vector<IOSet*>* domInfo = new vector<IOSet*>;
-//    domInfo->resize(maxmodsV->size());
-//    primes->resize(maxmodsV->size());
-//    list<IOSet*> * ndMaxMods = NonDominating_MaxMods(contextVector[ctxNum],
-//            currAtts, currConcept->GetSet(OBJECTS),
-//            maxmodsV,
-//            primes, domInfo);
-//    if (computeCover)Cover(currConcept, ndMaxMods, primes);
-//    //3. Compute NEW which is ndMaxMods minus any maxmod containnig an element of MARKED
-//    RemoveMarked(ndMaxMods, marked);
-//    // possible to reverse the order of steps 2 and 3 for possible faster execution
-//    int counter = 1;
-//    for (list<IOSet*>::iterator it = ndMaxMods->begin(); it != ndMaxMods->end(); it++) {
-//        if (dispProgress) {
-//            if (srchLvl == 1)
-//                cout << "\n" << counter << " of " << ndMaxMods->size();
-//        }
-//
-//        if (!(*it)->GetMarked()) {
-//            NCluster * newConcept = new NCluster(2, false);
-//            IOSet *atts = Union(currAtts, *it);
-//            IOSet *objs = Intersect(currConcept->GetSet(OBJECTS), primes->at((*it)->Id()));
-//            newConcept->InitalizeSet(ATTRIBUTES, atts);
-//            newConcept->InitalizeSet(OBJECTS, objs);
-//            newConcept->ComputeHeight();
-//            totalNumConcepts++;
-//            bool objsSize;
-//            bool attsSize;
-//            bool contSim = true;
-//            if (objs->Size() >= minCard[objSetId]) objsSize = true;
-//            else objsSize = false;
-//
-//            if (atts->Size() >= minCard[attSetId]) attsSize = true;
-//            else attsSize = false;
-//            if (objsSize) {
-//                //check other contexts
-//                NCluster *cluster = new NCluster(N);
-//                cluster->GetSet(attSetId)->DeepCopy(newConcept->GetSet(ATTRIBUTES));
-//                cluster->GetSet(attSetId)->SetId(attSetId);
-//                cluster->GetSet(objSetId)->DeepCopy(newConcept->GetSet(OBJECTS));
-//                cluster->GetSet(objSetId)->SetId(objSetId);
-//
-//                for (int i = 0; i < neighborCtx.size(); i++) {
-//
-//                    int setToQuery;
-//                    if (contextVector[neighborCtx[i]]->GetRowsId() == contextVector[ctxNum]->GetRowsId() ||
-//                            contextVector[neighborCtx[i]]->GetColsId() == contextVector[ctxNum]->GetRowsId()) {
-//                        setToQuery = contextVector[ctxNum]->GetRowsId();
-//                    } else {
-//                        setToQuery = contextVector[ctxNum]->GetColsId();
-//                    }
-//
-//                    int otherId;
-//                    if (setToQuery == contextVector[ neighborCtx[i]]->GetColsId())
-//                        otherId = contextVector[ neighborCtx[i]]->GetRowsId();
-//                    else
-//                        otherId = contextVector[ neighborCtx[i]]->GetColsId();
-//                    IOSet *set_i;
-//                    if (setToQuery == attSetId)
-//                        set_i = CheckMinPrime(atts, neighborCtx[i], setToQuery, otherId, minCard[otherId]);
-//                    else
-//                        set_i = CheckMinPrime(objs, neighborCtx[i], setToQuery, otherId, minCard[otherId]);
-//
-//
-//                    if (set_i == NULL) {
-//                        contSim=false;
-//                        delete cluster;
-//                        break;
-//                    }else{
-//                        cluster->GetSet(otherId)->DeepCopy(set_i);
-//                        cluster->GetSet(otherId)->SetId(otherId);
-//                        delete set_i;
-//                    }
-//                }
-//
-//                if (contSim) {
-//                    if (attsSize) {
-//                        numConcepts++;
-//                        if(outputConceptsNames)
-//                            cluster->Output( outConceptsNamesStrm,nameMapVector);
-//                        //add to all objs clustered
-//                        for(int i=0; i < N; i++)
-//                            allObjsClustered->GetSet(i)->DeepCopy(Union(cluster->GetSet(i),allObjsClustered->GetSet(i)));
-//
-//                    }
-//                    IOSet *newMarked = new IOSet(marked);
-//                    EnumCands(newConcept, newMarked, attSetId, objSetId, ctxNum, neighborCtx);
-//                    srchLvl--;
-//                }
-//
-//            }
-//            delete newConcept;
-//            //update marked
-//            IOSet *tmp = marked;
-//            marked = Union(marked, (*it));
-//            delete tmp;
-//            IOSet *lclDomInfo = domInfo->at((*it)->Id());
-//            int numDom = lclDomInfo->Size();
-//
-//            for (int i = 0; i < numDom; i++) {
-//                IOSet *domMaxmod = maxmodsV->at(lclDomInfo->At(i));
-//                IOSet *tmp1 = marked;
-//                marked = Union(domMaxmod, marked);
-//                delete tmp1;
-//            }
-//        } else {
-//        }
-//        (*it) = NULL;
-//        counter++;
-//    }
-//    DstryVector(maxmodsV);
-//    DstryVector(primes);
-//    DstryVector(domInfo);
-//    delete ndMaxMods;
-//    delete marked;
-//
-//}
+
