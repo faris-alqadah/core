@@ -1,0 +1,220 @@
+\hypertarget{_ops_8cpp}{
+\section{/Users/alqadaf/Research/Code/core/source/Ops.cpp File Reference}
+\label{_ops_8cpp}\index{/Users/alqadaf/Research/Code/core/source/Ops.cpp@{/Users/alqadaf/Research/Code/core/source/Ops.cpp}}
+}
+{\ttfamily \#include \char`\"{}../headers/Ops.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{_ops_8cpp_a910d6cd2be8460a54a7e3dcb343ef293}{SymmDifference} (\hyperlink{class_i_o_set}{IOSet} $\ast$a, \hyperlink{class_i_o_set}{IOSet} $\ast$b)
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{_ops_8cpp_ab83d53dae9b60ead0f5eb38efd374189}{Difference} (\hyperlink{class_i_o_set}{IOSet} $\ast$a, \hyperlink{class_i_o_set}{IOSet} $\ast$b)
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{_ops_8cpp_afab0b29e8658de19ad196436728ee499}{Intersect} (\hyperlink{class_i_o_set}{IOSet} $\ast$a, \hyperlink{class_i_o_set}{IOSet} $\ast$b)
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{_ops_8cpp_acf668c3a89850bd536e9cfe397363f3e}{Union} (\hyperlink{class_i_o_set}{IOSet} $\ast$a, \hyperlink{class_i_o_set}{IOSet} $\ast$b)
+\item 
+bool \hyperlink{_ops_8cpp_a938a63cb165b97869532ef8bd5b2cc97}{Contains} (\hyperlink{class_i_o_set}{IOSet} $\ast$a, \hyperlink{class_i_o_set}{IOSet} $\ast$b)
+\item 
+bool \hyperlink{_ops_8cpp_a8c9236c8b19610b1c7f94532d2c4f7fb}{ProperSubSet} (\hyperlink{class_i_o_set}{IOSet} $\ast$a, \hyperlink{class_i_o_set}{IOSet} $\ast$b)
+\item 
+double \hyperlink{_ops_8cpp_aa79ca02055abe1d33de7d8da14941bb7}{PercentOverlap} (\hyperlink{class_i_o_set}{IOSet} $\ast$a, \hyperlink{class_i_o_set}{IOSet} $\ast$b)
+\item 
+double \hyperlink{_ops_8cpp_aa911c39c823e99b49cf01bbe7c5bd486}{PercentOverlap\_\-Sorensen} (\hyperlink{class_i_o_set}{IOSet} $\ast$a, \hyperlink{class_i_o_set}{IOSet} $\ast$b)
+\item 
+double \hyperlink{_ops_8cpp_aa05490dc904d210ef09aa18118b514cc}{AverageOverlap} (\hyperlink{class_n_cluster}{NCluster} $\ast$a, \hyperlink{class_n_cluster}{NCluster} $\ast$b)
+\item 
+\hyperlink{class_n_cluster}{NCluster} $\ast$ \hyperlink{_ops_8cpp_a110b05f6320b52a9ce0c3281d12b6b55}{TransposeFimi} (\hyperlink{class_n_cluster}{NCluster} $\ast$a)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_ops_8cpp_a18a4f2f50453cf884b1daf7a1b865f17}{numIntersection} = 0
+\item 
+int \hyperlink{_ops_8cpp_a0cbfcf5a7397ebd6b9479203c98638cc}{numSubset} = 0
+\item 
+int \hyperlink{_ops_8cpp_a7d4c8fb0ac0adee3de71824748cbceba}{numUnion} = 0
+\item 
+int \hyperlink{_ops_8cpp_a1193183ed373e70db52e6c1a342dba5a}{numDifference} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{_ops_8cpp_aa05490dc904d210ef09aa18118b514cc}{
+\index{Ops.cpp@{Ops.cpp}!AverageOverlap@{AverageOverlap}}
+\index{AverageOverlap@{AverageOverlap}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{AverageOverlap}]{\setlength{\rightskip}{0pt plus 5cm}double AverageOverlap (
+\begin{DoxyParamCaption}
+\item[{{\bf NCluster} $\ast$}]{a, }
+\item[{{\bf NCluster} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_aa05490dc904d210ef09aa18118b514cc}
+
+
+Definition at line 85 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_a938a63cb165b97869532ef8bd5b2cc97}{
+\index{Ops.cpp@{Ops.cpp}!Contains@{Contains}}
+\index{Contains@{Contains}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{Contains}]{\setlength{\rightskip}{0pt plus 5cm}bool Contains (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a, }
+\item[{{\bf IOSet} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_a938a63cb165b97869532ef8bd5b2cc97}
+
+
+Definition at line 60 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_ab83d53dae9b60ead0f5eb38efd374189}{
+\index{Ops.cpp@{Ops.cpp}!Difference@{Difference}}
+\index{Difference@{Difference}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{Difference}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet}$\ast$ Difference (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a, }
+\item[{{\bf IOSet} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_ab83d53dae9b60ead0f5eb38efd374189}
+
+
+Definition at line 17 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_afab0b29e8658de19ad196436728ee499}{
+\index{Ops.cpp@{Ops.cpp}!Intersect@{Intersect}}
+\index{Intersect@{Intersect}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{Intersect}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet}$\ast$ Intersect (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a, }
+\item[{{\bf IOSet} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_afab0b29e8658de19ad196436728ee499}
+
+
+Definition at line 31 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_aa79ca02055abe1d33de7d8da14941bb7}{
+\index{Ops.cpp@{Ops.cpp}!PercentOverlap@{PercentOverlap}}
+\index{PercentOverlap@{PercentOverlap}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{PercentOverlap}]{\setlength{\rightskip}{0pt plus 5cm}double PercentOverlap (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a, }
+\item[{{\bf IOSet} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_aa79ca02055abe1d33de7d8da14941bb7}
+
+
+Definition at line 70 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_aa911c39c823e99b49cf01bbe7c5bd486}{
+\index{Ops.cpp@{Ops.cpp}!PercentOverlap\_\-Sorensen@{PercentOverlap\_\-Sorensen}}
+\index{PercentOverlap\_\-Sorensen@{PercentOverlap\_\-Sorensen}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{PercentOverlap\_\-Sorensen}]{\setlength{\rightskip}{0pt plus 5cm}double PercentOverlap\_\-Sorensen (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a, }
+\item[{{\bf IOSet} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_aa911c39c823e99b49cf01bbe7c5bd486}
+
+
+Definition at line 78 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_a8c9236c8b19610b1c7f94532d2c4f7fb}{
+\index{Ops.cpp@{Ops.cpp}!ProperSubSet@{ProperSubSet}}
+\index{ProperSubSet@{ProperSubSet}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{ProperSubSet}]{\setlength{\rightskip}{0pt plus 5cm}bool ProperSubSet (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a, }
+\item[{{\bf IOSet} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_a8c9236c8b19610b1c7f94532d2c4f7fb}
+
+
+Definition at line 65 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_a910d6cd2be8460a54a7e3dcb343ef293}{
+\index{Ops.cpp@{Ops.cpp}!SymmDifference@{SymmDifference}}
+\index{SymmDifference@{SymmDifference}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{SymmDifference}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet}$\ast$ SymmDifference (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a, }
+\item[{{\bf IOSet} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_a910d6cd2be8460a54a7e3dcb343ef293}
+
+
+Definition at line 10 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_a110b05f6320b52a9ce0c3281d12b6b55}{
+\index{Ops.cpp@{Ops.cpp}!TransposeFimi@{TransposeFimi}}
+\index{TransposeFimi@{TransposeFimi}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{TransposeFimi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NCluster}$\ast$ TransposeFimi (
+\begin{DoxyParamCaption}
+\item[{{\bf NCluster} $\ast$}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_a110b05f6320b52a9ce0c3281d12b6b55}
+
+
+Definition at line 93 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_acf668c3a89850bd536e9cfe397363f3e}{
+\index{Ops.cpp@{Ops.cpp}!Union@{Union}}
+\index{Union@{Union}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{Union}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet}$\ast$ Union (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a, }
+\item[{{\bf IOSet} $\ast$}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{_ops_8cpp_acf668c3a89850bd536e9cfe397363f3e}
+
+
+Definition at line 48 of file Ops.cpp.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{_ops_8cpp_a1193183ed373e70db52e6c1a342dba5a}{
+\index{Ops.cpp@{Ops.cpp}!numDifference@{numDifference}}
+\index{numDifference@{numDifference}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{numDifference}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf numDifference} = 0}}
+\label{_ops_8cpp_a1193183ed373e70db52e6c1a342dba5a}
+
+
+Definition at line 8 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_a18a4f2f50453cf884b1daf7a1b865f17}{
+\index{Ops.cpp@{Ops.cpp}!numIntersection@{numIntersection}}
+\index{numIntersection@{numIntersection}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{numIntersection}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf numIntersection} = 0}}
+\label{_ops_8cpp_a18a4f2f50453cf884b1daf7a1b865f17}
+
+
+Definition at line 5 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_a0cbfcf5a7397ebd6b9479203c98638cc}{
+\index{Ops.cpp@{Ops.cpp}!numSubset@{numSubset}}
+\index{numSubset@{numSubset}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{numSubset}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf numSubset} = 0}}
+\label{_ops_8cpp_a0cbfcf5a7397ebd6b9479203c98638cc}
+
+
+Definition at line 6 of file Ops.cpp.
+
+\hypertarget{_ops_8cpp_a7d4c8fb0ac0adee3de71824748cbceba}{
+\index{Ops.cpp@{Ops.cpp}!numUnion@{numUnion}}
+\index{numUnion@{numUnion}!Ops.cpp@{Ops.cpp}}
+\subsubsection[{numUnion}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf numUnion} = 0}}
+\label{_ops_8cpp_a7d4c8fb0ac0adee3de71824748cbceba}
+
+
+Definition at line 7 of file Ops.cpp.
+

@@ -1,0 +1,575 @@
+\hypertarget{class_i_o_set}{
+\section{IOSet Class Reference}
+\label{class_i_o_set}\index{IOSet@{IOSet}}
+}
+
+
+{\ttfamily \#include $<$IOSet.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_i_o_set_abdbbcdcb45f79251f492e0ad97a45706}{IOSet} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \item\end{DoxyCompactList}\item 
+\hyperlink{class_i_o_set_a134dbafdf32adadb409a786e1f23c9d7}{IOSet} (int sz)
+\begin{DoxyCompactList}\small\item\em Constructor that pre-\/allocates the size of the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+\hyperlink{class_i_o_set_a30b5f06491792abcffbae5aa217096d4}{IOSet} (\hyperlink{class_i_o_set}{IOSet} $\ast$a)
+\begin{DoxyCompactList}\small\item\em Copy constructor. \item\end{DoxyCompactList}\item 
+\hyperlink{class_i_o_set_a4f919f20d760efdc02ad2d4ac044eaba}{$\sim$IOSet} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_i_o_set_a384b704b09e77138e99ef914d69995e0}{Size} ()
+\begin{DoxyCompactList}\small\item\em Returns the size or number of elements in the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_i_o_set_aab9b694aacc43beacfcb4904478b9161}{Id} ()
+\begin{DoxyCompactList}\small\item\em Returns the id of the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_a056e472b53a9a9bf83758ecae590d880}{SetId} (int \hyperlink{class_i_o_set_aec085771a7d9c730275ab9cf08e3feed}{id})
+\begin{DoxyCompactList}\small\item\em Set the id of the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_a6dcbafab8dcc9533167e36078ac24e7e}{Output} ()
+\begin{DoxyCompactList}\small\item\em Prints contents of the \hyperlink{class_i_o_set}{IOSet} as space sperated intergers to stdout. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_ae8a565049da3d6912e5da49af796d457}{Output} (ofstream \&f)
+\begin{DoxyCompactList}\small\item\em Prints contents of the \hyperlink{class_i_o_set}{IOSet} as space sperated intergers to ofstream. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_a7c47a724e56e8502f8b0225c471d8592}{Output} (ofstream \&f, \hyperlink{class_name_map}{NameMap} $\ast$n)
+\begin{DoxyCompactList}\small\item\em Prints contents of the \hyperlink{class_i_o_set}{IOSet} as space sperated names to ofstream using namemap to map the integers to names. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_ae9b008481e0f283e6c6d4ed99b91dc0e}{Add} (int x)
+\begin{DoxyCompactList}\small\item\em Adds integer x to the end of the \hyperlink{class_i_o_set}{IOSet}, increasing the size of the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}{SetSize} (int x)
+\begin{DoxyCompactList}\small\item\em Assigns the private size variable of the \hyperlink{class_i_o_set}{IOSet} without actually re-\/allocationg memory. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_a31b2d68680061f676892b70954b55102}{Resize} (int x)
+\begin{DoxyCompactList}\small\item\em Resize the \hyperlink{class_i_o_set}{IOSet} to x, this will physically re-\/allocate and de-\/allocate memory unlike \hyperlink{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}{SetSize()} \item\end{DoxyCompactList}\item 
+bool \hyperlink{class_i_o_set_adf73ea0bebbddbb1136d26fc9f6dddba}{Equal} (\hyperlink{class_i_o_set}{IOSet} \&)
+\begin{DoxyCompactList}\small\item\em Returns true if both IOSets have the same size and the exact contenets in the exact order and false otherwise. \item\end{DoxyCompactList}\item 
+bool \hyperlink{class_i_o_set_a928b470720d1ce878a73a06f39647de9}{Contains} (int)
+\begin{DoxyCompactList}\small\item\em Returns true if the \hyperlink{class_i_o_set}{IOSet} contains the integer specified. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_ae416909c86424400c72de7317346c733}{DeepCopy} (\hyperlink{class_i_o_set}{IOSet} $\ast$)
+\begin{DoxyCompactList}\small\item\em Make a deep copy of the input \hyperlink{class_i_o_set}{IOSet} and assign it to self. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_a0021b9c44555444066dbb068f253a71c}{Remove} (int)
+\begin{DoxyCompactList}\small\item\em Remove the element at the specified index. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_a7e135f27326a102ab45ec56b33f8c5c3}{FindRemove} (int)
+\begin{DoxyCompactList}\small\item\em Find and remove the specified element if it exists. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_aa840da94162188f037e18152b7ddbc5d}{Sort} ()
+\begin{DoxyCompactList}\small\item\em Sort the elements of the \hyperlink{class_i_o_set}{IOSet} in asscending order. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_i_o_set_a260b6fe08d622da8938b01f63221f230}{At} (int i)
+\begin{DoxyCompactList}\small\item\em Return the ith element. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_ad9258715a1cdd1d29453326193ac78d6}{Clear} ()
+\begin{DoxyCompactList}\small\item\em Remove all elements from the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+vector$<$ unsigned int $>$::iterator \hyperlink{class_i_o_set_a35dbca9814fa6b9d663b73decf446435}{GetBegin} ()
+\begin{DoxyCompactList}\small\item\em Return an iterator to the start of the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+vector$<$ unsigned int $>$::iterator \hyperlink{class_i_o_set_a7353bb13a1e5726be3aed1eff5d3970d}{GetEnd} ()
+\begin{DoxyCompactList}\small\item\em Return an iterator the end of the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_i_o_set_adf83505da322e2b78f2d80605e777de6}{SetMarked} (bool)
+\begin{DoxyCompactList}\small\item\em Set the marked flag. \item\end{DoxyCompactList}\item 
+bool \hyperlink{class_i_o_set_a09d93330dd883be32508b7858c1ec3df}{GetMarked} ()
+\begin{DoxyCompactList}\small\item\em Returns the value of the marked flag. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_i_o_set_a99b1856d8b320d7cf3bc3d5e1352d8c6}{GetMaxElement} ()
+\begin{DoxyCompactList}\small\item\em Returns the largest element in the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_i_o_set_ae8acaf98753ad5fc405e7734988e371e}{size}
+\item 
+int \hyperlink{class_i_o_set_aec085771a7d9c730275ab9cf08e3feed}{id}
+\item 
+vector$<$ unsigned int $>$ \hyperlink{class_i_o_set_a606a04e94980958d24457389170fd92a}{d}
+\item 
+bool \hyperlink{class_i_o_set_a3fad9f242ab3609cb303f12482fcc772}{marked}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 34 of file IOSet.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_i_o_set_abdbbcdcb45f79251f492e0ad97a45706}{
+\index{IOSet@{IOSet}!IOSet@{IOSet}}
+\index{IOSet@{IOSet}!IOSet@{IOSet}}
+\subsubsection[{IOSet}]{\setlength{\rightskip}{0pt plus 5cm}IOSet::IOSet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_abdbbcdcb45f79251f492e0ad97a45706}
+
+
+Default constructor. 
+
+
+
+Definition at line 3 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a134dbafdf32adadb409a786e1f23c9d7}{
+\index{IOSet@{IOSet}!IOSet@{IOSet}}
+\index{IOSet@{IOSet}!IOSet@{IOSet}}
+\subsubsection[{IOSet}]{\setlength{\rightskip}{0pt plus 5cm}IOSet::IOSet (
+\begin{DoxyParamCaption}
+\item[{int}]{sz}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a134dbafdf32adadb409a786e1f23c9d7}
+
+
+Constructor that pre-\/allocates the size of the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 8 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a30b5f06491792abcffbae5aa217096d4}{
+\index{IOSet@{IOSet}!IOSet@{IOSet}}
+\index{IOSet@{IOSet}!IOSet@{IOSet}}
+\subsubsection[{IOSet}]{\setlength{\rightskip}{0pt plus 5cm}IOSet::IOSet (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a30b5f06491792abcffbae5aa217096d4}
+
+
+Copy constructor. 
+
+
+
+Definition at line 14 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a4f919f20d760efdc02ad2d4ac044eaba}{
+\index{IOSet@{IOSet}!$\sim$IOSet@{$\sim$IOSet}}
+\index{$\sim$IOSet@{$\sim$IOSet}!IOSet@{IOSet}}
+\subsubsection[{$\sim$IOSet}]{\setlength{\rightskip}{0pt plus 5cm}IOSet::$\sim$IOSet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a4f919f20d760efdc02ad2d4ac044eaba}
+
+
+Destructor. 
+
+
+
+Definition at line 19 of file IOSet.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_i_o_set_ae9b008481e0f283e6c6d4ed99b91dc0e}{
+\index{IOSet@{IOSet}!Add@{Add}}
+\index{Add@{Add}!IOSet@{IOSet}}
+\subsubsection[{Add}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::Add (
+\begin{DoxyParamCaption}
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_ae9b008481e0f283e6c6d4ed99b91dc0e}
+
+
+Adds integer x to the end of the \hyperlink{class_i_o_set}{IOSet}, increasing the size of the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 52 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a260b6fe08d622da8938b01f63221f230}{
+\index{IOSet@{IOSet}!At@{At}}
+\index{At@{At}!IOSet@{IOSet}}
+\subsubsection[{At}]{\setlength{\rightskip}{0pt plus 5cm}int IOSet::At (
+\begin{DoxyParamCaption}
+\item[{int}]{i}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a260b6fe08d622da8938b01f63221f230}
+
+
+Return the ith element. 
+
+
+
+Definition at line 96 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_ad9258715a1cdd1d29453326193ac78d6}{
+\index{IOSet@{IOSet}!Clear@{Clear}}
+\index{Clear@{Clear}!IOSet@{IOSet}}
+\subsubsection[{Clear}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::Clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_ad9258715a1cdd1d29453326193ac78d6}
+
+
+Remove all elements from the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 100 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a928b470720d1ce878a73a06f39647de9}{
+\index{IOSet@{IOSet}!Contains@{Contains}}
+\index{Contains@{Contains}!IOSet@{IOSet}}
+\subsubsection[{Contains}]{\setlength{\rightskip}{0pt plus 5cm}bool IOSet::Contains (
+\begin{DoxyParamCaption}
+\item[{int}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a928b470720d1ce878a73a06f39647de9}
+
+
+Returns true if the \hyperlink{class_i_o_set}{IOSet} contains the integer specified. 
+
+
+
+Definition at line 65 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_ae416909c86424400c72de7317346c733}{
+\index{IOSet@{IOSet}!DeepCopy@{DeepCopy}}
+\index{DeepCopy@{DeepCopy}!IOSet@{IOSet}}
+\subsubsection[{DeepCopy}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::DeepCopy (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_ae416909c86424400c72de7317346c733}
+
+
+Make a deep copy of the input \hyperlink{class_i_o_set}{IOSet} and assign it to self. 
+
+
+
+Definition at line 72 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_adf73ea0bebbddbb1136d26fc9f6dddba}{
+\index{IOSet@{IOSet}!Equal@{Equal}}
+\index{Equal@{Equal}!IOSet@{IOSet}}
+\subsubsection[{Equal}]{\setlength{\rightskip}{0pt plus 5cm}bool IOSet::Equal (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} \&}]{b}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_adf73ea0bebbddbb1136d26fc9f6dddba}
+
+
+Returns true if both IOSets have the same size and the exact contenets in the exact order and false otherwise. 
+
+
+
+Definition at line 57 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a7e135f27326a102ab45ec56b33f8c5c3}{
+\index{IOSet@{IOSet}!FindRemove@{FindRemove}}
+\index{FindRemove@{FindRemove}!IOSet@{IOSet}}
+\subsubsection[{FindRemove}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::FindRemove (
+\begin{DoxyParamCaption}
+\item[{int}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a7e135f27326a102ab45ec56b33f8c5c3}
+
+
+Find and remove the specified element if it exists. 
+
+
+
+Definition at line 88 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a35dbca9814fa6b9d663b73decf446435}{
+\index{IOSet@{IOSet}!GetBegin@{GetBegin}}
+\index{GetBegin@{GetBegin}!IOSet@{IOSet}}
+\subsubsection[{GetBegin}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ unsigned int $>$::iterator IOSet::GetBegin (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a35dbca9814fa6b9d663b73decf446435}
+
+
+Return an iterator to the start of the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 106 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a7353bb13a1e5726be3aed1eff5d3970d}{
+\index{IOSet@{IOSet}!GetEnd@{GetEnd}}
+\index{GetEnd@{GetEnd}!IOSet@{IOSet}}
+\subsubsection[{GetEnd}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ unsigned int $>$::iterator IOSet::GetEnd (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a7353bb13a1e5726be3aed1eff5d3970d}
+
+
+Return an iterator the end of the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 108 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a09d93330dd883be32508b7858c1ec3df}{
+\index{IOSet@{IOSet}!GetMarked@{GetMarked}}
+\index{GetMarked@{GetMarked}!IOSet@{IOSet}}
+\subsubsection[{GetMarked}]{\setlength{\rightskip}{0pt plus 5cm}bool IOSet::GetMarked (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a09d93330dd883be32508b7858c1ec3df}
+
+
+Returns the value of the marked flag. 
+
+
+
+Definition at line 105 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a99b1856d8b320d7cf3bc3d5e1352d8c6}{
+\index{IOSet@{IOSet}!GetMaxElement@{GetMaxElement}}
+\index{GetMaxElement@{GetMaxElement}!IOSet@{IOSet}}
+\subsubsection[{GetMaxElement}]{\setlength{\rightskip}{0pt plus 5cm}int IOSet::GetMaxElement (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a99b1856d8b320d7cf3bc3d5e1352d8c6}
+
+
+Returns the largest element in the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 110 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_aab9b694aacc43beacfcb4904478b9161}{
+\index{IOSet@{IOSet}!Id@{Id}}
+\index{Id@{Id}!IOSet@{IOSet}}
+\subsubsection[{Id}]{\setlength{\rightskip}{0pt plus 5cm}int IOSet::Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_aab9b694aacc43beacfcb4904478b9161}
+
+
+Returns the id of the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 22 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a6dcbafab8dcc9533167e36078ac24e7e}{
+\index{IOSet@{IOSet}!Output@{Output}}
+\index{Output@{Output}!IOSet@{IOSet}}
+\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::Output (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a6dcbafab8dcc9533167e36078ac24e7e}
+
+
+Prints contents of the \hyperlink{class_i_o_set}{IOSet} as space sperated intergers to stdout. 
+
+
+
+Definition at line 24 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a7c47a724e56e8502f8b0225c471d8592}{
+\index{IOSet@{IOSet}!Output@{Output}}
+\index{Output@{Output}!IOSet@{IOSet}}
+\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::Output (
+\begin{DoxyParamCaption}
+\item[{ofstream \&}]{f, }
+\item[{{\bf NameMap} $\ast$}]{n}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a7c47a724e56e8502f8b0225c471d8592}
+
+
+Prints contents of the \hyperlink{class_i_o_set}{IOSet} as space sperated names to ofstream using namemap to map the integers to names. 
+
+
+
+Definition at line 36 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_ae8a565049da3d6912e5da49af796d457}{
+\index{IOSet@{IOSet}!Output@{Output}}
+\index{Output@{Output}!IOSet@{IOSet}}
+\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::Output (
+\begin{DoxyParamCaption}
+\item[{ofstream \&}]{f}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_ae8a565049da3d6912e5da49af796d457}
+
+
+Prints contents of the \hyperlink{class_i_o_set}{IOSet} as space sperated intergers to ofstream. 
+
+
+
+Definition at line 29 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a0021b9c44555444066dbb068f253a71c}{
+\index{IOSet@{IOSet}!Remove@{Remove}}
+\index{Remove@{Remove}!IOSet@{IOSet}}
+\subsubsection[{Remove}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::Remove (
+\begin{DoxyParamCaption}
+\item[{int}]{idx}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a0021b9c44555444066dbb068f253a71c}
+
+
+Remove the element at the specified index. 
+
+
+
+Definition at line 81 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a31b2d68680061f676892b70954b55102}{
+\index{IOSet@{IOSet}!Resize@{Resize}}
+\index{Resize@{Resize}!IOSet@{IOSet}}
+\subsubsection[{Resize}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::Resize (
+\begin{DoxyParamCaption}
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a31b2d68680061f676892b70954b55102}
+
+
+Resize the \hyperlink{class_i_o_set}{IOSet} to x, this will physically re-\/allocate and de-\/allocate memory unlike \hyperlink{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}{SetSize()} 
+
+
+
+Definition at line 47 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a056e472b53a9a9bf83758ecae590d880}{
+\index{IOSet@{IOSet}!SetId@{SetId}}
+\index{SetId@{SetId}!IOSet@{IOSet}}
+\subsubsection[{SetId}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::SetId (
+\begin{DoxyParamCaption}
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a056e472b53a9a9bf83758ecae590d880}
+
+
+Set the id of the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 23 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_adf83505da322e2b78f2d80605e777de6}{
+\index{IOSet@{IOSet}!SetMarked@{SetMarked}}
+\index{SetMarked@{SetMarked}!IOSet@{IOSet}}
+\subsubsection[{SetMarked}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::SetMarked (
+\begin{DoxyParamCaption}
+\item[{bool}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_adf83505da322e2b78f2d80605e777de6}
+
+
+Set the marked flag. 
+
+
+
+Definition at line 104 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}{
+\index{IOSet@{IOSet}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!IOSet@{IOSet}}
+\subsubsection[{SetSize}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::SetSize (
+\begin{DoxyParamCaption}
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}
+
+
+Assigns the private size variable of the \hyperlink{class_i_o_set}{IOSet} without actually re-\/allocationg memory. 
+
+This operation should mainly be used by set operation algorithms where size of the \hyperlink{class_i_o_set}{IOSet} may not be known a-\/priori. 
+
+Definition at line 42 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_a384b704b09e77138e99ef914d69995e0}{
+\index{IOSet@{IOSet}!Size@{Size}}
+\index{Size@{Size}!IOSet@{IOSet}}
+\subsubsection[{Size}]{\setlength{\rightskip}{0pt plus 5cm}int IOSet::Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_a384b704b09e77138e99ef914d69995e0}
+
+
+Returns the size or number of elements in the \hyperlink{class_i_o_set}{IOSet}. 
+
+
+
+Definition at line 21 of file IOSet.cpp.
+
+\hypertarget{class_i_o_set_aa840da94162188f037e18152b7ddbc5d}{
+\index{IOSet@{IOSet}!Sort@{Sort}}
+\index{Sort@{Sort}!IOSet@{IOSet}}
+\subsubsection[{Sort}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::Sort (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_i_o_set_aa840da94162188f037e18152b7ddbc5d}
+
+
+Sort the elements of the \hyperlink{class_i_o_set}{IOSet} in asscending order. 
+
+
+
+Definition at line 93 of file IOSet.cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_i_o_set_a606a04e94980958d24457389170fd92a}{
+\index{IOSet@{IOSet}!d@{d}}
+\index{d@{d}!IOSet@{IOSet}}
+\subsubsection[{d}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$unsigned int$>$ {\bf IOSet::d}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_i_o_set_a606a04e94980958d24457389170fd92a}
+
+
+Definition at line 99 of file IOSet.h.
+
+\hypertarget{class_i_o_set_aec085771a7d9c730275ab9cf08e3feed}{
+\index{IOSet@{IOSet}!id@{id}}
+\index{id@{id}!IOSet@{IOSet}}
+\subsubsection[{id}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf IOSet::id}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_i_o_set_aec085771a7d9c730275ab9cf08e3feed}
+
+
+Definition at line 98 of file IOSet.h.
+
+\hypertarget{class_i_o_set_a3fad9f242ab3609cb303f12482fcc772}{
+\index{IOSet@{IOSet}!marked@{marked}}
+\index{marked@{marked}!IOSet@{IOSet}}
+\subsubsection[{marked}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf IOSet::marked}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_i_o_set_a3fad9f242ab3609cb303f12482fcc772}
+
+
+Definition at line 100 of file IOSet.h.
+
+\hypertarget{class_i_o_set_ae8acaf98753ad5fc405e7734988e371e}{
+\index{IOSet@{IOSet}!size@{size}}
+\index{size@{size}!IOSet@{IOSet}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf IOSet::size}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_i_o_set_ae8acaf98753ad5fc405e7734988e371e}
+
+
+Definition at line 97 of file IOSet.h.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/Users/alqadaf/Research/Code/core/headers/\hyperlink{_i_o_set_8h}{IOSet.h}\item 
+/Users/alqadaf/Research/Code/core/source/\hyperlink{_i_o_set_8cpp}{IOSet.cpp}\end{DoxyCompactItemize}

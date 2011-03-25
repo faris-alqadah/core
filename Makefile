@@ -23,11 +23,10 @@ OBJECTS = 	$(OBJ)/IOSet.o \
 		$(OBJ)/RelationGraph.o \
 		$(OBJ)/LatticeOps.o \
 		$(OBJ)/LatticeAlgos.o \
-		$(OBJ)/LatticeAlgosExternals.o\
-		$(OBJ)/bordat.o \
 		$(OBJ)/basic.o \
 		$(OBJ)/topk.o \
 		$(OBJ)/QualityMeasures.o \
+		$(OBJ)/Berry.o \
 		$(OBJ)/Timing.o 
 
 
@@ -55,14 +54,13 @@ $(OBJ)/PreProcess.o: $(SOURCE)/PreProcess.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/PreProcess.cpp -o $@
 
 $(OBJ)/Main.o: $(SOURCE)/Main.cpp
-	 $(CC) $(CFLAGS) -c  $(SOURCE)/Main.cpp -o $@
+	$(CC) $(CFLAGS) -c $(SOURCE)/Main.cpp -o $@
 
 $(OBJ)/IOSet.o: $(SOURCE)/IOSet.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/IOSet.cpp -o $@
 
 $(OBJ)/NameMap.o: $(SOURCE)/NameMap.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/NameMap.cpp -o $@
-
 
 $(OBJ)/Ops.o: $(SOURCE)/Ops.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/Ops.cpp -o $@
@@ -80,10 +78,9 @@ $(OBJ)/LatticeOps.o: $(SOURCE)/LatticeOps.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeOps.cpp -o $@
 $(OBJ)/LatticeAlgos.o: $(SOURCE)/LatticeAlgos.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeAlgos.cpp -o $@
-$(OBJ)/LatticeAlgosExternals.o: $(SOURCE)/LatticeAlgosExternals.cpp
-	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeAlgosExternals.cpp -o $@
-$(OBJ)/bordat.o: $(SOURCE)/nclusters/bordat.cpp
-	 $(CC) $(CFLAGS) -c  $(SOURCE)/nclusters/bordat.cpp -o $@
+$(OBJ)/Berry.o: $(SOURCE)/nclusters/berry.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/nclusters/berry.cpp -o $@
+
 $(OBJ)/basic.o: $(SOURCE)/algos_helpers/basic.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/algos_helpers/basic.cpp -o $@
 $(OBJ)/topk.o: $(SOURCE)/algos_helpers/topk.cpp

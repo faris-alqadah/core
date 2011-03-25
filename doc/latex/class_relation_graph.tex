@@ -1,0 +1,311 @@
+\hypertarget{class_relation_graph}{
+\section{RelationGraph Class Reference}
+\label{class_relation_graph}\index{RelationGraph@{RelationGraph}}
+}
+
+
+{\ttfamily \#include $<$RelationGraph.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}{RelationGraph} ()
+\item 
+\hyperlink{class_relation_graph_a801766615e87cb42f511cb068dd9d482}{$\sim$RelationGraph} ()
+\item 
+void \hyperlink{class_relation_graph_a5c1bd71649ec9c19f28b3fe0abda9540}{AddContext} (\hyperlink{class_context}{Context} $\ast$c)
+\item 
+int \hyperlink{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}{GetNumNodes} ()
+\item 
+bool \hyperlink{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}{IsEdge} (int id1, int id2)
+\item 
+vector$<$ \hyperlink{class_context}{Context} $\ast$ $>$ $\ast$ \hyperlink{class_relation_graph_acd16774976073a33da14d8461ba4165d}{GetContexts} (int domain)
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}{GetArtDomains} ()
+\item 
+\hyperlink{class_context}{Context} $\ast$ \hyperlink{class_relation_graph_afb733508ef74b8b09adda722af855f32}{GetContext} (int ctxId)
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}{GetNeighbors} (int domain)
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}{GetAllContextIds} ()
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}{GetAllDomainIds} ()
+\item 
+bool \hyperlink{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}{IsDomainId} (int dId)
+\item 
+bool \hyperlink{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}{IsContextId} (int cId)
+\item 
+void \hyperlink{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}{Print} ()
+\item 
+\hyperlink{class_context}{Context} $\ast$ \hyperlink{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}{GetContext} (int s, int t)
+\item 
+vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ $\ast$ \hyperlink{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}{GetNameMaps} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_cluster}{NCluster} \hyperlink{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}{domainContextMap}
+\item 
+vector$<$ \hyperlink{class_context}{Context} $\ast$ $>$ \hyperlink{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}{contexts}
+\item 
+\hyperlink{class_n_cluster}{NCluster} \hyperlink{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}{domainRelations}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 22 of file RelationGraph.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}{
+\index{RelationGraph@{RelationGraph}!RelationGraph@{RelationGraph}}
+\index{RelationGraph@{RelationGraph}!RelationGraph@{RelationGraph}}
+\subsubsection[{RelationGraph}]{\setlength{\rightskip}{0pt plus 5cm}RelationGraph::RelationGraph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}
+
+
+Definition at line 3 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_a801766615e87cb42f511cb068dd9d482}{
+\index{RelationGraph@{RelationGraph}!$\sim$RelationGraph@{$\sim$RelationGraph}}
+\index{$\sim$RelationGraph@{$\sim$RelationGraph}!RelationGraph@{RelationGraph}}
+\subsubsection[{$\sim$RelationGraph}]{\setlength{\rightskip}{0pt plus 5cm}RelationGraph::$\sim$RelationGraph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_a801766615e87cb42f511cb068dd9d482}
+
+
+Definition at line 6 of file RelationGraph.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_relation_graph_a5c1bd71649ec9c19f28b3fe0abda9540}{
+\index{RelationGraph@{RelationGraph}!AddContext@{AddContext}}
+\index{AddContext@{AddContext}!RelationGraph@{RelationGraph}}
+\subsubsection[{AddContext}]{\setlength{\rightskip}{0pt plus 5cm}void RelationGraph::AddContext (
+\begin{DoxyParamCaption}
+\item[{{\bf Context} $\ast$}]{c}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_a5c1bd71649ec9c19f28b3fe0abda9540}
+
+
+Definition at line 10 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}{
+\index{RelationGraph@{RelationGraph}!GetAllContextIds@{GetAllContextIds}}
+\index{GetAllContextIds@{GetAllContextIds}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetAllContextIds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ RelationGraph::GetAllContextIds (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}
+
+
+Definition at line 97 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}{
+\index{RelationGraph@{RelationGraph}!GetAllDomainIds@{GetAllDomainIds}}
+\index{GetAllDomainIds@{GetAllDomainIds}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetAllDomainIds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ RelationGraph::GetAllDomainIds (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}
+
+
+Definition at line 104 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}{
+\index{RelationGraph@{RelationGraph}!GetArtDomains@{GetArtDomains}}
+\index{GetArtDomains@{GetArtDomains}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetArtDomains}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ RelationGraph::GetArtDomains (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}
+
+
+Definition at line 83 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_afb733508ef74b8b09adda722af855f32}{
+\index{RelationGraph@{RelationGraph}!GetContext@{GetContext}}
+\index{GetContext@{GetContext}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetContext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Context} $\ast$ RelationGraph::GetContext (
+\begin{DoxyParamCaption}
+\item[{int}]{ctxId}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_afb733508ef74b8b09adda722af855f32}
+
+
+Definition at line 76 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}{
+\index{RelationGraph@{RelationGraph}!GetContext@{GetContext}}
+\index{GetContext@{GetContext}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetContext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Context} $\ast$ RelationGraph::GetContext (
+\begin{DoxyParamCaption}
+\item[{int}]{s, }
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}
+
+
+Definition at line 146 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_acd16774976073a33da14d8461ba4165d}{
+\index{RelationGraph@{RelationGraph}!GetContexts@{GetContexts}}
+\index{GetContexts@{GetContexts}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetContexts}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Context} $\ast$ $>$ $\ast$ RelationGraph::GetContexts (
+\begin{DoxyParamCaption}
+\item[{int}]{domain}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_acd16774976073a33da14d8461ba4165d}
+
+
+Definition at line 66 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}{
+\index{RelationGraph@{RelationGraph}!GetNameMaps@{GetNameMaps}}
+\index{GetNameMaps@{GetNameMaps}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetNameMaps}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf NameMap} $\ast$ $>$ $\ast$ RelationGraph::GetNameMaps (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}
+
+
+Definition at line 156 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}{
+\index{RelationGraph@{RelationGraph}!GetNeighbors@{GetNeighbors}}
+\index{GetNeighbors@{GetNeighbors}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetNeighbors}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ RelationGraph::GetNeighbors (
+\begin{DoxyParamCaption}
+\item[{int}]{domain}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}
+
+
+Definition at line 91 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}{
+\index{RelationGraph@{RelationGraph}!GetNumNodes@{GetNumNodes}}
+\index{GetNumNodes@{GetNumNodes}!RelationGraph@{RelationGraph}}
+\subsubsection[{GetNumNodes}]{\setlength{\rightskip}{0pt plus 5cm}int RelationGraph::GetNumNodes (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}
+
+
+Definition at line 54 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}{
+\index{RelationGraph@{RelationGraph}!IsContextId@{IsContextId}}
+\index{IsContextId@{IsContextId}!RelationGraph@{RelationGraph}}
+\subsubsection[{IsContextId}]{\setlength{\rightskip}{0pt plus 5cm}bool RelationGraph::IsContextId (
+\begin{DoxyParamCaption}
+\item[{int}]{cId}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}
+
+
+Definition at line 115 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}{
+\index{RelationGraph@{RelationGraph}!IsDomainId@{IsDomainId}}
+\index{IsDomainId@{IsDomainId}!RelationGraph@{RelationGraph}}
+\subsubsection[{IsDomainId}]{\setlength{\rightskip}{0pt plus 5cm}bool RelationGraph::IsDomainId (
+\begin{DoxyParamCaption}
+\item[{int}]{dId}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}
+
+
+Definition at line 111 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}{
+\index{RelationGraph@{RelationGraph}!IsEdge@{IsEdge}}
+\index{IsEdge@{IsEdge}!RelationGraph@{RelationGraph}}
+\subsubsection[{IsEdge}]{\setlength{\rightskip}{0pt plus 5cm}bool RelationGraph::IsEdge (
+\begin{DoxyParamCaption}
+\item[{int}]{id1, }
+\item[{int}]{id2}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}
+
+
+Definition at line 58 of file RelationGraph.cpp.
+
+\hypertarget{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}{
+\index{RelationGraph@{RelationGraph}!Print@{Print}}
+\index{Print@{Print}!RelationGraph@{RelationGraph}}
+\subsubsection[{Print}]{\setlength{\rightskip}{0pt plus 5cm}void RelationGraph::Print (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}
+
+
+Definition at line 122 of file RelationGraph.cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}{
+\index{RelationGraph@{RelationGraph}!contexts@{contexts}}
+\index{contexts@{contexts}!RelationGraph@{RelationGraph}}
+\subsubsection[{contexts}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf Context}$\ast$$>$ {\bf RelationGraph::contexts}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}
+
+
+Definition at line 155 of file RelationGraph.h.
+
+\hypertarget{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}{
+\index{RelationGraph@{RelationGraph}!domainContextMap@{domainContextMap}}
+\index{domainContextMap@{domainContextMap}!RelationGraph@{RelationGraph}}
+\subsubsection[{domainContextMap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NCluster} {\bf RelationGraph::domainContextMap}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}
+
+
+Definition at line 154 of file RelationGraph.h.
+
+\hypertarget{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}{
+\index{RelationGraph@{RelationGraph}!domainRelations@{domainRelations}}
+\index{domainRelations@{domainRelations}!RelationGraph@{RelationGraph}}
+\subsubsection[{domainRelations}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NCluster} {\bf RelationGraph::domainRelations}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}
+
+
+Definition at line 156 of file RelationGraph.h.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/Users/alqadaf/Research/Code/core/headers/\hyperlink{_relation_graph_8h}{RelationGraph.h}\item 
+/Users/alqadaf/Research/Code/core/source/\hyperlink{_relation_graph_8cpp}{RelationGraph.cpp}\end{DoxyCompactItemize}

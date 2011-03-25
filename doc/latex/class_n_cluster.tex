@@ -1,0 +1,456 @@
+\hypertarget{class_n_cluster}{
+\section{NCluster Class Reference}
+\label{class_n_cluster}\index{NCluster@{NCluster}}
+}
+
+
+{\ttfamily \#include $<$NCluster.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_cluster_af90ad520f3efec3f3c0b93ba9f46debc}{NCluster} ()
+\item 
+\hyperlink{class_n_cluster_ab539b74dc75b6dd1db12bdb14a304d1f}{NCluster} (unsigned int)
+\item 
+\hyperlink{class_n_cluster_ac2d41df0107c1f72c9574e066d61a7e0}{NCluster} (unsigned int, bool)
+\item 
+\hyperlink{class_n_cluster_ab5480440512649ea2cee9d47d1684732}{NCluster} (unsigned int, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ \&)
+\item 
+\hyperlink{class_n_cluster_a7f86cfa4150010e117f7520f34bbc6a4}{NCluster} (\hyperlink{class_n_cluster}{NCluster} \&)
+\item 
+\hyperlink{class_n_cluster_aae72a31bc6c2f05934a6d2248d966be5}{$\sim$NCluster} ()
+\item 
+void \hyperlink{class_n_cluster_a84dd370bb3e73f192187156cd7dba57b}{DeepCopy} (\hyperlink{class_n_cluster}{NCluster} \&)
+\item 
+void \hyperlink{class_n_cluster_a695c426f13c2fb78015c2f6d8714dc38}{Output} ()
+\item 
+void \hyperlink{class_n_cluster_afb92f84876326645c2d3e46c011c6fdf}{Output} (ofstream \&)
+\item 
+void \hyperlink{class_n_cluster_a5f75034c596cda89b823bb842f54019e}{Output} (ofstream \&, vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ \&nm)
+\item 
+int \hyperlink{class_n_cluster_a5e91f8c38a0122031c3f921b94e3a688}{GetN} ()
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_n_cluster_a7d197e1cf217fe1ce95b0ba0b4ee40bc}{GetSet} (int)
+\item 
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_n_cluster_a5d4ddbb124fc5d9c9cc706312ec80476}{GetSetById} (int \hyperlink{class_n_cluster_a9360cadd4e338b91de61f86997acc890}{id})
+\item 
+void \hyperlink{class_n_cluster_af4eeecc0717c16ffaa931a0100739f31}{AddSet} (\hyperlink{class_i_o_set}{IOSet} $\ast$a)
+\item 
+void \hyperlink{class_n_cluster_a7d16c9515b311e4b734a53e15f6f499c}{AssignSet} (int, \hyperlink{class_i_o_set}{IOSet} $\ast$)
+\item 
+void \hyperlink{class_n_cluster_a7d4e59bbd60c5f62fc1896ce472d1e27}{AssignSetById} (int, \hyperlink{class_i_o_set}{IOSet} $\ast$)
+\item 
+double \hyperlink{class_n_cluster_aad3afb3c6ca495bd69fe0593455ca785}{GetQuality} ()
+\item 
+void \hyperlink{class_n_cluster_abf7185a77e66f15d4ff3b400d51d1064}{SetQuality} (double)
+\item 
+int \hyperlink{class_n_cluster_a185204e735f03d9670855e0767592149}{GetId} ()
+\item 
+void \hyperlink{class_n_cluster_a62df66a6ed98f118dcdfebe3dc1fced5}{SetId} (int)
+\item 
+bool \hyperlink{class_n_cluster_a81e298f10335141a1257d29dc4c2e705}{GetMarked} ()
+\item 
+void \hyperlink{class_n_cluster_abb8e5da62c63785a3ac9f4ab3aad207e}{SetMarked} (bool m)
+\item 
+bool \hyperlink{class_n_cluster_acf1d8f02e7b8ec537225e896ae26534c}{ContainsIOSetId} (int \hyperlink{class_n_cluster_a9360cadd4e338b91de61f86997acc890}{id})
+\item 
+int \hyperlink{class_n_cluster_a35ad64188494aec6b0b5a255217ba11b}{GetMaxElement} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{class_n_cluster_a926e474ba279516160b52ab36d208a69}{n}
+\item 
+vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ \hyperlink{class_n_cluster_a2333af10251a6a884395aab57b9fa400}{sets}
+\item 
+double \hyperlink{class_n_cluster_a9e0aa868b02c27e6c282f9633a135aa9}{quality}
+\item 
+int \hyperlink{class_n_cluster_a9360cadd4e338b91de61f86997acc890}{id}
+\item 
+bool \hyperlink{class_n_cluster_a89a39f622490f47ed6283b17fe1d0f44}{marked}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 22 of file NCluster.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_n_cluster_af90ad520f3efec3f3c0b93ba9f46debc}{
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_af90ad520f3efec3f3c0b93ba9f46debc}
+
+
+Definition at line 2 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_ab539b74dc75b6dd1db12bdb14a304d1f}{
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{nn}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_ab539b74dc75b6dd1db12bdb14a304d1f}
+
+
+Definition at line 9 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_ac2d41df0107c1f72c9574e066d61a7e0}{
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{nn, }
+\item[{bool}]{dontAllocate}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_ac2d41df0107c1f72c9574e066d61a7e0}
+
+
+Definition at line 27 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_ab5480440512649ea2cee9d47d1684732}{
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{nn, }
+\item[{vector$<$ {\bf IOSet} $\ast$ $>$ \&}]{v}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_ab5480440512649ea2cee9d47d1684732}
+
+
+Definition at line 17 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a7f86cfa4150010e117f7520f34bbc6a4}{
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\index{NCluster@{NCluster}!NCluster@{NCluster}}
+\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (
+\begin{DoxyParamCaption}
+\item[{{\bf NCluster} \&}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a7f86cfa4150010e117f7520f34bbc6a4}
+
+
+Definition at line 36 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_aae72a31bc6c2f05934a6d2248d966be5}{
+\index{NCluster@{NCluster}!$\sim$NCluster@{$\sim$NCluster}}
+\index{$\sim$NCluster@{$\sim$NCluster}!NCluster@{NCluster}}
+\subsubsection[{$\sim$NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::$\sim$NCluster (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_aae72a31bc6c2f05934a6d2248d966be5}
+
+
+Definition at line 39 of file NCluster.cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_n_cluster_af4eeecc0717c16ffaa931a0100739f31}{
+\index{NCluster@{NCluster}!AddSet@{AddSet}}
+\index{AddSet@{AddSet}!NCluster@{NCluster}}
+\subsubsection[{AddSet}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::AddSet (
+\begin{DoxyParamCaption}
+\item[{{\bf IOSet} $\ast$}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_af4eeecc0717c16ffaa931a0100739f31}
+
+
+Definition at line 109 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a7d16c9515b311e4b734a53e15f6f499c}{
+\index{NCluster@{NCluster}!AssignSet@{AssignSet}}
+\index{AssignSet@{AssignSet}!NCluster@{NCluster}}
+\subsubsection[{AssignSet}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::AssignSet (
+\begin{DoxyParamCaption}
+\item[{int}]{idx, }
+\item[{{\bf IOSet} $\ast$}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a7d16c9515b311e4b734a53e15f6f499c}
+
+
+Definition at line 115 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a7d4e59bbd60c5f62fc1896ce472d1e27}{
+\index{NCluster@{NCluster}!AssignSetById@{AssignSetById}}
+\index{AssignSetById@{AssignSetById}!NCluster@{NCluster}}
+\subsubsection[{AssignSetById}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::AssignSetById (
+\begin{DoxyParamCaption}
+\item[{int}]{id, }
+\item[{{\bf IOSet} $\ast$}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a7d4e59bbd60c5f62fc1896ce472d1e27}
+
+
+Definition at line 122 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_acf1d8f02e7b8ec537225e896ae26534c}{
+\index{NCluster@{NCluster}!ContainsIOSetId@{ContainsIOSetId}}
+\index{ContainsIOSetId@{ContainsIOSetId}!NCluster@{NCluster}}
+\subsubsection[{ContainsIOSetId}]{\setlength{\rightskip}{0pt plus 5cm}bool NCluster::ContainsIOSetId (
+\begin{DoxyParamCaption}
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_acf1d8f02e7b8ec537225e896ae26534c}
+
+
+Definition at line 141 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a84dd370bb3e73f192187156cd7dba57b}{
+\index{NCluster@{NCluster}!DeepCopy@{DeepCopy}}
+\index{DeepCopy@{DeepCopy}!NCluster@{NCluster}}
+\subsubsection[{DeepCopy}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::DeepCopy (
+\begin{DoxyParamCaption}
+\item[{{\bf NCluster} \&}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a84dd370bb3e73f192187156cd7dba57b}
+
+
+Definition at line 47 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a185204e735f03d9670855e0767592149}{
+\index{NCluster@{NCluster}!GetId@{GetId}}
+\index{GetId@{GetId}!NCluster@{NCluster}}
+\subsubsection[{GetId}]{\setlength{\rightskip}{0pt plus 5cm}int NCluster::GetId (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a185204e735f03d9670855e0767592149}
+
+
+Definition at line 137 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a81e298f10335141a1257d29dc4c2e705}{
+\index{NCluster@{NCluster}!GetMarked@{GetMarked}}
+\index{GetMarked@{GetMarked}!NCluster@{NCluster}}
+\subsubsection[{GetMarked}]{\setlength{\rightskip}{0pt plus 5cm}bool NCluster::GetMarked (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a81e298f10335141a1257d29dc4c2e705}
+
+
+Definition at line 139 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a35ad64188494aec6b0b5a255217ba11b}{
+\index{NCluster@{NCluster}!GetMaxElement@{GetMaxElement}}
+\index{GetMaxElement@{GetMaxElement}!NCluster@{NCluster}}
+\subsubsection[{GetMaxElement}]{\setlength{\rightskip}{0pt plus 5cm}int NCluster::GetMaxElement (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a35ad64188494aec6b0b5a255217ba11b}
+
+
+Definition at line 147 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a5e91f8c38a0122031c3f921b94e3a688}{
+\index{NCluster@{NCluster}!GetN@{GetN}}
+\index{GetN@{GetN}!NCluster@{NCluster}}
+\subsubsection[{GetN}]{\setlength{\rightskip}{0pt plus 5cm}int NCluster::GetN (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a5e91f8c38a0122031c3f921b94e3a688}
+
+
+Definition at line 93 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_aad3afb3c6ca495bd69fe0593455ca785}{
+\index{NCluster@{NCluster}!GetQuality@{GetQuality}}
+\index{GetQuality@{GetQuality}!NCluster@{NCluster}}
+\subsubsection[{GetQuality}]{\setlength{\rightskip}{0pt plus 5cm}double NCluster::GetQuality (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_aad3afb3c6ca495bd69fe0593455ca785}
+
+
+Definition at line 134 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a7d197e1cf217fe1ce95b0ba0b4ee40bc}{
+\index{NCluster@{NCluster}!GetSet@{GetSet}}
+\index{GetSet@{GetSet}!NCluster@{NCluster}}
+\subsubsection[{GetSet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ NCluster::GetSet (
+\begin{DoxyParamCaption}
+\item[{int}]{idx}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a7d197e1cf217fe1ce95b0ba0b4ee40bc}
+
+
+Definition at line 99 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a5d4ddbb124fc5d9c9cc706312ec80476}{
+\index{NCluster@{NCluster}!GetSetById@{GetSetById}}
+\index{GetSetById@{GetSetById}!NCluster@{NCluster}}
+\subsubsection[{GetSetById}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ NCluster::GetSetById (
+\begin{DoxyParamCaption}
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a5d4ddbb124fc5d9c9cc706312ec80476}
+
+
+Definition at line 103 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a5f75034c596cda89b823bb842f54019e}{
+\index{NCluster@{NCluster}!Output@{Output}}
+\index{Output@{Output}!NCluster@{NCluster}}
+\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::Output (
+\begin{DoxyParamCaption}
+\item[{ofstream \&}]{out, }
+\item[{vector$<$ {\bf NameMap} $\ast$ $>$ \&}]{nm}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a5f75034c596cda89b823bb842f54019e}
+
+
+Definition at line 73 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a695c426f13c2fb78015c2f6d8714dc38}{
+\index{NCluster@{NCluster}!Output@{Output}}
+\index{Output@{Output}!NCluster@{NCluster}}
+\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::Output (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a695c426f13c2fb78015c2f6d8714dc38}
+
+
+Definition at line 58 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_afb92f84876326645c2d3e46c011c6fdf}{
+\index{NCluster@{NCluster}!Output@{Output}}
+\index{Output@{Output}!NCluster@{NCluster}}
+\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::Output (
+\begin{DoxyParamCaption}
+\item[{ofstream \&}]{out}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_afb92f84876326645c2d3e46c011c6fdf}
+
+
+Definition at line 65 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_a62df66a6ed98f118dcdfebe3dc1fced5}{
+\index{NCluster@{NCluster}!SetId@{SetId}}
+\index{SetId@{SetId}!NCluster@{NCluster}}
+\subsubsection[{SetId}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::SetId (
+\begin{DoxyParamCaption}
+\item[{int}]{a}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_a62df66a6ed98f118dcdfebe3dc1fced5}
+
+
+Definition at line 138 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_abb8e5da62c63785a3ac9f4ab3aad207e}{
+\index{NCluster@{NCluster}!SetMarked@{SetMarked}}
+\index{SetMarked@{SetMarked}!NCluster@{NCluster}}
+\subsubsection[{SetMarked}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::SetMarked (
+\begin{DoxyParamCaption}
+\item[{bool}]{m}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_abb8e5da62c63785a3ac9f4ab3aad207e}
+
+
+Definition at line 140 of file NCluster.cpp.
+
+\hypertarget{class_n_cluster_abf7185a77e66f15d4ff3b400d51d1064}{
+\index{NCluster@{NCluster}!SetQuality@{SetQuality}}
+\index{SetQuality@{SetQuality}!NCluster@{NCluster}}
+\subsubsection[{SetQuality}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::SetQuality (
+\begin{DoxyParamCaption}
+\item[{double}]{q}
+\end{DoxyParamCaption}
+)}}
+\label{class_n_cluster_abf7185a77e66f15d4ff3b400d51d1064}
+
+
+Definition at line 135 of file NCluster.cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_n_cluster_a9360cadd4e338b91de61f86997acc890}{
+\index{NCluster@{NCluster}!id@{id}}
+\index{id@{id}!NCluster@{NCluster}}
+\subsubsection[{id}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf NCluster::id}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_n_cluster_a9360cadd4e338b91de61f86997acc890}
+
+
+Definition at line 228 of file NCluster.h.
+
+\hypertarget{class_n_cluster_a89a39f622490f47ed6283b17fe1d0f44}{
+\index{NCluster@{NCluster}!marked@{marked}}
+\index{marked@{marked}!NCluster@{NCluster}}
+\subsubsection[{marked}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf NCluster::marked}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_n_cluster_a89a39f622490f47ed6283b17fe1d0f44}
+
+
+Definition at line 229 of file NCluster.h.
+
+\hypertarget{class_n_cluster_a926e474ba279516160b52ab36d208a69}{
+\index{NCluster@{NCluster}!n@{n}}
+\index{n@{n}!NCluster@{NCluster}}
+\subsubsection[{n}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf NCluster::n}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_n_cluster_a926e474ba279516160b52ab36d208a69}
+
+
+Definition at line 225 of file NCluster.h.
+
+\hypertarget{class_n_cluster_a9e0aa868b02c27e6c282f9633a135aa9}{
+\index{NCluster@{NCluster}!quality@{quality}}
+\index{quality@{quality}!NCluster@{NCluster}}
+\subsubsection[{quality}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf NCluster::quality}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_n_cluster_a9e0aa868b02c27e6c282f9633a135aa9}
+
+
+Definition at line 227 of file NCluster.h.
+
+\hypertarget{class_n_cluster_a2333af10251a6a884395aab57b9fa400}{
+\index{NCluster@{NCluster}!sets@{sets}}
+\index{sets@{sets}!NCluster@{NCluster}}
+\subsubsection[{sets}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf IOSet}$\ast$$>$ {\bf NCluster::sets}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_n_cluster_a2333af10251a6a884395aab57b9fa400}
+
+
+Definition at line 226 of file NCluster.h.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/Users/alqadaf/Research/Code/core/headers/\hyperlink{_n_cluster_8h}{NCluster.h}\item 
+/Users/alqadaf/Research/Code/core/source/\hyperlink{_n_cluster_8cpp}{NCluster.cpp}\end{DoxyCompactItemize}

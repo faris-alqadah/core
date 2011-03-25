@@ -1,16 +1,12 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2008
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *  IOSet data structure. This data structure mimics the C++ std vector but adds
- *  some additional properties such as an id.
- *
- *
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+//! Author: Faris Alqadah
+/*!Class for representing an object-set or item-set as descibed in several
+ data mining papers. Essentially an IOSet comprises an integer vector
+ with some additional properties such as an id. It is generally assumed that
+ algorithms will keep IOSets in sorted order to facilate operations such
+ as set intersections, unions, difference etc.
+ */
+
+
 #include<string>
 #include<iostream>
 #include <map>
@@ -38,215 +34,62 @@ using namespace std;
 class IOSet {
 public:
 
-    /********************************************************************/
-    // IOSet(): default constructor
-    //  Pre-Condition: none
-    //  Post-Condition:   size =0,id=-1,marked=false
-    //  returns: new IOSet object
-    //  output:none
-    /********************************************************************/
+   //! Default constructor
     IOSet();
-       /********************************************************************/
-    // IOSet(int sz): constructor that pre-allocates memory
-    //  Pre-Condition: none
-    //  Post-Condition:   size =sz,id=-1,marked=false
-    //  returns: new IOSet object
-    //  output:none
-    /********************************************************************/
+       //! Constructor that pre-allocates the size of the IOSet
     IOSet(int sz);
-    /********************************************************************/
-    // IOSet( IOSet *): copy constructor
-    //  Pre-Condition: IOSet* is not null
-    //  Post-Condition:   copy of *a
-    //  returns: new IOSet object as a copy of IOSet*
-    //  output:none
-    /********************************************************************/
+    //! Copy constructor
     IOSet(IOSet *a);
-    /********************************************************************/
-    // ~IOSet( IOSet *): destructor, nothing needs to be done so auto clean up
-    //  Pre-Condition: none
-    //  Post-Condition:   self is destroyed
-    //  returns: none
-    //  output:none
-    /********************************************************************/
+       //! Destructor
     ~IOSet();
-    /********************************************************************/
-    // Size():
-    //  Pre-Condition: none
-    //  Post-Condition:   none
-    //  returns: size of IOSet
-    //  output:none
-    /********************************************************************/
+    //! Returns the size or number of elements in the IOSet
     int Size();
-    /********************************************************************/
-    // Id():
-    //  Pre-Condition: none
-    //  Post-Condition:   none
-    //  returns: id of IOset
-    //  output:none
-    /********************************************************************/
+    //! Returns the id of the IOSet
     int Id();
-    /********************************************************************/
-    // SetId(int id):
-    //  Pre-Condition:
-    //  Post-Condition: self.id = id
-    //  returns: none
-    //  output:none
-    /********************************************************************/
+     //! Set the id of the IOSet
     void SetId(int id);
-    /********************************************************************/
-    // Output():
-    //  Pre-Condition: none
-    //  Post-Condition:   none
-    //  returns: none
-    //  output: outputs the elements of self
-    /********************************************************************/
+    //! Prints contents of the IOSet as space sperated intergers to stdout
     void Output();
-    /********************************************************************/
-    // Output(ofstream& f):
-    //  Pre-Condition: f exists and can be opened
-    //  Post-Condition:   none
-    //  returns: none
-    //  output: outputs elements of self to filestream f
-    /********************************************************************/
+    //! Prints contents of the IOSet as space sperated intergers to ofstream
     void Output(ofstream& f);
-    /********************************************************************/
-    // Output(ofstream& f, NameMap *n):
-    //  Pre-Condition: f exists and can be opened, n is non null
-    //  Post-Condition:   none
-    //  returns: none
-    //  output: outputs elements of self as mapped by n as strings
-    /********************************************************************/
+    //! Prints contents of the IOSet as space sperated names to ofstream using namemap to map the integers to names
     void Output(ofstream &f, NameMap *n);
-    /********************************************************************/
-    // Add(int x):
-    //  Pre-Condition: x is non negative
-    //  Post-Condition:   x is appened to the end self, size++
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+   //! Adds integer x to the end of the IOSet, increasing the size of the IOSet
     void Add(int x);
-    /********************************************************************/
-    // SetSize(int x): This mainly used by operations such as set intersect and
-    //                  should be avoided other than use by ops operations
-    //  Pre-Condition: x is non-negative
-    //  Post-Condition:   self.size = x
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Assigns the private size variable of the IOSet without actually re-allocationg memory
+    /*!
+     This operation should mainly be used by set operation algorithms where size of the
+     IOSet may not be known a-priori.
+     */
     void SetSize(int x);
 
-    /********************************************************************/
-    // Resize(int x): This resizes the physical size of the underlying datastructure vector,
-    //  Pre-Condition: x is non-negative
-    //  Post-Condition:   d.resize(x)
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Resize the IOSet to x, this will physically re-allocate and de-allocate memory unlike SetSize()
     void Resize(int x);
-    /********************************************************************/
-    // Equal(IOSet& a):
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: true of a.d == self.d otherwise false
-    //  output: none
-    /********************************************************************/
+    //! Returns true if both IOSets have the same size and the exact contenets in the exact order and false otherwise
     bool Equal(IOSet&);
-    /********************************************************************/
-    // Contains(int x):
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: true if x is an element of self
-    //  output: none
-    /********************************************************************/
+    //! Returns true if the IOSet contains the integer specified
     bool Contains(int);
-    /********************************************************************/
-    // DeepCopy(IOSet *a):
-    //  Pre-Condition: a is not null
-    //  Post-Condition: self is an exact deep copy of a
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Make a deep copy of the input IOSet and assign it to self
     void DeepCopy(IOSet*);
-    /********************************************************************/
-    // Remove(int x):
-    //  Pre-Condition: x < self.size
-    //  Post-Condition: removes the xth element from self, self.size --
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Remove the element at the specified index
     void Remove(int);
-    /********************************************************************/
-    // FindRemove(int x):
-    //  Pre-Condition: none
-    //  Post-Condition: removes the element with value of x, if it exists then remove & self.size --, otherwise none
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Find and remove the specified element if it exists
     void FindRemove(int);
-    /********************************************************************/
-    // Sort():
-    //  Pre-Condition: none
-    //  Post-Condition: elements of self are sorted in ascending order
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Sort the elements of the IOSet in asscending order
     void Sort();
-    /********************************************************************/
-    // At(int x):
-    //  Pre-Condition: x >= 0 && x < self.size
-    //  Post-Condition: none
-    //  returns: the xth element in self
-    //  output: none
-    /********************************************************************/
-    int At(int);
-    /********************************************************************/
-    // Clear():
-    //  Pre-Condition: none
-    //  Post-Condition: all elements of self are removed, self.size = 0
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Return the ith element
+    int At(int i);
+    //! Remove all elements from the IOSet
     void Clear();
-    /********************************************************************/
-    // GetBegin():
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: a std:vector:iterator that points to the begging of self.d
-    //  output: none
-    /********************************************************************/
+    //! Return an iterator to the start of the IOSet
     vector<unsigned int>::iterator GetBegin();
-    /********************************************************************/
-    // GetBegin():
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: a std:vector:iterator that points to the end of self.d
-    //  output: none
-    /********************************************************************/
+    //! Return an iterator the end of the IOSet
     vector<unsigned int>::iterator GetEnd();
-    /********************************************************************/
-    // SetMarked(bool a):
-    //  Pre-Condition: none
-    //  Post-Condition: self.marked = a
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Set the marked flag
     void SetMarked(bool);
-    /********************************************************************/
-    // GetMarked():
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: self.marked
-    //  output: none
-    /********************************************************************/
+    //! Returns the value of the marked flag
     bool GetMarked();
- /********************************************************************/
-// GetMaxElement()
-//  Pre-Condition: self.size > 0
-//  Post-Condition: none
-//  returns: the maximum element in the IOSet or -1 if size <= 0
-//  output: none
-/********************************************************************/
+    //! Returns the largest element in the IOSet
     int GetMaxElement();
     
 
@@ -257,22 +100,11 @@ private:
     bool marked; // has this ioset been marked???
 
 };
-/********************************************************************/
-// Compare_Sup(IOSet *a, IOSet * b): Primarly inteded to be used with std:sort, to sort a collection of IOSets by their size
-//  Pre-Condition: a and b are non-null
-//  Post-Condition: none
-//  returns: true if a.size > b.size false otherwise
-//  output: none
-/********************************************************************/
+
+//! Compartor function used for IOSets, returns true if the a->GetSize() > b->GetSize()
 bool Compare_Sup(IOSet *a, IOSet *b);
 
-/********************************************************************/
-// Compare_Id(IOSet *a, IOSet * b): Primarly inteded to be used with std:sort, to sort a collection of IOSets by their ids
-//  Pre-Condition: a and b are non-null
-//  Post-Condition: none
-//  returns: true if a.id > b.id false otherwise
-//  output: none
-/********************************************************************/
+//! Compartor function used for IOSets, returns true if the a->GetId() > b->GetId()
 bool Compare_Id(IOSet *a, IOSet *b);
 
 

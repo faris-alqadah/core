@@ -1,0 +1,265 @@
+\hypertarget{class_berry_lattice_algos}{
+\section{BerryLatticeAlgos Class Reference}
+\label{class_berry_lattice_algos}\index{BerryLatticeAlgos@{BerryLatticeAlgos}}
+}
+
+
+Author: Faris Alqadah.  
+
+
+
+
+{\ttfamily \#include $<$berry.h$>$}
+
+Inheritance diagram for BerryLatticeAlgos:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_berry_lattice_algos}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_berry_lattice_algos_a02d8e6dd215d9925422adff01208a06c}{BerryLatticeAlgos} ()
+\item 
+void \hyperlink{class_berry_lattice_algos_aa740db0f43531fc872f94c062efe59b9}{Star\_\-N\_\-Concepts} (\hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int lrnrContext)
+\begin{DoxyCompactList}\small\item\em Inteface for algorithms that compute the n-\/concepts or n-\/clusters from a star shaped HINs. \item\end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_a22c1daa784e7bf5017a40b313fcec221}{UpperNeighbors} (\hyperlink{class_n_cluster}{NCluster} $\ast$c, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int s, int t)
+\item 
+vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_af33af014732c42bf75864cb492184104}{LowerNeighbors} (\hyperlink{class_n_cluster}{NCluster} $\ast$c, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int s, int t)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_berry_lattice_algos_a0b2fefa9adf415442438b1bedbbfd317}{Enum\_\-NConcepts\_\-Berry} (\hyperlink{class_n_cluster}{NCluster} $\ast$a, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, \hyperlink{class_i_o_set}{IOSet} $\ast$marked, int s, int t)
+\begin{DoxyCompactList}\small\item\em Computes n-\/clusters utilizing the algorithm described in \char`\"{}A local approach to Concept generation\char`\"{} berry et al. as a basis. \item\end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_a9aebe3a001353fc0b200f0c121def7fc}{MaxMod\_\-Partition} (\hyperlink{class_context}{Context} $\ast$ctx, \hyperlink{class_n_cluster}{NCluster} $\ast$c, int s, int t)
+\begin{DoxyCompactList}\small\item\em Computes the maxmods of the sub-\/context ctx(A-\/c(s),c(t)) where domain s takes the place of attributes (see berry et al.) \item\end{DoxyCompactList}\item 
+list$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_a8edc5b3fcb0f597ccca4324fdee0deec}{NonDominating\_\-MaxMods} (\hyperlink{class_context}{Context} $\ast$ctx, \hyperlink{class_n_cluster}{NCluster} $\ast$c, int s, int t, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$maxmods, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$primes, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$domInfo)
+\begin{DoxyCompactList}\small\item\em Returns the set of non-\/dominating maxmods given a set of maxmods (see Br. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}{RemoveMarked} (list$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ndMaxMods, \hyperlink{class_i_o_set}{IOSet} $\ast$marked)
+\item 
+\hyperlink{class_n_cluster}{NCluster} $\ast$ \hyperlink{class_berry_lattice_algos_a87c253892ac8350043390b5c373a25a0}{MakeMatch} (\hyperlink{class_n_cluster}{NCluster} $\ast$lrnrConcept, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int s, int t)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Author: Faris Alqadah. This is a derived class of \hyperlink{class_lattice_algos}{LatticeAlgos} and implements Lattice based algorithms based on the paper \char`\"{}A local approach to Concept Generation\char`\"{} by Berry et al. Essentialy, n-\/clusters as described in the disseration \char`\"{}Mining multi-\/domain information networks\char`\"{} are mined by generalizing the algorithm presented by Berry et al. to a star shaped network. In addition, functions for computing the upper and lower neighbors of a given concept in a single context are also provided. 
+
+Definition at line 15 of file berry.h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_berry_lattice_algos_a02d8e6dd215d9925422adff01208a06c}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{BerryLatticeAlgos}]{\setlength{\rightskip}{0pt plus 5cm}BerryLatticeAlgos::BerryLatticeAlgos (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{class_berry_lattice_algos_a02d8e6dd215d9925422adff01208a06c}
+
+
+Definition at line 18 of file berry.h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_berry_lattice_algos_a0b2fefa9adf415442438b1bedbbfd317}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!Enum\_\-NConcepts\_\-Berry@{Enum\_\-NConcepts\_\-Berry}}
+\index{Enum\_\-NConcepts\_\-Berry@{Enum\_\-NConcepts\_\-Berry}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{Enum\_\-NConcepts\_\-Berry}]{\setlength{\rightskip}{0pt plus 5cm}void BerryLatticeAlgos::Enum\_\-NConcepts\_\-Berry (
+\begin{DoxyParamCaption}
+\item[{{\bf NCluster} $\ast$}]{a, }
+\item[{{\bf RelationGraph} $\ast$}]{g, }
+\item[{{\bf IOSet} $\ast$}]{marked, }
+\item[{int}]{s, }
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_berry_lattice_algos_a0b2fefa9adf415442438b1bedbbfd317}
+
+
+Computes n-\/clusters utilizing the algorithm described in \char`\"{}A local approach to Concept generation\char`\"{} berry et al. as a basis. 
+
+Performs the berry depth first search version 
+\begin{DoxyParams}{Parameters}
+{\em a} & the current ncluster which contains the current concept for this search level (see berry et al.) \\
+\hline
+{\em marked} & corresponds to the marked set (see berry et al.) \\
+\hline
+{\em g} & the relation graph, should be star shaped \\
+\hline
+{\em s} & the \char`\"{}source id\char`\"{} of the domain for which the concept a(s,t) is the current concept \\
+\hline
+{\em t} & the \char`\"{}target id\char`\"{} of the domain for which the concept a(s,t) is the current concept \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 192 of file berry.cpp.
+
+\hypertarget{class_berry_lattice_algos_af33af014732c42bf75864cb492184104}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!LowerNeighbors@{LowerNeighbors}}
+\index{LowerNeighbors@{LowerNeighbors}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{LowerNeighbors}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf NCluster} $\ast$ $>$ $\ast$ BerryLatticeAlgos::LowerNeighbors (
+\begin{DoxyParamCaption}
+\item[{{\bf NCluster} $\ast$}]{c, }
+\item[{{\bf RelationGraph} $\ast$}]{g, }
+\item[{int}]{s, }
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)}}
+\label{class_berry_lattice_algos_af33af014732c42bf75864cb492184104}
+
+
+Definition at line 317 of file berry.cpp.
+
+\hypertarget{class_berry_lattice_algos_a87c253892ac8350043390b5c373a25a0}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!MakeMatch@{MakeMatch}}
+\index{MakeMatch@{MakeMatch}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{MakeMatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NCluster} $\ast$ BerryLatticeAlgos::MakeMatch (
+\begin{DoxyParamCaption}
+\item[{{\bf NCluster} $\ast$}]{lrnrConcept, }
+\item[{{\bf RelationGraph} $\ast$}]{g, }
+\item[{int}]{s, }
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_berry_lattice_algos_a87c253892ac8350043390b5c373a25a0}
+
+
+Definition at line 267 of file berry.cpp.
+
+\hypertarget{class_berry_lattice_algos_a9aebe3a001353fc0b200f0c121def7fc}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!MaxMod\_\-Partition@{MaxMod\_\-Partition}}
+\index{MaxMod\_\-Partition@{MaxMod\_\-Partition}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{MaxMod\_\-Partition}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf IOSet} $\ast$ $>$ $\ast$ BerryLatticeAlgos::MaxMod\_\-Partition (
+\begin{DoxyParamCaption}
+\item[{{\bf Context} $\ast$}]{ctx, }
+\item[{{\bf NCluster} $\ast$}]{c, }
+\item[{int}]{s, }
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_berry_lattice_algos_a9aebe3a001353fc0b200f0c121def7fc}
+
+
+Computes the maxmods of the sub-\/context ctx(A-\/c(s),c(t)) where domain s takes the place of attributes (see berry et al.) 
+
+This is a generalization of the Maxmod-\/Partition algorithm described in berry et al. 
+\begin{DoxyParams}{Parameters}
+{\em ctx} & the full context which corresponds to g(s,t) \\
+\hline
+{\em c} & contains the concept c(s,t) \\
+\hline
+{\em s} & the \char`\"{}source id\char`\"{} of the domain for which the concept c(s,t) is the current concept \\
+\hline
+{\em t} & the \char`\"{}target id\char`\"{} of the domain for which the concept c(s,t) is the current concept \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 100 of file berry.cpp.
+
+\hypertarget{class_berry_lattice_algos_a8edc5b3fcb0f597ccca4324fdee0deec}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!NonDominating\_\-MaxMods@{NonDominating\_\-MaxMods}}
+\index{NonDominating\_\-MaxMods@{NonDominating\_\-MaxMods}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{NonDominating\_\-MaxMods}]{\setlength{\rightskip}{0pt plus 5cm}list$<$ {\bf IOSet} $\ast$ $>$ $\ast$ BerryLatticeAlgos::NonDominating\_\-MaxMods (
+\begin{DoxyParamCaption}
+\item[{{\bf Context} $\ast$}]{ctx, }
+\item[{{\bf NCluster} $\ast$}]{c, }
+\item[{int}]{s, }
+\item[{int}]{t, }
+\item[{vector$<$ {\bf IOSet} $\ast$ $>$ $\ast$}]{maxmods, }
+\item[{vector$<$ {\bf IOSet} $\ast$ $>$ $\ast$}]{primes, }
+\item[{vector$<$ {\bf IOSet} $\ast$ $>$ $\ast$}]{domInfo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_berry_lattice_algos_a8edc5b3fcb0f597ccca4324fdee0deec}
+
+
+Returns the set of non-\/dominating maxmods given a set of maxmods (see Br. 
+
+
+
+Definition at line 145 of file berry.cpp.
+
+\hypertarget{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!RemoveMarked@{RemoveMarked}}
+\index{RemoveMarked@{RemoveMarked}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{RemoveMarked}]{\setlength{\rightskip}{0pt plus 5cm}void BerryLatticeAlgos::RemoveMarked (
+\begin{DoxyParamCaption}
+\item[{list$<$ {\bf IOSet} $\ast$ $>$ $\ast$}]{ndMaxMods, }
+\item[{{\bf IOSet} $\ast$}]{marked}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}
+
+
+Definition at line 175 of file berry.cpp.
+
+\hypertarget{class_berry_lattice_algos_aa740db0f43531fc872f94c062efe59b9}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!Star\_\-N\_\-Concepts@{Star\_\-N\_\-Concepts}}
+\index{Star\_\-N\_\-Concepts@{Star\_\-N\_\-Concepts}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{Star\_\-N\_\-Concepts}]{\setlength{\rightskip}{0pt plus 5cm}void BerryLatticeAlgos::Star\_\-N\_\-Concepts (
+\begin{DoxyParamCaption}
+\item[{{\bf RelationGraph} $\ast$}]{g, }
+\item[{int}]{lrnrContext}
+\end{DoxyParamCaption}
+)}}
+\label{class_berry_lattice_algos_aa740db0f43531fc872f94c062efe59b9}
+
+
+Inteface for algorithms that compute the n-\/concepts or n-\/clusters from a star shaped HINs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & pointer to relation graph for which computation will take place. This must be a star-\/shaped relation graph \\
+\hline
+{\em lrnrContext} & the id of the context that will server as the learner (See \char`\"{}An effective algorithm for 3-\/clustering\char`\"{} by Alqadah et al.)\\
+\hline
+\end{DoxyParams}
+The following external variables from LatticeAlgosExternals should be set:
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_lattice_algos_a03adc61166377c993b4d1ef8f8ee12ee}{enumerationMode} 
+
+\hyperlink{class_lattice_algos_aabdafd3fa45b3ed1d773b313e3a60e17}{qualityMode} 
+
+\hyperlink{class_lattice_algos_a7a9a7568a564e929c494c7c94ed5dda5}{ovlpMode} 
+
+\hyperlink{class_lattice_algos_a5a4badfea96f02f89d8943ca7fecc2ab}{pruneMode} 
+
+\hyperlink{class_lattice_algos_ae50e2eab1478e1bced92b0f1f1bcdc09}{ovlpThresh} 
+
+\hyperlink{class_lattice_algos_a90e06533d513efc4635905624283eeae}{topKK} 
+\end{DoxySeeAlso}
+
+
+Definition at line 4 of file berry.cpp.
+
+\hypertarget{class_berry_lattice_algos_a22c1daa784e7bf5017a40b313fcec221}{
+\index{BerryLatticeAlgos@{BerryLatticeAlgos}!UpperNeighbors@{UpperNeighbors}}
+\index{UpperNeighbors@{UpperNeighbors}!BerryLatticeAlgos@{BerryLatticeAlgos}}
+\subsubsection[{UpperNeighbors}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf NCluster} $\ast$ $>$ $\ast$ BerryLatticeAlgos::UpperNeighbors (
+\begin{DoxyParamCaption}
+\item[{{\bf NCluster} $\ast$}]{c, }
+\item[{{\bf RelationGraph} $\ast$}]{g, }
+\item[{int}]{s, }
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)}}
+\label{class_berry_lattice_algos_a22c1daa784e7bf5017a40b313fcec221}
+
+
+Definition at line 289 of file berry.cpp.
+
+
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+/Users/alqadaf/Research/Code/core/headers/nclusters/\hyperlink{berry_8h}{berry.h}\item 
+/Users/alqadaf/Research/Code/core/source/nclusters/\hyperlink{berry_8cpp}{berry.cpp}\end{DoxyCompactItemize}
