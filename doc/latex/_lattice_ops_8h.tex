@@ -7,11 +7,11 @@
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{class_n_cluster}{NCluster} $\ast$ \hyperlink{_lattice_ops_8h_a0b88b75e48e507ce1c15d1a160664fc4}{GetTop} (\hyperlink{class_context}{Context} $\ast$c)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the concept corresponds to the concept that contains all the objects from domain2, and any element in domain1 that contains all objects from doamin2 or the empty set. \item\end{DoxyCompactList}\item 
 \hyperlink{class_n_cluster}{NCluster} $\ast$ \hyperlink{_lattice_ops_8h_a28637aaa916c65ec4998678c54e0061e}{GetBottom} (\hyperlink{class_context}{Context} $\ast$c)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns the bottom level concept from c, this concept corresponds to the concept that contains all the objects from domain1, and any element in domain2 that contains all objects from doamin1 or the empty set. \item\end{DoxyCompactList}\item 
 \hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{_lattice_ops_8h_a2a394e16994693fcfdc4f1a35ce74a3d}{Prime} (\hyperlink{class_n_cluster}{NCluster} $\ast$a, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int s, int t, int min)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Computes the Prime (') (see any book on Formal Concept Anaylsis) for a given object-\/set. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -26,6 +26,10 @@
 \label{_lattice_ops_8h_a28637aaa916c65ec4998678c54e0061e}
 
 
+Returns the bottom level concept from c, this concept corresponds to the concept that contains all the objects from domain1, and any element in domain2 that contains all objects from doamin1 or the empty set. 
+
+
+
 Definition at line 34 of file LatticeOps.cpp.
 
 \hypertarget{_lattice_ops_8h_a0b88b75e48e507ce1c15d1a160664fc4}{
@@ -38,6 +42,10 @@ Definition at line 34 of file LatticeOps.cpp.
 )}}
 \label{_lattice_ops_8h_a0b88b75e48e507ce1c15d1a160664fc4}
 
+
+Returns the concept corresponds to the concept that contains all the objects from domain2, and any element in domain1 that contains all objects from doamin2 or the empty set. 
+
+Author: Faris Alqadah Basic Lattice operations derived from formal concept anaylsis. These are extended to heterogenous information networks (HINs) 
 
 Definition at line 20 of file LatticeOps.cpp.
 
@@ -54,6 +62,25 @@ Definition at line 20 of file LatticeOps.cpp.
 \end{DoxyParamCaption}
 )}}
 \label{_lattice_ops_8h_a2a394e16994693fcfdc4f1a35ce74a3d}
+
+
+Computes the Prime (') (see any book on Formal Concept Anaylsis) for a given object-\/set. 
+
+The operation differs slighty from the strict FCA definition in that if a\mbox{[}s\mbox{]} is empty then the result is a NULL set. Moreover, this PrimeOperator is \char`\"{}min-\/aware\char`\"{} so that if at any time during the compution the results has cardinality $<$$>$ min no more operations are perfomed and NULL is returned
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & the n-\/cluster that contains set s as a(s) \\
+\hline
+{\em g} & the relation graph in which (s,t) must be an edge (a context exists) \\
+\hline
+{\em s} & indicates the source domain id in a to serve as the input for the prime operator \\
+\hline
+{\em t} & indicates the target domain \\
+\hline
+{\em min} & indicates the minimum size the result prime should be, otherwise NULL is returned \\
+\hline
+\end{DoxyParams}
 
 
 Definition at line 49 of file LatticeOps.cpp.

@@ -108,64 +108,59 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a7061dd2e2590fa24e0dfb16f28509dce">srchLvl</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">keeps track of the search level in an enumeration algorithm  <a href="#a7061dd2e2590fa24e0dfb16f28509dce"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a8a6e4d766e7f93a288e015e93b3183a0">numConcepts</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">keeps track of the search level in an enumeration algorithm  <a href="#a8a6e4d766e7f93a288e015e93b3183a0"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">keeps track of the total number of concepts or clusters enumerated  <a href="#a8a6e4d766e7f93a288e015e93b3183a0"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a7c599d38a3a66b926d7345153ca2e93c">dispProgress</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">keeps track of the total number of concepts or clusters enumerated  <a href="#a7c599d38a3a66b926d7345153ca2e93c"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to indicate if progress of the algorithm should output to the user (stdout)  <a href="#a7c599d38a3a66b926d7345153ca2e93c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_n_cluster.html">NCluster</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a006fbb44cdb89ab949bc9f47ed20a6d3">CONCEPTS</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">flag to indicate if progress of the algorithm should output to the user (stdout)  <a href="#a006fbb44cdb89ab949bc9f47ed20a6d3"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">data structure to hold the enumerated clusters in memory during algorithm exectuion  <a href="#a006fbb44cdb89ab949bc9f47ed20a6d3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_name_map.html">NameMap</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a242b1f9b2ec58cec08c4c5c074c0c1e7">NAME_MAPS</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">data structure to hold the enumerated clusters in memory during algorithm exectuion  <a href="#a242b1f9b2ec58cec08c4c5c074c0c1e7"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of name maps to be used to output clusters  <a href="#a242b1f9b2ec58cec08c4c5c074c0c1e7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#aaf79cc2e8513fd28bf1e9329c3e678ab">OUTFILE</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">vector of name maps to be used to output clusters  <a href="#aaf79cc2e8513fd28bf1e9329c3e678ab"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts  <a href="#aaf79cc2e8513fd28bf1e9329c3e678ab"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ofstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a5e06ea8a8e76d5b6019481e778655a5c">OUT1</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts  <a href="#a5e06ea8a8e76d5b6019481e778655a5c"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">ofstream used to output to OUTFILE.concepts  <a href="#a5e06ea8a8e76d5b6019481e778655a5c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ofstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#ad6ee83e69ef859717cbc747edf4fc306">OUT2</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">ofstream used to output to OUTFILE.concepts  <a href="#ad6ee83e69ef859717cbc747edf4fc306"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">ofsteram used to output to OUTFILE.concept.names  <a href="#ad6ee83e69ef859717cbc747edf4fc306"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee">enumerationMode</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory.  <a href="#a03adc61166377c993b4d1ef8f8ee12ee"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Users will set this variable to indicate the enumeration mode.  <a href="#a03adc61166377c993b4d1ef8f8ee12ee"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#aabdafd3fa45b3ed1d773b313e3a60e17">qualityMode</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">quality mode that indicates to use the beta area of a concept as its quality measure (see "An effective algorithm for mining 3-clusters" by Alqadah et al.)  <a href="#aabdafd3fa45b3ed1d773b313e3a60e17"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">user will set this variable to indicate the desired qualityMode  <a href="#aabdafd3fa45b3ed1d773b313e3a60e17"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#ae25f31284b5956278f390d0edc412ef8">qualityFunction</a> )(<a class="el" href="class_n_cluster.html">NCluster</a> *, vector&lt; double &gt; &amp;)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">user will set this variable to indicate the desired qualityMode  <a href="#ae25f31284b5956278f390d0edc412ef8"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">function pointer to a quality measure, interface functions will set this acrroding to qualityMode  <a href="#ae25f31284b5956278f390d0edc412ef8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a">params</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">function pointer to a quality measure, interface functions will set this acrroding to qualityMode  <a href="#a84a7c48411084ff5d792af41e57ce96a"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">store the parameters for a quality function here, see the <a class="el" href="_quality_measures_8h.html">QualityMeasures.h</a> documentation for specification of these parameters  <a href="#a84a7c48411084ff5d792af41e57ce96a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a7a9a7568a564e929c494c7c94ed5dda5">ovlpMode</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">overlap mode that indicates to use the average jaccard coefficient across all sets of an n-cluster to compute overlapping  <a href="#a7a9a7568a564e929c494c7c94ed5dda5"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">user will set this variable to inidicate the desired qualityMode  <a href="#a7a9a7568a564e929c494c7c94ed5dda5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#ad2bd9f8cb22cb27dfe527dd2bc38ec2d">ovlpFunction</a> )(<a class="el" href="class_n_cluster.html">NCluster</a> *, <a class="el" href="class_n_cluster.html">NCluster</a> *)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">user will set this variable to inidicate the desired qualityMode  <a href="#ad2bd9f8cb22cb27dfe527dd2bc38ec2d"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">function pointer to an overlap function computer, interface function will set this according to ovlpMode  <a href="#ad2bd9f8cb22cb27dfe527dd2bc38ec2d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#ae50e2eab1478e1bced92b0f1f1bcdc09">ovlpThresh</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">function pointer to an overlap function computer, interface function will set this according to ovlpMode  <a href="#ae50e2eab1478e1bced92b0f1f1bcdc09"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster  <a href="#ae50e2eab1478e1bced92b0f1f1bcdc09"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a90e06533d513efc4635905624283eeae">topKK</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster  <a href="#a90e06533d513efc4635905624283eeae"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">the number of clusters an algorithm should enumerate if user only wants the top k clusters  <a href="#a90e06533d513efc4635905624283eeae"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a5a4badfea96f02f89d8943ca7fecc2ab">pruneMode</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">prune mode that indicates pruning will be based on size (support pruning)  <a href="#a5a4badfea96f02f89d8943ca7fecc2ab"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">user will set this variable to indicate the the desired pruning mode  <a href="#a5a4badfea96f02f89d8943ca7fecc2ab"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a244d9a63307846c2df232091a78a6759">PRUNE_SIZE_VECTOR</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">user will set this variable to indicate the the desired pruning mode  <a href="#a244d9a63307846c2df232091a78a6759"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a2f00781816c66a03204d5e74010375e1">neighborAlgo</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">an algorithm selection for n-cluster enumeration and neighbor enumeration  <a href="#a2f00781816c66a03204d5e74010375e1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a6e7edc3f177497695e1c34b4ae6e6c79">conceptEnumerationAlgo</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">user will set this variable to indicate what algorithm to use for lattice neighbor enumeration  <a href="#a6e7edc3f177497695e1c34b4ae6e6c79"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain  <a href="#a244d9a63307846c2df232091a78a6759"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a80df6360d3246d74ae31e51e6c4bfa0e">ENUM_MEM</a> = 1</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">ofsteram used to output to OUTFILE.concept.names  <a href="#a80df6360d3246d74ae31e51e6c4bfa0e"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration mode that specifies to algorithms to mine and store clusters in memory.  <a href="#a80df6360d3246d74ae31e51e6c4bfa0e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a824804a33640782553f2b399b28fde13">ENUM_FILE</a> = 2</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration mode that specifies to algorithms to mine and store clusters in memory.  <a href="#a824804a33640782553f2b399b28fde13"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE.  <a href="#a824804a33640782553f2b399b28fde13"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a04a0ea3a71c5b598242fa4ec3d4fce79">ENUM_TOPK_FILE</a> = 3</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE.  <a href="#a04a0ea3a71c5b598242fa4ec3d4fce79"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file, this file is specified by OUTFILE.  <a href="#a04a0ea3a71c5b598242fa4ec3d4fce79"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a1c6a4b5dce3ccade9e17ce4b2a6afbe7">ENUM_TOPK_MEM</a> = 4</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file, this file is specified by OUTFILE.  <a href="#a1c6a4b5dce3ccade9e17ce4b2a6afbe7"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory.  <a href="#a1c6a4b5dce3ccade9e17ce4b2a6afbe7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a0a79ddaab00906dea5756ac05a4861a5">AREA</a> = 1</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">user will set this variable to indicate the desired enumeration mode  <a href="#a0a79ddaab00906dea5756ac05a4861a5"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">quality mode that indicates to use the area of a concept as its quality measure  <a href="#a0a79ddaab00906dea5756ac05a4861a5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a3cf765cdc6bce759203597708324ee9e">BETA</a> = 2</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">quality mode that indicates to use the area of a concept as its quality measure  <a href="#a3cf765cdc6bce759203597708324ee9e"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">quality mode that indicates to use the beta area of a concept as its quality measure (see "An effective algorithm for mining 3-clusters" by Alqadah et al.)  <a href="#a3cf765cdc6bce759203597708324ee9e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a24156b300d4b23d0d618f548091d0aeb">AVG_JACCARD</a> = 1</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">store the parameters for a quality function here, see the <a class="el" href="_quality_measures_8h.html">QualityMeasures.h</a> documentation for specification of these parameters  <a href="#a24156b300d4b23d0d618f548091d0aeb"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">overlap mode that indicates to use the average jaccard coefficient across all sets of an n-cluster to compute overlapping  <a href="#a24156b300d4b23d0d618f548091d0aeb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a9a1d69347724b131f372706322776bbb">PRUNE_SIZE</a> = 1</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">the number of clusters an algorithm should enumerate if user only wants the top k clusters  <a href="#a9a1d69347724b131f372706322776bbb"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lattice_algos.html#a4614af1d4a830831f77ea099cad5e0a3">BERRY</a> = 1</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain  <a href="#a4614af1d4a830831f77ea099cad5e0a3"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">prune mode that indicates pruning will be based on size (support pruning)  <a href="#a9a1d69347724b131f372706322776bbb"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock">
@@ -203,9 +198,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>user will set this variable to indicate the desired enumeration mode </p>
+<p>quality mode that indicates to use the area of a concept as its quality measure </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00089">89</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00087">87</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -220,27 +215,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>store the parameters for a quality function here, see the <a class="el" href="_quality_measures_8h.html">QualityMeasures.h</a> documentation for specification of these parameters </p>
+<p>overlap mode that indicates to use the average jaccard coefficient across all sets of an n-cluster to compute overlapping </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00098">98</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4614af1d4a830831f77ea099cad5e0a3"></a><!-- doxytag: member="LatticeAlgos::BERRY" ref="a4614af1d4a830831f77ea099cad5e0a3" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int <a class="el" href="class_lattice_algos.html#a4614af1d4a830831f77ea099cad5e0a3">LatticeAlgos::BERRY</a> = 1<code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain </p>
-<p>PRUNE_SIZE_VECTOR[domainId-1] should contain the minumum number of objects a domain with domainId should contian in order to be considered for enumeration. Users must set the values for this vector </p>
-
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00121">121</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00099">99</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -255,26 +232,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>quality mode that indicates to use the area of a concept as its quality measure </p>
+<p>quality mode that indicates to use the beta area of a concept as its quality measure (see "An effective algorithm for mining 3-clusters" by Alqadah et al.) </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00090">90</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6e7edc3f177497695e1c34b4ae6e6c79"></a><!-- doxytag: member="LatticeAlgos::conceptEnumerationAlgo" ref="a6e7edc3f177497695e1c34b4ae6e6c79" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="class_lattice_algos.html#a6e7edc3f177497695e1c34b4ae6e6c79">LatticeAlgos::conceptEnumerationAlgo</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>user will set this variable to indicate what algorithm to use for lattice neighbor enumeration </p>
-
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00124">124</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00089">89</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -289,9 +249,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>flag to indicate if progress of the algorithm should output to the user (stdout) </p>
+<p>data structure to hold the enumerated clusters in memory during algorithm exectuion </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00072">72</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00062">62</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -306,9 +266,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>keeps track of the total number of concepts or clusters enumerated </p>
+<p>flag to indicate if progress of the algorithm should output to the user (stdout) </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00069">69</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00058">58</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -323,9 +283,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Enumeration mode that specifies to algorithms to mine and store clusters in memory. </p>
+<p>Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE. </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00082">82</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00077">77</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -340,9 +300,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>ofsteram used to output to OUTFILE.concept.names </p>
+<p>Enumeration mode that specifies to algorithms to mine and store clusters in memory. </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00081">81</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00075">75</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -357,9 +317,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE. </p>
+<p>Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file, this file is specified by OUTFILE. </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00083">83</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00079">79</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -374,9 +334,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file, this file is specified by OUTFILE. </p>
+<p>Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory. </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00084">84</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00081">81</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -391,9 +351,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory. </p>
+<p>Users will set this variable to indicate the enumeration mode. </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00086">86</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00083">83</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -408,26 +368,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>data structure to hold the enumerated clusters in memory during algorithm exectuion </p>
+<p>vector of name maps to be used to output clusters </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00073">73</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2f00781816c66a03204d5e74010375e1"></a><!-- doxytag: member="LatticeAlgos::neighborAlgo" ref="a2f00781816c66a03204d5e74010375e1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="class_lattice_algos.html#a2f00781816c66a03204d5e74010375e1">LatticeAlgos::neighborAlgo</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>an algorithm selection for n-cluster enumeration and neighbor enumeration </p>
-
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00123">123</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00064">64</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -442,9 +385,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>keeps track of the search level in an enumeration algorithm </p>
+<p>keeps track of the total number of concepts or clusters enumerated </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00068">68</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00056">56</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -459,9 +402,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts </p>
+<p>ofstream used to output to OUTFILE.concepts </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00076">76</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00068">68</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -476,9 +419,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>ofstream used to output to OUTFILE.concepts </p>
+<p>ofsteram used to output to OUTFILE.concept.names </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00077">77</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00070">70</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -493,9 +436,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>vector of name maps to be used to output clusters </p>
+<p>if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00074">74</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00066">66</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -510,9 +453,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>user will set this variable to inidicate the desired qualityMode </p>
+<p>function pointer to an overlap function computer, interface function will set this according to ovlpMode </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00101">101</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00103">103</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -527,9 +470,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>overlap mode that indicates to use the average jaccard coefficient across all sets of an n-cluster to compute overlapping </p>
+<p>user will set this variable to inidicate the desired qualityMode </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00099">99</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00101">101</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -544,9 +487,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>function pointer to an overlap function computer, interface function will set this according to ovlpMode </p>
+<p>a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00102">102</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00105">105</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -561,7 +504,7 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>function pointer to a quality measure, interface functions will set this acrroding to qualityMode </p>
+<p>store the parameters for a quality function here, see the <a class="el" href="_quality_measures_8h.html">QualityMeasures.h</a> documentation for specification of these parameters </p>
 
 <p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00095">95</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
@@ -578,9 +521,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>the number of clusters an algorithm should enumerate if user only wants the top k clusters </p>
+<p>prune mode that indicates pruning will be based on size (support pruning) </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00109">109</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00113">113</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -595,9 +538,10 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>user will set this variable to indicate the the desired pruning mode </p>
+<p>if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain </p>
+<p>PRUNE_SIZE_VECTOR[domainId-1] should contain the minumum number of objects a domain with domainId should contian in order to be considered for enumeration. Users must set the values for this vector </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00113">113</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00122">122</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -612,9 +556,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>prune mode that indicates pruning will be based on size (support pruning) </p>
+<p>user will set this variable to indicate the the desired pruning mode </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00110">110</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00115">115</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -629,9 +573,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>user will set this variable to indicate the desired qualityMode </p>
+<p>function pointer to a quality measure, interface functions will set this acrroding to qualityMode </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00094">94</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00093">93</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -646,9 +590,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>quality mode that indicates to use the beta area of a concept as its quality measure (see "An effective algorithm for mining 3-clusters" by Alqadah et al.) </p>
+<p>user will set this variable to indicate the desired qualityMode </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00092">92</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00091">91</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -663,7 +607,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00067">67</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>keeps track of the search level in an enumeration algorithm </p>
+
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00054">54</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -678,9 +624,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster </p>
+<p>the number of clusters an algorithm should enumerate if user only wants the top k clusters </p>
 
-<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00106">106</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
+<p>Definition at line <a class="el" href="_lattice_algos_8h_source.html#l00109">109</a> of file <a class="el" href="_lattice_algos_8h_source.html">LatticeAlgos.h</a>.</p>
 
 </div>
 </div>
@@ -692,7 +638,7 @@ Static Public Attributes</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="class_lattice_algos.html">LatticeAlgos</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:17:51 for Heterogenous Information Network Clustering by&#160;
+      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

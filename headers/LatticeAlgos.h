@@ -35,25 +35,12 @@ public:
     srchLvl =0; //default
     numConcepts=0; //default
     dispProgress=false; //default
-
-
-
-///////////////////ENUMERATION MODES////////////////////////////////////////////
-enumerationMode=1; //seting default
-
-///////////////////QUALITY MODES////////////////////////////////////////////
+    enumerationMode=1; //seting default
 qualityMode=1; //default
-///////////////////Overlap MODES////////////////////////////////////////////
 ovlpMode=1;
 ovlpThresh=0.25;  //this is the overlap threshold...setting default
-///////////////////TOP K MODES////////////////////////////////////////////
- topKK = 100;      //this is "K" for top k enumerations...setting default
-
-///////////////////PRUNE MODES////////////////////////////////////////////
+topKK = 100;      //this is "K" for top k enumerations...setting default
 pruneMode=1; //defaults
-///////////////////Algorithm Seletions////////////////////////////////////////////
-neighborAlgo=1;            //defaults
-conceptEnumerationAlgo=1;  //defaults
 }
 
 
@@ -63,65 +50,79 @@ conceptEnumerationAlgo=1;  //defaults
 
 
 
+//! keeps track of the search level in an enumeration algorithm
+int srchLvl;
+//! keeps track of the total number of concepts or clusters enumerated
+int numConcepts;
+//! flag to indicate if progress of the algorithm should output to the user (stdout)
+bool dispProgress; 
 
-int srchLvl;  //! keeps track of the search level in an enumeration algorithm
-int numConcepts; //! keeps track of the total number of concepts or clusters enumerated
-bool dispProgress; //! flag to indicate if progress of the algorithm should output to the user (stdout)
-
-///////////////////Data structs and files////////////////////////////////////////////
-vector<NCluster*> CONCEPTS; //! data structure to hold the enumerated clusters in memory during algorithm exectuion
-vector<NameMap*> NAME_MAPS; //! vector of name maps to be used to output clusters
-string OUTFILE; //! if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts
-
-ofstream OUT1;  //!ofstream used to output to OUTFILE.concepts
-ofstream OUT2;  //!ofsteram used to output to OUTFILE.concept.names
-
-
-///////////////////ENUMERATION MODES////////////////////////////////////////////
-static const int ENUM_MEM=1; //! Enumeration mode that specifies to algorithms to mine and store clusters in memory
-static const int ENUM_FILE=2;//! Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE
-static const int ENUM_TOPK_FILE=3;//! Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file, this file is specified by OUTFILE
-static const int ENUM_TOPK_MEM=4;//! Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory
-
-int enumerationMode; //! user will set this variable to indicate the desired enumeration mode
-
-///////////////////QUALITY MODES////////////////////////////////////////////
-static const int AREA=1; //! quality mode that indicates to use the area of a concept as its quality measure
-static const int BETA=2;//! quality mode that indicates to use the beta area of a concept as its quality measure (see "An effective algorithm for mining 3-clusters" by Alqadah et al.)
-
-int qualityMode; //! user will set this variable to indicate the desired qualityMode
-
-double(*qualityFunction)(NCluster*, vector<double> &); //! function pointer to a quality measure, interface functions will set this acrroding to qualityMode
- vector<double> params; //! store the parameters for a quality function here, see the QualityMeasures.h documentation for specification of these parameters
-
-///////////////////Overlap MODES////////////////////////////////////////////
-static const int AVG_JACCARD=1; //! overlap mode that indicates to use the average jaccard coefficient across all sets of an n-cluster to compute overlapping
-int ovlpMode; //! user will set this variable to inidicate the desired qualityMode
-
-double(*ovlpFunction)(NCluster*,NCluster*); //! function pointer to an overlap function computer, interface function will set this according to ovlpMode
-double ovlpThresh;  //! a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster
+//Data structures and files
+//! data structure to hold the enumerated clusters in memory during algorithm exectuion
+vector<NCluster*> CONCEPTS;
+ //! vector of name maps to be used to output clusters
+vector<NameMap*> NAME_MAPS;
+//! if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts
+string OUTFILE; 
+//!ofstream used to output to OUTFILE.concepts
+ofstream OUT1;
+ //!ofsteram used to output to OUTFILE.concept.names
+ofstream OUT2; 
 
 
-///////////////////TOP K MODES////////////////////////////////////////////
-int topKK;  //! the number of clusters an algorithm should enumerate if user only wants the top k clusters
+//Enumeation Modes
+//! Enumeration mode that specifies to algorithms to mine and store clusters in memory
+static const int ENUM_MEM=1;
+//! Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE
+static const int ENUM_FILE=2;
+//! Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file, this file is specified by OUTFILE
+static const int ENUM_TOPK_FILE=3;
+//! Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory
+static const int ENUM_TOPK_MEM=4;
+//! Users will set this variable to indicate the enumeration mode
+int enumerationMode;
 
-///////////////////PRUNE MODES////////////////////////////////////////////
-static const int PRUNE_SIZE=1; //! prune mode that indicates pruning will be based on size (support pruning)
-int pruneMode; //! user will set this variable to indicate the the desired pruning mode
+//Quality Modes
+//! quality mode that indicates to use the area of a concept as its quality measure
+static const int AREA=1;
+//! quality mode that indicates to use the beta area of a concept as its quality measure (see "An effective algorithm for mining 3-clusters" by Alqadah et al.)
+static const int BETA=2;
+//! user will set this variable to indicate the desired qualityMode
+int qualityMode; 
+//! function pointer to a quality measure, interface functions will set this acrroding to qualityMode
+double(*qualityFunction)(NCluster*, vector<double> &);
+ //! store the parameters for a quality function here, see the QualityMeasures.h documentation for specification of these parameters
+ vector<double> params;
 
+//Overlap modes
+ //! overlap mode that indicates to use the average jaccard coefficient across all sets of an n-cluster to compute overlapping
+static const int AVG_JACCARD=1;
+ //! user will set this variable to inidicate the desired qualityMode
+int ovlpMode;
+//! function pointer to an overlap function computer, interface function will set this according to ovlpMode
+double(*ovlpFunction)(NCluster*,NCluster*);
+//! a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster
+double ovlpThresh;  
 
-vector<int> PRUNE_SIZE_VECTOR; //! if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain
+//top k modes
+ //! the number of clusters an algorithm should enumerate if user only wants the top k clusters
+int topKK; 
+
+// prune modes
+ //! prune mode that indicates pruning will be based on size (support pruning)
+static const int PRUNE_SIZE=1;
+ //! user will set this variable to indicate the the desired pruning mode
+int pruneMode;
+
+//! if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain
 /*!
  PRUNE_SIZE_VECTOR[domainId-1] should contain the minumum number of objects a domain with domainId should contian in order to
  be considered for enumeration. Users must set the values for this vector
  */
+vector<int> PRUNE_SIZE_VECTOR; 
 
 
-///////////////////Algorithm Seletions////////////////////////////////////////////
-static const int BERRY=1;  //! an algorithm selection for n-cluster enumeration and neighbor enumeration
 
-int neighborAlgo;   //! user will set this variable to indicate what algorithm to use for lattice neighbor enumeration
-int conceptEnumerationAlgo; //! user will set this variable to inidcate what algorithm to use for n-cluster enumeration
 
 
 

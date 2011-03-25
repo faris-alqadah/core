@@ -23,11 +23,11 @@ Inheritance diagram for BerryLatticeAlgos:\begin{figure}[H]
 \hyperlink{class_berry_lattice_algos_a02d8e6dd215d9925422adff01208a06c}{BerryLatticeAlgos} ()
 \item 
 void \hyperlink{class_berry_lattice_algos_aa740db0f43531fc872f94c062efe59b9}{Star\_\-N\_\-Concepts} (\hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int lrnrContext)
-\begin{DoxyCompactList}\small\item\em Inteface for algorithms that compute the n-\/concepts or n-\/clusters from a star shaped HINs. \item\end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Inteface for Berry-\/based algorithms that compute the n-\/concepts or n-\/clusters from a star shaped HIN. \item\end{DoxyCompactList}\item 
 vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_a22c1daa784e7bf5017a40b313fcec221}{UpperNeighbors} (\hyperlink{class_n_cluster}{NCluster} $\ast$c, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int s, int t)
-\item 
+\begin{DoxyCompactList}\small\item\em Computes the upper neighbors of a concept using the \char`\"{}Cover\char`\"{} algorithm in Berry et al. \item\end{DoxyCompactList}\item 
 vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_af33af014732c42bf75864cb492184104}{LowerNeighbors} (\hyperlink{class_n_cluster}{NCluster} $\ast$c, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int s, int t)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Computes the lower neighbors of a concept using the \char`\"{}Cover\char`\"{} algorithm in Berry et al. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -36,11 +36,11 @@ void \hyperlink{class_berry_lattice_algos_a0b2fefa9adf415442438b1bedbbfd317}{Enu
 vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_a9aebe3a001353fc0b200f0c121def7fc}{MaxMod\_\-Partition} (\hyperlink{class_context}{Context} $\ast$ctx, \hyperlink{class_n_cluster}{NCluster} $\ast$c, int s, int t)
 \begin{DoxyCompactList}\small\item\em Computes the maxmods of the sub-\/context ctx(A-\/c(s),c(t)) where domain s takes the place of attributes (see berry et al.) \item\end{DoxyCompactList}\item 
 list$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_a8edc5b3fcb0f597ccca4324fdee0deec}{NonDominating\_\-MaxMods} (\hyperlink{class_context}{Context} $\ast$ctx, \hyperlink{class_n_cluster}{NCluster} $\ast$c, int s, int t, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$maxmods, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$primes, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$domInfo)
-\begin{DoxyCompactList}\small\item\em Returns the set of non-\/dominating maxmods given a set of maxmods (see Br. \item\end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns the set of non-\/dominating maxmods given a set of maxmods. \item\end{DoxyCompactList}\item 
 void \hyperlink{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}{RemoveMarked} (list$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ndMaxMods, \hyperlink{class_i_o_set}{IOSet} $\ast$marked)
-\item 
+\begin{DoxyCompactList}\small\item\em Sets the flag to true for each maxmod which is non-\/domninating. \item\end{DoxyCompactList}\item 
 \hyperlink{class_n_cluster}{NCluster} $\ast$ \hyperlink{class_berry_lattice_algos_a87c253892ac8350043390b5c373a25a0}{MakeMatch} (\hyperlink{class_n_cluster}{NCluster} $\ast$lrnrConcept, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int s, int t)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Attempts to find mathcing semi-\/concepts to lrnrConcept(s,t) in the rest of g. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -115,6 +115,21 @@ Definition at line 192 of file berry.cpp.
 \label{class_berry_lattice_algos_af33af014732c42bf75864cb492184104}
 
 
+Computes the lower neighbors of a concept using the \char`\"{}Cover\char`\"{} algorithm in Berry et al. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & the n-\/cluster containg the concept as c(s,t) \\
+\hline
+{\em g} & the relation graph for which (s,t) should be a context \\
+\hline
+{\em s} & the \char`\"{}source id\char`\"{} of the domain for which the concept a(s,t) is the current concept, the lower neighbors will be sub-\/sets of domain s \\
+\hline
+{\em t} & the \char`\"{}target id\char`\"{} of the domain for which the concept a(s,t) is the current concept, the lower neighbors will be super-\/sets of domain t \\
+\hline
+\end{DoxyParams}
+
+
 Definition at line 317 of file berry.cpp.
 
 \hypertarget{class_berry_lattice_algos_a87c253892ac8350043390b5c373a25a0}{
@@ -129,6 +144,21 @@ Definition at line 317 of file berry.cpp.
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
 \label{class_berry_lattice_algos_a87c253892ac8350043390b5c373a25a0}
+
+
+Attempts to find mathcing semi-\/concepts to lrnrConcept(s,t) in the rest of g. 
+
+Assumes g is a star-\/shaped HIN. Then tries to find matching semi-\/concepts to lrnrConcept(s,t) in g 
+\begin{DoxyParams}{Parameters}
+{\em lrnrConcept} & the learner concept that we are trying match is lrnrConcept(s,t) \\
+\hline
+{\em g} & the star-\/shaped relation graph \\
+\hline
+{\em s} & the domain id of the articulation node and concept lrnrConcept(s,t) \\
+\hline
+{\em t} & the domain id of the other domain that makes up the learner concept \\
+\hline
+\end{DoxyParams}
 
 
 Definition at line 267 of file berry.cpp.
@@ -181,8 +211,23 @@ Definition at line 100 of file berry.cpp.
 \label{class_berry_lattice_algos_a8edc5b3fcb0f597ccca4324fdee0deec}
 
 
-Returns the set of non-\/dominating maxmods given a set of maxmods (see Br. 
+Returns the set of non-\/dominating maxmods given a set of maxmods. 
 
+In addtion the primes of each maxmod is computed, while we keep track of what maxmods dominate each non-\/dominating maxmod
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & The full context for which the non-\/dominating maxmods will be computed \\
+\hline
+{\em c} & the n-\/cluster that contains the concept with which the maxmods were generated \\
+\hline
+{\em maxmods} & list of maxmods \\
+\hline
+{\em primes} & this vector should be empty, and the routine will store the primes of the maxmods in here \\
+\hline
+{\em domInfo} & this vector should be empty, the route will store the index to which maxmods dominate every maxmod here \\
+\hline
+\end{DoxyParams}
 
 
 Definition at line 145 of file berry.cpp.
@@ -199,6 +244,10 @@ Definition at line 145 of file berry.cpp.
 \label{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}
 
 
+Sets the flag to true for each maxmod which is non-\/domninating. 
+
+
+
 Definition at line 175 of file berry.cpp.
 
 \hypertarget{class_berry_lattice_algos_aa740db0f43531fc872f94c062efe59b9}{
@@ -213,7 +262,7 @@ Definition at line 175 of file berry.cpp.
 \label{class_berry_lattice_algos_aa740db0f43531fc872f94c062efe59b9}
 
 
-Inteface for algorithms that compute the n-\/concepts or n-\/clusters from a star shaped HINs. 
+Inteface for Berry-\/based algorithms that compute the n-\/concepts or n-\/clusters from a star shaped HIN. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -253,6 +302,21 @@ Definition at line 4 of file berry.cpp.
 \end{DoxyParamCaption}
 )}}
 \label{class_berry_lattice_algos_a22c1daa784e7bf5017a40b313fcec221}
+
+
+Computes the upper neighbors of a concept using the \char`\"{}Cover\char`\"{} algorithm in Berry et al. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & the n-\/cluster containg the concept as c(s,t) \\
+\hline
+{\em g} & the relation graph for which (s,t) should be a context \\
+\hline
+{\em s} & the \char`\"{}source id\char`\"{} of the domain for which the concept a(s,t) is the current concept, the upper neighbors will be super-\/sets of domain s \\
+\hline
+{\em t} & the \char`\"{}target id\char`\"{} of the domain for which the concept a(s,t) is the current concept, the upper neighbors will be sub-\/sets of domain t \\
+\hline
+\end{DoxyParams}
 
 
 Definition at line 289 of file berry.cpp.

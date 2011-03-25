@@ -107,9 +107,11 @@ Inheritance diagram for BerryLatticeAlgos:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a02d8e6dd215d9925422adff01208a06c">BerryLatticeAlgos</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#aa740db0f43531fc872f94c062efe59b9">Star_N_Concepts</a> (<a class="el" href="class_relation_graph.html">RelationGraph</a> *g, int lrnrContext)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Inteface for algorithms that compute the n-concepts or n-clusters from a star shaped HINs.  <a href="#aa740db0f43531fc872f94c062efe59b9"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Inteface for Berry-based algorithms that compute the n-concepts or n-clusters from a star shaped HIN.  <a href="#aa740db0f43531fc872f94c062efe59b9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_n_cluster.html">NCluster</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a22c1daa784e7bf5017a40b313fcec221">UpperNeighbors</a> (<a class="el" href="class_n_cluster.html">NCluster</a> *c, <a class="el" href="class_relation_graph.html">RelationGraph</a> *g, int s, int t)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the upper neighbors of a concept using the "Cover" algorithm in Berry et al.  <a href="#a22c1daa784e7bf5017a40b313fcec221"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_n_cluster.html">NCluster</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#af33af014732c42bf75864cb492184104">LowerNeighbors</a> (<a class="el" href="class_n_cluster.html">NCluster</a> *c, <a class="el" href="class_relation_graph.html">RelationGraph</a> *g, int s, int t)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the lower neighbors of a concept using the "Cover" algorithm in Berry et al.  <a href="#af33af014732c42bf75864cb492184104"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a0b2fefa9adf415442438b1bedbbfd317">Enum_NConcepts_Berry</a> (<a class="el" href="class_n_cluster.html">NCluster</a> *a, <a class="el" href="class_relation_graph.html">RelationGraph</a> *g, <a class="el" href="class_i_o_set.html">IOSet</a> *marked, int s, int t)</td></tr>
@@ -117,9 +119,11 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a9aebe3a001353fc0b200f0c121def7fc">MaxMod_Partition</a> (<a class="el" href="class_context.html">Context</a> *ctx, <a class="el" href="class_n_cluster.html">NCluster</a> *c, int s, int t)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the maxmods of the sub-context ctx(A-c(s),c(t)) where domain s takes the place of attributes (see berry et al.)  <a href="#a9aebe3a001353fc0b200f0c121def7fc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a8edc5b3fcb0f597ccca4324fdee0deec">NonDominating_MaxMods</a> (<a class="el" href="class_context.html">Context</a> *ctx, <a class="el" href="class_n_cluster.html">NCluster</a> *c, int s, int t, vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *maxmods, vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *primes, vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *domInfo)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the set of non-dominating maxmods given a set of maxmods (see Br.  <a href="#a8edc5b3fcb0f597ccca4324fdee0deec"></a><br/></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the set of non-dominating maxmods given a set of maxmods.  <a href="#a8edc5b3fcb0f597ccca4324fdee0deec"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a4e77968caf06f4b29704062c6834a329">RemoveMarked</a> (list&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *ndMaxMods, <a class="el" href="class_i_o_set.html">IOSet</a> *marked)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the flag to true for each maxmod which is non-domninating.  <a href="#a4e77968caf06f4b29704062c6834a329"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_cluster.html">NCluster</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a87c253892ac8350043390b5c373a25a0">MakeMatch</a> (<a class="el" href="class_n_cluster.html">NCluster</a> *lrnrConcept, <a class="el" href="class_relation_graph.html">RelationGraph</a> *g, int s, int t)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to find mathcing semi-concepts to lrnrConcept(s,t) in the rest of g.  <a href="#a87c253892ac8350043390b5c373a25a0"></a><br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Author: Faris Alqadah. </p>
@@ -243,6 +247,17 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Computes the lower neighbors of a concept using the "Cover" algorithm in Berry et al. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>the n-cluster containg the concept as c(s,t) </td></tr>
+    <tr><td class="paramname">g</td><td>the relation graph for which (s,t) should be a context </td></tr>
+    <tr><td class="paramname">s</td><td>the "source id" of the domain for which the concept a(s,t) is the current concept, the lower neighbors will be sub-sets of domain s </td></tr>
+    <tr><td class="paramname">t</td><td>the "target id" of the domain for which the concept a(s,t) is the current concept, the lower neighbors will be super-sets of domain t </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Definition at line <a class="el" href="berry_8cpp_source.html#l00317">317</a> of file <a class="el" href="berry_8cpp_source.html">berry.cpp</a>.</p>
 
 </div>
@@ -283,6 +298,18 @@ Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Attempts to find mathcing semi-concepts to lrnrConcept(s,t) in the rest of g. </p>
+<p>Assumes g is a star-shaped HIN. Then tries to find matching semi-concepts to lrnrConcept(s,t) in g </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lrnrConcept</td><td>the learner concept that we are trying match is lrnrConcept(s,t) </td></tr>
+    <tr><td class="paramname">g</td><td>the star-shaped relation graph </td></tr>
+    <tr><td class="paramname">s</td><td>the domain id of the articulation node and concept lrnrConcept(s,t) </td></tr>
+    <tr><td class="paramname">t</td><td>the domain id of the other domain that makes up the learner concept </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Definition at line <a class="el" href="berry_8cpp_source.html#l00267">267</a> of file <a class="el" href="berry_8cpp_source.html">berry.cpp</a>.</p>
 
@@ -396,7 +423,18 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Returns the set of non-dominating maxmods given a set of maxmods (see Br. </p>
+<p>Returns the set of non-dominating maxmods given a set of maxmods. </p>
+<p>In addtion the primes of each maxmod is computed, while we keep track of what maxmods dominate each non-dominating maxmod</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The full context for which the non-dominating maxmods will be computed </td></tr>
+    <tr><td class="paramname">c</td><td>the n-cluster that contains the concept with which the maxmods were generated </td></tr>
+    <tr><td class="paramname">maxmods</td><td>list of maxmods </td></tr>
+    <tr><td class="paramname">primes</td><td>this vector should be empty, and the routine will store the primes of the maxmods in here </td></tr>
+    <tr><td class="paramname">domInfo</td><td>this vector should be empty, the route will store the index to which maxmods dominate every maxmod here </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Definition at line <a class="el" href="berry_8cpp_source.html#l00145">145</a> of file <a class="el" href="berry_8cpp_source.html">berry.cpp</a>.</p>
 
@@ -427,6 +465,8 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Sets the flag to true for each maxmod which is non-domninating. </p>
+
 <p>Definition at line <a class="el" href="berry_8cpp_source.html#l00175">175</a> of file <a class="el" href="berry_8cpp_source.html">berry.cpp</a>.</p>
 
 </div>
@@ -456,7 +496,7 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Inteface for algorithms that compute the n-concepts or n-clusters from a star shaped HINs. </p>
+<p>Inteface for Berry-based algorithms that compute the n-concepts or n-clusters from a star shaped HIN. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">g</td><td>pointer to relation graph for which computation will take place. This must be a star-shaped relation graph </td></tr>
@@ -465,17 +505,17 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 <p>The following external variables from LatticeAlgosExternals should be set:</p>
-<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory...">enumerationMode</a> </dd>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> </dd>
 <dd>
-<a class="el" href="class_lattice_algos.html#aabdafd3fa45b3ed1d773b313e3a60e17" title="quality mode that indicates to use the beta area of a concept as its quality measure (see &quot;An ef...">qualityMode</a> </dd>
+<a class="el" href="class_lattice_algos.html#aabdafd3fa45b3ed1d773b313e3a60e17" title="user will set this variable to indicate the desired qualityMode">qualityMode</a> </dd>
 <dd>
-<a class="el" href="class_lattice_algos.html#a7a9a7568a564e929c494c7c94ed5dda5" title="overlap mode that indicates to use the average jaccard coefficient across all sets of an n-cluster to...">ovlpMode</a> </dd>
+<a class="el" href="class_lattice_algos.html#a7a9a7568a564e929c494c7c94ed5dda5" title="user will set this variable to inidicate the desired qualityMode">ovlpMode</a> </dd>
 <dd>
-<a class="el" href="class_lattice_algos.html#a5a4badfea96f02f89d8943ca7fecc2ab" title="prune mode that indicates pruning will be based on size (support pruning)">pruneMode</a> </dd>
+<a class="el" href="class_lattice_algos.html#a5a4badfea96f02f89d8943ca7fecc2ab" title="user will set this variable to indicate the the desired pruning mode">pruneMode</a> </dd>
 <dd>
-<a class="el" href="class_lattice_algos.html#ae50e2eab1478e1bced92b0f1f1bcdc09" title="function pointer to an overlap function computer, interface function will set this according to ovlpM...">ovlpThresh</a> </dd>
+<a class="el" href="class_lattice_algos.html#ae50e2eab1478e1bced92b0f1f1bcdc09" title="a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the...">ovlpThresh</a> </dd>
 <dd>
-<a class="el" href="class_lattice_algos.html#a90e06533d513efc4635905624283eeae" title="a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the...">topKK</a> </dd></dl>
+<a class="el" href="class_lattice_algos.html#a90e06533d513efc4635905624283eeae" title="the number of clusters an algorithm should enumerate if user only wants the top k clusters...">topKK</a> </dd></dl>
 
 <p>Definition at line <a class="el" href="berry_8cpp_source.html#l00004">4</a> of file <a class="el" href="berry_8cpp_source.html">berry.cpp</a>.</p>
 
@@ -518,6 +558,17 @@ Private Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Computes the upper neighbors of a concept using the "Cover" algorithm in Berry et al. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>the n-cluster containg the concept as c(s,t) </td></tr>
+    <tr><td class="paramname">g</td><td>the relation graph for which (s,t) should be a context </td></tr>
+    <tr><td class="paramname">s</td><td>the "source id" of the domain for which the concept a(s,t) is the current concept, the upper neighbors will be super-sets of domain s </td></tr>
+    <tr><td class="paramname">t</td><td>the "target id" of the domain for which the concept a(s,t) is the current concept, the upper neighbors will be sub-sets of domain t </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Definition at line <a class="el" href="berry_8cpp_source.html#l00289">289</a> of file <a class="el" href="berry_8cpp_source.html">berry.cpp</a>.</p>
 
 </div>
@@ -531,7 +582,7 @@ Private Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="class_berry_lattice_algos.html">BerryLatticeAlgos</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:17:51 for Heterogenous Information Network Clustering by&#160;
+      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

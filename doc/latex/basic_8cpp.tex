@@ -7,17 +7,17 @@
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{basic_8cpp_a53d0c21eb67a8c863d012e60f9afff0c}{StoreCluster} (vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ \&v, \hyperlink{class_n_cluster}{NCluster} $\ast$c)
-\item 
+\begin{DoxyCompactList}\small\item\em adds a new copy of to v \item\end{DoxyCompactList}\item 
 void \hyperlink{basic_8cpp_a50a890e294e948043c5c80248ea6a22a}{SwapDelete} (vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ \&v, \hyperlink{class_n_cluster}{NCluster} $\ast$c, int i)
-\item 
+\begin{DoxyCompactList}\small\item\em swaps out the ith pointer in v for a new copy of c \item\end{DoxyCompactList}\item 
 void \hyperlink{basic_8cpp_ad12ab1dc642c9ccad07b85fe6f332fef}{SetQuality} (\hyperlink{class_n_cluster}{NCluster} $\ast$c, vector$<$ double $>$ \&params, double($\ast$Quality)(\hyperlink{class_n_cluster}{NCluster} $\ast$, vector$<$ double $>$ \&))
-\item 
+\begin{DoxyCompactList}\small\item\em Sets the quality of c by calling the Quality(c,params) function. \item\end{DoxyCompactList}\item 
 void \hyperlink{basic_8cpp_a5b48526e00306a7f589123538a46a92e}{DispProgress} (int ctr, int total)
-\item 
+\begin{DoxyCompactList}\small\item\em Displays progress to stdout as ctr / total. \item\end{DoxyCompactList}\item 
 void \hyperlink{basic_8cpp_aa15fb769b9c15afcdcb4a86d507c5763}{OutputCluster} (\hyperlink{class_n_cluster}{NCluster} $\ast$c, ofstream \&out)
-\item 
+\begin{DoxyCompactList}\small\item\em Writes c to the file pointed to by out and flushes the buffer for instant writing. \item\end{DoxyCompactList}\item 
 void \hyperlink{basic_8cpp_a56a1ded0d291f6622b1f3ef059564554}{OutputCluster} (\hyperlink{class_n_cluster}{NCluster} $\ast$c, ofstream \&out, vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ \&nms)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Writes c to the file pointed to by out using the namemap vectors and flushes the buffer for instant writing. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -33,6 +33,10 @@ void \hyperlink{basic_8cpp_a56a1ded0d291f6622b1f3ef059564554}{OutputCluster} (\h
 \label{basic_8cpp_a5b48526e00306a7f589123538a46a92e}
 
 
+Displays progress to stdout as ctr / total. 
+
+
+
 Definition at line 20 of file basic.cpp.
 
 \hypertarget{basic_8cpp_aa15fb769b9c15afcdcb4a86d507c5763}{
@@ -45,6 +49,10 @@ Definition at line 20 of file basic.cpp.
 \end{DoxyParamCaption}
 )}}
 \label{basic_8cpp_aa15fb769b9c15afcdcb4a86d507c5763}
+
+
+Writes c to the file pointed to by out and flushes the buffer for instant writing. 
+
 
 
 Definition at line 25 of file basic.cpp.
@@ -62,6 +70,10 @@ Definition at line 25 of file basic.cpp.
 \label{basic_8cpp_a56a1ded0d291f6622b1f3ef059564554}
 
 
+Writes c to the file pointed to by out using the namemap vectors and flushes the buffer for instant writing. 
+
+
+
 Definition at line 30 of file basic.cpp.
 
 \hypertarget{basic_8cpp_ad12ab1dc642c9ccad07b85fe6f332fef}{
@@ -75,6 +87,25 @@ Definition at line 30 of file basic.cpp.
 \end{DoxyParamCaption}
 )}}
 \label{basic_8cpp_ad12ab1dc642c9ccad07b85fe6f332fef}
+
+
+Sets the quality of c by calling the Quality(c,params) function. 
+
+Every Quality function should have a specification for what it expects in params vector. \begin{DoxySeeAlso}{See also}
+QualityMeasures 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em c} & the ncluster for which the quality should be computed \\
+\hline
+{\em params} & a vector of paramaters that will be used to compute the quality \\
+\hline
+{\em Quality} & a valid pointer to a function for whcih quality will be computed. The functions should be derived from \hyperlink{_quality_measures_8h}{QualityMeasures.h}\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+QualityMeasures 
+\end{DoxySeeAlso}
 
 
 Definition at line 16 of file basic.cpp.
@@ -91,6 +122,10 @@ Definition at line 16 of file basic.cpp.
 \label{basic_8cpp_a53d0c21eb67a8c863d012e60f9afff0c}
 
 
+adds a new copy of to v 
+
+Author: Faris Alqadah General Helper functions for algorithms 
+
 Definition at line 4 of file basic.cpp.
 
 \hypertarget{basic_8cpp_a50a890e294e948043c5c80248ea6a22a}{
@@ -104,6 +139,10 @@ Definition at line 4 of file basic.cpp.
 \end{DoxyParamCaption}
 )}}
 \label{basic_8cpp_a50a890e294e948043c5c80248ea6a22a}
+
+
+swaps out the ith pointer in v for a new copy of c 
+
 
 
 Definition at line 8 of file basic.cpp.

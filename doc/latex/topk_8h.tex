@@ -9,7 +9,7 @@
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{topk_8h_afb73425715c35af9dbda928f2459ca6b}{RetainTopK\_\-Overlap} (vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ \&v, \hyperlink{class_n_cluster}{NCluster} $\ast$c, double($\ast$Ovlp)(\hyperlink{class_n_cluster}{NCluster} $\ast$, \hyperlink{class_n_cluster}{NCluster} $\ast$), double ovlpThresh, int k)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Retains the top K clusters by checking for overlapping clusters then keeping the higher quality cluster if overlap occurs. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -26,6 +26,31 @@ void \hyperlink{topk_8h_afb73425715c35af9dbda928f2459ca6b}{RetainTopK\_\-Overlap
 \end{DoxyParamCaption}
 )}}
 \label{topk_8h_afb73425715c35af9dbda928f2459ca6b}
+
+
+Retains the top K clusters by checking for overlapping clusters then keeping the higher quality cluster if overlap occurs. 
+
+Author: Faris Alqadah Helper functions for keeping track of the top K clusters during an enumeration algorithm
+
+Attempts to add the cluster c to v, this can happen in three cases v.size() $<$ k OR there does not exist any cluster x in v s.t Ovlp(c,x) $>$ ovlpThresh \&\& Quality(c) $>$ min(Quality(x)) for any x in v OR there exists at least once cluster c s.t. ovlp(c,x) $>$ ovlpThresh \&\& Quality(c) $>$ Quality(x) then c replaces x 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vector of current clusters enumerated by the algorithm \\
+\hline
+{\em c} & the current cluster enumerated \\
+\hline
+{\em Ovlp} & a function pointer to a function that computes overlap between clusters \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Ops 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em ovlpThresh} & the threshold for overlap \\
+\hline
+{\em k} & K \\
+\hline
+\end{DoxyParams}
 
 
 Definition at line 4 of file topk.cpp.

@@ -92,6 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="topk_8h.html#afb73425715c35af9dbda928f2459ca6b">RetainTopK_Overlap</a> (vector&lt; <a class="el" href="class_n_cluster.html">NCluster</a> * &gt; &amp;v, <a class="el" href="class_n_cluster.html">NCluster</a> *c, double(*Ovlp)(<a class="el" href="class_n_cluster.html">NCluster</a> *, <a class="el" href="class_n_cluster.html">NCluster</a> *), double ovlpThresh, int k)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Retains the top K clusters by checking for overlapping clusters then keeping the higher quality cluster if overlap occurs.  <a href="#afb73425715c35af9dbda928f2459ca6b"></a><br/></td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
 <a class="anchor" id="afb73425715c35af9dbda928f2459ca6b"></a><!-- doxytag: member="topk.h::RetainTopK_Overlap" ref="afb73425715c35af9dbda928f2459ca6b" args="(vector&lt; NCluster * &gt; &amp;v, NCluster *c, double(*Ovlp)(NCluster *, NCluster *), double ovlpThresh, int k)" -->
@@ -137,6 +138,26 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Retains the top K clusters by checking for overlapping clusters then keeping the higher quality cluster if overlap occurs. </p>
+<p>Author: Faris Alqadah Helper functions for keeping track of the top K clusters during an enumeration algorithm</p>
+<p>Attempts to add the cluster c to v, this can happen in three cases v.size() &lt; k OR there does not exist any cluster x in v s.t Ovlp(c,x) &gt; ovlpThresh &amp;&amp; Quality(c) &gt; min(Quality(x)) for any x in v OR there exists at least once cluster c s.t. ovlp(c,x) &gt; ovlpThresh &amp;&amp; Quality(c) &gt; Quality(x) then c replaces x </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>the vector of current clusters enumerated by the algorithm </td></tr>
+    <tr><td class="paramname">c</td><td>the current cluster enumerated </td></tr>
+    <tr><td class="paramname">Ovlp</td><td>a function pointer to a function that computes overlap between clusters </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="see"><dt><b>See also:</b></dt><dd>Ops </dd></dl>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ovlpThresh</td><td>the threshold for overlap </td></tr>
+    <tr><td class="paramname">k</td><td>K </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Definition at line <a class="el" href="topk_8cpp_source.html#l00004">4</a> of file <a class="el" href="topk_8cpp_source.html">topk.cpp</a>.</p>
 
 </div>
@@ -146,7 +167,7 @@ Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="topk_8h.html">topk.h</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:17:51 for Heterogenous Information Network Clustering by&#160;
+      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

@@ -90,8 +90,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_cluster.html">NCluster</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_lattice_ops_8h.html#a0b88b75e48e507ce1c15d1a160664fc4">GetTop</a> (<a class="el" href="class_context.html">Context</a> *c)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the concept corresponds to the concept that contains all the objects from domain2, and any element in domain1 that contains all objects from doamin2 or the empty set.  <a href="#a0b88b75e48e507ce1c15d1a160664fc4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_cluster.html">NCluster</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_lattice_ops_8h.html#a28637aaa916c65ec4998678c54e0061e">GetBottom</a> (<a class="el" href="class_context.html">Context</a> *c)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the bottom level concept from c, this concept corresponds to the concept that contains all the objects from domain1, and any element in domain2 that contains all objects from doamin1 or the empty set.  <a href="#a28637aaa916c65ec4998678c54e0061e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_lattice_ops_8h.html#a2a394e16994693fcfdc4f1a35ce74a3d">Prime</a> (<a class="el" href="class_n_cluster.html">NCluster</a> *a, <a class="el" href="class_relation_graph.html">RelationGraph</a> *g, int s, int t, int min)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the Prime (') (see any book on Formal Concept Anaylsis) for a given object-set.  <a href="#a2a394e16994693fcfdc4f1a35ce74a3d"></a><br/></td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
 <a class="anchor" id="a28637aaa916c65ec4998678c54e0061e"></a><!-- doxytag: member="LatticeOps.h::GetBottom" ref="a28637aaa916c65ec4998678c54e0061e" args="(Context *c)" -->
@@ -108,6 +111,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Returns the bottom level concept from c, this concept corresponds to the concept that contains all the objects from domain1, and any element in domain2 that contains all objects from doamin1 or the empty set. </p>
 
 <p>Definition at line <a class="el" href="_lattice_ops_8cpp_source.html#l00034">34</a> of file <a class="el" href="_lattice_ops_8cpp_source.html">LatticeOps.cpp</a>.</p>
 
@@ -127,6 +132,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Returns the concept corresponds to the concept that contains all the objects from domain2, and any element in domain1 that contains all objects from doamin2 or the empty set. </p>
+<p>Author: Faris Alqadah Basic Lattice operations derived from formal concept anaylsis. These are extended to heterogenous information networks (HINs) </p>
 
 <p>Definition at line <a class="el" href="_lattice_ops_8cpp_source.html#l00020">20</a> of file <a class="el" href="_lattice_ops_8cpp_source.html">LatticeOps.cpp</a>.</p>
 
@@ -175,6 +183,19 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Computes the Prime (') (see any book on Formal Concept Anaylsis) for a given object-set. </p>
+<p>The operation differs slighty from the strict FCA definition in that if a[s] is empty then the result is a NULL set. Moreover, this PrimeOperator is "min-aware" so that if at any time during the compution the results has cardinality &lt;&gt; min no more operations are perfomed and NULL is returned</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>the n-cluster that contains set s as a(s) </td></tr>
+    <tr><td class="paramname">g</td><td>the relation graph in which (s,t) must be an edge (a context exists) </td></tr>
+    <tr><td class="paramname">s</td><td>indicates the source domain id in a to serve as the input for the prime operator </td></tr>
+    <tr><td class="paramname">t</td><td>indicates the target domain </td></tr>
+    <tr><td class="paramname">min</td><td>indicates the minimum size the result prime should be, otherwise NULL is returned </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Definition at line <a class="el" href="_lattice_ops_8cpp_source.html#l00049">49</a> of file <a class="el" href="_lattice_ops_8cpp_source.html">LatticeOps.cpp</a>.</p>
 
 </div>
@@ -184,7 +205,7 @@ Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="_lattice_ops_8h.html">LatticeOps.h</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:17:51 for Heterogenous Information Network Clustering by&#160;
+      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>
