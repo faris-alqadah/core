@@ -5,19 +5,41 @@
       <df name="core_1" kind="SOURCE_LOGICAL_FOLDER">
       </df>
       <df name="headers" kind="SOURCE_LOGICAL_FOLDER">
+        <df name="algos_helpers">
+          <in>basic.h</in>
+          <in>topk.h</in>
+        </df>
+        <df name="nclusters">
+          <in>bordat.h</in>
+        </df>
         <in>Context.h</in>
         <in>IOSet.h</in>
+        <in>LatticeAlgos.h</in>
+        <in>LatticeAlgosExternals.h</in>
+        <in>LatticeOps.h</in>
         <in>NCluster.h</in>
         <in>NameMap.h</in>
         <in>Ops.h</in>
         <in>PostProcess.h</in>
         <in>PreProcess.h</in>
+        <in>QualityMeasures.h</in>
         <in>RelationGraph.h</in>
         <in>Timing.h</in>
       </df>
+      <df name="objs">
+      </df>
       <df name="source" kind="SOURCE_LOGICAL_FOLDER">
+        <df name="algos_helpers">
+          <in>basic.cpp</in>
+          <in>topk.cpp</in>
+        </df>
+        <df name="nclusters">
+          <in>bordat.cpp</in>
+        </df>
         <in>Context.cpp</in>
         <in>IOSet.cpp</in>
+        <in>LatticeAlgos.cpp</in>
+        <in>LatticeAlgosExternals.cpp</in>
         <in>LatticeOps.cpp</in>
         <in>Main.cpp</in>
         <in>NCluster.cpp</in>
@@ -25,6 +47,7 @@
         <in>Ops.cpp</in>
         <in>PostProcess.cpp</in>
         <in>PreProcess.cpp</in>
+        <in>QualityMeasures.cpp</in>
         <in>RelationGraph.cpp</in>
         <in>Timing.cpp</in>
       </df>

@@ -138,6 +138,7 @@ void Enum_NConcepts_Bordat(NCluster *a, RelationGraph *g, IOSet *marked, int s, 
                          Enum_NConcepts_Bordat(nCluster,g,new IOSet(marked),s,t);
                         srchLvl--;
                     }
+                    if(nCluster) delete nCluster; //free up the memory as stored nclusters are copies and non-stored clusters are not needed
                 } 
                 else{
                     delete lrnrConcept;

@@ -65,7 +65,7 @@ void NCluster::Output(){
 void NCluster::Output(ofstream &out){
     assert(out.is_open());
     for(int i=0; i < n; i++){
-        out<<"["<<i+1<<"]\t";
+        out<<"["<<sets[i]->Id()<<"]\t";
         sets[i]->Output(out);
         out<<"\n";
     }

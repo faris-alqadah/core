@@ -17,7 +17,7 @@
 /********************************************************************/
 // StoreCluster(vector<NCluster*> &v, NCluster *c)
 //
-//   adds c to v
+//   adds a new copy of c to v
 //
 //  Pre-Condition: c not null
 
@@ -30,7 +30,7 @@ void StoreCluster(vector<NCluster*> &v, NCluster *c);
 /********************************************************************/
 // SwapDelete(vector<NCluster*> &v, NCluster *c, int i)
 //
-//   swaps out the ith pointer in v for c
+//   swaps out the ith pointer in v for a new copy of c
 //
 //  Pre-Condition: i < v.size(), i >= 0
 

@@ -20,10 +20,10 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext, int algo){
     if(enumerationMode == ENUM_FILE && !OUT1.is_open()){
          string errMsg = "Star_N_Concepts called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set\n";
         cerr<<errMsg; exit(-1);
-    }else if(enumerationMode == ENUM_FILE){
+    }else if(enumerationMode == ENUM_FILE || enumerationMode == ENUM_TOPK_FILE){
         //setup name maps
         NAME_MAPS = *g->GetNameMaps();
-        cout<<"\nNum entries "<<NAME_MAPS[0]->GetNumEntries()<<"\t"<<NAME_MAPS[0]->GetId();
+ 
     }
     if(enumerationMode == ENUM_TOPK_FILE &&!OUT1.is_open()){
          string errMsg = "Star_N_Concepts called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set\n";
@@ -93,6 +93,11 @@ void Star_N_Concepts(RelationGraph *g,int lrnrContext, int algo){
      else{
          cerr <<"\nValid algorithm for n-cluster enumeration not specified!\n";
          exit(-1);
+     }
+     //clena up now
+     if(enumerationMode == ENUM_FILE){
+         OUT1.close();
+         OUT2.close();
      }
 }
 

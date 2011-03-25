@@ -102,6 +102,8 @@ NCluster *MakeNClusterFromFimi(string &inputFile){
           vector<IOSet *> sets;
           int cnt=0;
           for (string line; getline(myfile, line);) {
+              if(line == "###" ) break;
+
                 vector<string> entries;
                  Tokenize(line,entries," ");
                 IOSet *t = new IOSet;

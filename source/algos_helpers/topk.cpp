@@ -4,8 +4,9 @@
 void RetainTopK_Overlap(vector<NCluster*> &v, NCluster *c,double (*Ovlp)(NCluster*,NCluster*), double ovlpThresh, int k){
     assert(c != NULL && k > 0 && (ovlpThresh >= 0 && ovlpThresh <= 1));
     if( v.size() < k){
-        v.push_back(c);
-    }else{
+        v.push_back(new NCluster(*c));
+    }
+    else{
         for(int i=0; i < v.size(); i++){
             if (Ovlp(c,v[i]) >= ovlpThresh && c->GetQuality() > v[i]->GetQuality()){
                 SwapDelete(v,c,i);

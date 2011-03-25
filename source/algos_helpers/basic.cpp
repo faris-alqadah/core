@@ -2,18 +2,15 @@
 #include "../../headers/algos_helpers/basic.h"
 
 void StoreCluster(vector<NCluster*> &v, NCluster *c){
-    v.push_back(c);
+    v.push_back(new NCluster(*c));
 }
 
 void SwapDelete(vector<NCluster*> &v, NCluster *c, int i){
     assert( i >= 0 && i < v.size());
-    NCluster *tmp = v[i];
-    v[i] = c;
-    if(tmp) {
-        delete tmp;
-        tmp = NULL;
-    }
+    delete v[i];
+    v[i]= new NCluster(*c);
 
+    
 }
 
 void SetQuality(NCluster *c, vector<double> & params, double (*Quality)(NCluster*,vector<double>&) ){
