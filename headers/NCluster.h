@@ -1,16 +1,7 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2009
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *  An n-cluster is essentially a vector of IOSets with some additonal properties
- *  such as
- *  
- *
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+//! Author: Faris Alqadah
+/*!Class for representing a sub-space or set of object-sets. Essentially an ncluster comprises vector of IOSets.
+ \sa IOset
+ */
 
 #ifndef _NCLUSTER_H
 #define	_NCLUSTER_H
@@ -21,222 +12,92 @@ using namespace std;
 
 class NCluster {
 public:
-    /********************************************************************/
-    // NCluster(): default constructor
-    //  Pre-Condition: none
-    //  Post-Condition: a fully initialized n-cluster, self.quality=0, self.n=0, self.id = 0, marked=false
-    //  returns: initialized n-cluster
-    //  output: none
-    /********************************************************************/
+    //! Default constructor
     NCluster();
-    /********************************************************************/
-    // NCluster(int n): Constructor for an n-cluster, allocates memory for n IOSets in the cluster
-    //  Pre-Condition: none
-    //  Post-Condition: a fully initialized n-cluster, self.quality=0, self.n=n, self.id = 0, marked=false
-    //  returns: initialized n-cluster
-    //  output: none
-    /********************************************************************/
-    NCluster(unsigned int);
-    /********************************************************************/
-    // NCluster(int n, bool): Constructor for an n-cluster, without allocating memory to IOSets
-    //  Pre-Condition: none
-    //  Post-Condition: a fully initialized n-cluster, self.n=n, self.id = 0, marked=false
-    //  returns: initialized n-cluster
-    //  output: none
-    /********************************************************************/
-    NCluster(unsigned int, bool);
-    /********************************************************************/
-    // NCluster(int n, vector<IOSet*> A ): Constructor for an n-cluster, assigns n and all data from vector to the ncluster
-    //                              NOTE: this only re-assigns pointers AND DOES NOT perform a deep copy
-    //  Pre-Condition: A.size() == n
-    //  Post-Condition: a fully initialized n-cluster, self.n=n, self.id = 0, all IOSets point to IOSets of A, marked=false
-    //  returns: initialized n-cluster
-    //  output: none
-    /********************************************************************/
-    NCluster(unsigned int, vector<IOSet*> &);
-    /********************************************************************/
-    // NCluster(NCluster &a ): Copy constructor of NCluster
-    //  Pre-Condition: none
-    //  Post-Condition: a fully initialized n-cluster, self.n=a.n, self.id = a.id, all IOSets initialized to a copy of the argument, marked=a.marked
-    //  returns: initialized n-cluster
-    //  output: none
-    /********************************************************************/
+    //! Alternate constructor
+    /*!
+     Allocates n sets and sets size to n
+        \param n number of sets to allocate
+     */
+    NCluster(unsigned int n);
+    //! Alternate constructor
+    /*!
+     Makes the n-cluster of size n, but does not allocate the memory
+        \param n size of the n-cluster
+        \param allocate this value does not matter, if its true or false, its just to inidcate that no memory should be allocated
+
+     */
+    NCluster(unsigned int n, bool allocate);
+    //! Alternate constructor
+    /*!
+     Constructor n-cluster of size n and assigin a deep copy of the IOsets from the vector aa to the n-cluster
+        \params n size of the n-cluster
+        \params aa a vector of IOSets that will be used to initialize the sets of self by making a deep copy
+     */
+    NCluster(unsigned int n, vector<IOSet*> &aa);
+    //! Copy constructor
     NCluster(NCluster &);
-    /********************************************************************/
-    // ~NCluster(): Destructor for n-cluster, deallocates all memory
-    //  Pre-Condition: none
-    //  Post-Condition: self is destroyed
-    //  returns: initialized n-cluster
-    //  output: none
-    /********************************************************************/
+    //! Destructor
     ~NCluster();
-    /********************************************************************/
-    // DeepCopy(NCluster &a): Make a deep copy of a
-    //  Pre-Condition: none
-    //  Post-Condition: self is a copy of a, self.quality = a.quality, a.d[0] = self.d[1],...,a.d[n-1]=self.d[n-1]
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Makes a deep copy of the n-cluster
     void DeepCopy(NCluster&);
-    /********************************************************************/
-    // Output: Output the elements of self
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: none
-    //  output: Prints each IOSet on a seperate line preceeded by the identity of each IOSET
-    /********************************************************************/
+    //! Prints each IOset on a seperate line preceded by the Id of each IOSet to stdout
     void Output();
-    /********************************************************************/
-    // Output(ofstream &): Output the elements of self to a file
-    //  Pre-Condition: ofstream is open
-    //  Post-Condition: none
-    //  returns: none
-    //  output: Prints each IOSet on a seperate line preceeded by the identity of each IOSET to the specified stream
-    /********************************************************************/
+    //! Prints each IOset on a seperate line preceded by the Id of each IOSet to ofstream
     void Output(ofstream&);
-    /********************************************************************/
-    // Output(ofstream a, vector<namemap> nm): Output the elements of self mapped by name maps in nm
-    //  Pre-Condition:  ofsteram is open
-    //  Post-Condition: none
-    //  returns: none
-    //  output: Prints each IOSet on a seperate line preceeded by the identity of each IOSET
-    /********************************************************************/
+    //! Prints each IOset on a seperate line preceded by the Id of each IOSet to ofstream
+    /*!
+     Attempts to match the id of one of the name maps to the id of the sets of self. If
+     the ids match, then then IOSet is output using the name map, otherwise normal printing
+     is performed.
+     */
     void Output(ofstream&, vector<NameMap *>&nm);
-    /********************************************************************/
-    // GetN()
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: self.n
-    //  output: none
-    /********************************************************************/
+    //! Resurns n, the number of sets in the n-cluster
     int GetN();
-    /********************************************************************/
-    // GetSet(int i)
-    //  Pre-Condition: i >= 0 AND i < n
-    //  Post-Condition: none
-    //  returns: pointer to the ith set in self
-    //  output: none
-    /********************************************************************/
+    //! Returns a pointer to the ith set
     IOSet * GetSet(int);
-    /********************************************************************/
-    // GetSetById(int id)
-    //  Pre-Condition: an IOSet in self is assigned id
-    //  Post-Condition: none
-    //  returns: pointer to the set with id if it exists, others returns null
-    //  output: none
-    /********************************************************************/
+    //! Returns a pointer to the set with id, if it exists, assertion is checked
     IOSet * GetSetById(int id);
-
-    /********************************************************************/
-    // AddSet(IOSet *a): Add the set a to self
-    //  Pre-Condition: a is not null
-    //  Post-Condition: self.d.push_back(a)
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Adds the set a to the end of the n-cluster
     void AddSet(IOSet* a);
-    /********************************************************************/
-    // AssignSet(int i, IOSet *a): Assign the ith set to a
-    //  Pre-Condition: i >= 0 AND i < n
-    //  Post-Condition: self.d[i] is deleted and self.d[i] = a,
-    //  returns: none
-    //  output: none
-    /********************************************************************/
-    void AssignSet(int, IOSet*);
-     /********************************************************************/
-    // AssignSetById(int id, IOSet *a): Assign the set with id=id set to a
-    //  Pre-Condition: id is a valid set id in the ncluster AND
-    //  Post-Condition: self.d[i].id=id is deleted and self.d[i].id = a
-    //  returns: none
-    //  output: none
-    /********************************************************************/
-    void AssignSetById(int, IOSet*);
-    /********************************************************************/
-    // GetQuality()
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: self.quality
-    //  output: none
-    /********************************************************************/
+    //! Assigns a to the ith, deleting the previously defined ith set in the process
+    void AssignSet(int i, IOSet *a);
+    //! Assigns a to the set with id, if it exists, previoulsy defined set with id is destroyed in the process
+    void AssignSetById(int id, IOSet *a );
+    //! Returns the quality attribute
     double GetQuality();
-    /********************************************************************/
-    // SetQuality(double q)
-    //  Pre-Condition: none
-    //  Post-Condition: self.quality = q
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Set the quality attribute
     void SetQuality(double);
-    /********************************************************************/
-    // GetId()
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: self.id
-    //  output: none
-    /********************************************************************/
+    //! Returns the id attribute
     int GetId();
-    /********************************************************************/
-    // SetId(int id)
-    //  Pre-Condition: none
-    //  Post-Condition: self.id = id
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Set the id attribute
     void SetId(int);
-
-    /********************************************************************/
-    // GetMarked()
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: self.marked
-    //  output: none
-    /********************************************************************/
+    //! Return the marked attribute
     bool GetMarked();
-    /********************************************************************/
-    // SetMarked(bool m)
-    //  Pre-Condition: none
-    //  Post-Condition: self.marked = m
-    //  returns: none
-    //  output: none
-    /********************************************************************/
+    //! Set the marked attribute
     void SetMarked(bool m);
-
-    /********************************************************************/
-    // ContainsIOSetId(int id)
-    //  Pre-Condition: id is positive
-    //  Post-Condition: none
-    //  returns: true if an ioset has id == id false otherwise
-    //  output: none
-    /********************************************************************/
+    //! Returns true if an IOSet with id=id exists in self, false otherwsie
     bool ContainsIOSetId(int id);
-
-    /********************************************************************/
-    // GetMaxElement()
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: the maximum element in the ncluster
-    //  output: none
-    /********************************************************************/
+    //! Returns the value of the largest element in all sets of self
     int GetMaxElement();
 
 
 
 protected:
-    unsigned int n; //degree of cluster
-    vector<IOSet*> sets; //the sets
-    double quality; //quality of the ncluster
-    int id; // the id of the n-cluster
+    //! degree of the cluster
+    unsigned int n;
+    //! the actual data or sets
+    vector<IOSet*> sets;
+    //! quality of the n-cluster
+    double quality;
+    //! id of the n-cluster
+    int id;
+    //! has this n-cluster been marked or flagged for whatever reason??
     bool marked; //is the ncluster marked or flagged
 
 };
 
-/********************************************************************/
-// Compare_Quality(NCluster *a, NCluster * b): Primarly inteded to be used with std:sort, to sort a collection of NClusters by their size
-//  Pre-Condition: a and b are non-null
-//  Post-Condition: none
-//  returns: true if a.quality > b.quality false otherwise
-//  output: none
-/********************************************************************/
+//! Returns true if a->GetQuality() > b->GetQuality(), use this function with std:sort()
 bool Compare_Quality(NCluster *a, NCluster *b);
 
 

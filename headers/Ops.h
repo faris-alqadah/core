@@ -1,19 +1,17 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2008
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Basic operations for sets. Also included are some set similarity measures
- * such as jaccard and Sorensen coefficent.
- *
- *External variables included to keep track of the number of times these
- * basic operations are invoked
- *
- * Any template functions for set / vector operations should also be placed here
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+//! Author: Faris Alqadah
+/*! Basic operations for sets. Also included are some set similarity measures
+ such as jaccard and Sorensen coefficent. Almost all operations defined here assume
+ that the IOSets are sorted in order to achieve O(n) running time for common set ops.
+ Please keep this in mind!
+
+ External variables included to keep track of the number of times these
+  basic operations are invoked
+
+  Any template functions for set / vector operations should also be placed here
+ \sa IOset
+ */
+
+
  
 
 #ifndef _OPS_H
@@ -29,14 +27,10 @@ using namespace std;
 
 
 
-/********************************************************************/
-// DstryVector (vector<t*> *v>: deallocated and destroy all elements of the vector pointed to by v
-//  Pre-Condition: none
-//  Post-Condition:  v is destroyed and so are all of its elements
-//  returns: none
-//  output: none
-/********************************************************************/
+
+
 template <class t>
+//! Destroy a pointer to a vector with elements of class t
 void DstryVector( vector<t*> *v){
     for(int i=0; i < v->size(); i++){
         if (v->at(i) != NULL){
@@ -47,110 +41,57 @@ void DstryVector( vector<t*> *v){
     delete v;
 }
 
-/********************************************************************/
-// Intersect(IOSet *a, IOSet *b): Set intersection
-//  Pre-Condition: a and b non-null AND a and b are sorted
-//  Post-Condition:  numIntersection++
-//  returns: set intersection of a and b
-//  output: none
-/********************************************************************/
+
+//! Set intersection
 IOSet * Intersect( IOSet*, IOSet*);
 
-/********************************************************************/
-// Difference(IOSet *a, IOSet *b): Set difference
-//  Pre-Condition: a and b non-null AND a and b are sorted
-//  Post-Condition:  numDifference++
-//  returns: set difference of a and b
-//  output: none
-/********************************************************************/
-IOSet * Difference( IOSet*,  IOSet*);
+//! Set difference a-b
+IOSet * Difference( IOSet *a,  IOSet *b);
 
-/********************************************************************/
-// SymmDifference(IOSet *a, IOSet *b): Symmetric Set difference
-//  Pre-Condition: a and b non-null AND a and b are sorted
-//  Post-Condition:  numDifference incremented by number of operations
-//  returns: set symmetric set difference of a and b
-//  output: none
-/********************************************************************/
+//! Symmetric set difference
 IOSet *SymmDifference( IOSet*, IOSet*);
 
-/********************************************************************/
-// Union(IOSet *a, IOSet *b): Set union
-//  Pre-Condition: a and b non-null AND a and b are sorted
-//  Post-Condition:  numUnion++
-//  returns: set union of a and b
-//  output: none
-/********************************************************************/
+//! Set union
 IOSet* Union( IOSet*,  IOSet*);
 
-/********************************************************************/
-// Contains(IOSet *a, IOSet *b): 
-//  Pre-Condition: a and b non-null AND a and b are sorted
-//  Post-Condition:  numSubset++
-//  returns: true if b is subset of a false otherwise
-//  output: none
-/********************************************************************/
-bool Contains( IOSet*,  IOSet* );
 
-/********************************************************************/
-// ProperSubset(IOSet *a, IOSet *b): 
-//  Pre-Condition: a and b non-null AND a and b are sorted
-//  Post-Condition:  numSubset++ (possibly)
-//  returns: true if b is proper subset of a false otherwise
-//  output: none
-/********************************************************************/
+
+//! Returns true if b is a subet of a and false otherwise
+bool Contains( IOSet *a,  IOSet *b );
+
+
+
+//! Returns true if b is a proper subet of a and false otherwise
 bool ProperSubSet(IOSet *, IOSet*);
 
-/********************************************************************/
-// PercentOverlap(IOSet *a, IOSet *b): Compute Jaccard Coefficent
-//  Pre-Condition: a and b non-null AND a and b are sorted
-//  Post-Condition:  intersection and union counters incremented
-//  returns: the Jaccard coefficient between a and b
-//  output: none
-/********************************************************************/
-double PercentOverlap( IOSet*, IOSet* );
+//! Returns Jaccard Coefficient |a intersect b| / |  a union b|
+double PercentOverlap( IOSet *a, IOSet *b );
 
 
-/********************************************************************/
-// PercentOverlap_Sorensen(IOSet *a, IOSet *b): Compute Sorensen Coefficent
-//  Pre-Condition: a and b non-null AND a and b are sorted
-//  Post-Condition:  intersection and union counters incremented
-//  returns: the  Sorensent coefficient between a and b
-//  output: none
-/********************************************************************/
-double PercentOverlap_Sorensen( IOSet*, IOSet* );
+//! Returns Sorensen Index or Dice coefficient 2*| a intersect b| / |a| + |b|
+double PercentOverlap_Sorensen( IOSet *a, IOSet *b );
 
 
-/********************************************************************/
-// AverageOverlap(NCluster *a, NCluster *b)
-//  Computes the "average overlap" between a and b by averaging the Jaccard
-//  coefficient over each set in a and b
-//  Pre-Condition: a and b non-null AND sets in a and b are sorted, a and b have the same number of sets
-//  Post-Condition:  none
-//  returns: AverageOverlap as described above
-//  output: none
-/********************************************************************/
+//! Assumes a.GetN == b.GetN, and returns(SUM_{i=0...GetN()-1} PercentOverlap(a[i],b[i]))/ GetN()
 double AverageOverlap(NCluster *a, NCluster *b);
 
-/********************************************************************/
-// TransposeFimi(NCluster *a)
-//  Pre-Condition: a is not null
-//  Post-Condition: none
-//  returns: the transpose of the fimi matrix a is returned
-//  output: none
-/********************************************************************/
+//! Assumes a is the FIMI representation of a sparse matrix, and transposes it
 NCluster *TransposeFimi(NCluster *a);
 
 
-/********************************************************************/
-//      EXTERNALS
-//Use these to keep count of the number of basic set operations used
-//within a particular algorithm
-/********************************************************************/
-extern int numIntersection; //number of intersections performed
-extern int numSubset; //number of subset checks performed
-extern int numUnion; //number of set unions performed
-extern int numDifference; //number of set differences performed
+/*!
+     EXTERNALS
+Use these to keep count of the number of basic set operations used
+within a particular algorithm
+*/
+//!number of intersections performed
+extern int numIntersection;
+//!number of subset checks performed
+extern int numSubset;
+//!number of set unions performed
+extern int numUnion;
+//!number of set differences performed
+extern int numDifference; 
 
 #endif	/* _OPS_H */
 

@@ -1,15 +1,11 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2008
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *  A vector data structure that maps an integer (the index) to a string. Typically
- * used to store row or column labels
- *
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+//! Author: Faris Alqadah
+/*!Class used to map integer ids to names in an IOSet.
+ Names are mapped to integer ids by reading in a file in which the line number -1 maps
+ to the string found on that line. In addition each name map has an id field to indicate which
+ IOSet or domain it corresponds to.
+ \sa IOset
+ */
+
 #ifndef _NAMEMAP_H
 #define	_NAMEMAP_H
 
@@ -25,75 +21,32 @@ using namespace std;
 
 class NameMap {
 public:
-    /********************************************************************/
-    // NameMap(): default constructor
-    //  Pre-Condition: none
-    //  Post-Condition:   new NameMap created, new NameMap with self.fileName = filename, self.numEntries = size id =0
-    //  returns: new NameMap object
-    //  output:none
-    /********************************************************************/
+    
+    //! Default constructor. No actual map is constructed, since no file is read.
     NameMap();
-    /********************************************************************/
-    // NameMap(string filename, unsigned int size): parameter constructor
-    //  Pre-Condition: filename is an actual file and can be read, size is non-negative and > 0
-    //  Post-Condition:   new NameMap with self.fileName = filename, self.numEntries = size, id = 0
-    //  returns: new NameMap object
-    //  output:none
-    /********************************************************************/
-    NameMap(string &);
-      /********************************************************************/
-    // NameMap(string filename): parameter constructor
-    //  Pre-Condition: filename is an actual file and can be read, size is non-negative and > 0
-    //  Post-Condition:   new NameMap with self.fileName = filename, self.numEntries = num of entries in the file, id =0
-    //  returns: new NameMap object
-    //  output:none
-    /********************************************************************/
-    NameMap(string, unsigned int);
-    /********************************************************************/
-    // GetFileName():
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: self.fileName
-    //  output:none
-    /********************************************************************/
+    //! Alternate constructor that passes in the file name and constructs the actual name map
+    NameMap(string &file);
+    //! Alternate constructor that passes in the file name and constructs the actual name map but only upto the nth entry
+    NameMap(string, unsigned int n);
+    //! Returns the file name from which the name map was constructed
     string GetFileName();
-    /********************************************************************/
-    // GetName(unsigned int x):
-    //  Pre-Condition: x is non-negative AND < self.numEntries
-    //  Post-Condition: none
-    //  returns: self.mapping[x]
-    //  output:none
-    /********************************************************************/
-    string GetName(unsigned int);
-    /********************************************************************/
-    // GetNumEntries():
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: self.numEntries
-    //  output:none
-    /********************************************************************/
+    //! returns the string mapped to i
+    string GetName(unsigned int i);
+    //! Returns the number of entries in the map
     int GetNumEntries();
-    /********************************************************************/
-    // SetId(unsigned int x):
-    //  Pre-Condition: none
-    //  Post-Condition: selfl.id = id
-    //  returns: none
-    //  output:none
-    /********************************************************************/
+    //! Set the id attribute of the name map
     void SetId(int);
-    /********************************************************************/
-    // GetId():
-    //  Pre-Condition: none
-    //  Post-Condition: none
-    //  returns: id of the name map
-    //  output:none
-    /********************************************************************/
+    //! Returns the id attribue of the name map
     int GetId();
 private:
-    vector<string> mapping; //indcies of the vector map to strings
-    int numEntries; //number of entries
-    string fileName; //name of file containing the mapping
-    int id; //id of the name map
+    //! the actual map, maps the index in the vector to the string
+    vector<string> mapping;
+    //! number of entries
+    int numEntries;
+    //! name of the file from which the map was constructed
+    string fileName;
+    //id attribute to match to domains or IOSets
+    int id;
 
 
 };

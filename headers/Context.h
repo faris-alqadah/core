@@ -116,13 +116,18 @@ public:
     double GetDensity();
 
 private:
-  
-    NCluster *domain1;   //!represent first domain
-    NCluster *domain2; //!represent second domain
-    int id; //!id of the context
-    string name; ///name of the context
-    NameMap *nameMap1; //!name map associated with domain 1
-    NameMap *nameMap2; //!name map associated with domain 2
+     //!represent first domain
+    NCluster *domain1;
+    //!represent second domain
+    NCluster *domain2;
+    //!id of the context
+    int id;
+    //! name of the context
+    string name;
+    //! name map associated with domain 1
+    NameMap *nameMap1;
+    //! name map associated with domain 2
+    NameMap *nameMap2; 
 };
 
 

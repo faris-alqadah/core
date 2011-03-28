@@ -94,10 +94,14 @@ public:
     
 
 private:
-    int size; // maintain the size of the ioset
-    int id; //id of the ioset
-    vector<unsigned int> d; //vector to hold the data
-    bool marked; // has this ioset been marked???
+    //! size of the ioset
+    int size;
+    //! id of the ioset
+    int id;
+    //! vector to hold the data
+    vector<unsigned int> d;
+    //! has this ioset been marked for whatever reason??
+    bool marked; 
 
 };
 
