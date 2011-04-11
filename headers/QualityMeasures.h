@@ -1,39 +1,31 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2008
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *
- * Quality measures utilized for clustering, formal concept analysis and information
- * network analysis
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+//! Author: Faris Alqadah
+/*!
+ Quality functions of n-clusters. All functions should have standard input signature
+ so that they may be used generically with Lattice Algorithms
+
+ \sa LatticeAlgos
+ */
 
 
 #include "RelationGraph.h"
 #include "Ops.h"
 #include <cmath>
 
-/********************************************************************/
-// Area(NCluster *a, vector<double> &params);
-//  Computes are of the ncluster as articulation node*(sum_all other nodes)
-//  Pre-Condition: articulation node is first parameter, and we assume a is star shaped
-//  Post-Condition:  none
-//  returns: area of a star shaped ncluster
-//  output: none
-/********************************************************************/
+//! Returns the area of an n-cluster, assuming it is star-shaped
+/*!
+ Area is compute as |a[artId]|* sum_{all other nodes i} |a[i]|
+    \sa a the n-cluster to compute area for
+    \sa params params[0] should contain the id of the articulation node
+ */
 double Area(NCluster *a, vector<double> &params);
 
-/********************************************************************/
-// Beta(NCluster *a, vector<double> &params);
-//  Computes the beta area of a, this is described in "An effective algorithm for mining 3-clusters" by Alqadah et al.
-//  Pre-Condition: articulation node is first parameter, beta is second parameter, assume a is star shaped
-//  Post-Condition:  none
-//  returns: beta-area of a star shaped ncluster
-//  output: none
-/********************************************************************/
+//! Returns the beta-balanced area of an n-cluster, assuming it is star-shaped
+/*!
+ See "An efficient algorithm for mining 3-clusters" by Alqadah et al.
+ Area is compute as |a[artId]|* (1/Beta)^sum_{all other nodes i} |a[i]| where 0 < Beta < 1
+    \sa a the n-cluster to compute area for
+    \sa params params[0] should contain the id of the articulation node, params[1] = beta
+ */
 double Beta(NCluster *a, vector<double> &params);
 
 

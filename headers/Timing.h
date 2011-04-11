@@ -1,53 +1,34 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2008
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *  Use this class to time different components of your program
- *
- *
- *
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+//! Author: Faris Alqadah
+//!Uitlity for timing algorithms
+
 #ifndef _TIMING_H
 #define	_TIMING_H
 #include<time.h>
 #include <sys/times.h>
 #include <unistd.h>
-
-extern struct tms startTime; //when timing began
+//! when timing starts
+extern struct tms startTime;
+//! when timing has ended
 extern struct tms endTime; //when timiing ended
-extern float clockTicksPerSecond; //what are the units ?
-extern float startTimeSeconds; //start time converted to seconds
-extern float endTimeSeconds; //end time converted to seconds
+//! the time units
+extern float clockTicksPerSecond;
+//! start time converted to seconds
+extern float startTimeSeconds;
+//! end time converted to seconds
+extern float endTimeSeconds; 
 
-/********************************************************************/
-// StartTimin(): start the timing process
-//  Pre-Condition: none
-//  Post-Condition: the startTime variable is set
-//  returns: none
-//  output: none
-/********************************************************************/
+//! Call this to Start timing
  void StartTiming();
 
-/********************************************************************/
-// EndTiming(): end the timing process
-//  Pre-Condition: none
-//  Post-Condition: the endTime variable is set
-//  returns: none
-//  output: none
-/********************************************************************/
+//! Call this to End timing
  void EndTiming();
 
- /********************************************************************/
-// ComputeTime(): compute the time between a start and end
-//  Pre-Condition: StarTiming() and EndTimint() were called
-//  Post-Condition: none
-//  returns: the time in seconds between StartTiming and EndTiming
-//  output: none
-/********************************************************************/
+//! Call this after StartTiming and EndTiming have been called to compute total CPU time
+ /*!
+  \sa StartTiming
+  \sa EndTiming
+
+  */
  float ComputeTime();
  
 #endif	/* _TIMING_H */

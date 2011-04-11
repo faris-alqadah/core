@@ -25,40 +25,34 @@ RelationGraph * MakeRelationGraph(string &inputFile);
 
 //! Returns a context object initialized to all the input variables
 /*!
-    
+    \param inputFile the path to the input file
+    \param dId1 id of domain1
+    \param dId2 id of domain2
+    \param name the name of the context
+    \param ctxId id of the context
+    \param nm1 pointer to the name map associated with domain1
+    \param nm2 pointer to the name map associated with domain2
 
  */
 
 Context * MakeContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2);
 
 
-/********************************************************************/
-// MakeNClusterFromFimi(string inputFile)
-//  Pre-Condition: inputFile is valid path
-//  Post-Condition: none
-//  returns: creates an n-cluster by reading in a fimi file
-//  output: none
-/********************************************************************/
+//! Returns an Ncluster representing the FIMI file in inputFile
 NCluster *MakeNClusterFromFimi(string &inputFile);
 
 
 
-/********************************************************************/
-// Tokenize(string& str, vector<string>& tokens, const string& delimiters)
-//  Pre-Condition: none
-//  Post-Condition: tokens contains tokens from str as delimited by delimiters
-//  returns: none
-//  output: none
-/********************************************************************/
-void Tokenize(const string&, vector<string>& , const string&);
+//! Tokenizes the string into a vector of string based on token
+/*!
+        \param str the string to be tokenized
+        \param tokens emptry string vector that will be filled with tokens after function is called
+        \param delim the character or string that is the delimiter to create tokens
 
-/********************************************************************/
-// Error(string message)
-//  Pre-Condition: none 
-// Post-Condition:error message is displayed and program is terminated
-//  returns: none
-//  output: none
-/********************************************************************/
+ */
+void Tokenize(const string& str, vector<string> &tokens , const string &delim);
+
+//! Output an error message and exit the program
 void Error(string &message);
 
 

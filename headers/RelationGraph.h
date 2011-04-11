@@ -1,16 +1,15 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2008
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *  Relation graph represents a heterogenous information network (HIN)
- * Every node in the graph is a domain, while each edge is a context. Assumption
- * is that the relation graphs are in fact trees (they do not contian loops)!
- *
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+//! Author: Faris Alqadah
+//!Class for representing a Heterogenous Information Network (HIN).
+
+/*!
+  Represent a Heterogenous Information Network (HIN) as described in data mining literature
+ All edges in the network represent a context, and each node is a domain. The contexts are represented
+ by the context class
+
+ \sa Context
+
+ */
+
 #ifndef _RELATIONGRAPH_H
 #define	_RELATIONGRAPH_H
 
@@ -21,139 +20,78 @@
 
 class RelationGraph{
 public:
- /********************************************************************/
-// RelationGraph(): Default constructor for a relation graph
-//  Pre-Condition: none
-//  Post-Condition: intialized relation graph
-//  returns: initialized relation grpah
-//  output: none
-/********************************************************************/
+//! Default constructor
     RelationGraph();
- /********************************************************************/
-// ~RelationGraph(): Destructor for relation graph
-//  Pre-Condition: none
-//  Post-Condition: relation graph is destroyed
-//  returns: none
-//  output: none
-/********************************************************************/
+
+//! Destructor 
     ~RelationGraph();
-/********************************************************************/
-// AddContext(Context *c):
-//  Pre-Condition: c is not contained in the self already
-//  Post-Condition: add c to self.contexts, adjust domain context map and domain relations
-//  returns: none
-//  output: none
-/********************************************************************/
-    void AddContext(Context *c);
-/********************************************************************/
-// GetNumNodes():
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: number of nodes (domains) in the relation graph
-//  output: none
-/********************************************************************/
+
+//! Adds context c to the network
+/*!
+  Add a context to the network. This method assumes the ids of the domains of the context
+ are well defined, and will use these ids to construct the topplogy of the network.
+ \param c the context to add to the network,
+
+ */
+void AddContext(Context *c);
+
+
+//! Returns the number of nodes (domains) in the network
 int GetNumNodes();
-/********************************************************************/
-// IsEdge(int id1, int id2):
-//  Pre-Condition: id1 and id2 are valid ids of  domains in the relation graph
-//  Post-Condition: none
-//  returns: true if a context exists with domains id1 and id2, false other wise
-//  output: none
-/********************************************************************/
-    bool IsEdge(int id1,int id2);
-/********************************************************************/
-// GetContexts(int domain)
-//  Pre-Condition: domain is a valid domain id in the relation graph
-//  Post-Condition: none
-//  returns: return vector of context points to which domain belongs, NULL if pre-condition not met
-//  output: none
-/********************************************************************/
+
+//! Returns true if the ids are an edge in the network, false otherwise
+/*!
+ Returns true if there exists a context in the network that has domains
+ with id1 and id2
+
+ */
+bool IsEdge(int id1,int id2);
+
+//! Returns a vector of contexts that contain domain
     vector<Context*> * GetContexts(int domain);
- /********************************************************************/
-// GetArtDomains()
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: returns IOSet of domain ids that are articulation points (assuming tree shaped relation graph)
-//  output: none
-/********************************************************************/
+//! Returns an IOSet of domain ids which correspond to the articulation nodes of the network
     IOSet *GetArtDomains();
- /********************************************************************/
-// GetContext(int ctxId)
-//  Pre-Condition: ctxId is a valid context id
-//  Post-Condition: none
-//  returns: pointer to the context specifed by ctxId, NULL if pre-condition not met
-//  output: none
-/********************************************************************/
+
+//! Returns a pointer to the context with the specified ctxId
     Context * GetContext(int ctxId);
- /********************************************************************/
-// GetNeighbors(int domaint)
-//  Pre-Condition: domain is a valid domain id for a doamin in the self
-//  Post-Condition: none
-//  returns: IOSet of domain ids that consitute neighbors of domain
-//  output: none
-/********************************************************************/
+
+//! Reutnrs an IOSet of doamins ids that share an edge with domain
     IOSet * GetNeighbors(int domain);
- /********************************************************************/
-// GetAllContextIds()
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: IOSet of all context ids
-//  output: none
-/********************************************************************/
+
+//! Reutnrs an IOSet of all the context ids
     IOSet * GetAllContextIds();
- /********************************************************************/
-// GetAllDomainIds()
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: IOSet of all domain ids
-//  output: none
-/********************************************************************/
+
+//! Reutnrs an IOSet of all the domain ids
     IOSet *GetAllDomainIds();
- /********************************************************************/
-// IsDomainId(int dId)
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: true if dId is a valid domain id in this relation graph, false otherwise
-//  output: none
-/********************************************************************/
+
+//! Reutnrs true if dId is a domain id in the network, false otherwise
     bool IsDomainId(int dId);
- /********************************************************************/
-// IsContextId(int cId)
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: true if cId is a valid context id in this relation graph, false otherwise
-//  output: none
-/********************************************************************/
+//! Reutnrs true if cId is a context id in the network, false otherwise
     bool IsContextId(int cId);
- /********************************************************************/
-// Print()
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: none
-//  output: prints the relation graph
-/********************************************************************/
+
+//! Prints the HIN
     void Print();
- /********************************************************************/
-// GetContextId(int s, int t)
-//  Pre-Condition: (s,t) is an edge in the graph
-//  Post-Condition: none
-//  returns: return the context that corresponds to the (s,t) edge and NULL if pre-condition is not met
-//  output: none
-/********************************************************************/
+
+//! Returns the context correspoding to the edge (s,t), that is context with domains s and t
     Context* GetContext(int s, int t);
-  /********************************************************************/
-// GetNameMaps()
-//  Pre-Condition: none
-//  Post-Condition: none
-//  returns: return a vector of pointers of all the name maps associated with the relation graph
-//  output: none
-/********************************************************************/
+
+ //! Returns a vector of name map pointers correspoding to each domain of the HIN
+ /*!
+  The name maps are not in any specfied order, use the id attribute of each name to figure
+  out correspondce to domains!
+
+   \sa NameMap
+
+  */
     vector<NameMap*> * GetNameMaps();
 
 private:
-    NCluster domainContextMap; //maps domains to contexts
-    vector<Context*> contexts; //contains all the contexts
-    NCluster domainRelations; //adjacenly list of the actual graph
+    //! maps domains to contexts
+    NCluster domainContextMap;
+    //! holds all the contexts
+    vector<Context*> contexts;
+    //! adajcency list of the actual graph
+    NCluster domainRelations; 
 
 };
 
