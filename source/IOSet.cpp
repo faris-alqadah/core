@@ -22,8 +22,10 @@ IOSet::~IOSet(){}
    int IOSet::Id(){return id;}
    void IOSet::SetId(int newId){id = newId;}
    void IOSet::Output() {
-       for(int i=0; i < size; i++)
-           cout<<d[i]<<" ";
+       for(int i=0; i < size; i++){
+           cout<<d[i];
+           if(i != size-1) cout<<" ";
+       }
 
    }
    void IOSet::Output(ofstream& out){
@@ -36,7 +38,8 @@ IOSet::~IOSet(){}
    void IOSet::Output(ofstream& out, NameMap* nm){
         for(int i=0; i < size; i++){
             out<<nm->GetName(d[i]);
-            out<<"\t";
+            if (i != size -1)
+                out<<"\t";
        }
    }
    void IOSet::SetSize(int sz){

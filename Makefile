@@ -13,6 +13,7 @@ OBJ = objs
 SOURCE = source
 HEADER = headers
 BIN = bin
+DRIVERS = drivers
 
 
 OBJECTS = 	$(OBJ)/IOSet.o \
@@ -28,14 +29,17 @@ OBJECTS = 	$(OBJ)/IOSet.o \
 		$(OBJ)/topk.o \
 		$(OBJ)/QualityMeasures.o \
 		$(OBJ)/Berry.o \
+		$(OBJ)/RSet.o \
+		$(OBJ)/NRCluster.o \
 		$(OBJ)/Timing.o 
 
 
 #MAINOBJS =	$(OBJ)/Main.o
 NCLUOBJ	=	$(OBJ)/nclu.o
-
+QBBCOBJ =	$(OBJ)/qbbc.o
 
 NCLUTARGET = $(BIN)/nclu
+QBBCTARGET = $(BIN)/qbbc
 
 .cpp.o:
 	$(CC) -c $(CFLAGS) -o $@ $<
@@ -44,8 +48,8 @@ NCLUTARGET = $(BIN)/nclu
 nclu: $(OBJECTS) $(NCLUOBJ)
 	$(LINK) $(LFLAGS) -o $(NCLUTARGET) $(OBJECTS) $(NCLUOBJ) $(LIBS)
 
-
-
+qbbc: $(OBJECTS) $(QBBCOBJ)
+	$(LINK) $(LFLAGS) -o $(QBBCTARGET) $(OBJECTS) $(QBBCOBJ) $(LIBS)
 clean:
 	-rm -f $(OBJECTS) $(TARGET)
 
@@ -56,8 +60,8 @@ $(OBJ)/NCluster.o: $(SOURCE)/NCluster.cpp
 $(OBJ)/PreProcess.o: $(SOURCE)/PreProcess.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/PreProcess.cpp -o $@
 
-$(OBJ)/nclu.o: $(SOURCE)/nclu.cpp
-	$(CC) $(CFLAGS) -c $(SOURCE)/nclu.cpp -o $@
+
+
 
 $(OBJ)/IOSet.o: $(SOURCE)/IOSet.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/IOSet.cpp -o $@
@@ -90,6 +94,17 @@ $(OBJ)/topk.o: $(SOURCE)/algos_helpers/topk.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/algos_helpers/topk.cpp -o $@
 $(OBJ)/QualityMeasures.o: $(SOURCE)/QualityMeasures.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/QualityMeasures.cpp -o $@
+
+$(OBJ)/RSet.o: $(SOURCE)/RSet.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/RSet.cpp -o $@
+$(OBJ)/NRCluster.o: $(SOURCE)/NRCluster.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/NRCluster.cpp -o $@
+
+$(OBJ)/nclu.o: $(SOURCE)/$(DRIVERS)/nclu.cpp
+	$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/nclu.cpp -o $@
+
+$(OBJ)/qbbc.o: $(SOURCE)/$(DRIVERS)/qbbc.cpp
+	$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/qbbc.cpp -o $@
 
 $(HEADER)/NCluster.h: $(HEADER)/IOSet.h
 $(HEADER)/Ops.h:  $(HEADER)/IOSet.h

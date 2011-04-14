@@ -14,9 +14,9 @@
 
 #include <stdlib.h>
 
-#include "../headers/Timing.h"
-#include "../headers/PreProcess.h"
-#include "../headers/nclusters/berry.h"
+#include "../../headers/Timing.h"
+#include "../../headers/PreProcess.h"
+#include "../../headers/nclusters/berry.h"
 
 string inputFile="~";
 int numArgs=3;
