@@ -4,87 +4,113 @@
 }
 
 
-{\ttfamily \#include $<$RelationGraph.h$>$}
+{\ttfamily \#include \char`\"{}RelationGraph.h\char`\"{}}
 
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}{RelationGraph} ()
-\item 
-\hyperlink{class_relation_graph_a801766615e87cb42f511cb068dd9d482}{$\sim$RelationGraph} ()
-\item 
+\hypertarget{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}{
+\hyperlink{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}{RelationGraph} ()}
+\label{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_a801766615e87cb42f511cb068dd9d482}{
+\hyperlink{class_relation_graph_a801766615e87cb42f511cb068dd9d482}{$\sim$RelationGraph} ()}
+\label{class_relation_graph_a801766615e87cb42f511cb068dd9d482}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \item\end{DoxyCompactList}\item 
 void \hyperlink{class_relation_graph_a5c1bd71649ec9c19f28b3fe0abda9540}{AddContext} (\hyperlink{class_context}{Context} $\ast$c)
-\item 
-int \hyperlink{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}{GetNumNodes} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Adds context c to the network. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}{
+int \hyperlink{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}{GetNumNodes} ()}
+\label{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}
+
+\begin{DoxyCompactList}\small\item\em Returns the number of nodes (domains) in the network. \item\end{DoxyCompactList}\item 
 bool \hyperlink{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}{IsEdge} (int id1, int id2)
-\item 
-vector$<$ \hyperlink{class_context}{Context} $\ast$ $>$ $\ast$ \hyperlink{class_relation_graph_acd16774976073a33da14d8461ba4165d}{GetContexts} (int domain)
-\item 
-\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}{GetArtDomains} ()
-\item 
-\hyperlink{class_context}{Context} $\ast$ \hyperlink{class_relation_graph_afb733508ef74b8b09adda722af855f32}{GetContext} (int ctxId)
-\item 
-\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}{GetNeighbors} (int domain)
-\item 
-\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}{GetAllContextIds} ()
-\item 
-\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}{GetAllDomainIds} ()
-\item 
-bool \hyperlink{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}{IsDomainId} (int dId)
-\item 
-bool \hyperlink{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}{IsContextId} (int cId)
-\item 
-void \hyperlink{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}{Print} ()
-\item 
-\hyperlink{class_context}{Context} $\ast$ \hyperlink{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}{GetContext} (int s, int t)
-\item 
+\begin{DoxyCompactList}\small\item\em Returns true if the ids are an edge in the network, false otherwise. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_acd16774976073a33da14d8461ba4165d}{
+vector$<$ \hyperlink{class_context}{Context} $\ast$ $>$ $\ast$ \hyperlink{class_relation_graph_acd16774976073a33da14d8461ba4165d}{GetContexts} (int domain)}
+\label{class_relation_graph_acd16774976073a33da14d8461ba4165d}
+
+\begin{DoxyCompactList}\small\item\em Returns a vector of contexts that contain domain. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}{
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}{GetArtDomains} ()}
+\label{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}
+
+\begin{DoxyCompactList}\small\item\em Returns an \hyperlink{class_i_o_set}{IOSet} of domain ids which correspond to the articulation nodes of the network. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_afb733508ef74b8b09adda722af855f32}{
+\hyperlink{class_context}{Context} $\ast$ \hyperlink{class_relation_graph_afb733508ef74b8b09adda722af855f32}{GetContext} (int ctxId)}
+\label{class_relation_graph_afb733508ef74b8b09adda722af855f32}
+
+\begin{DoxyCompactList}\small\item\em Returns a pointer to the context with the specified ctxId. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}{
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}{GetNeighbors} (int domain)}
+\label{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}
+
+\begin{DoxyCompactList}\small\item\em Reutnrs an \hyperlink{class_i_o_set}{IOSet} of doamins ids that share an edge with domain. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}{
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}{GetAllContextIds} ()}
+\label{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}
+
+\begin{DoxyCompactList}\small\item\em Reutnrs an \hyperlink{class_i_o_set}{IOSet} of all the context ids. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}{
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}{GetAllDomainIds} ()}
+\label{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}
+
+\begin{DoxyCompactList}\small\item\em Reutnrs an \hyperlink{class_i_o_set}{IOSet} of all the domain ids. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}{
+bool \hyperlink{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}{IsDomainId} (int dId)}
+\label{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}
+
+\begin{DoxyCompactList}\small\item\em Reutnrs true if dId is a domain id in the network, false otherwise. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}{
+bool \hyperlink{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}{IsContextId} (int cId)}
+\label{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}
+
+\begin{DoxyCompactList}\small\item\em Reutnrs true if cId is a context id in the network, false otherwise. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}{
+void \hyperlink{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}{Print} ()}
+\label{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}
+
+\begin{DoxyCompactList}\small\item\em Prints the HIN. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}{
+\hyperlink{class_context}{Context} $\ast$ \hyperlink{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}{GetContext} (int s, int t)}
+\label{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}
+
+\begin{DoxyCompactList}\small\item\em Returns the context correspoding to the edge (s,t), that is context with domains s and t. \item\end{DoxyCompactList}\item 
 vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ $\ast$ \hyperlink{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}{GetNameMaps} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns a vector of name map pointers correspoding to each domain of the HIN. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_n_cluster}{NCluster} \hyperlink{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}{domainContextMap}
-\item 
-vector$<$ \hyperlink{class_context}{Context} $\ast$ $>$ \hyperlink{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}{contexts}
-\item 
-\hyperlink{class_n_cluster}{NCluster} \hyperlink{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}{domainRelations}
-\end{DoxyCompactItemize}
+\hypertarget{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}{
+\hyperlink{class_n_cluster}{NCluster} \hyperlink{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}{domainContextMap}}
+\label{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}
+
+\begin{DoxyCompactList}\small\item\em maps domains to contexts \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}{
+vector$<$ \hyperlink{class_context}{Context} $\ast$ $>$ \hyperlink{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}{contexts}}
+\label{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}
+
+\begin{DoxyCompactList}\small\item\em holds all the contexts \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}{
+\hyperlink{class_n_cluster}{NCluster} \hyperlink{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}{domainRelations}}
+\label{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}
+
+\begin{DoxyCompactList}\small\item\em adajcency list of the actual graph \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
+Author: Faris Alqadah Class for representing a Heterogenous Information Network (HIN).
+
+Represent a Heterogenous Information Network (HIN) as described in data mining literature All edges in the network represent a context, and each node is a domain. The contexts are represented by the context class
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_context}{Context} 
+\end{DoxySeeAlso}
 
 
-Definition at line 22 of file RelationGraph.h.
-
-
-
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}{
-\index{RelationGraph@{RelationGraph}!RelationGraph@{RelationGraph}}
-\index{RelationGraph@{RelationGraph}!RelationGraph@{RelationGraph}}
-\subsubsection[{RelationGraph}]{\setlength{\rightskip}{0pt plus 5cm}RelationGraph::RelationGraph (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_a6bac261190e85c0fa8cce617184ea6a0}
-
-
-Definition at line 3 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_a801766615e87cb42f511cb068dd9d482}{
-\index{RelationGraph@{RelationGraph}!$\sim$RelationGraph@{$\sim$RelationGraph}}
-\index{$\sim$RelationGraph@{$\sim$RelationGraph}!RelationGraph@{RelationGraph}}
-\subsubsection[{$\sim$RelationGraph}]{\setlength{\rightskip}{0pt plus 5cm}RelationGraph::$\sim$RelationGraph (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_a801766615e87cb42f511cb068dd9d482}
-
-
-Definition at line 6 of file RelationGraph.cpp.
+Definition at line 21 of file RelationGraph.h.
 
 
 
@@ -100,86 +126,16 @@ Definition at line 6 of file RelationGraph.cpp.
 \label{class_relation_graph_a5c1bd71649ec9c19f28b3fe0abda9540}
 
 
+Adds context c to the network. 
+
+Add a context to the network. This method assumes the ids of the domains of the context are well defined, and will use these ids to construct the topplogy of the network. 
+\begin{DoxyParams}{Parameters}
+{\em c} & the context to add to the network, \\
+\hline
+\end{DoxyParams}
+
+
 Definition at line 10 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}{
-\index{RelationGraph@{RelationGraph}!GetAllContextIds@{GetAllContextIds}}
-\index{GetAllContextIds@{GetAllContextIds}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetAllContextIds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ RelationGraph::GetAllContextIds (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_a3ce2cfa6d1becccfdef2f7fc851026d5}
-
-
-Definition at line 97 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}{
-\index{RelationGraph@{RelationGraph}!GetAllDomainIds@{GetAllDomainIds}}
-\index{GetAllDomainIds@{GetAllDomainIds}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetAllDomainIds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ RelationGraph::GetAllDomainIds (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_ac4d09659ad3e4a4856abe9b15edc0105}
-
-
-Definition at line 104 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}{
-\index{RelationGraph@{RelationGraph}!GetArtDomains@{GetArtDomains}}
-\index{GetArtDomains@{GetArtDomains}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetArtDomains}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ RelationGraph::GetArtDomains (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_adf3c6bb0287acf5e5569b88a3d3a9326}
-
-
-Definition at line 83 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_afb733508ef74b8b09adda722af855f32}{
-\index{RelationGraph@{RelationGraph}!GetContext@{GetContext}}
-\index{GetContext@{GetContext}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetContext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Context} $\ast$ RelationGraph::GetContext (
-\begin{DoxyParamCaption}
-\item[{int}]{ctxId}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_afb733508ef74b8b09adda722af855f32}
-
-
-Definition at line 76 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}{
-\index{RelationGraph@{RelationGraph}!GetContext@{GetContext}}
-\index{GetContext@{GetContext}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetContext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Context} $\ast$ RelationGraph::GetContext (
-\begin{DoxyParamCaption}
-\item[{int}]{s, }
-\item[{int}]{t}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}
-
-
-Definition at line 146 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_acd16774976073a33da14d8461ba4165d}{
-\index{RelationGraph@{RelationGraph}!GetContexts@{GetContexts}}
-\index{GetContexts@{GetContexts}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetContexts}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Context} $\ast$ $>$ $\ast$ RelationGraph::GetContexts (
-\begin{DoxyParamCaption}
-\item[{int}]{domain}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_acd16774976073a33da14d8461ba4165d}
-
-
-Definition at line 66 of file RelationGraph.cpp.
 
 \hypertarget{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}{
 \index{RelationGraph@{RelationGraph}!GetNameMaps@{GetNameMaps}}
@@ -192,59 +148,16 @@ Definition at line 66 of file RelationGraph.cpp.
 \label{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}
 
 
+Returns a vector of name map pointers correspoding to each domain of the HIN. 
+
+The name maps are not in any specfied order, use the id attribute of each name to figure out correspondce to domains!
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{class_name_map}{NameMap} 
+\end{DoxySeeAlso}
+
+
 Definition at line 156 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}{
-\index{RelationGraph@{RelationGraph}!GetNeighbors@{GetNeighbors}}
-\index{GetNeighbors@{GetNeighbors}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetNeighbors}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ RelationGraph::GetNeighbors (
-\begin{DoxyParamCaption}
-\item[{int}]{domain}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_a82dafd34929842c2ddf93d42551db4f1}
-
-
-Definition at line 91 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}{
-\index{RelationGraph@{RelationGraph}!GetNumNodes@{GetNumNodes}}
-\index{GetNumNodes@{GetNumNodes}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetNumNodes}]{\setlength{\rightskip}{0pt plus 5cm}int RelationGraph::GetNumNodes (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}
-
-
-Definition at line 54 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}{
-\index{RelationGraph@{RelationGraph}!IsContextId@{IsContextId}}
-\index{IsContextId@{IsContextId}!RelationGraph@{RelationGraph}}
-\subsubsection[{IsContextId}]{\setlength{\rightskip}{0pt plus 5cm}bool RelationGraph::IsContextId (
-\begin{DoxyParamCaption}
-\item[{int}]{cId}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}
-
-
-Definition at line 115 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}{
-\index{RelationGraph@{RelationGraph}!IsDomainId@{IsDomainId}}
-\index{IsDomainId@{IsDomainId}!RelationGraph@{RelationGraph}}
-\subsubsection[{IsDomainId}]{\setlength{\rightskip}{0pt plus 5cm}bool RelationGraph::IsDomainId (
-\begin{DoxyParamCaption}
-\item[{int}]{dId}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_ab7cc26b947be79d26f078da0dc1936eb}
-
-
-Definition at line 111 of file RelationGraph.cpp.
 
 \hypertarget{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}{
 \index{RelationGraph@{RelationGraph}!IsEdge@{IsEdge}}
@@ -258,54 +171,15 @@ Definition at line 111 of file RelationGraph.cpp.
 \label{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}
 
 
+Returns true if the ids are an edge in the network, false otherwise. 
+
+Returns true if there exists a context in the network that has domains with id1 and id2 
+
 Definition at line 58 of file RelationGraph.cpp.
-
-\hypertarget{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}{
-\index{RelationGraph@{RelationGraph}!Print@{Print}}
-\index{Print@{Print}!RelationGraph@{RelationGraph}}
-\subsubsection[{Print}]{\setlength{\rightskip}{0pt plus 5cm}void RelationGraph::Print (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}
-
-
-Definition at line 122 of file RelationGraph.cpp.
-
-
-
-\subsection{Member Data Documentation}
-\hypertarget{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}{
-\index{RelationGraph@{RelationGraph}!contexts@{contexts}}
-\index{contexts@{contexts}!RelationGraph@{RelationGraph}}
-\subsubsection[{contexts}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf Context}$\ast$$>$ {\bf RelationGraph::contexts}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{class_relation_graph_a5332e76684098cd29d56cb4bd61ad006}
-
-
-Definition at line 155 of file RelationGraph.h.
-
-\hypertarget{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}{
-\index{RelationGraph@{RelationGraph}!domainContextMap@{domainContextMap}}
-\index{domainContextMap@{domainContextMap}!RelationGraph@{RelationGraph}}
-\subsubsection[{domainContextMap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NCluster} {\bf RelationGraph::domainContextMap}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{class_relation_graph_a19682ef9117675a560dc472ccd8ed71e}
-
-
-Definition at line 154 of file RelationGraph.h.
-
-\hypertarget{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}{
-\index{RelationGraph@{RelationGraph}!domainRelations@{domainRelations}}
-\index{domainRelations@{domainRelations}!RelationGraph@{RelationGraph}}
-\subsubsection[{domainRelations}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NCluster} {\bf RelationGraph::domainRelations}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{class_relation_graph_ae9f10cd7d1c80a5c6860efb3155a3737}
-
-
-Definition at line 156 of file RelationGraph.h.
 
 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-/Users/alqadaf/Research/Code/core/headers/\hyperlink{_relation_graph_8h}{RelationGraph.h}\item 
-/Users/alqadaf/Research/Code/core/source/\hyperlink{_relation_graph_8cpp}{RelationGraph.cpp}\end{DoxyCompactItemize}
+headers/RelationGraph.h\item 
+source/RelationGraph.cpp\end{DoxyCompactItemize}

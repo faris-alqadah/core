@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: /Users/alqadaf/Research/Code/core/source/NameMap.cpp Source File</title>
+<title>Star Shaped HIN-Clustering: source/NameMap.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -59,108 +52,85 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
-</div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('_name_map_8cpp.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<h1>/Users/alqadaf/Research/Code/core/source/NameMap.cpp</h1>  </div>
+<h1>source/NameMap.cpp</h1>  </div>
 </div>
 <div class="contents">
-<a href="_name_map_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &lt;fstream&gt;</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &lt;fstream&gt;</span>
 <a name="l00002"></a>00002 
-<a name="l00003"></a>00003 <span class="preprocessor">#include &quot;<a class="code" href="_name_map_8h.html">../headers/NameMap.h</a>&quot;</span>
+<a name="l00003"></a>00003 <span class="preprocessor">#include &quot;../headers/NameMap.h&quot;</span>
 <a name="l00004"></a>00004 
-<a name="l00005"></a><a class="code" href="class_name_map.html#a8560d4570112d839b90be032f2af34e7">00005</a> <a class="code" href="class_name_map.html#a8560d4570112d839b90be032f2af34e7">NameMap::NameMap</a>(){}
+<a name="l00005"></a><a class="code" href="class_name_map.html#a8560d4570112d839b90be032f2af34e7">00005</a> <a class="code" href="class_name_map.html#a8560d4570112d839b90be032f2af34e7" title="Default constructor. No actual map is constructed, since no file is read.">NameMap::NameMap</a>(){}
 <a name="l00006"></a>00006 
-<a name="l00007"></a><a class="code" href="class_name_map.html#a20ae2d9acb54e06016b9375fcc10d46a">00007</a> <a class="code" href="class_name_map.html#a8560d4570112d839b90be032f2af34e7">NameMap::NameMap</a>(<span class="keywordtype">string</span> _fileName, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> _numEntries){
-<a name="l00008"></a>00008   <a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4">fileName</a> = _fileName;
-<a name="l00009"></a>00009   <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20">numEntries</a>=_numEntries;
+<a name="l00007"></a><a class="code" href="class_name_map.html#a4874c7a4e95a4dd589e834e12faa1999">00007</a> <a class="code" href="class_name_map.html#a8560d4570112d839b90be032f2af34e7" title="Default constructor. No actual map is constructed, since no file is read.">NameMap::NameMap</a>(<span class="keywordtype">string</span> _fileName, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> _numEntries){
+<a name="l00008"></a>00008   <a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4" title="name of the file from which the map was constructed">fileName</a> = _fileName;
+<a name="l00009"></a>00009   <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20" title="number of entries">numEntries</a>=_numEntries;
 <a name="l00010"></a>00010   ifstream myfile;
-<a name="l00011"></a>00011   <a class="code" href="class_name_map.html#a1acb823b1c1fb7b8d43f7e0e1406dca8">mapping</a>.resize(<a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20">numEntries</a>);
+<a name="l00011"></a>00011   <a class="code" href="class_name_map.html#a1acb823b1c1fb7b8d43f7e0e1406dca8" title="the actual map, maps the index in the vector to the string">mapping</a>.resize(<a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20" title="number of entries">numEntries</a>);
 <a name="l00012"></a>00012   <span class="keywordtype">id</span> = 0;
-<a name="l00013"></a>00013   myfile.open(<a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4">fileName</a>.c_str());
-<a name="l00014"></a>00014   assert(myfile.is_open() &amp;&amp; <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20">numEntries</a> &gt; 0);
+<a name="l00013"></a>00013   myfile.open(<a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4" title="name of the file from which the map was constructed">fileName</a>.c_str());
+<a name="l00014"></a>00014   assert(myfile.is_open() &amp;&amp; <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20" title="number of entries">numEntries</a> &gt; 0);
 <a name="l00015"></a>00015   <span class="keywordflow">if</span> (myfile.is_open()){
 <a name="l00016"></a>00016     <span class="keywordtype">int</span> lineNum = 0;
 <a name="l00017"></a>00017     <span class="keywordflow">for</span> (<span class="keywordtype">string</span> line; getline(myfile, line);) {
-<a name="l00018"></a>00018         <span class="keywordflow">if</span>(lineNum == <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20">numEntries</a>) <span class="keywordflow">break</span>;
+<a name="l00018"></a>00018         <span class="keywordflow">if</span>(lineNum == <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20" title="number of entries">numEntries</a>) <span class="keywordflow">break</span>;
 <a name="l00019"></a>00019         getline (myfile,line);
-<a name="l00020"></a>00020         <a class="code" href="class_name_map.html#a1acb823b1c1fb7b8d43f7e0e1406dca8">mapping</a>[lineNum] = line;
+<a name="l00020"></a>00020         <a class="code" href="class_name_map.html#a1acb823b1c1fb7b8d43f7e0e1406dca8" title="the actual map, maps the index in the vector to the string">mapping</a>[lineNum] = line;
 <a name="l00021"></a>00021         lineNum++;
 <a name="l00022"></a>00022     }
 <a name="l00023"></a>00023   }
 <a name="l00024"></a>00024   <span class="keywordflow">else</span>{
-<a name="l00025"></a>00025       cerr&lt;&lt;<span class="stringliteral">&quot;\nCoult not open NAME file!! &quot;</span>&lt;&lt;<a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4">fileName</a>&lt;&lt;endl&lt;&lt;<span class="stringliteral">&quot;\n&quot;</span>;
+<a name="l00025"></a>00025       cerr&lt;&lt;<span class="stringliteral">&quot;\nCoult not open NAME file!! &quot;</span>&lt;&lt;<a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4" title="name of the file from which the map was constructed">fileName</a>&lt;&lt;endl&lt;&lt;<span class="stringliteral">&quot;\n&quot;</span>;
 <a name="l00026"></a>00026       exit(-1);
 <a name="l00027"></a>00027   }    
 <a name="l00028"></a>00028 }
 <a name="l00029"></a>00029 
-<a name="l00030"></a><a class="code" href="class_name_map.html#a62a8dd9a2c1cfda1101d28be1ba6aa7d">00030</a> <a class="code" href="class_name_map.html#a8560d4570112d839b90be032f2af34e7">NameMap::NameMap</a>(<span class="keywordtype">string</span> &amp;_fileName){
-<a name="l00031"></a>00031  <a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4">fileName</a> = _fileName;
-<a name="l00032"></a>00032  <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20">numEntries</a>=0;
+<a name="l00030"></a><a class="code" href="class_name_map.html#a65b751a2cf738a2d391aca986d5f5281">00030</a> <a class="code" href="class_name_map.html#a8560d4570112d839b90be032f2af34e7" title="Default constructor. No actual map is constructed, since no file is read.">NameMap::NameMap</a>(<span class="keywordtype">string</span> &amp;_fileName){
+<a name="l00031"></a>00031  <a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4" title="name of the file from which the map was constructed">fileName</a> = _fileName;
+<a name="l00032"></a>00032  <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20" title="number of entries">numEntries</a>=0;
 <a name="l00033"></a>00033  ifstream myfile;
 <a name="l00034"></a>00034  <span class="keywordtype">id</span> = 0;
-<a name="l00035"></a>00035   myfile.open(<a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4">fileName</a>.c_str());
+<a name="l00035"></a>00035   myfile.open(<a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4" title="name of the file from which the map was constructed">fileName</a>.c_str());
 <a name="l00036"></a>00036   assert(myfile.is_open());
 <a name="l00037"></a>00037   <span class="keywordflow">if</span> (myfile.is_open()){
 <a name="l00038"></a>00038     <span class="keywordtype">int</span> lineNum = 0;
 <a name="l00039"></a>00039     <span class="keywordflow">for</span> (<span class="keywordtype">string</span> line; getline(myfile, line);) {
-<a name="l00040"></a>00040         <a class="code" href="class_name_map.html#a1acb823b1c1fb7b8d43f7e0e1406dca8">mapping</a>.push_back(line);
+<a name="l00040"></a>00040         <a class="code" href="class_name_map.html#a1acb823b1c1fb7b8d43f7e0e1406dca8" title="the actual map, maps the index in the vector to the string">mapping</a>.push_back(line);
 <a name="l00041"></a>00041         lineNum++;
-<a name="l00042"></a>00042         <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20">numEntries</a>++;
+<a name="l00042"></a>00042         <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20" title="number of entries">numEntries</a>++;
 <a name="l00043"></a>00043     }
 <a name="l00044"></a>00044   }
 <a name="l00045"></a>00045   <span class="keywordflow">else</span>{
-<a name="l00046"></a>00046       cerr&lt;&lt;<span class="stringliteral">&quot;\nCoult not open NAME file!! &quot;</span>&lt;&lt;<a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4">fileName</a>&lt;&lt;endl&lt;&lt;<span class="stringliteral">&quot;\n&quot;</span>;
+<a name="l00046"></a>00046       cerr&lt;&lt;<span class="stringliteral">&quot;\nCoult not open NAME file!! &quot;</span>&lt;&lt;<a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4" title="name of the file from which the map was constructed">fileName</a>&lt;&lt;endl&lt;&lt;<span class="stringliteral">&quot;\n&quot;</span>;
 <a name="l00047"></a>00047       exit(-1);
 <a name="l00048"></a>00048   }
 <a name="l00049"></a>00049 }
-<a name="l00050"></a><a class="code" href="class_name_map.html#a6cd400eef1ca62f1f9a0aea3876a0e41">00050</a> <span class="keywordtype">string</span> <a class="code" href="class_name_map.html#a6cd400eef1ca62f1f9a0aea3876a0e41">NameMap::GetName</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x){
-<a name="l00051"></a>00051     assert ( x &lt; <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20">numEntries</a>);
-<a name="l00052"></a>00052         <span class="keywordflow">return</span> <a class="code" href="class_name_map.html#a1acb823b1c1fb7b8d43f7e0e1406dca8">mapping</a>[x];
+<a name="l00050"></a><a class="code" href="class_name_map.html#a0ceabf530c3093d6fa163932c928d7bf">00050</a> <span class="keywordtype">string</span> <a class="code" href="class_name_map.html#a0ceabf530c3093d6fa163932c928d7bf" title="returns the string mapped to i">NameMap::GetName</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x){
+<a name="l00051"></a>00051     assert ( x &lt; <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20" title="number of entries">numEntries</a>);
+<a name="l00052"></a>00052         <span class="keywordflow">return</span> <a class="code" href="class_name_map.html#a1acb823b1c1fb7b8d43f7e0e1406dca8" title="the actual map, maps the index in the vector to the string">mapping</a>[x];
 <a name="l00053"></a>00053 
 <a name="l00054"></a>00054 
 <a name="l00055"></a>00055 }
 <a name="l00056"></a>00056 
-<a name="l00057"></a><a class="code" href="class_name_map.html#a9b58a913f6abdda24ead4f56c36a75d4">00057</a> <span class="keywordtype">string</span> <a class="code" href="class_name_map.html#a9b58a913f6abdda24ead4f56c36a75d4">NameMap::GetFileName</a>(){<span class="keywordflow">return</span> <a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4">fileName</a>;}
-<a name="l00058"></a><a class="code" href="class_name_map.html#ab1922430c9e4d12e67b5f27edf9afd15">00058</a> <span class="keywordtype">int</span> <a class="code" href="class_name_map.html#ab1922430c9e4d12e67b5f27edf9afd15">NameMap::GetNumEntries</a>(){<span class="keywordflow">return</span> <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20">numEntries</a>;}
+<a name="l00057"></a><a class="code" href="class_name_map.html#a9b58a913f6abdda24ead4f56c36a75d4">00057</a> <span class="keywordtype">string</span> <a class="code" href="class_name_map.html#a9b58a913f6abdda24ead4f56c36a75d4" title="Returns the file name from which the name map was constructed.">NameMap::GetFileName</a>(){<span class="keywordflow">return</span> <a class="code" href="class_name_map.html#acf6827aa9176aa0820a2c7c0ec0cf3a4" title="name of the file from which the map was constructed">fileName</a>;}
+<a name="l00058"></a><a class="code" href="class_name_map.html#ab1922430c9e4d12e67b5f27edf9afd15">00058</a> <span class="keywordtype">int</span> <a class="code" href="class_name_map.html#ab1922430c9e4d12e67b5f27edf9afd15" title="Returns the number of entries in the map.">NameMap::GetNumEntries</a>(){<span class="keywordflow">return</span> <a class="code" href="class_name_map.html#a647caae861e8a9e8472a033da6c0ad20" title="number of entries">numEntries</a>;}
 <a name="l00059"></a>00059 
-<a name="l00060"></a><a class="code" href="class_name_map.html#a61afb305b470bab4e3c9e14279d6f1c5">00060</a> <span class="keywordtype">void</span> <a class="code" href="class_name_map.html#a61afb305b470bab4e3c9e14279d6f1c5">NameMap::SetId</a>(<span class="keywordtype">int</span> idd){<span class="keywordtype">id</span>=idd;}
-<a name="l00061"></a><a class="code" href="class_name_map.html#a5ec2b743e894000de9dcc0c7cf198775">00061</a> <span class="keywordtype">int</span>  <a class="code" href="class_name_map.html#a5ec2b743e894000de9dcc0c7cf198775">NameMap::GetId</a>(){<span class="keywordflow">return</span> <a class="code" href="class_name_map.html#ab836a5099928fbf10c864504fd658fa8">id</a>;}
+<a name="l00060"></a><a class="code" href="class_name_map.html#a61afb305b470bab4e3c9e14279d6f1c5">00060</a> <span class="keywordtype">void</span> <a class="code" href="class_name_map.html#a61afb305b470bab4e3c9e14279d6f1c5" title="Set the id attribute of the name map.">NameMap::SetId</a>(<span class="keywordtype">int</span> idd){<span class="keywordtype">id</span>=idd;}
+<a name="l00061"></a><a class="code" href="class_name_map.html#a5ec2b743e894000de9dcc0c7cf198775">00061</a> <span class="keywordtype">int</span>  <a class="code" href="class_name_map.html#a5ec2b743e894000de9dcc0c7cf198775" title="Returns the id attribue of the name map.">NameMap::GetId</a>(){<span class="keywordflow">return</span> id;}
 <a name="l00062"></a>00062 
 <a name="l00063"></a>00063  
 <a name="l00064"></a>00064 
 </pre></div></div>
 </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="_name_map_8cpp.html">NameMap.cpp</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -169,6 +139,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>

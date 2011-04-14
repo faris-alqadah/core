@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: /Users/alqadaf/Research/Code/core/headers/PreProcess.h Source File</title>
+<title>Star Shaped HIN-Clustering: headers/PreProcess.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -59,148 +52,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
-</div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('_pre_process_8h.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<h1>/Users/alqadaf/Research/Code/core/headers/PreProcess.h</h1>  </div>
+<h1>headers/PreProcess.h</h1>  </div>
 </div>
 <div class="contents">
-<a href="_pre_process_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*______________________________________________________________________________</span>
-<a name="l00002"></a>00002 <span class="comment"> _______________________________________________________________________________</span>
-<a name="l00003"></a>00003 <span class="comment"> *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span>
-<a name="l00004"></a>00004 <span class="comment"> * Author: Faris Alqadah, Copyright 2008</span>
-<a name="l00005"></a>00005 <span class="comment"> * This program is available for only academic use. Commercial use is not allowed.</span>
-<a name="l00006"></a>00006 <span class="comment"> * Modification and re-distribution is permited only for academic use.</span>
-<a name="l00007"></a>00007 <span class="comment"> * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span>
-<a name="l00008"></a>00008 <span class="comment"> *  Pre-processing for the hin-core. Mainly reads in an input file, and context files</span>
-<a name="l00009"></a>00009 <span class="comment"> * to create a relation graph that is maintained in memory</span>
-<a name="l00010"></a>00010 <span class="comment"> *</span>
-<a name="l00011"></a>00011 <span class="comment"> *</span>
-<a name="l00012"></a>00012 <span class="comment"> *______________________________________________________________________________</span>
-<a name="l00013"></a>00013 <span class="comment"> *_____________________________________________________________________________*/</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00002"></a>00002 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef _PREPROCESS_H</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define _PREPROCESS_H</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;RelationGraph.h&quot;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;utility&gt;</span>
 <a name="l00014"></a>00014 
-<a name="l00015"></a>00015 <span class="preprocessor">#ifndef _PREPROCESS_H</span>
-<a name="l00016"></a>00016 <span class="preprocessor"></span><span class="preprocessor">#define _PREPROCESS_H</span>
-<a name="l00017"></a>00017 <span class="preprocessor"></span>
-<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="_relation_graph_8h.html">RelationGraph.h</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="keyword">using namespace </span>std;
+<a name="l00016"></a>00016 
+<a name="l00017"></a>00017 
 <a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="preprocessor">#include &lt;utility&gt;</span>
-<a name="l00021"></a>00021 
-<a name="l00022"></a>00022 <span class="keyword">using namespace </span>std;
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="comment">/********************************************************************/</span>
-<a name="l00025"></a>00025 <span class="comment">// MakeRelationGraph(string inputFile):</span>
-<a name="l00026"></a>00026 <span class="comment">//</span>
-<a name="l00027"></a>00027 <span class="comment">// Reads an input file that specifies a full relation graph and creates</span>
-<a name="l00028"></a>00028 <span class="comment">// a RelationGraph object.</span>
-<a name="l00029"></a>00029 <span class="comment">// Format of input file:</span>
-<a name="l00030"></a>00030 <span class="comment">//num_domains</span>
-<a name="l00031"></a>00031 <span class="comment">// num_contexts</span>
-<a name="l00032"></a>00032 <span class="comment">// domain1_name</span>
-<a name="l00033"></a>00033 <span class="comment">//path_to_domain1_name_map</span>
-<a name="l00034"></a>00034 <span class="comment">//.</span>
-<a name="l00035"></a>00035 <span class="comment">//.</span>
-<a name="l00036"></a>00036 <span class="comment">//.</span>
-<a name="l00037"></a>00037 <span class="comment">//domainn</span>
-<a name="l00038"></a>00038 <span class="comment">//path_to_domainn_name_map</span>
-<a name="l00039"></a>00039 <span class="comment">//domainx--domainy</span>
-<a name="l00040"></a>00040 <span class="comment">//path_to_domainx_domainy_fimi_file</span>
-<a name="l00041"></a>00041 <span class="comment">//.</span>
-<a name="l00042"></a>00042 <span class="comment">//.</span>
-<a name="l00043"></a>00043 <span class="comment">//.</span>
-<a name="l00044"></a>00044 <span class="comment">//###########################################</span>
-<a name="l00045"></a>00045 <span class="comment">//Domain names are specifed first.</span>
-<a name="l00046"></a>00046 <span class="comment">//On the next line the path to name map file of the domain</span>
-<a name="l00047"></a>00047 <span class="comment">//After all domains specified contexts should be specified</span>
-<a name="l00048"></a>00048 <span class="comment">//Contexts are specified as the name of domain1 followed by name of domain2. If these</span>
-<a name="l00049"></a>00049 <span class="comment">//names do not match the names speficied in the first section error is thrown</span>
-<a name="l00050"></a>00050 <span class="comment">//Next line is the path to the fimi file for the specified domain. The fimi file should</span>
-<a name="l00051"></a>00051 <span class="comment">//be formatted correctly</span>
-<a name="l00052"></a>00052 <span class="comment">//</span>
-<a name="l00053"></a>00053 <span class="comment">//</span>
-<a name="l00054"></a>00054 <span class="comment">//  Pre-Condition: all file paths are valid and fimi files are well formed, num_domains -1 = num_contexts</span>
-<a name="l00055"></a>00055 <span class="comment">//  Post-Condition: none</span>
-<a name="l00056"></a>00056 <span class="comment">//  returns: relation graph</span>
-<a name="l00057"></a>00057 <span class="comment">//  output: none</span>
-<a name="l00058"></a>00058 <span class="comment">/********************************************************************/</span>
-<a name="l00059"></a>00059 <a class="code" href="class_relation_graph.html">RelationGraph</a> * <a class="code" href="_pre_process_8h.html#a3accc434951e256ad879ebf9fae65f63">MakeRelationGraph</a>(<span class="keywordtype">string</span> &amp;<a class="code" href="_main_8cpp.html#a5e9f951ac74e1226535d038b1893d4a1">inputFile</a>);
-<a name="l00060"></a>00060 <span class="comment">/********************************************************************/</span>
-<a name="l00061"></a>00061 <span class="comment">// MakeContext(string inputFile,int dId1,int dId2, string name, NameMap n1, NameMap n2)</span>
-<a name="l00062"></a>00062 <span class="comment">//  Pre-Condition: inputFile is valid path, n1 and n2 are non null</span>
-<a name="l00063"></a>00063 <span class="comment">//  Post-Condition: none</span>
-<a name="l00064"></a>00064 <span class="comment">//  returns: a context with domain1 = d1 and domain2 = d2, and relations read in from inputFile and its transpose computed</span>
-<a name="l00065"></a>00065 <span class="comment">//  output: none</span>
-<a name="l00066"></a>00066 <span class="comment">/********************************************************************/</span>
-<a name="l00067"></a>00067 <a class="code" href="class_context.html">Context</a> * <a class="code" href="_pre_process_8h.html#aa9e2649d26847a7bac0e7796e2ed6ddf">MakeContext</a>(<span class="keywordtype">string</span> &amp;<a class="code" href="_main_8cpp.html#a5e9f951ac74e1226535d038b1893d4a1">inputFile</a>,<span class="keywordtype">int</span> dId1, <span class="keywordtype">int</span> dId2, <span class="keywordtype">string</span> &amp;name, <span class="keywordtype">int</span> ctxId, <a class="code" href="class_name_map.html">NameMap</a> *nm1, <a class="code" href="class_name_map.html">NameMap</a> *nm2);
-<a name="l00068"></a>00068 
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070 <span class="comment">/********************************************************************/</span>
-<a name="l00071"></a>00071 <span class="comment">// MakeNClusterFromFimi(string inputFile)</span>
-<a name="l00072"></a>00072 <span class="comment">//  Pre-Condition: inputFile is valid path</span>
-<a name="l00073"></a>00073 <span class="comment">//  Post-Condition: none</span>
-<a name="l00074"></a>00074 <span class="comment">//  returns: creates an n-cluster by reading in a fimi file</span>
-<a name="l00075"></a>00075 <span class="comment">//  output: none</span>
-<a name="l00076"></a>00076 <span class="comment">/********************************************************************/</span>
-<a name="l00077"></a>00077 <a class="code" href="class_n_cluster.html">NCluster</a> *<a class="code" href="_pre_process_8h.html#aa69956e6f747b4f6390db1b171671f0a">MakeNClusterFromFimi</a>(<span class="keywordtype">string</span> &amp;<a class="code" href="_main_8cpp.html#a5e9f951ac74e1226535d038b1893d4a1">inputFile</a>);
-<a name="l00078"></a>00078 
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080 
-<a name="l00081"></a>00081 <span class="comment">/********************************************************************/</span>
-<a name="l00082"></a>00082 <span class="comment">// Tokenize(string&amp; str, vector&lt;string&gt;&amp; tokens, const string&amp; delimiters)</span>
-<a name="l00083"></a>00083 <span class="comment">//  Pre-Condition: none</span>
-<a name="l00084"></a>00084 <span class="comment">//  Post-Condition: tokens contains tokens from str as delimited by delimiters</span>
-<a name="l00085"></a>00085 <span class="comment">//  returns: none</span>
-<a name="l00086"></a>00086 <span class="comment">//  output: none</span>
-<a name="l00087"></a>00087 <span class="comment">/********************************************************************/</span>
-<a name="l00088"></a>00088 <span class="keywordtype">void</span> <a class="code" href="_pre_process_8h.html#a2feee3609268d6261a4077a2db8197ad">Tokenize</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp;, vector&lt;string&gt;&amp; , <span class="keyword">const</span> <span class="keywordtype">string</span>&amp;);
-<a name="l00089"></a>00089 
-<a name="l00090"></a>00090 <span class="comment">/********************************************************************/</span>
-<a name="l00091"></a>00091 <span class="comment">// Error(string message)</span>
-<a name="l00092"></a>00092 <span class="comment">//  Pre-Condition: none </span>
-<a name="l00093"></a>00093 <span class="comment">// Post-Condition:error message is displayed and program is terminated</span>
-<a name="l00094"></a>00094 <span class="comment">//  returns: none</span>
-<a name="l00095"></a>00095 <span class="comment">//  output: none</span>
-<a name="l00096"></a>00096 <span class="comment">/********************************************************************/</span>
-<a name="l00097"></a>00097 <span class="keywordtype">void</span> <a class="code" href="_pre_process_8h.html#ade5d6bb0e98f84bcdf903535dcf5719f">Error</a>(<span class="keywordtype">string</span> &amp;message);
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100 
-<a name="l00101"></a>00101 
-<a name="l00102"></a>00102 
-<a name="l00103"></a>00103 <span class="preprocessor">#endif  </span><span class="comment">/* _PREPROCESS_H */</span>
-<a name="l00104"></a>00104 
+<a name="l00024"></a>00024 <a class="code" href="class_relation_graph.html">RelationGraph</a> * MakeRelationGraph(<span class="keywordtype">string</span> &amp;inputFile);
+<a name="l00025"></a>00025 
+<a name="l00027"></a>00027 
+<a name="l00038"></a>00038 <a class="code" href="class_context.html">Context</a> * MakeContext(<span class="keywordtype">string</span> &amp;inputFile,<span class="keywordtype">int</span> dId1, <span class="keywordtype">int</span> dId2, <span class="keywordtype">string</span> &amp;name, <span class="keywordtype">int</span> ctxId, <a class="code" href="class_name_map.html">NameMap</a> *nm1, <a class="code" href="class_name_map.html">NameMap</a> *nm2);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040 
+<a name="l00042"></a>00042 <a class="code" href="class_n_cluster.html">NCluster</a> *MakeNClusterFromFimi(<span class="keywordtype">string</span> &amp;inputFile);
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044 
+<a name="l00045"></a>00045 
+<a name="l00047"></a>00047 
+<a name="l00053"></a>00053 <span class="keywordtype">void</span> Tokenize(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; str, vector&lt;string&gt; &amp;tokens , <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;delim);
+<a name="l00054"></a>00054 
+<a name="l00056"></a>00056 <span class="keywordtype">void</span> Error(<span class="keywordtype">string</span> &amp;message);
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062 <span class="preprocessor">#endif  </span><span class="comment">/* _PREPROCESS_H */</span>
+<a name="l00063"></a>00063 
 </pre></div></div>
 </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="_pre_process_8h.html">PreProcess.h</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -209,6 +109,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>

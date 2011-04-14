@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: /Users/alqadaf/Research/Code/core/source/RelationGraph.cpp Source File</title>
+<title>Star Shaped HIN-Clustering: source/RelationGraph.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -59,208 +52,185 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
-</div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('_relation_graph_8cpp.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<h1>/Users/alqadaf/Research/Code/core/source/RelationGraph.cpp</h1>  </div>
+<h1>source/RelationGraph.cpp</h1>  </div>
 </div>
 <div class="contents">
-<a href="_relation_graph_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include&quot;<a class="code" href="_relation_graph_8h.html">../headers/RelationGraph.h</a>&quot;</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include&quot;../headers/RelationGraph.h&quot;</span>
 <a name="l00002"></a>00002 
-<a name="l00003"></a><a class="code" href="class_relation_graph.html#a6bac261190e85c0fa8cce617184ea6a0">00003</a> <a class="code" href="class_relation_graph.html#a6bac261190e85c0fa8cce617184ea6a0">RelationGraph::RelationGraph</a>() {
+<a name="l00003"></a><a class="code" href="class_relation_graph.html#a6bac261190e85c0fa8cce617184ea6a0">00003</a> <a class="code" href="class_relation_graph.html#a6bac261190e85c0fa8cce617184ea6a0" title="Default constructor.">RelationGraph::RelationGraph</a>() {
 <a name="l00004"></a>00004 }
 <a name="l00005"></a>00005 
-<a name="l00006"></a><a class="code" href="class_relation_graph.html#a801766615e87cb42f511cb068dd9d482">00006</a> <a class="code" href="class_relation_graph.html#a801766615e87cb42f511cb068dd9d482">RelationGraph::~RelationGraph</a>() {
-<a name="l00007"></a>00007     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.size(); i++) <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i] = NULL;
+<a name="l00006"></a><a class="code" href="class_relation_graph.html#a801766615e87cb42f511cb068dd9d482">00006</a> <a class="code" href="class_relation_graph.html#a801766615e87cb42f511cb068dd9d482" title="Destructor.">RelationGraph::~RelationGraph</a>() {
+<a name="l00007"></a>00007     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.size(); i++) <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i] = NULL;
 <a name="l00008"></a>00008 }
 <a name="l00009"></a>00009 
-<a name="l00010"></a><a class="code" href="class_relation_graph.html#a5c1bd71649ec9c19f28b3fe0abda9540">00010</a> <span class="keywordtype">void</span> <a class="code" href="class_relation_graph.html#a5c1bd71649ec9c19f28b3fe0abda9540">RelationGraph::AddContext</a>(<a class="code" href="class_context.html">Context</a> *c) {
+<a name="l00010"></a><a class="code" href="class_relation_graph.html#a5c1bd71649ec9c19f28b3fe0abda9540">00010</a> <span class="keywordtype">void</span> <a class="code" href="class_relation_graph.html#a5c1bd71649ec9c19f28b3fe0abda9540" title="Adds context c to the network.">RelationGraph::AddContext</a>(<a class="code" href="class_context.html">Context</a> *c) {
 <a name="l00011"></a>00011     <span class="comment">//first check if context is context already exists (by id)</span>
-<a name="l00012"></a>00012     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.size(); i++)
-<a name="l00013"></a>00013         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetId() == c-&gt;<a class="code" href="class_context.html#a25534dd063517e00875840cd53c2bacd" title="Return the id of the context.">GetId</a>())
+<a name="l00012"></a>00012     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.size(); i++)
+<a name="l00013"></a>00013         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetId() == c-&gt;<a class="code" href="class_context.html#a25534dd063517e00875840cd53c2bacd" title="Return the id of the context.">GetId</a>())
 <a name="l00014"></a>00014             <span class="keywordflow">return</span>;
 <a name="l00015"></a>00015     <span class="comment">//if reached here then context is not contained so</span>
 <a name="l00016"></a>00016     <span class="comment">//add it and make adjustements</span>
-<a name="l00017"></a>00017     <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.push_back(c);
+<a name="l00017"></a>00017     <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.push_back(c);
 <a name="l00018"></a>00018     <span class="comment">// modify domain context map by adding in new domains</span>
 <a name="l00019"></a>00019     <span class="comment">//and adjusting any old ones</span>
 <a name="l00020"></a>00020     pair&lt;int, int&gt; newDomains = c-&gt;<a class="code" href="class_context.html#abf904165924eb0b4b0e3bf580859903a" title="Returns an interger pair corresponding to the ids of the domains.">GetDomainIds</a>();
-<a name="l00021"></a>00021     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a>(newDomains.first)) {
-<a name="l00022"></a>00022         <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(newDomains.first)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(c-&gt;<a class="code" href="class_context.html#a25534dd063517e00875840cd53c2bacd" title="Return the id of the context.">GetId</a>());
-<a name="l00023"></a>00023         <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(newDomains.first)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(newDomains.second);
+<a name="l00021"></a>00021     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c" title="Returns true if an IOSet with id=id exists in self, false otherwsie.">ContainsIOSetId</a>(newDomains.first)) {
+<a name="l00022"></a>00022         <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(newDomains.first)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(c-&gt;<a class="code" href="class_context.html#a25534dd063517e00875840cd53c2bacd" title="Return the id of the context.">GetId</a>());
+<a name="l00023"></a>00023         <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(newDomains.first)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(newDomains.second);
 <a name="l00024"></a>00024     } <span class="keywordflow">else</span> {
 <a name="l00025"></a>00025         <a class="code" href="class_i_o_set.html">IOSet</a> *a = <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>();
 <a name="l00026"></a>00026         a-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(newDomains.first);
 <a name="l00027"></a>00027         a-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(c-&gt;<a class="code" href="class_context.html#a25534dd063517e00875840cd53c2bacd" title="Return the id of the context.">GetId</a>());
-<a name="l00028"></a>00028         <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31">AddSet</a>(a);
+<a name="l00028"></a>00028         <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31" title="Adds the set a to the end of the n-cluster.">AddSet</a>(a);
 <a name="l00029"></a>00029         <a class="code" href="class_i_o_set.html">IOSet</a> *b = <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>();
 <a name="l00030"></a>00030         b-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(newDomains.first);
 <a name="l00031"></a>00031         b-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(newDomains.second);
-<a name="l00032"></a>00032         <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31">AddSet</a>(b);
+<a name="l00032"></a>00032         <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31" title="Adds the set a to the end of the n-cluster.">AddSet</a>(b);
 <a name="l00033"></a>00033     }
-<a name="l00034"></a>00034     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a>(newDomains.second)) {
-<a name="l00035"></a>00035         <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(newDomains.second)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(c-&gt;<a class="code" href="class_context.html#a25534dd063517e00875840cd53c2bacd" title="Return the id of the context.">GetId</a>());
-<a name="l00036"></a>00036         <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(newDomains.second)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(newDomains.first);
+<a name="l00034"></a>00034     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c" title="Returns true if an IOSet with id=id exists in self, false otherwsie.">ContainsIOSetId</a>(newDomains.second)) {
+<a name="l00035"></a>00035         <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(newDomains.second)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(c-&gt;<a class="code" href="class_context.html#a25534dd063517e00875840cd53c2bacd" title="Return the id of the context.">GetId</a>());
+<a name="l00036"></a>00036         <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(newDomains.second)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(newDomains.first);
 <a name="l00037"></a>00037     } <span class="keywordflow">else</span> {
 <a name="l00038"></a>00038         <a class="code" href="class_i_o_set.html">IOSet</a> *a = <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>();
 <a name="l00039"></a>00039         a-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(newDomains.second);
 <a name="l00040"></a>00040         a-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(c-&gt;<a class="code" href="class_context.html#a25534dd063517e00875840cd53c2bacd" title="Return the id of the context.">GetId</a>());
-<a name="l00041"></a>00041         <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31">AddSet</a>(a);
+<a name="l00041"></a>00041         <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31" title="Adds the set a to the end of the n-cluster.">AddSet</a>(a);
 <a name="l00042"></a>00042         <a class="code" href="class_i_o_set.html">IOSet</a> *b = <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>();
 <a name="l00043"></a>00043         b-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(newDomains.second);
 <a name="l00044"></a>00044         b-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(newDomains.first);
-<a name="l00045"></a>00045         <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31">AddSet</a>(b);
+<a name="l00045"></a>00045         <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31" title="Adds the set a to the end of the n-cluster.">AddSet</a>(b);
 <a name="l00046"></a>00046     }
 <a name="l00047"></a>00047     <span class="comment">//sort all iosets</span>
-<a name="l00048"></a>00048     <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(newDomains.first)-&gt;<a class="code" href="class_i_o_set.html#aa840da94162188f037e18152b7ddbc5d" title="Sort the elements of the IOSet in asscending order.">Sort</a>();
-<a name="l00049"></a>00049     <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(newDomains.second)-&gt;<a class="code" href="class_i_o_set.html#aa840da94162188f037e18152b7ddbc5d" title="Sort the elements of the IOSet in asscending order.">Sort</a>();
-<a name="l00050"></a>00050     <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(newDomains.first)-&gt;<a class="code" href="class_i_o_set.html#aa840da94162188f037e18152b7ddbc5d" title="Sort the elements of the IOSet in asscending order.">Sort</a>();
-<a name="l00051"></a>00051     <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(newDomains.second)-&gt;<a class="code" href="class_i_o_set.html#aa840da94162188f037e18152b7ddbc5d" title="Sort the elements of the IOSet in asscending order.">Sort</a>();
+<a name="l00048"></a>00048     <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(newDomains.first)-&gt;<a class="code" href="class_i_o_set.html#aa840da94162188f037e18152b7ddbc5d" title="Sort the elements of the IOSet in asscending order.">Sort</a>();
+<a name="l00049"></a>00049     <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(newDomains.second)-&gt;<a class="code" href="class_i_o_set.html#aa840da94162188f037e18152b7ddbc5d" title="Sort the elements of the IOSet in asscending order.">Sort</a>();
+<a name="l00050"></a>00050     <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(newDomains.first)-&gt;<a class="code" href="class_i_o_set.html#aa840da94162188f037e18152b7ddbc5d" title="Sort the elements of the IOSet in asscending order.">Sort</a>();
+<a name="l00051"></a>00051     <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(newDomains.second)-&gt;<a class="code" href="class_i_o_set.html#aa840da94162188f037e18152b7ddbc5d" title="Sort the elements of the IOSet in asscending order.">Sort</a>();
 <a name="l00052"></a>00052 }
 <a name="l00053"></a>00053 
-<a name="l00054"></a><a class="code" href="class_relation_graph.html#adeb2d25e6c30b397daec5179473ba122">00054</a> <span class="keywordtype">int</span> <a class="code" href="class_relation_graph.html#adeb2d25e6c30b397daec5179473ba122">RelationGraph::GetNumNodes</a>() {
-<a name="l00055"></a>00055     <span class="keywordflow">return</span> <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688">GetN</a>();
+<a name="l00054"></a><a class="code" href="class_relation_graph.html#adeb2d25e6c30b397daec5179473ba122">00054</a> <span class="keywordtype">int</span> <a class="code" href="class_relation_graph.html#adeb2d25e6c30b397daec5179473ba122" title="Returns the number of nodes (domains) in the network.">RelationGraph::GetNumNodes</a>() {
+<a name="l00055"></a>00055     <span class="keywordflow">return</span> <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688" title="Resurns n, the number of sets in the n-cluster.">GetN</a>();
 <a name="l00056"></a>00056 }
 <a name="l00057"></a>00057 
-<a name="l00058"></a><a class="code" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39">00058</a> <span class="keywordtype">bool</span> <a class="code" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39">RelationGraph::IsEdge</a>(<span class="keywordtype">int</span> id1, <span class="keywordtype">int</span> id2) {
-<a name="l00059"></a>00059     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a>(id1) &amp;&amp; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a>(id2)) {
+<a name="l00058"></a><a class="code" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39">00058</a> <span class="keywordtype">bool</span> <a class="code" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39" title="Returns true if the ids are an edge in the network, false otherwise.">RelationGraph::IsEdge</a>(<span class="keywordtype">int</span> id1, <span class="keywordtype">int</span> id2) {
+<a name="l00059"></a>00059     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c" title="Returns true if an IOSet with id=id exists in self, false otherwsie.">ContainsIOSetId</a>(id1) &amp;&amp; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c" title="Returns true if an IOSet with id=id exists in self, false otherwsie.">ContainsIOSetId</a>(id2)) {
 <a name="l00060"></a>00060         <span class="comment">//since symmetric only need to check one adjacency list</span>
-<a name="l00061"></a>00061         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(id1)-&gt;<a class="code" href="class_i_o_set.html#a928b470720d1ce878a73a06f39647de9" title="Returns true if the IOSet contains the integer specified.">Contains</a>(id2)) <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00061"></a>00061         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(id1)-&gt;<a class="code" href="class_i_o_set.html#a928b470720d1ce878a73a06f39647de9" title="Returns true if the IOSet contains the integer specified.">Contains</a>(id2)) <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00062"></a>00062         <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00063"></a>00063     } <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00064"></a>00064 }
 <a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="class_relation_graph.html#acd16774976073a33da14d8461ba4165d">00066</a> vector&lt;Context*&gt; * <a class="code" href="class_relation_graph.html#acd16774976073a33da14d8461ba4165d">RelationGraph::GetContexts</a>(<span class="keywordtype">int</span> domain) {
-<a name="l00067"></a>00067     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a>(domain)) {
-<a name="l00068"></a>00068         <a class="code" href="class_i_o_set.html">IOSet</a> *t = <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(domain);
+<a name="l00066"></a><a class="code" href="class_relation_graph.html#acd16774976073a33da14d8461ba4165d">00066</a> vector&lt;Context*&gt; * <a class="code" href="class_relation_graph.html#acd16774976073a33da14d8461ba4165d" title="Returns a vector of contexts that contain domain.">RelationGraph::GetContexts</a>(<span class="keywordtype">int</span> domain) {
+<a name="l00067"></a>00067     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c" title="Returns true if an IOSet with id=id exists in self, false otherwsie.">ContainsIOSetId</a>(domain)) {
+<a name="l00068"></a>00068         <a class="code" href="class_i_o_set.html">IOSet</a> *t = <a class="code" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e" title="maps domains to contexts">domainContextMap</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(domain);
 <a name="l00069"></a>00069         vector&lt;Context*&gt; *ret = <span class="keyword">new</span> vector&lt;Context*&gt;;
 <a name="l00070"></a>00070         <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; t-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>(); i++)
-<a name="l00071"></a>00071             ret-&gt;push_back(<a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32">GetContext</a>(t-&gt;<a class="code" href="class_i_o_set.html#a260b6fe08d622da8938b01f63221f230" title="Return the ith element.">At</a>(i)));
+<a name="l00071"></a>00071             ret-&gt;push_back(<a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32" title="Returns a pointer to the context with the specified ctxId.">GetContext</a>(t-&gt;<a class="code" href="class_i_o_set.html#a260b6fe08d622da8938b01f63221f230" title="Return the ith element.">At</a>(i)));
 <a name="l00072"></a>00072         <span class="keywordflow">return</span> ret;
 <a name="l00073"></a>00073     } <span class="keywordflow">else</span> <span class="keywordflow">return</span> NULL;
 <a name="l00074"></a>00074 }
 <a name="l00075"></a>00075 
-<a name="l00076"></a><a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32">00076</a> <a class="code" href="class_context.html">Context</a> * <a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32">RelationGraph::GetContext</a>(<span class="keywordtype">int</span> ctxId) {
-<a name="l00077"></a>00077     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.size(); i++)
-<a name="l00078"></a>00078         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetId() == ctxId)
-<a name="l00079"></a>00079             <span class="keywordflow">return</span> <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i];
+<a name="l00076"></a><a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32">00076</a> <a class="code" href="class_context.html">Context</a> * <a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32" title="Returns a pointer to the context with the specified ctxId.">RelationGraph::GetContext</a>(<span class="keywordtype">int</span> ctxId) {
+<a name="l00077"></a>00077     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.size(); i++)
+<a name="l00078"></a>00078         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetId() == ctxId)
+<a name="l00079"></a>00079             <span class="keywordflow">return</span> <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i];
 <a name="l00080"></a>00080     <span class="keywordflow">return</span> NULL;
 <a name="l00081"></a>00081 }
 <a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="class_relation_graph.html#adf3c6bb0287acf5e5569b88a3d3a9326">00083</a> <a class="code" href="class_i_o_set.html">IOSet</a> *<a class="code" href="class_relation_graph.html#adf3c6bb0287acf5e5569b88a3d3a9326">RelationGraph::GetArtDomains</a>() {
+<a name="l00083"></a><a class="code" href="class_relation_graph.html#adf3c6bb0287acf5e5569b88a3d3a9326">00083</a> <a class="code" href="class_i_o_set.html">IOSet</a> *<a class="code" href="class_relation_graph.html#adf3c6bb0287acf5e5569b88a3d3a9326" title="Returns an IOSet of domain ids which correspond to the articulation nodes of the network.">RelationGraph::GetArtDomains</a>() {
 <a name="l00084"></a>00084     <a class="code" href="class_i_o_set.html">IOSet</a> *ret = <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>;
-<a name="l00085"></a>00085     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688">GetN</a>(); i++)
-<a name="l00086"></a>00086         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>() &gt; 1)
-<a name="l00087"></a>00087             ret-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#aab9b694aacc43beacfcb4904478b9161" title="Returns the id of the IOSet.">Id</a>());
+<a name="l00085"></a>00085     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688" title="Resurns n, the number of sets in the n-cluster.">GetN</a>(); i++)
+<a name="l00086"></a>00086         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>() &gt; 1)
+<a name="l00087"></a>00087             ret-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#aab9b694aacc43beacfcb4904478b9161" title="Returns the id of the IOSet.">Id</a>());
 <a name="l00088"></a>00088     <span class="keywordflow">return</span> ret;
 <a name="l00089"></a>00089 }
 <a name="l00090"></a>00090 
-<a name="l00091"></a><a class="code" href="class_relation_graph.html#a82dafd34929842c2ddf93d42551db4f1">00091</a> <a class="code" href="class_i_o_set.html">IOSet</a> * <a class="code" href="class_relation_graph.html#a82dafd34929842c2ddf93d42551db4f1">RelationGraph::GetNeighbors</a>(<span class="keywordtype">int</span> domain) {
-<a name="l00092"></a>00092     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a>(domain))
-<a name="l00093"></a>00093         <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>(<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(domain));
+<a name="l00091"></a><a class="code" href="class_relation_graph.html#a82dafd34929842c2ddf93d42551db4f1">00091</a> <a class="code" href="class_i_o_set.html">IOSet</a> * <a class="code" href="class_relation_graph.html#a82dafd34929842c2ddf93d42551db4f1" title="Reutnrs an IOSet of doamins ids that share an edge with domain.">RelationGraph::GetNeighbors</a>(<span class="keywordtype">int</span> domain) {
+<a name="l00092"></a>00092     <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c" title="Returns true if an IOSet with id=id exists in self, false otherwsie.">ContainsIOSetId</a>(domain))
+<a name="l00093"></a>00093         <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>(<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(domain));
 <a name="l00094"></a>00094     <span class="keywordflow">else</span> <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>();
 <a name="l00095"></a>00095 }
 <a name="l00096"></a>00096 
-<a name="l00097"></a><a class="code" href="class_relation_graph.html#a3ce2cfa6d1becccfdef2f7fc851026d5">00097</a> <a class="code" href="class_i_o_set.html">IOSet</a> * <a class="code" href="class_relation_graph.html#a3ce2cfa6d1becccfdef2f7fc851026d5">RelationGraph::GetAllContextIds</a>() {
+<a name="l00097"></a><a class="code" href="class_relation_graph.html#a3ce2cfa6d1becccfdef2f7fc851026d5">00097</a> <a class="code" href="class_i_o_set.html">IOSet</a> * <a class="code" href="class_relation_graph.html#a3ce2cfa6d1becccfdef2f7fc851026d5" title="Reutnrs an IOSet of all the context ids.">RelationGraph::GetAllContextIds</a>() {
 <a name="l00098"></a>00098     <a class="code" href="class_i_o_set.html">IOSet</a> * ret = <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>;
-<a name="l00099"></a>00099     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.size(); i++)
-<a name="l00100"></a>00100         ret-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetId());
+<a name="l00099"></a>00099     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.size(); i++)
+<a name="l00100"></a>00100         ret-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetId());
 <a name="l00101"></a>00101     <span class="keywordflow">return</span> ret;
 <a name="l00102"></a>00102 }
 <a name="l00103"></a>00103 
-<a name="l00104"></a><a class="code" href="class_relation_graph.html#ac4d09659ad3e4a4856abe9b15edc0105">00104</a> <a class="code" href="class_i_o_set.html">IOSet</a> * <a class="code" href="class_relation_graph.html#ac4d09659ad3e4a4856abe9b15edc0105">RelationGraph::GetAllDomainIds</a>() {
+<a name="l00104"></a><a class="code" href="class_relation_graph.html#ac4d09659ad3e4a4856abe9b15edc0105">00104</a> <a class="code" href="class_i_o_set.html">IOSet</a> * <a class="code" href="class_relation_graph.html#ac4d09659ad3e4a4856abe9b15edc0105" title="Reutnrs an IOSet of all the domain ids.">RelationGraph::GetAllDomainIds</a>() {
 <a name="l00105"></a>00105     <a class="code" href="class_i_o_set.html">IOSet</a> * ret = <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>;
-<a name="l00106"></a>00106     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688">GetN</a>(); i++)
-<a name="l00107"></a>00107         ret-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#aab9b694aacc43beacfcb4904478b9161" title="Returns the id of the IOSet.">Id</a>());
+<a name="l00106"></a>00106     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688" title="Resurns n, the number of sets in the n-cluster.">GetN</a>(); i++)
+<a name="l00107"></a>00107         ret-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#aab9b694aacc43beacfcb4904478b9161" title="Returns the id of the IOSet.">Id</a>());
 <a name="l00108"></a>00108     <span class="keywordflow">return</span> ret;
 <a name="l00109"></a>00109 }
 <a name="l00110"></a>00110 
-<a name="l00111"></a><a class="code" href="class_relation_graph.html#ab7cc26b947be79d26f078da0dc1936eb">00111</a> <span class="keywordtype">bool</span> <a class="code" href="class_relation_graph.html#ab7cc26b947be79d26f078da0dc1936eb">RelationGraph::IsDomainId</a>(<span class="keywordtype">int</span> dId) {
-<a name="l00112"></a>00112     <span class="keywordflow">return</span> <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a>(dId);
+<a name="l00111"></a><a class="code" href="class_relation_graph.html#ab7cc26b947be79d26f078da0dc1936eb">00111</a> <span class="keywordtype">bool</span> <a class="code" href="class_relation_graph.html#ab7cc26b947be79d26f078da0dc1936eb" title="Reutnrs true if dId is a domain id in the network, false otherwise.">RelationGraph::IsDomainId</a>(<span class="keywordtype">int</span> dId) {
+<a name="l00112"></a>00112     <span class="keywordflow">return</span> <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c" title="Returns true if an IOSet with id=id exists in self, false otherwsie.">ContainsIOSetId</a>(dId);
 <a name="l00113"></a>00113 }
 <a name="l00114"></a>00114 
-<a name="l00115"></a><a class="code" href="class_relation_graph.html#adbbbff1b919cf1c4f86620a0bd925cc4">00115</a> <span class="keywordtype">bool</span> <a class="code" href="class_relation_graph.html#adbbbff1b919cf1c4f86620a0bd925cc4">RelationGraph::IsContextId</a>(<span class="keywordtype">int</span> cId) {
-<a name="l00116"></a>00116     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.size(); i++)
-<a name="l00117"></a>00117         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetId() == cId)
+<a name="l00115"></a><a class="code" href="class_relation_graph.html#adbbbff1b919cf1c4f86620a0bd925cc4">00115</a> <span class="keywordtype">bool</span> <a class="code" href="class_relation_graph.html#adbbbff1b919cf1c4f86620a0bd925cc4" title="Reutnrs true if cId is a context id in the network, false otherwise.">RelationGraph::IsContextId</a>(<span class="keywordtype">int</span> cId) {
+<a name="l00116"></a>00116     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.size(); i++)
+<a name="l00117"></a>00117         <span class="keywordflow">if</span> (<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetId() == cId)
 <a name="l00118"></a>00118             <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00119"></a>00119     <span class="keywordflow">return</span> <span class="keyword">false</span>;
 <a name="l00120"></a>00120 }
 <a name="l00121"></a>00121 
-<a name="l00122"></a><a class="code" href="class_relation_graph.html#a1a3279bf6ed14795cf41124f9cc730ac">00122</a> <span class="keywordtype">void</span> <a class="code" href="class_relation_graph.html#a1a3279bf6ed14795cf41124f9cc730ac">RelationGraph::Print</a>(){
+<a name="l00122"></a><a class="code" href="class_relation_graph.html#a1a3279bf6ed14795cf41124f9cc730ac">00122</a> <span class="keywordtype">void</span> <a class="code" href="class_relation_graph.html#a1a3279bf6ed14795cf41124f9cc730ac" title="Prints the HIN.">RelationGraph::Print</a>(){
 <a name="l00123"></a>00123     <span class="comment">//first print context view</span>
 <a name="l00124"></a>00124         cout&lt;&lt;<span class="stringliteral">&quot;\n\n@@@@@@@@@@@@@@@RELATION GRAPH@@@@@@@@@@@@@@@@\n&quot;</span>;
 <a name="l00125"></a>00125         cout&lt;&lt;<span class="stringliteral">&quot;\n\nCONTEXTS\n\n&quot;</span>;
-<a name="l00126"></a>00126         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.size(); i++){
-<a name="l00127"></a>00127             pair&lt;int,int&gt; dIds = <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetDomainIds();
-<a name="l00128"></a>00128             cout&lt;&lt;<span class="stringliteral">&quot;\n\nContext &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetName()
-<a name="l00129"></a>00129                  &lt;&lt;<span class="stringliteral">&quot;\n\tId: &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetId()
+<a name="l00126"></a>00126         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.size(); i++){
+<a name="l00127"></a>00127             pair&lt;int,int&gt; dIds = <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetDomainIds();
+<a name="l00128"></a>00128             cout&lt;&lt;<span class="stringliteral">&quot;\n\nContext &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetName()
+<a name="l00129"></a>00129                  &lt;&lt;<span class="stringliteral">&quot;\n\tId: &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetId()
 <a name="l00130"></a>00130                 &lt;&lt;<span class="stringliteral">&quot;\n\tConnecting domains &quot;</span>&lt;&lt;dIds.first&lt;&lt;<span class="stringliteral">&quot; AND &quot;</span>&lt;&lt;dIds.second
-<a name="l00131"></a>00131                 &lt;&lt;<span class="stringliteral">&quot;\n\t Num elements in domain &quot;</span>&lt;&lt;dIds.first&lt;&lt;<span class="stringliteral">&quot;: &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetNumSets(dIds.first)
-<a name="l00132"></a>00132                 &lt;&lt;<span class="stringliteral">&quot;\n\tNum elements in domain &quot;</span>&lt;&lt;dIds.second&lt;&lt;<span class="stringliteral">&quot;: &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetNumSets(dIds.second)
-<a name="l00133"></a>00133                 &lt;&lt;<span class="stringliteral">&quot;\n\tDensity: &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetDensity();
+<a name="l00131"></a>00131                 &lt;&lt;<span class="stringliteral">&quot;\n\t Num elements in domain &quot;</span>&lt;&lt;dIds.first&lt;&lt;<span class="stringliteral">&quot;: &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetNumSets(dIds.first)
+<a name="l00132"></a>00132                 &lt;&lt;<span class="stringliteral">&quot;\n\tNum elements in domain &quot;</span>&lt;&lt;dIds.second&lt;&lt;<span class="stringliteral">&quot;: &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetNumSets(dIds.second)
+<a name="l00133"></a>00133                 &lt;&lt;<span class="stringliteral">&quot;\n\tDensity: &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetDensity();
 <a name="l00134"></a>00134         }
 <a name="l00135"></a>00135         <span class="comment">//next print domain relation view</span>
 <a name="l00136"></a>00136         cout&lt;&lt;<span class="stringliteral">&quot;\n\nDOMAIN RELATIONS\n\n&quot;</span>;
-<a name="l00137"></a>00137         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688">GetN</a>(); i++){
-<a name="l00138"></a>00138             cout&lt;&lt;<span class="stringliteral">&quot;\n&quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#aab9b694aacc43beacfcb4904478b9161" title="Returns the id of the IOSet.">Id</a>()&lt;&lt;<span class="stringliteral">&quot;  ---- &quot;</span>;
-<a name="l00139"></a>00139             <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0; j &lt; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>(); j++){
-<a name="l00140"></a>00140                 cout&lt;&lt;<span class="stringliteral">&quot; &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#a260b6fe08d622da8938b01f63221f230" title="Return the ith element.">At</a>(j);
+<a name="l00137"></a>00137         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688" title="Resurns n, the number of sets in the n-cluster.">GetN</a>(); i++){
+<a name="l00138"></a>00138             cout&lt;&lt;<span class="stringliteral">&quot;\n&quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#aab9b694aacc43beacfcb4904478b9161" title="Returns the id of the IOSet.">Id</a>()&lt;&lt;<span class="stringliteral">&quot;  ---- &quot;</span>;
+<a name="l00139"></a>00139             <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j=0; j &lt; <a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>(); j++){
+<a name="l00140"></a>00140                 cout&lt;&lt;<span class="stringliteral">&quot; &quot;</span>&lt;&lt;<a class="code" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737" title="adajcency list of the actual graph">domainRelations</a>.<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(i)-&gt;<a class="code" href="class_i_o_set.html#a260b6fe08d622da8938b01f63221f230" title="Return the ith element.">At</a>(j);
 <a name="l00141"></a>00141             }
 <a name="l00142"></a>00142         }
 <a name="l00143"></a>00143 
 <a name="l00144"></a>00144 }
 <a name="l00145"></a>00145 
-<a name="l00146"></a><a class="code" href="class_relation_graph.html#aed7ec9b885e3f3cba079232e0a59b027">00146</a>     <a class="code" href="class_context.html">Context</a>* <a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32">RelationGraph::GetContext</a>(<span class="keywordtype">int</span> s, <span class="keywordtype">int</span> t){
-<a name="l00147"></a>00147         <span class="keywordflow">if</span>(<a class="code" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39">IsEdge</a>(s,t)){
-<a name="l00148"></a>00148             <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.size(); i++){
-<a name="l00149"></a>00149                 pair&lt;int,int&gt; dIds = <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetDomainIds();
+<a name="l00146"></a><a class="code" href="class_relation_graph.html#aed7ec9b885e3f3cba079232e0a59b027">00146</a>     <a class="code" href="class_context.html">Context</a>* <a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32" title="Returns a pointer to the context with the specified ctxId.">RelationGraph::GetContext</a>(<span class="keywordtype">int</span> s, <span class="keywordtype">int</span> t){
+<a name="l00147"></a>00147         <span class="keywordflow">if</span>(<a class="code" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39" title="Returns true if the ids are an edge in the network, false otherwise.">IsEdge</a>(s,t)){
+<a name="l00148"></a>00148             <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.size(); i++){
+<a name="l00149"></a>00149                 pair&lt;int,int&gt; dIds = <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetDomainIds();
 <a name="l00150"></a>00150                 <span class="keywordflow">if</span>( (dIds.first == s &amp;&amp; dIds.second == t) || ( dIds.first == t &amp;&amp; dIds.second == s))
-<a name="l00151"></a>00151                     <span class="keywordflow">return</span> <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i];
+<a name="l00151"></a>00151                     <span class="keywordflow">return</span> <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i];
 <a name="l00152"></a>00152             }
 <a name="l00153"></a>00153         }<span class="keywordflow">else</span> <span class="keywordflow">return</span> NULL;
 <a name="l00154"></a>00154     }
 <a name="l00155"></a>00155 
-<a name="l00156"></a><a class="code" href="class_relation_graph.html#a79d93b2f1cb9226aa4a3fcbbe423588b">00156</a>     vector&lt;NameMap*&gt; * <a class="code" href="class_relation_graph.html#a79d93b2f1cb9226aa4a3fcbbe423588b">RelationGraph::GetNameMaps</a>(){
+<a name="l00156"></a><a class="code" href="class_relation_graph.html#a79d93b2f1cb9226aa4a3fcbbe423588b">00156</a>     vector&lt;NameMap*&gt; * <a class="code" href="class_relation_graph.html#a79d93b2f1cb9226aa4a3fcbbe423588b" title="Returns a vector of name map pointers correspoding to each domain of the HIN.">RelationGraph::GetNameMaps</a>(){
 <a name="l00157"></a>00157         vector&lt;NameMap*&gt; * ret = <span class="keyword">new</span> vector&lt;NameMap*&gt;;
-<a name="l00158"></a>00158         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>.size(); i++){
-<a name="l00159"></a>00159             pair&lt;int,int&gt; dIds = <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetDomainIds();
-<a name="l00160"></a>00160             ret-&gt;push_back(<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetNameMap(dIds.first));
-<a name="l00161"></a>00161             ret-&gt;push_back(<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a>[i]-&gt;GetNameMap(dIds.second));
+<a name="l00158"></a>00158         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>.size(); i++){
+<a name="l00159"></a>00159             pair&lt;int,int&gt; dIds = <a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetDomainIds();
+<a name="l00160"></a>00160             ret-&gt;push_back(<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetNameMap(dIds.first));
+<a name="l00161"></a>00161             ret-&gt;push_back(<a class="code" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006" title="holds all the contexts">contexts</a>[i]-&gt;GetNameMap(dIds.second));
 <a name="l00162"></a>00162         }
 <a name="l00163"></a>00163         <span class="keywordflow">return</span> ret;
 <a name="l00164"></a>00164     }
 </pre></div></div>
 </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="_relation_graph_8cpp.html">RelationGraph.cpp</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -269,6 +239,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>

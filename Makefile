@@ -12,6 +12,7 @@ LIBS	=
 OBJ = objs
 SOURCE = source
 HEADER = headers
+BIN = bin
 
 
 OBJECTS = 	$(OBJ)/IOSet.o \
@@ -30,16 +31,18 @@ OBJECTS = 	$(OBJ)/IOSet.o \
 		$(OBJ)/Timing.o 
 
 
-MAINOBJS =	$(OBJ)/Main.o
-TARGET	=	nclu
+#MAINOBJS =	$(OBJ)/Main.o
+NCLUOBJ	=	$(OBJ)/nclu.o
 
+
+NCLUTARGET = $(BIN)/nclu
 
 .cpp.o:
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 
-$(TARGET): $(OBJECTS) $(MAINOBJS)
-	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(MAINOBJS) $(LIBS)
+nclu: $(OBJECTS) $(NCLUOBJ)
+	$(LINK) $(LFLAGS) -o $(NCLUTARGET) $(OBJECTS) $(NCLUOBJ) $(LIBS)
 
 
 
@@ -53,8 +56,8 @@ $(OBJ)/NCluster.o: $(SOURCE)/NCluster.cpp
 $(OBJ)/PreProcess.o: $(SOURCE)/PreProcess.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/PreProcess.cpp -o $@
 
-$(OBJ)/Main.o: $(SOURCE)/Main.cpp
-	$(CC) $(CFLAGS) -c $(SOURCE)/Main.cpp -o $@
+$(OBJ)/nclu.o: $(SOURCE)/nclu.cpp
+	$(CC) $(CFLAGS) -c $(SOURCE)/nclu.cpp -o $@
 
 $(OBJ)/IOSet.o: $(SOURCE)/IOSet.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/IOSet.cpp -o $@

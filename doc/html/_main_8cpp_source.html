@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: /Users/alqadaf/Research/Code/core/source/Main.cpp Source File</title>
+<title>Star Shaped HIN-Clustering: source/Main.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -59,29 +52,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
-</div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('_main_8cpp.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<h1>/Users/alqadaf/Research/Code/core/source/Main.cpp</h1>  </div>
+<h1>source/Main.cpp</h1>  </div>
 </div>
 <div class="contents">
-<a href="_main_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*______________________________________________________________________________</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*______________________________________________________________________________</span>
 <a name="l00002"></a>00002 <span class="comment"> _______________________________________________________________________________</span>
 <a name="l00003"></a>00003 <span class="comment"> *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span>
 <a name="l00004"></a>00004 <span class="comment"> * Author: Faris Alqadah, Copyright 2009</span>
@@ -97,18 +75,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00014"></a>00014 
 <a name="l00015"></a>00015 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
 <a name="l00016"></a>00016 
-<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="_timing_8h.html">../headers/Timing.h</a>&quot;</span>
-<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;<a class="code" href="_pre_process_8h.html">../headers/PreProcess.h</a>&quot;</span>
-<a name="l00019"></a>00019 <span class="preprocessor">#include &quot;<a class="code" href="berry_8h.html">../headers/nclusters/berry.h</a>&quot;</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include &quot;../headers/Timing.h&quot;</span>
+<a name="l00018"></a>00018 <span class="preprocessor">#include &quot;../headers/PreProcess.h&quot;</span>
+<a name="l00019"></a>00019 <span class="preprocessor">#include &quot;../headers/nclusters/berry.h&quot;</span>
 <a name="l00020"></a>00020 
-<a name="l00021"></a><a class="code" href="_main_8cpp.html#a5e9f951ac74e1226535d038b1893d4a1">00021</a> <span class="keywordtype">string</span> <a class="code" href="_main_8cpp.html#a5e9f951ac74e1226535d038b1893d4a1">inputFile</a>=<span class="stringliteral">&quot;~&quot;</span>;
-<a name="l00022"></a><a class="code" href="_main_8cpp.html#a2d886d8443ccfb900dca326ed9ba5dad">00022</a> <span class="keywordtype">int</span> <a class="code" href="_main_8cpp.html#a2d886d8443ccfb900dca326ed9ba5dad">numArgs</a>=3;
-<a name="l00023"></a><a class="code" href="_main_8cpp.html#aa5f4936ce568d4fc08209c73924a807b">00023</a> <span class="keywordtype">int</span> <a class="code" href="_main_8cpp.html#aa5f4936ce568d4fc08209c73924a807b">lrnr</a>=1;
-<a name="l00024"></a><a class="code" href="_main_8cpp.html#a9424343761f8c4f4c1afe8f5b6bf471b">00024</a> <span class="keywordtype">double</span> <a class="code" href="_main_8cpp.html#a9424343761f8c4f4c1afe8f5b6bf471b">beta</a>=0.1;
+<a name="l00021"></a>00021 <span class="keywordtype">string</span> inputFile=<span class="stringliteral">&quot;~&quot;</span>;
+<a name="l00022"></a>00022 <span class="keywordtype">int</span> numArgs=3;
+<a name="l00023"></a>00023 <span class="keywordtype">int</span> lrnr=1;
+<a name="l00024"></a>00024 <span class="keywordtype">double</span> beta=0.1;
 <a name="l00025"></a>00025 
-<a name="l00026"></a><a class="code" href="_main_8cpp.html#aee3937ea80f3a1f7228c24958568a944">00026</a> <a class="code" href="class_berry_lattice_algos.html" title="Author: Faris Alqadah.">BerryLatticeAlgos</a> <a class="code" href="_main_8cpp.html#aee3937ea80f3a1f7228c24958568a944">la</a>;
+<a name="l00026"></a>00026 <a class="code" href="class_berry_lattice_algos.html" title="Author: Faris Alqadah.">BerryLatticeAlgos</a> la;
 <a name="l00027"></a>00027 
-<a name="l00028"></a><a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">00028</a> <span class="keywordtype">void</span> <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>(){
+<a name="l00028"></a>00028 <span class="keywordtype">void</span> DisplayUsage(){
 <a name="l00029"></a>00029     cout&lt;&lt;<span class="stringliteral">&quot;\nUSAGE: test -i input_file -l lrnr -m n[min1 min2 ... min n] &quot;</span>
 <a name="l00030"></a>00030         &lt;&lt;<span class="stringliteral">&quot;\nREQUIRED: &quot;</span>
 <a name="l00031"></a>00031         &lt;&lt;<span class="stringliteral">&quot;\n-i &lt;inputFile&gt;&quot;</span>
@@ -127,12 +105,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00044"></a>00044     exit(1);
 <a name="l00045"></a>00045 }
 <a name="l00046"></a>00046 
-<a name="l00047"></a><a class="code" href="_main_8cpp.html#a02be0f5a335733aee6ad5b34e17c584e">00047</a> <span class="keywordtype">void</span> <a class="code" href="_main_8cpp.html#a02be0f5a335733aee6ad5b34e17c584e">CheckArguments</a>(){
-<a name="l00048"></a>00048     <span class="keywordflow">if</span> (<a class="code" href="_main_8cpp.html#a5e9f951ac74e1226535d038b1893d4a1">inputFile</a> == <span class="stringliteral">&quot;~&quot;</span>){
+<a name="l00047"></a>00047 <span class="keywordtype">void</span> CheckArguments(){
+<a name="l00048"></a>00048     <span class="keywordflow">if</span> (inputFile == <span class="stringliteral">&quot;~&quot;</span>){
 <a name="l00049"></a>00049         cerr&lt;&lt;<span class="stringliteral">&quot;\nINPUT FILE NOT ENTERED!&quot;</span>;
-<a name="l00050"></a>00050         <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>();
+<a name="l00050"></a>00050         DisplayUsage();
 <a name="l00051"></a>00051     }
-<a name="l00052"></a>00052     cout&lt;&lt;<span class="stringliteral">&quot;\nLearner context: &quot;</span>&lt;&lt;<a class="code" href="_main_8cpp.html#aa5f4936ce568d4fc08209c73924a807b">lrnr</a>;
+<a name="l00052"></a>00052     cout&lt;&lt;<span class="stringliteral">&quot;\nLearner context: &quot;</span>&lt;&lt;lrnr;
 <a name="l00053"></a>00053     <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#a7c599d38a3a66b926d7345153ca2e93c" title="flag to indicate if progress of the algorithm should output to the user (stdout)">dispProgress</a>)
 <a name="l00054"></a>00054         cout&lt;&lt;<span class="stringliteral">&quot;\nDisplay progress option enabled&quot;</span>;
 <a name="l00055"></a>00055     <span class="comment">//check enumeration modes</span>
@@ -140,11 +118,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00057"></a>00057         cout&lt;&lt;<span class="stringliteral">&quot;\nOutput clusters option enabled: &quot;</span>&lt;&lt;la.<a class="code" href="class_lattice_algos.html#aaf79cc2e8513fd28bf1e9329c3e678ab" title="if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts">OUTFILE</a>;
 <a name="l00058"></a>00058     <span class="keywordflow">else</span> <span class="keywordflow">if</span>( la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> == la.<a class="code" href="class_lattice_algos.html#a824804a33640782553f2b399b28fde13" title="Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE.">ENUM_FILE</a> &amp;&amp; la.<a class="code" href="class_lattice_algos.html#aaf79cc2e8513fd28bf1e9329c3e678ab" title="if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts">OUTFILE</a> == <span class="stringliteral">&quot;~&quot;</span>){
 <a name="l00059"></a>00059         cout&lt;&lt;<span class="stringliteral">&quot;\nOutput option enabled but file not specified!&quot;</span>;
-<a name="l00060"></a>00060         <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>();
+<a name="l00060"></a>00060         DisplayUsage();
 <a name="l00061"></a>00061     }
 <a name="l00062"></a>00062     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> == la.<a class="code" href="class_lattice_algos.html#a04a0ea3a71c5b598242fa4ec3d4fce79" title="Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file...">ENUM_TOPK_FILE</a> &amp;&amp; la.<a class="code" href="class_lattice_algos.html#aaf79cc2e8513fd28bf1e9329c3e678ab" title="if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts">OUTFILE</a> == <span class="stringliteral">&quot;~&quot;</span>){
 <a name="l00063"></a>00063          cout&lt;&lt;<span class="stringliteral">&quot;\nOutput option enabled but file not specified!&quot;</span>;
-<a name="l00064"></a>00064         <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>();
+<a name="l00064"></a>00064         DisplayUsage();
 <a name="l00065"></a>00065     }
 <a name="l00066"></a>00066     <span class="keywordflow">else</span> <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> == la.<a class="code" href="class_lattice_algos.html#a04a0ea3a71c5b598242fa4ec3d4fce79" title="Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file...">ENUM_TOPK_FILE</a> &amp;&amp; la.<a class="code" href="class_lattice_algos.html#aaf79cc2e8513fd28bf1e9329c3e678ab" title="if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts">OUTFILE</a> != <span class="stringliteral">&quot;~&quot;</span>){
 <a name="l00067"></a>00067           cout&lt;&lt;<span class="stringliteral">&quot;\nOutput clusters option enabled: &quot;</span>&lt;&lt;la.<a class="code" href="class_lattice_algos.html#aaf79cc2e8513fd28bf1e9329c3e678ab" title="if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts">OUTFILE</a>;
@@ -152,15 +130,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00069"></a>00069     <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> == la.<a class="code" href="class_lattice_algos.html#a04a0ea3a71c5b598242fa4ec3d4fce79" title="Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file...">ENUM_TOPK_FILE</a> || la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> == la.<a class="code" href="class_lattice_algos.html#a1c6a4b5dce3ccade9e17ce4b2a6afbe7" title="Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory...">ENUM_TOPK_MEM</a>){
 <a name="l00070"></a>00070         <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#ae50e2eab1478e1bced92b0f1f1bcdc09" title="a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the...">ovlpThresh</a> &lt; 0 || la.<a class="code" href="class_lattice_algos.html#ae50e2eab1478e1bced92b0f1f1bcdc09" title="a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the...">ovlpThresh</a> &gt; 1){
 <a name="l00071"></a>00071             cout&lt;&lt;<span class="stringliteral">&quot;\nOverlap threshold not in correct range!&quot;</span>;
-<a name="l00072"></a>00072              <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>();
+<a name="l00072"></a>00072              DisplayUsage();
 <a name="l00073"></a>00073         }
 <a name="l00074"></a>00074         <span class="keywordflow">if</span>(beta &lt; 0 || beta &gt; 1){
 <a name="l00075"></a>00075             cout&lt;&lt;<span class="stringliteral">&quot;\nBeta value not in correct range!&quot;</span>;
-<a name="l00076"></a>00076             <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>();
+<a name="l00076"></a>00076             DisplayUsage();
 <a name="l00077"></a>00077         }
 <a name="l00078"></a>00078         <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#a90e06533d513efc4635905624283eeae" title="the number of clusters an algorithm should enumerate if user only wants the top k clusters...">topKK</a> &lt; 0){
 <a name="l00079"></a>00079             cout&lt;&lt;<span class="stringliteral">&quot;\nk not in correct range!&quot;</span>;
-<a name="l00080"></a>00080             <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>();
+<a name="l00080"></a>00080             DisplayUsage();
 <a name="l00081"></a>00081         }
 <a name="l00082"></a>00082         <span class="comment">//if reached here then all parameters are correct</span>
 <a name="l00083"></a>00083         cout&lt;&lt;<span class="stringliteral">&quot;\nTOP K mode enabled with k= &quot;</span>&lt;&lt;la.<a class="code" href="class_lattice_algos.html#a90e06533d513efc4635905624283eeae" title="the number of clusters an algorithm should enumerate if user only wants the top k clusters...">topKK</a>&lt;&lt;<span class="stringliteral">&quot; and max overlap= &quot;</span>&lt;&lt;la.<a class="code" href="class_lattice_algos.html#ae50e2eab1478e1bced92b0f1f1bcdc09" title="a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the...">ovlpThresh</a>&lt;&lt;<span class="stringliteral">&quot; and clusters ranked by &quot;</span>;
@@ -168,13 +146,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00085"></a>00085             cout&lt;&lt;<span class="stringliteral">&quot;BETA-balance function&quot;</span>;
 <a name="l00086"></a>00086             <span class="comment">//set the correct parameters for params</span>
 <a name="l00087"></a>00087             la.<a class="code" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a" title="store the parameters for a quality function here, see the QualityMeasures.h documentation for specifi...">params</a>.resize(2);
-<a name="l00088"></a>00088             la.<a class="code" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a" title="store the parameters for a quality function here, see the QualityMeasures.h documentation for specifi...">params</a>[0] = <a class="code" href="_main_8cpp.html#aa5f4936ce568d4fc08209c73924a807b">lrnr</a>;
-<a name="l00089"></a>00089             la.<a class="code" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a" title="store the parameters for a quality function here, see the QualityMeasures.h documentation for specifi...">params</a>[1] = <a class="code" href="_main_8cpp.html#a9424343761f8c4f4c1afe8f5b6bf471b">beta</a>;
+<a name="l00088"></a>00088             la.<a class="code" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a" title="store the parameters for a quality function here, see the QualityMeasures.h documentation for specifi...">params</a>[0] = lrnr;
+<a name="l00089"></a>00089             la.<a class="code" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a" title="store the parameters for a quality function here, see the QualityMeasures.h documentation for specifi...">params</a>[1] = beta;
 <a name="l00090"></a>00090         }
 <a name="l00091"></a>00091         <span class="keywordflow">else</span> <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#aabdafd3fa45b3ed1d773b313e3a60e17" title="user will set this variable to indicate the desired qualityMode">qualityMode</a> == la.<a class="code" href="class_lattice_algos.html#a0a79ddaab00906dea5756ac05a4861a5" title="quality mode that indicates to use the area of a concept as its quality measure">AREA</a>){
 <a name="l00092"></a>00092             cout&lt;&lt;<span class="stringliteral">&quot;Area function&quot;</span>;
 <a name="l00093"></a>00093             la.<a class="code" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a" title="store the parameters for a quality function here, see the QualityMeasures.h documentation for specifi...">params</a>.resize(1);
-<a name="l00094"></a>00094             la.<a class="code" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a" title="store the parameters for a quality function here, see the QualityMeasures.h documentation for specifi...">params</a>[0] = <a class="code" href="_main_8cpp.html#aa5f4936ce568d4fc08209c73924a807b">lrnr</a>;
+<a name="l00094"></a>00094             la.<a class="code" href="class_lattice_algos.html#a84a7c48411084ff5d792af41e57ce96a" title="store the parameters for a quality function here, see the QualityMeasures.h documentation for specifi...">params</a>[0] = lrnr;
 <a name="l00095"></a>00095         }
 <a name="l00096"></a>00096     }
 <a name="l00097"></a>00097 
@@ -182,7 +160,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00099"></a>00099         cout&lt;&lt;<span class="stringliteral">&quot;\nPrune size enabled...limits are: &quot;</span>;
 <a name="l00100"></a>00100         <span class="keywordflow">if</span> (la.<a class="code" href="class_lattice_algos.html#a244d9a63307846c2df232091a78a6759" title="if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain...">PRUNE_SIZE_VECTOR</a>.size() &lt; 2){
 <a name="l00101"></a>00101             cout&lt;&lt;<span class="stringliteral">&quot;\nMin cardinalities not defined!&quot;</span>;
-<a name="l00102"></a>00102             <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>();
+<a name="l00102"></a>00102             DisplayUsage();
 <a name="l00103"></a>00103         }
 <a name="l00104"></a>00104         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; la.<a class="code" href="class_lattice_algos.html#a244d9a63307846c2df232091a78a6759" title="if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain...">PRUNE_SIZE_VECTOR</a>.size(); i++)
 <a name="l00105"></a>00105             cout&lt;&lt;<span class="stringliteral">&quot;\nDOMAIN &quot;</span>&lt;&lt;i+1&lt;&lt;<span class="stringliteral">&quot; min: &quot;</span>&lt;&lt;la.<a class="code" href="class_lattice_algos.html#a244d9a63307846c2df232091a78a6759" title="if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain...">PRUNE_SIZE_VECTOR</a>[i];
@@ -192,16 +170,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00109"></a>00109 }
 <a name="l00110"></a>00110 
 <a name="l00111"></a>00111 
-<a name="l00112"></a><a class="code" href="_main_8cpp.html#a06aa6ad5aec4b4386e14f3e87f73f76a">00112</a> <span class="keywordtype">void</span> <a class="code" href="_main_8cpp.html#a06aa6ad5aec4b4386e14f3e87f73f76a">ProcessCmndLine</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv){
+<a name="l00112"></a>00112 <span class="keywordtype">void</span> ProcessCmndLine(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv){
 <a name="l00113"></a>00113     la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> = la.<a class="code" href="class_lattice_algos.html#a80df6360d3246d74ae31e51e6c4bfa0e" title="Enumeration mode that specifies to algorithms to mine and store clusters in memory.">ENUM_MEM</a>;
 <a name="l00114"></a>00114     la.<a class="code" href="class_lattice_algos.html#a5a4badfea96f02f89d8943ca7fecc2ab" title="user will set this variable to indicate the the desired pruning mode">pruneMode</a> = la.<a class="code" href="class_lattice_algos.html#a9a1d69347724b131f372706322776bbb" title="prune mode that indicates pruning will be based on size (support pruning)">PRUNE_SIZE</a>;
 <a name="l00115"></a>00115     la.<a class="code" href="class_lattice_algos.html#a7c599d38a3a66b926d7345153ca2e93c" title="flag to indicate if progress of the algorithm should output to the user (stdout)">dispProgress</a>=<span class="keyword">false</span>;
-<a name="l00116"></a>00116     <span class="keywordflow">if</span> (argc &lt; <a class="code" href="_main_8cpp.html#a2d886d8443ccfb900dca326ed9ba5dad">numArgs</a>) <a class="code" href="_main_8cpp.html#a1757c8540903359822fc00245fde2522">DisplayUsage</a>();
+<a name="l00116"></a>00116     <span class="keywordflow">if</span> (argc &lt; numArgs) DisplayUsage();
 <a name="l00117"></a>00117      <span class="keywordflow">else</span>{
 <a name="l00118"></a>00118         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=1; i &lt; argc; i++){
 <a name="l00119"></a>00119            <span class="keywordtype">string</span> temp = argv[i];
 <a name="l00120"></a>00120            <span class="keywordflow">if</span>(temp == <span class="stringliteral">&quot;-i&quot;</span>)<span class="comment">//input file</span>
-<a name="l00121"></a>00121                 <a class="code" href="_main_8cpp.html#a5e9f951ac74e1226535d038b1893d4a1">inputFile</a> = argv[++i];
+<a name="l00121"></a>00121                 inputFile = argv[++i];
 <a name="l00122"></a>00122            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(temp == <span class="stringliteral">&quot;-m&quot;</span>){
 <a name="l00123"></a>00123               <span class="keywordtype">int</span> n = atoi(argv[++i]);
 <a name="l00124"></a>00124               la.<a class="code" href="class_lattice_algos.html#a244d9a63307846c2df232091a78a6759" title="if PRUNE_SIZE mode is selected this vector should be initialized to the min support of each domain...">PRUNE_SIZE_VECTOR</a>.resize(n);
@@ -222,7 +200,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00139"></a>00139                    la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> = la.<a class="code" href="class_lattice_algos.html#a824804a33640782553f2b399b28fde13" title="Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE.">ENUM_FILE</a>;
 <a name="l00140"></a>00140            }
 <a name="l00141"></a>00141            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(temp == <span class="stringliteral">&quot;-l&quot;</span>){
-<a name="l00142"></a>00142                <a class="code" href="_main_8cpp.html#aa5f4936ce568d4fc08209c73924a807b">lrnr</a> = atoi(argv[++i]);
+<a name="l00142"></a>00142                lrnr = atoi(argv[++i]);
 <a name="l00143"></a>00143            }
 <a name="l00144"></a>00144            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(temp == <span class="stringliteral">&quot;-k&quot;</span>){
 <a name="l00145"></a>00145                <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> == la.<a class="code" href="class_lattice_algos.html#a824804a33640782553f2b399b28fde13" title="Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE.">ENUM_FILE</a>)
@@ -236,50 +214,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00153"></a>00153            }
 <a name="l00154"></a>00154            <span class="keywordflow">else</span> <span class="keywordflow">if</span>(temp == <span class="stringliteral">&quot;-beta&quot;</span>){
 <a name="l00155"></a>00155                la.<a class="code" href="class_lattice_algos.html#aabdafd3fa45b3ed1d773b313e3a60e17" title="user will set this variable to indicate the desired qualityMode">qualityMode</a>= la.<a class="code" href="class_lattice_algos.html#a3cf765cdc6bce759203597708324ee9e" title="quality mode that indicates to use the beta area of a concept as its quality measure (see &amp;quot;An ef...">BETA</a>;
-<a name="l00156"></a>00156                <a class="code" href="_main_8cpp.html#a9424343761f8c4f4c1afe8f5b6bf471b">beta</a> = atof(argv[++i]);
+<a name="l00156"></a>00156                beta = atof(argv[++i]);
 <a name="l00157"></a>00157 
 <a name="l00158"></a>00158            }
 <a name="l00159"></a>00159            
 <a name="l00160"></a>00160         }
 <a name="l00161"></a>00161     }
-<a name="l00162"></a>00162     <a class="code" href="_main_8cpp.html#a02be0f5a335733aee6ad5b34e17c584e">CheckArguments</a>();
+<a name="l00162"></a>00162     CheckArguments();
 <a name="l00163"></a>00163 }
-<a name="l00164"></a><a class="code" href="_main_8cpp.html#ac066b93e5347cdca24f4b812e1e0d414">00164</a> <span class="keywordtype">void</span> <a class="code" href="_main_8cpp.html#ac066b93e5347cdca24f4b812e1e0d414">OutputClustersFile</a>(){
+<a name="l00164"></a>00164 <span class="keywordtype">void</span> OutputClustersFile(){
 <a name="l00165"></a>00165     <span class="keywordtype">int</span> lim = la.<a class="code" href="class_lattice_algos.html#a006fbb44cdb89ab949bc9f47ed20a6d3" title="data structure to hold the enumerated clusters in memory during algorithm exectuion">CONCEPTS</a>.size() &gt; la.<a class="code" href="class_lattice_algos.html#a90e06533d513efc4635905624283eeae" title="the number of clusters an algorithm should enumerate if user only wants the top k clusters...">topKK</a> ? la.<a class="code" href="class_lattice_algos.html#a90e06533d513efc4635905624283eeae" title="the number of clusters an algorithm should enumerate if user only wants the top k clusters...">topKK</a>:la.<a class="code" href="class_lattice_algos.html#a006fbb44cdb89ab949bc9f47ed20a6d3" title="data structure to hold the enumerated clusters in memory during algorithm exectuion">CONCEPTS</a>.size();
 <a name="l00166"></a>00166     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; lim; i++){
-<a name="l00167"></a>00167         <a class="code" href="basic_8h.html#aa15fb769b9c15afcdcb4a86d507c5763" title="Writes c to the file pointed to by out and flushes the buffer for instant writing.">OutputCluster</a>(la.<a class="code" href="class_lattice_algos.html#a006fbb44cdb89ab949bc9f47ed20a6d3" title="data structure to hold the enumerated clusters in memory during algorithm exectuion">CONCEPTS</a>[i], la.<a class="code" href="class_lattice_algos.html#a5e06ea8a8e76d5b6019481e778655a5c" title="ofstream used to output to OUTFILE.concepts">OUT1</a>);
-<a name="l00168"></a>00168         <a class="code" href="basic_8h.html#aa15fb769b9c15afcdcb4a86d507c5763" title="Writes c to the file pointed to by out and flushes the buffer for instant writing.">OutputCluster</a>(la.<a class="code" href="class_lattice_algos.html#a006fbb44cdb89ab949bc9f47ed20a6d3" title="data structure to hold the enumerated clusters in memory during algorithm exectuion">CONCEPTS</a>[i],la.<a class="code" href="class_lattice_algos.html#ad6ee83e69ef859717cbc747edf4fc306" title="ofsteram used to output to OUTFILE.concept.names">OUT2</a>,la.<a class="code" href="class_lattice_algos.html#a242b1f9b2ec58cec08c4c5c074c0c1e7" title="vector of name maps to be used to output clusters">NAME_MAPS</a>);
+<a name="l00167"></a>00167         OutputCluster(la.<a class="code" href="class_lattice_algos.html#a006fbb44cdb89ab949bc9f47ed20a6d3" title="data structure to hold the enumerated clusters in memory during algorithm exectuion">CONCEPTS</a>[i], la.<a class="code" href="class_lattice_algos.html#a5e06ea8a8e76d5b6019481e778655a5c" title="ofstream used to output to OUTFILE.concepts">OUT1</a>);
+<a name="l00168"></a>00168         OutputCluster(la.<a class="code" href="class_lattice_algos.html#a006fbb44cdb89ab949bc9f47ed20a6d3" title="data structure to hold the enumerated clusters in memory during algorithm exectuion">CONCEPTS</a>[i],la.<a class="code" href="class_lattice_algos.html#ad6ee83e69ef859717cbc747edf4fc306" title="ofsteram used to output to OUTFILE.concept.names">OUT2</a>,la.<a class="code" href="class_lattice_algos.html#a242b1f9b2ec58cec08c4c5c074c0c1e7" title="vector of name maps to be used to output clusters">NAME_MAPS</a>);
 <a name="l00169"></a>00169     }
 <a name="l00170"></a>00170     la.<a class="code" href="class_lattice_algos.html#a5e06ea8a8e76d5b6019481e778655a5c" title="ofstream used to output to OUTFILE.concepts">OUT1</a>.close();
 <a name="l00171"></a>00171     la.<a class="code" href="class_lattice_algos.html#ad6ee83e69ef859717cbc747edf4fc306" title="ofsteram used to output to OUTFILE.concept.names">OUT2</a>.close();
 <a name="l00172"></a>00172 }
 <a name="l00173"></a>00173 
-<a name="l00174"></a><a class="code" href="_main_8cpp.html#a35980b54b2740ce218b20668a8dd6211">00174</a> <span class="keywordtype">void</span> <a class="code" href="_main_8cpp.html#a35980b54b2740ce218b20668a8dd6211">OutputStats</a>(){
+<a name="l00174"></a>00174 <span class="keywordtype">void</span> OutputStats(){
 <a name="l00175"></a>00175     ofstream outStat(<span class="stringliteral">&quot;stats&quot;</span>);
-<a name="l00176"></a>00176     outStat&lt;&lt;<span class="stringliteral">&quot;\nAlgorithm execution time: &quot;</span>&lt;&lt;<a class="code" href="_timing_8h.html#a5c02f87d25a13dfa7ec9067fa19ad16c">ComputeTime</a>();
-<a name="l00177"></a>00177     outStat&lt;&lt;<span class="stringliteral">&quot;\n# set intersections &quot;</span>&lt;&lt;<a class="code" href="_ops_8h.html#a18a4f2f50453cf884b1daf7a1b865f17">numIntersection</a>
-<a name="l00178"></a>00178            &lt;&lt;<span class="stringliteral">&quot;\n# subset checks &quot;</span>&lt;&lt;<a class="code" href="_ops_8h.html#a0cbfcf5a7397ebd6b9479203c98638cc">numSubset</a>
-<a name="l00179"></a>00179            &lt;&lt;<span class="stringliteral">&quot;\n# set unions &quot;</span>&lt;&lt;<a class="code" href="_ops_8h.html#a7d4c8fb0ac0adee3de71824748cbceba">numUnion</a>
-<a name="l00180"></a>00180            &lt;&lt;<span class="stringliteral">&quot;\n# set differences &quot;</span>&lt;&lt;<a class="code" href="_ops_8h.html#a1193183ed373e70db52e6c1a342dba5a">numDifference</a>;
+<a name="l00176"></a>00176     outStat&lt;&lt;<span class="stringliteral">&quot;\nAlgorithm execution time: &quot;</span>&lt;&lt;ComputeTime();
+<a name="l00177"></a>00177     outStat&lt;&lt;<span class="stringliteral">&quot;\n# set intersections &quot;</span>&lt;&lt;numIntersection
+<a name="l00178"></a>00178            &lt;&lt;<span class="stringliteral">&quot;\n# subset checks &quot;</span>&lt;&lt;numSubset
+<a name="l00179"></a>00179            &lt;&lt;<span class="stringliteral">&quot;\n# set unions &quot;</span>&lt;&lt;numUnion
+<a name="l00180"></a>00180            &lt;&lt;<span class="stringliteral">&quot;\n# set differences &quot;</span>&lt;&lt;numDifference;
 <a name="l00181"></a>00181     outStat.close();
 <a name="l00182"></a>00182 
 <a name="l00183"></a>00183 }
 <a name="l00184"></a>00184 
-<a name="l00185"></a><a class="code" href="_main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">00185</a> <span class="keywordtype">int</span> <a class="code" href="_main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv) {
-<a name="l00186"></a>00186     <a class="code" href="_main_8cpp.html#a06aa6ad5aec4b4386e14f3e87f73f76a">ProcessCmndLine</a>(argc,argv);
-<a name="l00187"></a>00187     <a class="code" href="class_relation_graph.html">RelationGraph</a> *hin = <a class="code" href="_pre_process_8h.html#a3accc434951e256ad879ebf9fae65f63">MakeRelationGraph</a>(<a class="code" href="_main_8cpp.html#a5e9f951ac74e1226535d038b1893d4a1">inputFile</a>);
-<a name="l00188"></a>00188     hin-&gt;<a class="code" href="class_relation_graph.html#a1a3279bf6ed14795cf41124f9cc730ac">Print</a>();
+<a name="l00185"></a>00185 <span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv) {
+<a name="l00186"></a>00186     ProcessCmndLine(argc,argv);
+<a name="l00187"></a>00187     <a class="code" href="class_relation_graph.html">RelationGraph</a> *hin = MakeRelationGraph(inputFile);
+<a name="l00188"></a>00188     hin-&gt;<a class="code" href="class_relation_graph.html#a1a3279bf6ed14795cf41124f9cc730ac" title="Prints the HIN.">Print</a>();
 <a name="l00189"></a>00189     cout&lt;&lt;<span class="stringliteral">&quot;\nRunning n-cluster enumeration algorithm...&quot;</span>;
-<a name="l00190"></a>00190     <a class="code" href="_timing_8h.html#ab2cdabc8135370804f64d329bd7f98f5">StartTiming</a>();
-<a name="l00191"></a>00191     la.<a class="code" href="class_berry_lattice_algos.html#aa740db0f43531fc872f94c062efe59b9" title="Inteface for Berry-based algorithms that compute the n-concepts or n-clusters from a star shaped HIN...">Star_N_Concepts</a>(hin,<a class="code" href="_main_8cpp.html#aa5f4936ce568d4fc08209c73924a807b">lrnr</a>);
-<a name="l00192"></a>00192     <a class="code" href="_timing_8h.html#accbba7ef300fd5b062e2191ab6ec3f60">EndTiming</a>();
-<a name="l00193"></a>00193     <a class="code" href="_main_8cpp.html#a35980b54b2740ce218b20668a8dd6211">OutputStats</a>();
+<a name="l00190"></a>00190     StartTiming();
+<a name="l00191"></a>00191     la.<a class="code" href="class_berry_lattice_algos.html#aa740db0f43531fc872f94c062efe59b9" title="Inteface for Berry-based algorithms that compute the n-concepts or n-clusters from a star shaped HIN...">Star_N_Concepts</a>(hin,lrnr);
+<a name="l00192"></a>00192     EndTiming();
+<a name="l00193"></a>00193     OutputStats();
 <a name="l00194"></a>00194     <span class="comment">//check if enum mode is top k and output to file</span>
 <a name="l00195"></a>00195     <span class="comment">//if true then output the clusters now</span>
 <a name="l00196"></a>00196     <span class="comment">//since this was not possible during execution</span>
 <a name="l00197"></a>00197     <span class="comment">//of the algorithm</span>
 <a name="l00198"></a>00198     <span class="keywordflow">if</span>(la.<a class="code" href="class_lattice_algos.html#a03adc61166377c993b4d1ef8f8ee12ee" title="Users will set this variable to indicate the enumeration mode.">enumerationMode</a> == la.<a class="code" href="class_lattice_algos.html#a04a0ea3a71c5b598242fa4ec3d4fce79" title="Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file...">ENUM_TOPK_FILE</a>){
-<a name="l00199"></a>00199         <a class="code" href="_main_8cpp.html#ac066b93e5347cdca24f4b812e1e0d414">OutputClustersFile</a>();
+<a name="l00199"></a>00199         OutputClustersFile();
 <a name="l00200"></a>00200     }
 <a name="l00201"></a>00201     cout&lt;&lt;<span class="stringliteral">&quot;\n&quot;</span>;
 <a name="l00202"></a>00202     <span class="keywordflow">return</span> (EXIT_SUCCESS);
@@ -287,20 +265,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00204"></a>00204 
 </pre></div></div>
 </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="_main_8cpp.html">Main.cpp</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -309,6 +279,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>

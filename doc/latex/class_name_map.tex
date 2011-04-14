@@ -2,200 +2,82 @@
 \section{NameMap Class Reference}
 \label{class_name_map}\index{NameMap@{NameMap}}
 }
-
-
-{\ttfamily \#include $<$NameMap.h$>$}
-
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_name_map_a8560d4570112d839b90be032f2af34e7}{NameMap} ()
-\item 
-\hyperlink{class_name_map_a62a8dd9a2c1cfda1101d28be1ba6aa7d}{NameMap} (string \&)
-\item 
-\hyperlink{class_name_map_a20ae2d9acb54e06016b9375fcc10d46a}{NameMap} (string, unsigned int)
-\item 
-string \hyperlink{class_name_map_a9b58a913f6abdda24ead4f56c36a75d4}{GetFileName} ()
-\item 
-string \hyperlink{class_name_map_a6cd400eef1ca62f1f9a0aea3876a0e41}{GetName} (unsigned int)
-\item 
-int \hyperlink{class_name_map_ab1922430c9e4d12e67b5f27edf9afd15}{GetNumEntries} ()
-\item 
-void \hyperlink{class_name_map_a61afb305b470bab4e3c9e14279d6f1c5}{SetId} (int)
-\item 
-int \hyperlink{class_name_map_a5ec2b743e894000de9dcc0c7cf198775}{GetId} ()
-\end{DoxyCompactItemize}
+\hypertarget{class_name_map_a8560d4570112d839b90be032f2af34e7}{
+\hyperlink{class_name_map_a8560d4570112d839b90be032f2af34e7}{NameMap} ()}
+\label{class_name_map_a8560d4570112d839b90be032f2af34e7}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. No actual map is constructed, since no file is read. \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_a65b751a2cf738a2d391aca986d5f5281}{
+\hyperlink{class_name_map_a65b751a2cf738a2d391aca986d5f5281}{NameMap} (string \&file)}
+\label{class_name_map_a65b751a2cf738a2d391aca986d5f5281}
+
+\begin{DoxyCompactList}\small\item\em Alternate constructor that passes in the file name and constructs the actual name map. \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_a4874c7a4e95a4dd589e834e12faa1999}{
+\hyperlink{class_name_map_a4874c7a4e95a4dd589e834e12faa1999}{NameMap} (string, unsigned int n)}
+\label{class_name_map_a4874c7a4e95a4dd589e834e12faa1999}
+
+\begin{DoxyCompactList}\small\item\em Alternate constructor that passes in the file name and constructs the actual name map but only upto the nth entry. \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_a9b58a913f6abdda24ead4f56c36a75d4}{
+string \hyperlink{class_name_map_a9b58a913f6abdda24ead4f56c36a75d4}{GetFileName} ()}
+\label{class_name_map_a9b58a913f6abdda24ead4f56c36a75d4}
+
+\begin{DoxyCompactList}\small\item\em Returns the file name from which the name map was constructed. \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_a0ceabf530c3093d6fa163932c928d7bf}{
+string \hyperlink{class_name_map_a0ceabf530c3093d6fa163932c928d7bf}{GetName} (unsigned int i)}
+\label{class_name_map_a0ceabf530c3093d6fa163932c928d7bf}
+
+\begin{DoxyCompactList}\small\item\em returns the string mapped to i \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_ab1922430c9e4d12e67b5f27edf9afd15}{
+int \hyperlink{class_name_map_ab1922430c9e4d12e67b5f27edf9afd15}{GetNumEntries} ()}
+\label{class_name_map_ab1922430c9e4d12e67b5f27edf9afd15}
+
+\begin{DoxyCompactList}\small\item\em Returns the number of entries in the map. \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_a61afb305b470bab4e3c9e14279d6f1c5}{
+void \hyperlink{class_name_map_a61afb305b470bab4e3c9e14279d6f1c5}{SetId} (int)}
+\label{class_name_map_a61afb305b470bab4e3c9e14279d6f1c5}
+
+\begin{DoxyCompactList}\small\item\em Set the id attribute of the name map. \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_a5ec2b743e894000de9dcc0c7cf198775}{
+int \hyperlink{class_name_map_a5ec2b743e894000de9dcc0c7cf198775}{GetId} ()}
+\label{class_name_map_a5ec2b743e894000de9dcc0c7cf198775}
+
+\begin{DoxyCompactList}\small\item\em Returns the id attribue of the name map. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-vector$<$ string $>$ \hyperlink{class_name_map_a1acb823b1c1fb7b8d43f7e0e1406dca8}{mapping}
-\item 
-int \hyperlink{class_name_map_a647caae861e8a9e8472a033da6c0ad20}{numEntries}
-\item 
-string \hyperlink{class_name_map_acf6827aa9176aa0820a2c7c0ec0cf3a4}{fileName}
-\item 
-int \hyperlink{class_name_map_ab836a5099928fbf10c864504fd658fa8}{id}
+\hypertarget{class_name_map_a1acb823b1c1fb7b8d43f7e0e1406dca8}{
+vector$<$ string $>$ \hyperlink{class_name_map_a1acb823b1c1fb7b8d43f7e0e1406dca8}{mapping}}
+\label{class_name_map_a1acb823b1c1fb7b8d43f7e0e1406dca8}
+
+\begin{DoxyCompactList}\small\item\em the actual map, maps the index in the vector to the string \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_a647caae861e8a9e8472a033da6c0ad20}{
+int \hyperlink{class_name_map_a647caae861e8a9e8472a033da6c0ad20}{numEntries}}
+\label{class_name_map_a647caae861e8a9e8472a033da6c0ad20}
+
+\begin{DoxyCompactList}\small\item\em number of entries \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_acf6827aa9176aa0820a2c7c0ec0cf3a4}{
+string \hyperlink{class_name_map_acf6827aa9176aa0820a2c7c0ec0cf3a4}{fileName}}
+\label{class_name_map_acf6827aa9176aa0820a2c7c0ec0cf3a4}
+
+\begin{DoxyCompactList}\small\item\em name of the file from which the map was constructed \item\end{DoxyCompactList}\item 
+\hypertarget{class_name_map_ab836a5099928fbf10c864504fd658fa8}{
+int {\bfseries id}}
+\label{class_name_map_ab836a5099928fbf10c864504fd658fa8}
+
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 
 
-Definition at line 26 of file NameMap.h.
-
-
-
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_name_map_a8560d4570112d839b90be032f2af34e7}{
-\index{NameMap@{NameMap}!NameMap@{NameMap}}
-\index{NameMap@{NameMap}!NameMap@{NameMap}}
-\subsubsection[{NameMap}]{\setlength{\rightskip}{0pt plus 5cm}NameMap::NameMap (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_name_map_a8560d4570112d839b90be032f2af34e7}
-
-
-Definition at line 5 of file NameMap.cpp.
-
-\hypertarget{class_name_map_a62a8dd9a2c1cfda1101d28be1ba6aa7d}{
-\index{NameMap@{NameMap}!NameMap@{NameMap}}
-\index{NameMap@{NameMap}!NameMap@{NameMap}}
-\subsubsection[{NameMap}]{\setlength{\rightskip}{0pt plus 5cm}NameMap::NameMap (
-\begin{DoxyParamCaption}
-\item[{string \&}]{\_\-fileName}
-\end{DoxyParamCaption}
-)}}
-\label{class_name_map_a62a8dd9a2c1cfda1101d28be1ba6aa7d}
-
-
-Definition at line 30 of file NameMap.cpp.
-
-\hypertarget{class_name_map_a20ae2d9acb54e06016b9375fcc10d46a}{
-\index{NameMap@{NameMap}!NameMap@{NameMap}}
-\index{NameMap@{NameMap}!NameMap@{NameMap}}
-\subsubsection[{NameMap}]{\setlength{\rightskip}{0pt plus 5cm}NameMap::NameMap (
-\begin{DoxyParamCaption}
-\item[{string}]{\_\-fileName, }
-\item[{unsigned int}]{\_\-numEntries}
-\end{DoxyParamCaption}
-)}}
-\label{class_name_map_a20ae2d9acb54e06016b9375fcc10d46a}
-
-
-Definition at line 7 of file NameMap.cpp.
-
-
-
-\subsection{Member Function Documentation}
-\hypertarget{class_name_map_a9b58a913f6abdda24ead4f56c36a75d4}{
-\index{NameMap@{NameMap}!GetFileName@{GetFileName}}
-\index{GetFileName@{GetFileName}!NameMap@{NameMap}}
-\subsubsection[{GetFileName}]{\setlength{\rightskip}{0pt plus 5cm}string NameMap::GetFileName (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_name_map_a9b58a913f6abdda24ead4f56c36a75d4}
-
-
-Definition at line 57 of file NameMap.cpp.
-
-\hypertarget{class_name_map_a5ec2b743e894000de9dcc0c7cf198775}{
-\index{NameMap@{NameMap}!GetId@{GetId}}
-\index{GetId@{GetId}!NameMap@{NameMap}}
-\subsubsection[{GetId}]{\setlength{\rightskip}{0pt plus 5cm}int NameMap::GetId (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_name_map_a5ec2b743e894000de9dcc0c7cf198775}
-
-
-Definition at line 61 of file NameMap.cpp.
-
-\hypertarget{class_name_map_a6cd400eef1ca62f1f9a0aea3876a0e41}{
-\index{NameMap@{NameMap}!GetName@{GetName}}
-\index{GetName@{GetName}!NameMap@{NameMap}}
-\subsubsection[{GetName}]{\setlength{\rightskip}{0pt plus 5cm}string NameMap::GetName (
-\begin{DoxyParamCaption}
-\item[{unsigned int}]{x}
-\end{DoxyParamCaption}
-)}}
-\label{class_name_map_a6cd400eef1ca62f1f9a0aea3876a0e41}
-
-
-Definition at line 50 of file NameMap.cpp.
-
-\hypertarget{class_name_map_ab1922430c9e4d12e67b5f27edf9afd15}{
-\index{NameMap@{NameMap}!GetNumEntries@{GetNumEntries}}
-\index{GetNumEntries@{GetNumEntries}!NameMap@{NameMap}}
-\subsubsection[{GetNumEntries}]{\setlength{\rightskip}{0pt plus 5cm}int NameMap::GetNumEntries (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
-\label{class_name_map_ab1922430c9e4d12e67b5f27edf9afd15}
-
-
-Definition at line 58 of file NameMap.cpp.
-
-\hypertarget{class_name_map_a61afb305b470bab4e3c9e14279d6f1c5}{
-\index{NameMap@{NameMap}!SetId@{SetId}}
-\index{SetId@{SetId}!NameMap@{NameMap}}
-\subsubsection[{SetId}]{\setlength{\rightskip}{0pt plus 5cm}void NameMap::SetId (
-\begin{DoxyParamCaption}
-\item[{int}]{idd}
-\end{DoxyParamCaption}
-)}}
-\label{class_name_map_a61afb305b470bab4e3c9e14279d6f1c5}
-
-
-Definition at line 60 of file NameMap.cpp.
-
-
-
-\subsection{Member Data Documentation}
-\hypertarget{class_name_map_acf6827aa9176aa0820a2c7c0ec0cf3a4}{
-\index{NameMap@{NameMap}!fileName@{fileName}}
-\index{fileName@{fileName}!NameMap@{NameMap}}
-\subsubsection[{fileName}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf NameMap::fileName}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{class_name_map_acf6827aa9176aa0820a2c7c0ec0cf3a4}
-
-
-Definition at line 95 of file NameMap.h.
-
-\hypertarget{class_name_map_ab836a5099928fbf10c864504fd658fa8}{
-\index{NameMap@{NameMap}!id@{id}}
-\index{id@{id}!NameMap@{NameMap}}
-\subsubsection[{id}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf NameMap::id}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{class_name_map_ab836a5099928fbf10c864504fd658fa8}
-
-
-Definition at line 96 of file NameMap.h.
-
-\hypertarget{class_name_map_a1acb823b1c1fb7b8d43f7e0e1406dca8}{
-\index{NameMap@{NameMap}!mapping@{mapping}}
-\index{mapping@{mapping}!NameMap@{NameMap}}
-\subsubsection[{mapping}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$string$>$ {\bf NameMap::mapping}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{class_name_map_a1acb823b1c1fb7b8d43f7e0e1406dca8}
-
-
-Definition at line 93 of file NameMap.h.
-
-\hypertarget{class_name_map_a647caae861e8a9e8472a033da6c0ad20}{
-\index{NameMap@{NameMap}!numEntries@{numEntries}}
-\index{numEntries@{numEntries}!NameMap@{NameMap}}
-\subsubsection[{numEntries}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf NameMap::numEntries}\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{class_name_map_a647caae861e8a9e8472a033da6c0ad20}
-
-
-Definition at line 94 of file NameMap.h.
+Definition at line 22 of file NameMap.h.
 
 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-/Users/alqadaf/Research/Code/core/headers/\hyperlink{_name_map_8h}{NameMap.h}\item 
-/Users/alqadaf/Research/Code/core/source/\hyperlink{_name_map_8cpp}{NameMap.cpp}\end{DoxyCompactItemize}
+headers/NameMap.h\item 
+source/NameMap.cpp\end{DoxyCompactItemize}

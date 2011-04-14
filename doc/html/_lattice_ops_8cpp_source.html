@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: /Users/alqadaf/Research/Code/core/source/LatticeOps.cpp Source File</title>
+<title>Star Shaped HIN-Clustering: source/LatticeOps.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -59,29 +52,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
-</div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('_lattice_ops_8cpp.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<h1>/Users/alqadaf/Research/Code/core/source/LatticeOps.cpp</h1>  </div>
+<h1>source/LatticeOps.cpp</h1>  </div>
 </div>
 <div class="contents">
-<a href="_lattice_ops_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*______________________________________________________________________________</span>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*______________________________________________________________________________</span>
 <a name="l00002"></a>00002 <span class="comment"> _______________________________________________________________________________</span>
 <a name="l00003"></a>00003 <span class="comment"> *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span>
 <a name="l00004"></a>00004 <span class="comment"> * Author: Faris Alqadah, Copyright 2008</span>
@@ -94,47 +72,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00011"></a>00011 <span class="comment"> *</span>
 <a name="l00012"></a>00012 <span class="comment"> *______________________________________________________________________________</span>
 <a name="l00013"></a>00013 <span class="comment"> *_____________________________________________________________________________*/</span>
-<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_lattice_ops_8h.html">../headers/LatticeOps.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;../headers/LatticeOps.h&quot;</span>
 <a name="l00015"></a>00015 
 <a name="l00016"></a>00016 
 <a name="l00017"></a>00017 
 <a name="l00018"></a>00018 
 <a name="l00019"></a>00019 
-<a name="l00020"></a><a class="code" href="_lattice_ops_8cpp.html#a0b88b75e48e507ce1c15d1a160664fc4">00020</a> <a class="code" href="class_n_cluster.html">NCluster</a> *<a class="code" href="_lattice_ops_8h.html#a0b88b75e48e507ce1c15d1a160664fc4" title="Returns the concept corresponds to the concept that contains all the objects from domain2...">GetTop</a>(<a class="code" href="class_context.html">Context</a> *c){
+<a name="l00020"></a>00020 <a class="code" href="class_n_cluster.html">NCluster</a> *GetTop(<a class="code" href="class_context.html">Context</a> *c){
 <a name="l00021"></a>00021     <a class="code" href="class_n_cluster.html">NCluster</a> *ret = <span class="keyword">new</span> <a class="code" href="class_n_cluster.html">NCluster</a>(2);
 <a name="l00022"></a>00022     pair&lt;int,int&gt; domainIds = c-&gt;<a class="code" href="class_context.html#abf904165924eb0b4b0e3bf580859903a" title="Returns an interger pair corresponding to the ids of the domains.">GetDomainIds</a>();
-<a name="l00023"></a>00023     ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(0)-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(domainIds.first);
-<a name="l00024"></a>00024     ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(1)-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(domainIds.second);
+<a name="l00023"></a>00023     ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(0)-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(domainIds.first);
+<a name="l00024"></a>00024     ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(1)-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(domainIds.second);
 <a name="l00025"></a>00025     <span class="comment">//add all objects from domain2</span>
-<a name="l00026"></a>00026     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; c-&gt;<a class="code" href="class_context.html#a17e73342fcd3d9cd96e2445e48c52275" title="Return the number of objects for the specifed domain.">GetNumSets</a>(domainIds.second); i++) ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(1)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(i);
+<a name="l00026"></a>00026     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; c-&gt;<a class="code" href="class_context.html#a17e73342fcd3d9cd96e2445e48c52275" title="Return the number of objects for the specifed domain.">GetNumSets</a>(domainIds.second); i++) ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(1)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(i);
 <a name="l00027"></a>00027     <span class="comment">//find objects in domain1 that contain all objects of domain2</span>
 <a name="l00028"></a>00028     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; c-&gt;<a class="code" href="class_context.html#a17e73342fcd3d9cd96e2445e48c52275" title="Return the number of objects for the specifed domain.">GetNumSets</a>(domainIds.first);i++)
 <a name="l00029"></a>00029         <span class="keywordflow">if</span>(c-&gt;<a class="code" href="class_context.html#adeeca59fd329ad829de527c37489e7b8" title="Returns an object-set from the context.">GetSet</a>(domainIds.first,i)-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>() ==  c-&gt;<a class="code" href="class_context.html#a17e73342fcd3d9cd96e2445e48c52275" title="Return the number of objects for the specifed domain.">GetNumSets</a>(domainIds.second))
-<a name="l00030"></a>00030             ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(0)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(i);
+<a name="l00030"></a>00030             ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(0)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(i);
 <a name="l00031"></a>00031      <span class="keywordflow">return</span> ret;
 <a name="l00032"></a>00032 }
 <a name="l00033"></a>00033 
-<a name="l00034"></a><a class="code" href="_lattice_ops_8cpp.html#a28637aaa916c65ec4998678c54e0061e">00034</a> <a class="code" href="class_n_cluster.html">NCluster</a> * <a class="code" href="_lattice_ops_8h.html#a28637aaa916c65ec4998678c54e0061e" title="Returns the bottom level concept from c, this concept corresponds to the concept that contains all th...">GetBottom</a>(<a class="code" href="class_context.html">Context</a> *c) {
+<a name="l00034"></a>00034 <a class="code" href="class_n_cluster.html">NCluster</a> * GetBottom(<a class="code" href="class_context.html">Context</a> *c) {
 <a name="l00035"></a>00035      <a class="code" href="class_n_cluster.html">NCluster</a> *ret = <span class="keyword">new</span> <a class="code" href="class_n_cluster.html">NCluster</a>(2);
 <a name="l00036"></a>00036     pair&lt;int,int&gt; domainIds = c-&gt;<a class="code" href="class_context.html#abf904165924eb0b4b0e3bf580859903a" title="Returns an interger pair corresponding to the ids of the domains.">GetDomainIds</a>();
-<a name="l00037"></a>00037     ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(0)-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(domainIds.first);
-<a name="l00038"></a>00038     ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(1)-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(domainIds.second);
+<a name="l00037"></a>00037     ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(0)-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(domainIds.first);
+<a name="l00038"></a>00038     ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(1)-&gt;<a class="code" href="class_i_o_set.html#a056e472b53a9a9bf83758ecae590d880" title="Set the id of the IOSet.">SetId</a>(domainIds.second);
 <a name="l00039"></a>00039     <span class="comment">//add all objects from domain2</span>
-<a name="l00040"></a>00040     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; c-&gt;<a class="code" href="class_context.html#a17e73342fcd3d9cd96e2445e48c52275" title="Return the number of objects for the specifed domain.">GetNumSets</a>(domainIds.first); i++) ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(0)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(i);
+<a name="l00040"></a>00040     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; c-&gt;<a class="code" href="class_context.html#a17e73342fcd3d9cd96e2445e48c52275" title="Return the number of objects for the specifed domain.">GetNumSets</a>(domainIds.first); i++) ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(0)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(i);
 <a name="l00041"></a>00041     <span class="comment">//find objects in domain1 that contain all objects of domain2</span>
 <a name="l00042"></a>00042     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0; i &lt; c-&gt;<a class="code" href="class_context.html#a17e73342fcd3d9cd96e2445e48c52275" title="Return the number of objects for the specifed domain.">GetNumSets</a>(domainIds.second);i++)
 <a name="l00043"></a>00043         <span class="keywordflow">if</span>(c-&gt;<a class="code" href="class_context.html#adeeca59fd329ad829de527c37489e7b8" title="Returns an object-set from the context.">GetSet</a>(domainIds.second,i)-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>() ==  c-&gt;<a class="code" href="class_context.html#a17e73342fcd3d9cd96e2445e48c52275" title="Return the number of objects for the specifed domain.">GetNumSets</a>(domainIds.first))
-<a name="l00044"></a>00044             ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a>(1)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(i);
+<a name="l00044"></a>00044             ret-&gt;<a class="code" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc" title="Returns a pointer to the ith set.">GetSet</a>(1)-&gt;<a class="code" href="class_i_o_set.html#ae9b008481e0f283e6c6d4ed99b91dc0e" title="Adds integer x to the end of the IOSet, increasing the size of the IOSet.">Add</a>(i);
 <a name="l00045"></a>00045      <span class="keywordflow">return</span> ret;
 <a name="l00046"></a>00046 }
 <a name="l00047"></a>00047 
 <a name="l00048"></a>00048 
-<a name="l00049"></a><a class="code" href="_lattice_ops_8cpp.html#a2a394e16994693fcfdc4f1a35ce74a3d">00049</a> <a class="code" href="class_i_o_set.html">IOSet</a> *<a class="code" href="_lattice_ops_8h.html#a2a394e16994693fcfdc4f1a35ce74a3d" title="Computes the Prime (&amp;#39;) (see any book on Formal Concept Anaylsis) for a given object-set.">Prime</a>(<a class="code" href="class_n_cluster.html">NCluster</a> *a, <a class="code" href="class_relation_graph.html">RelationGraph</a> *g, <span class="keywordtype">int</span> s, <span class="keywordtype">int</span> t,<span class="keywordtype">int</span> min){
-<a name="l00050"></a>00050     assert(g-&gt;<a class="code" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39">IsEdge</a>(s,t));    
-<a name="l00051"></a>00051     <a class="code" href="class_i_o_set.html">IOSet</a> *sSet = a-&gt;<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(s);
+<a name="l00049"></a>00049 <a class="code" href="class_i_o_set.html">IOSet</a> *Prime(<a class="code" href="class_n_cluster.html">NCluster</a> *a, <a class="code" href="class_relation_graph.html">RelationGraph</a> *g, <span class="keywordtype">int</span> s, <span class="keywordtype">int</span> t,<span class="keywordtype">int</span> min){
+<a name="l00050"></a>00050     assert(g-&gt;<a class="code" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39" title="Returns true if the ids are an edge in the network, false otherwise.">IsEdge</a>(s,t));    
+<a name="l00051"></a>00051     <a class="code" href="class_i_o_set.html">IOSet</a> *sSet = a-&gt;<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(s);
 <a name="l00052"></a>00052     <span class="keywordflow">if</span>(min &lt; 0) min=0;
-<a name="l00053"></a>00053     <a class="code" href="class_context.html">Context</a> *ctx = g-&gt;<a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32">GetContext</a>(s,t);
-<a name="l00054"></a>00054     <span class="keywordflow">if</span>(a-&gt;<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a>(s)-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>() == 0) <span class="keywordflow">return</span> NULL; <span class="comment">//since 0 return as is</span>
+<a name="l00053"></a>00053     <a class="code" href="class_context.html">Context</a> *ctx = g-&gt;<a class="code" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32" title="Returns a pointer to the context with the specified ctxId.">GetContext</a>(s,t);
+<a name="l00054"></a>00054     <span class="keywordflow">if</span>(a-&gt;<a class="code" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476" title="Returns a pointer to the set with id, if it exists, assertion is checked.">GetSetById</a>(s)-&gt;<a class="code" href="class_i_o_set.html#a384b704b09e77138e99ef914d69995e0" title="Returns the size or number of elements in the IOSet.">Size</a>() == 0) <span class="keywordflow">return</span> NULL; <span class="comment">//since 0 return as is</span>
 <a name="l00055"></a>00055     <span class="keywordflow">else</span>{                            <span class="comment">//compute the prime as set intersections (this is a fairly naive method)</span>
 <a name="l00056"></a>00056     
 <a name="l00057"></a>00057         <a class="code" href="class_i_o_set.html">IOSet</a> *rslt = <span class="keyword">new</span> <a class="code" href="class_i_o_set.html">IOSet</a>(ctx-&gt;<a class="code" href="class_context.html#adeeca59fd329ad829de527c37489e7b8" title="Returns an object-set from the context.">GetSet</a>(s,sSet-&gt;At(0)));
@@ -148,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00065"></a>00065                 <span class="keywordflow">return</span> NULL;
 <a name="l00066"></a>00066             }
 <a name="l00067"></a>00067             <a class="code" href="class_i_o_set.html">IOSet</a> *tmp = rslt;
-<a name="l00068"></a>00068             rslt = <a class="code" href="_ops_8h.html#abdcc08fb79c37734259619fd04b82b12">Intersect</a>(rslt,ctx-&gt;<a class="code" href="class_context.html#adeeca59fd329ad829de527c37489e7b8" title="Returns an object-set from the context.">GetSet</a>(s,sSet-&gt;At(i)));
+<a name="l00068"></a>00068             rslt = Intersect(rslt,ctx-&gt;<a class="code" href="class_context.html#adeeca59fd329ad829de527c37489e7b8" title="Returns an object-set from the context.">GetSet</a>(s,sSet-&gt;At(i)));
 <a name="l00069"></a>00069             <span class="keyword">delete</span> tmp;
 <a name="l00070"></a>00070             tmp = NULL;
 <a name="l00071"></a>00071         }
@@ -169,20 +147,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00086"></a>00086 
 </pre></div></div>
 </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="_lattice_ops_8cpp.html">LatticeOps.cpp</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -191,6 +161,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>

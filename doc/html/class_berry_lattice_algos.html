@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: BerryLatticeAlgos Class Reference</title>
+<title>Star Shaped HIN-Clustering: BerryLatticeAlgos Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -65,19 +58,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     </ul>
   </div>
 </div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('class_berry_lattice_algos.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -90,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Author: Faris Alqadah.  
 <a href="#_details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="berry_8h_source.html">berry.h</a>&gt;</code></p>
+<p><code>#include &quot;<a class="el" href="berry_8h_source.html">berry.h</a>&quot;</code></p>
 <div class="dynheader">
 Inheritance diagram for BerryLatticeAlgos:</div>
 <div class="dyncontent">
@@ -105,7 +85,6 @@ Inheritance diagram for BerryLatticeAlgos:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a02d8e6dd215d9925422adff01208a06c">BerryLatticeAlgos</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#aa740db0f43531fc872f94c062efe59b9">Star_N_Concepts</a> (<a class="el" href="class_relation_graph.html">RelationGraph</a> *g, int lrnrContext)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Inteface for Berry-based algorithms that compute the n-concepts or n-clusters from a star shaped HIN.  <a href="#aa740db0f43531fc872f94c062efe59b9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_n_cluster.html">NCluster</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a22c1daa784e7bf5017a40b313fcec221">UpperNeighbors</a> (<a class="el" href="class_n_cluster.html">NCluster</a> *c, <a class="el" href="class_relation_graph.html">RelationGraph</a> *g, int s, int t)</td></tr>
@@ -120,8 +99,9 @@ Private Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the maxmods of the sub-context ctx(A-c(s),c(t)) where domain s takes the place of attributes (see berry et al.)  <a href="#a9aebe3a001353fc0b200f0c121def7fc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a8edc5b3fcb0f597ccca4324fdee0deec">NonDominating_MaxMods</a> (<a class="el" href="class_context.html">Context</a> *ctx, <a class="el" href="class_n_cluster.html">NCluster</a> *c, int s, int t, vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *maxmods, vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *primes, vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *domInfo)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the set of non-dominating maxmods given a set of maxmods.  <a href="#a8edc5b3fcb0f597ccca4324fdee0deec"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a4e77968caf06f4b29704062c6834a329">RemoveMarked</a> (list&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *ndMaxMods, <a class="el" href="class_i_o_set.html">IOSet</a> *marked)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the flag to true for each maxmod which is non-domninating.  <a href="#a4e77968caf06f4b29704062c6834a329"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4e77968caf06f4b29704062c6834a329"></a><!-- doxytag: member="BerryLatticeAlgos::RemoveMarked" ref="a4e77968caf06f4b29704062c6834a329" args="(list&lt; IOSet * &gt; *ndMaxMods, IOSet *marked)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a4e77968caf06f4b29704062c6834a329">RemoveMarked</a> (list&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *ndMaxMods, <a class="el" href="class_i_o_set.html">IOSet</a> *marked)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the flag to true for each maxmod which is non-domninating. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_cluster.html">NCluster</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_berry_lattice_algos.html#a87c253892ac8350043390b5c373a25a0">MakeMatch</a> (<a class="el" href="class_n_cluster.html">NCluster</a> *lrnrConcept, <a class="el" href="class_relation_graph.html">RelationGraph</a> *g, int s, int t)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to find mathcing semi-concepts to lrnrConcept(s,t) in the rest of g.  <a href="#a87c253892ac8350043390b5c373a25a0"></a><br/></td></tr>
 </table>
@@ -130,26 +110,7 @@ Private Member Functions</h2></td></tr>
 <p>This is a derived class of <a class="el" href="class_lattice_algos.html">LatticeAlgos</a> and implements Lattice based algorithms based on the paper "A local approach to Concept Generation" by Berry et al. Essentialy, n-clusters as described in the disseration "Mining multi-domain information networks" are mined by generalizing the algorithm presented by Berry et al. to a star shaped network. In addition, functions for computing the upper and lower neighbors of a given concept in a single context are also provided. </p>
 
 <p>Definition at line <a class="el" href="berry_8h_source.html#l00015">15</a> of file <a class="el" href="berry_8h_source.html">berry.h</a>.</p>
-</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a02d8e6dd215d9925422adff01208a06c"></a><!-- doxytag: member="BerryLatticeAlgos::BerryLatticeAlgos" ref="a02d8e6dd215d9925422adff01208a06c" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">BerryLatticeAlgos::BerryLatticeAlgos </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="berry_8h_source.html#l00018">18</a> of file <a class="el" href="berry_8h_source.html">berry.h</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Member Function Documentation</h2>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a0b2fefa9adf415442438b1bedbbfd317"></a><!-- doxytag: member="BerryLatticeAlgos::Enum_NConcepts_Berry" ref="a0b2fefa9adf415442438b1bedbbfd317" args="(NCluster *a, RelationGraph *g, IOSet *marked, int s, int t)" -->
 <div class="memitem">
 <div class="memproto">
@@ -440,37 +401,6 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4e77968caf06f4b29704062c6834a329"></a><!-- doxytag: member="BerryLatticeAlgos::RemoveMarked" ref="a4e77968caf06f4b29704062c6834a329" args="(list&lt; IOSet * &gt; *ndMaxMods, IOSet *marked)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void BerryLatticeAlgos::RemoveMarked </td>
-          <td>(</td>
-          <td class="paramtype">list&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; *&#160;</td>
-          <td class="paramname"><em>ndMaxMods</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td>
-          <td class="paramname"><em>marked</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Sets the flag to true for each maxmod which is non-domninating. </p>
-
-<p>Definition at line <a class="el" href="berry_8cpp_source.html#l00175">175</a> of file <a class="el" href="berry_8cpp_source.html">berry.cpp</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="aa740db0f43531fc872f94c062efe59b9"></a><!-- doxytag: member="BerryLatticeAlgos::Star_N_Concepts" ref="aa740db0f43531fc872f94c062efe59b9" args="(RelationGraph *g, int lrnrContext)" -->
 <div class="memitem">
 <div class="memproto">
@@ -574,25 +504,16 @@ Private Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/alqadaf/Research/Code/core/headers/nclusters/<a class="el" href="berry_8h_source.html">berry.h</a></li>
-<li>/Users/alqadaf/Research/Code/core/source/nclusters/<a class="el" href="berry_8cpp_source.html">berry.cpp</a></li>
+<li>headers/nclusters/<a class="el" href="berry_8h_source.html">berry.h</a></li>
+<li>source/nclusters/<a class="el" href="berry_8cpp_source.html">berry.cpp</a></li>
 </ul>
 </div>
-</div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="class_berry_lattice_algos.html">BerryLatticeAlgos</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -601,6 +522,8 @@ Private Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>

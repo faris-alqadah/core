@@ -2,10 +2,6 @@
 \section{LatticeAlgos Class Reference}
 \label{class_lattice_algos}\index{LatticeAlgos@{LatticeAlgos}}
 }
-
-
-{\ttfamily \#include $<$LatticeAlgos.h$>$}
-
 Inheritance diagram for LatticeAlgos:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -15,65 +11,143 @@ Inheritance diagram for LatticeAlgos:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_lattice_algos_ae3f96fdf1928948a830de0ec273534c1}{LatticeAlgos} ()
+\hypertarget{class_lattice_algos_ae3f96fdf1928948a830de0ec273534c1}{
+\hyperlink{class_lattice_algos_ae3f96fdf1928948a830de0ec273534c1}{LatticeAlgos} ()}
+\label{class_lattice_algos_ae3f96fdf1928948a830de0ec273534c1}
+
 \begin{DoxyCompactList}\small\item\em Default constructor. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-int \hyperlink{class_lattice_algos_a7061dd2e2590fa24e0dfb16f28509dce}{srchLvl}
+\hypertarget{class_lattice_algos_a7061dd2e2590fa24e0dfb16f28509dce}{
+int \hyperlink{class_lattice_algos_a7061dd2e2590fa24e0dfb16f28509dce}{srchLvl}}
+\label{class_lattice_algos_a7061dd2e2590fa24e0dfb16f28509dce}
+
 \begin{DoxyCompactList}\small\item\em keeps track of the search level in an enumeration algorithm \item\end{DoxyCompactList}\item 
-int \hyperlink{class_lattice_algos_a8a6e4d766e7f93a288e015e93b3183a0}{numConcepts}
+\hypertarget{class_lattice_algos_a8a6e4d766e7f93a288e015e93b3183a0}{
+int \hyperlink{class_lattice_algos_a8a6e4d766e7f93a288e015e93b3183a0}{numConcepts}}
+\label{class_lattice_algos_a8a6e4d766e7f93a288e015e93b3183a0}
+
 \begin{DoxyCompactList}\small\item\em keeps track of the total number of concepts or clusters enumerated \item\end{DoxyCompactList}\item 
-bool \hyperlink{class_lattice_algos_a7c599d38a3a66b926d7345153ca2e93c}{dispProgress}
+\hypertarget{class_lattice_algos_a7c599d38a3a66b926d7345153ca2e93c}{
+bool \hyperlink{class_lattice_algos_a7c599d38a3a66b926d7345153ca2e93c}{dispProgress}}
+\label{class_lattice_algos_a7c599d38a3a66b926d7345153ca2e93c}
+
 \begin{DoxyCompactList}\small\item\em flag to indicate if progress of the algorithm should output to the user (stdout) \item\end{DoxyCompactList}\item 
-vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ \hyperlink{class_lattice_algos_a006fbb44cdb89ab949bc9f47ed20a6d3}{CONCEPTS}
+\hypertarget{class_lattice_algos_a006fbb44cdb89ab949bc9f47ed20a6d3}{
+vector$<$ \hyperlink{class_n_cluster}{NCluster} $\ast$ $>$ \hyperlink{class_lattice_algos_a006fbb44cdb89ab949bc9f47ed20a6d3}{CONCEPTS}}
+\label{class_lattice_algos_a006fbb44cdb89ab949bc9f47ed20a6d3}
+
 \begin{DoxyCompactList}\small\item\em data structure to hold the enumerated clusters in memory during algorithm exectuion \item\end{DoxyCompactList}\item 
-vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ \hyperlink{class_lattice_algos_a242b1f9b2ec58cec08c4c5c074c0c1e7}{NAME\_\-MAPS}
+\hypertarget{class_lattice_algos_a242b1f9b2ec58cec08c4c5c074c0c1e7}{
+vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ \hyperlink{class_lattice_algos_a242b1f9b2ec58cec08c4c5c074c0c1e7}{NAME\_\-MAPS}}
+\label{class_lattice_algos_a242b1f9b2ec58cec08c4c5c074c0c1e7}
+
 \begin{DoxyCompactList}\small\item\em vector of name maps to be used to output clusters \item\end{DoxyCompactList}\item 
-string \hyperlink{class_lattice_algos_aaf79cc2e8513fd28bf1e9329c3e678ab}{OUTFILE}
+\hypertarget{class_lattice_algos_aaf79cc2e8513fd28bf1e9329c3e678ab}{
+string \hyperlink{class_lattice_algos_aaf79cc2e8513fd28bf1e9329c3e678ab}{OUTFILE}}
+\label{class_lattice_algos_aaf79cc2e8513fd28bf1e9329c3e678ab}
+
 \begin{DoxyCompactList}\small\item\em if ENUM\_\-FILE or ENUM\_\-TOPK\_\-FILE is selected then this file is used to output the concepts \item\end{DoxyCompactList}\item 
-ofstream \hyperlink{class_lattice_algos_a5e06ea8a8e76d5b6019481e778655a5c}{OUT1}
+\hypertarget{class_lattice_algos_a5e06ea8a8e76d5b6019481e778655a5c}{
+ofstream \hyperlink{class_lattice_algos_a5e06ea8a8e76d5b6019481e778655a5c}{OUT1}}
+\label{class_lattice_algos_a5e06ea8a8e76d5b6019481e778655a5c}
+
 \begin{DoxyCompactList}\small\item\em ofstream used to output to OUTFILE.concepts \item\end{DoxyCompactList}\item 
-ofstream \hyperlink{class_lattice_algos_ad6ee83e69ef859717cbc747edf4fc306}{OUT2}
+\hypertarget{class_lattice_algos_ad6ee83e69ef859717cbc747edf4fc306}{
+ofstream \hyperlink{class_lattice_algos_ad6ee83e69ef859717cbc747edf4fc306}{OUT2}}
+\label{class_lattice_algos_ad6ee83e69ef859717cbc747edf4fc306}
+
 \begin{DoxyCompactList}\small\item\em ofsteram used to output to OUTFILE.concept.names \item\end{DoxyCompactList}\item 
-int \hyperlink{class_lattice_algos_a03adc61166377c993b4d1ef8f8ee12ee}{enumerationMode}
+\hypertarget{class_lattice_algos_a03adc61166377c993b4d1ef8f8ee12ee}{
+int \hyperlink{class_lattice_algos_a03adc61166377c993b4d1ef8f8ee12ee}{enumerationMode}}
+\label{class_lattice_algos_a03adc61166377c993b4d1ef8f8ee12ee}
+
 \begin{DoxyCompactList}\small\item\em Users will set this variable to indicate the enumeration mode. \item\end{DoxyCompactList}\item 
-int \hyperlink{class_lattice_algos_aabdafd3fa45b3ed1d773b313e3a60e17}{qualityMode}
+\hypertarget{class_lattice_algos_aabdafd3fa45b3ed1d773b313e3a60e17}{
+int \hyperlink{class_lattice_algos_aabdafd3fa45b3ed1d773b313e3a60e17}{qualityMode}}
+\label{class_lattice_algos_aabdafd3fa45b3ed1d773b313e3a60e17}
+
 \begin{DoxyCompactList}\small\item\em user will set this variable to indicate the desired qualityMode \item\end{DoxyCompactList}\item 
-double($\ast$ \hyperlink{class_lattice_algos_ae25f31284b5956278f390d0edc412ef8}{qualityFunction} )(\hyperlink{class_n_cluster}{NCluster} $\ast$, vector$<$ double $>$ \&)
+\hypertarget{class_lattice_algos_ae25f31284b5956278f390d0edc412ef8}{
+double($\ast$ \hyperlink{class_lattice_algos_ae25f31284b5956278f390d0edc412ef8}{qualityFunction} )(\hyperlink{class_n_cluster}{NCluster} $\ast$, vector$<$ double $>$ \&)}
+\label{class_lattice_algos_ae25f31284b5956278f390d0edc412ef8}
+
 \begin{DoxyCompactList}\small\item\em function pointer to a quality measure, interface functions will set this acrroding to qualityMode \item\end{DoxyCompactList}\item 
-vector$<$ double $>$ \hyperlink{class_lattice_algos_a84a7c48411084ff5d792af41e57ce96a}{params}
-\begin{DoxyCompactList}\small\item\em store the parameters for a quality function here, see the \hyperlink{_quality_measures_8h}{QualityMeasures.h} documentation for specification of these parameters \item\end{DoxyCompactList}\item 
-int \hyperlink{class_lattice_algos_a7a9a7568a564e929c494c7c94ed5dda5}{ovlpMode}
+\hypertarget{class_lattice_algos_a84a7c48411084ff5d792af41e57ce96a}{
+vector$<$ double $>$ \hyperlink{class_lattice_algos_a84a7c48411084ff5d792af41e57ce96a}{params}}
+\label{class_lattice_algos_a84a7c48411084ff5d792af41e57ce96a}
+
+\begin{DoxyCompactList}\small\item\em store the parameters for a quality function here, see the \hyperlink{_quality_measures_8h_source}{QualityMeasures.h} documentation for specification of these parameters \item\end{DoxyCompactList}\item 
+\hypertarget{class_lattice_algos_a7a9a7568a564e929c494c7c94ed5dda5}{
+int \hyperlink{class_lattice_algos_a7a9a7568a564e929c494c7c94ed5dda5}{ovlpMode}}
+\label{class_lattice_algos_a7a9a7568a564e929c494c7c94ed5dda5}
+
 \begin{DoxyCompactList}\small\item\em user will set this variable to inidicate the desired qualityMode \item\end{DoxyCompactList}\item 
-double($\ast$ \hyperlink{class_lattice_algos_ad2bd9f8cb22cb27dfe527dd2bc38ec2d}{ovlpFunction} )(\hyperlink{class_n_cluster}{NCluster} $\ast$, \hyperlink{class_n_cluster}{NCluster} $\ast$)
+\hypertarget{class_lattice_algos_ad2bd9f8cb22cb27dfe527dd2bc38ec2d}{
+double($\ast$ \hyperlink{class_lattice_algos_ad2bd9f8cb22cb27dfe527dd2bc38ec2d}{ovlpFunction} )(\hyperlink{class_n_cluster}{NCluster} $\ast$, \hyperlink{class_n_cluster}{NCluster} $\ast$)}
+\label{class_lattice_algos_ad2bd9f8cb22cb27dfe527dd2bc38ec2d}
+
 \begin{DoxyCompactList}\small\item\em function pointer to an overlap function computer, interface function will set this according to ovlpMode \item\end{DoxyCompactList}\item 
-double \hyperlink{class_lattice_algos_ae50e2eab1478e1bced92b0f1f1bcdc09}{ovlpThresh}
+\hypertarget{class_lattice_algos_ae50e2eab1478e1bced92b0f1f1bcdc09}{
+double \hyperlink{class_lattice_algos_ae50e2eab1478e1bced92b0f1f1bcdc09}{ovlpThresh}}
+\label{class_lattice_algos_ae50e2eab1478e1bced92b0f1f1bcdc09}
+
 \begin{DoxyCompactList}\small\item\em a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster \item\end{DoxyCompactList}\item 
-int \hyperlink{class_lattice_algos_a90e06533d513efc4635905624283eeae}{topKK}
+\hypertarget{class_lattice_algos_a90e06533d513efc4635905624283eeae}{
+int \hyperlink{class_lattice_algos_a90e06533d513efc4635905624283eeae}{topKK}}
+\label{class_lattice_algos_a90e06533d513efc4635905624283eeae}
+
 \begin{DoxyCompactList}\small\item\em the number of clusters an algorithm should enumerate if user only wants the top k clusters \item\end{DoxyCompactList}\item 
-int \hyperlink{class_lattice_algos_a5a4badfea96f02f89d8943ca7fecc2ab}{pruneMode}
+\hypertarget{class_lattice_algos_a5a4badfea96f02f89d8943ca7fecc2ab}{
+int \hyperlink{class_lattice_algos_a5a4badfea96f02f89d8943ca7fecc2ab}{pruneMode}}
+\label{class_lattice_algos_a5a4badfea96f02f89d8943ca7fecc2ab}
+
 \begin{DoxyCompactList}\small\item\em user will set this variable to indicate the the desired pruning mode \item\end{DoxyCompactList}\item 
 vector$<$ int $>$ \hyperlink{class_lattice_algos_a244d9a63307846c2df232091a78a6759}{PRUNE\_\-SIZE\_\-VECTOR}
 \begin{DoxyCompactList}\small\item\em if PRUNE\_\-SIZE mode is selected this vector should be initialized to the min support of each domain \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static const int \hyperlink{class_lattice_algos_a80df6360d3246d74ae31e51e6c4bfa0e}{ENUM\_\-MEM} = 1
+\hypertarget{class_lattice_algos_a80df6360d3246d74ae31e51e6c4bfa0e}{
+static const int \hyperlink{class_lattice_algos_a80df6360d3246d74ae31e51e6c4bfa0e}{ENUM\_\-MEM} = 1}
+\label{class_lattice_algos_a80df6360d3246d74ae31e51e6c4bfa0e}
+
 \begin{DoxyCompactList}\small\item\em Enumeration mode that specifies to algorithms to mine and store clusters in memory. \item\end{DoxyCompactList}\item 
-static const int \hyperlink{class_lattice_algos_a824804a33640782553f2b399b28fde13}{ENUM\_\-FILE} = 2
+\hypertarget{class_lattice_algos_a824804a33640782553f2b399b28fde13}{
+static const int \hyperlink{class_lattice_algos_a824804a33640782553f2b399b28fde13}{ENUM\_\-FILE} = 2}
+\label{class_lattice_algos_a824804a33640782553f2b399b28fde13}
+
 \begin{DoxyCompactList}\small\item\em Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE. \item\end{DoxyCompactList}\item 
-static const int \hyperlink{class_lattice_algos_a04a0ea3a71c5b598242fa4ec3d4fce79}{ENUM\_\-TOPK\_\-FILE} = 3
+\hypertarget{class_lattice_algos_a04a0ea3a71c5b598242fa4ec3d4fce79}{
+static const int \hyperlink{class_lattice_algos_a04a0ea3a71c5b598242fa4ec3d4fce79}{ENUM\_\-TOPK\_\-FILE} = 3}
+\label{class_lattice_algos_a04a0ea3a71c5b598242fa4ec3d4fce79}
+
 \begin{DoxyCompactList}\small\item\em Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file, this file is specified by OUTFILE. \item\end{DoxyCompactList}\item 
-static const int \hyperlink{class_lattice_algos_a1c6a4b5dce3ccade9e17ce4b2a6afbe7}{ENUM\_\-TOPK\_\-MEM} = 4
+\hypertarget{class_lattice_algos_a1c6a4b5dce3ccade9e17ce4b2a6afbe7}{
+static const int \hyperlink{class_lattice_algos_a1c6a4b5dce3ccade9e17ce4b2a6afbe7}{ENUM\_\-TOPK\_\-MEM} = 4}
+\label{class_lattice_algos_a1c6a4b5dce3ccade9e17ce4b2a6afbe7}
+
 \begin{DoxyCompactList}\small\item\em Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory. \item\end{DoxyCompactList}\item 
-static const int \hyperlink{class_lattice_algos_a0a79ddaab00906dea5756ac05a4861a5}{AREA} = 1
+\hypertarget{class_lattice_algos_a0a79ddaab00906dea5756ac05a4861a5}{
+static const int \hyperlink{class_lattice_algos_a0a79ddaab00906dea5756ac05a4861a5}{AREA} = 1}
+\label{class_lattice_algos_a0a79ddaab00906dea5756ac05a4861a5}
+
 \begin{DoxyCompactList}\small\item\em quality mode that indicates to use the area of a concept as its quality measure \item\end{DoxyCompactList}\item 
-static const int \hyperlink{class_lattice_algos_a3cf765cdc6bce759203597708324ee9e}{BETA} = 2
+\hypertarget{class_lattice_algos_a3cf765cdc6bce759203597708324ee9e}{
+static const int \hyperlink{class_lattice_algos_a3cf765cdc6bce759203597708324ee9e}{BETA} = 2}
+\label{class_lattice_algos_a3cf765cdc6bce759203597708324ee9e}
+
 \begin{DoxyCompactList}\small\item\em quality mode that indicates to use the beta area of a concept as its quality measure (see \char`\"{}An effective algorithm for mining 3-\/clusters\char`\"{} by Alqadah et al.) \item\end{DoxyCompactList}\item 
-static const int \hyperlink{class_lattice_algos_a24156b300d4b23d0d618f548091d0aeb}{AVG\_\-JACCARD} = 1
+\hypertarget{class_lattice_algos_a24156b300d4b23d0d618f548091d0aeb}{
+static const int \hyperlink{class_lattice_algos_a24156b300d4b23d0d618f548091d0aeb}{AVG\_\-JACCARD} = 1}
+\label{class_lattice_algos_a24156b300d4b23d0d618f548091d0aeb}
+
 \begin{DoxyCompactList}\small\item\em overlap mode that indicates to use the average jaccard coefficient across all sets of an n-\/cluster to compute overlapping \item\end{DoxyCompactList}\item 
-static const int \hyperlink{class_lattice_algos_a9a1d69347724b131f372706322776bbb}{PRUNE\_\-SIZE} = 1
+\hypertarget{class_lattice_algos_a9a1d69347724b131f372706322776bbb}{
+static const int \hyperlink{class_lattice_algos_a9a1d69347724b131f372706322776bbb}{PRUNE\_\-SIZE} = 1}
+\label{class_lattice_algos_a9a1d69347724b131f372706322776bbb}
+
 \begin{DoxyCompactList}\small\item\em prune mode that indicates pruning will be based on size (support pruning) \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -84,287 +158,7 @@ Definition at line 29 of file LatticeAlgos.h.
 
 
 
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_lattice_algos_ae3f96fdf1928948a830de0ec273534c1}{
-\index{LatticeAlgos@{LatticeAlgos}!LatticeAlgos@{LatticeAlgos}}
-\index{LatticeAlgos@{LatticeAlgos}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{LatticeAlgos}]{\setlength{\rightskip}{0pt plus 5cm}LatticeAlgos::LatticeAlgos (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
-\label{class_lattice_algos_ae3f96fdf1928948a830de0ec273534c1}
-
-
-Default constructor. 
-
-
-
-Definition at line 34 of file LatticeAlgos.h.
-
-
-
 \subsection{Member Data Documentation}
-\hypertarget{class_lattice_algos_a0a79ddaab00906dea5756ac05a4861a5}{
-\index{LatticeAlgos@{LatticeAlgos}!AREA@{AREA}}
-\index{AREA@{AREA}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{AREA}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf LatticeAlgos::AREA} = 1\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{class_lattice_algos_a0a79ddaab00906dea5756ac05a4861a5}
-
-
-quality mode that indicates to use the area of a concept as its quality measure 
-
-
-
-Definition at line 87 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a24156b300d4b23d0d618f548091d0aeb}{
-\index{LatticeAlgos@{LatticeAlgos}!AVG\_\-JACCARD@{AVG\_\-JACCARD}}
-\index{AVG\_\-JACCARD@{AVG\_\-JACCARD}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{AVG\_\-JACCARD}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf LatticeAlgos::AVG\_\-JACCARD} = 1\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{class_lattice_algos_a24156b300d4b23d0d618f548091d0aeb}
-
-
-overlap mode that indicates to use the average jaccard coefficient across all sets of an n-\/cluster to compute overlapping 
-
-
-
-Definition at line 99 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a3cf765cdc6bce759203597708324ee9e}{
-\index{LatticeAlgos@{LatticeAlgos}!BETA@{BETA}}
-\index{BETA@{BETA}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{BETA}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf LatticeAlgos::BETA} = 2\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{class_lattice_algos_a3cf765cdc6bce759203597708324ee9e}
-
-
-quality mode that indicates to use the beta area of a concept as its quality measure (see \char`\"{}An effective algorithm for mining 3-\/clusters\char`\"{} by Alqadah et al.) 
-
-
-
-Definition at line 89 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a006fbb44cdb89ab949bc9f47ed20a6d3}{
-\index{LatticeAlgos@{LatticeAlgos}!CONCEPTS@{CONCEPTS}}
-\index{CONCEPTS@{CONCEPTS}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{CONCEPTS}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf NCluster}$\ast$$>$ {\bf LatticeAlgos::CONCEPTS}}}
-\label{class_lattice_algos_a006fbb44cdb89ab949bc9f47ed20a6d3}
-
-
-data structure to hold the enumerated clusters in memory during algorithm exectuion 
-
-
-
-Definition at line 62 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a7c599d38a3a66b926d7345153ca2e93c}{
-\index{LatticeAlgos@{LatticeAlgos}!dispProgress@{dispProgress}}
-\index{dispProgress@{dispProgress}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{dispProgress}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf LatticeAlgos::dispProgress}}}
-\label{class_lattice_algos_a7c599d38a3a66b926d7345153ca2e93c}
-
-
-flag to indicate if progress of the algorithm should output to the user (stdout) 
-
-
-
-Definition at line 58 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a824804a33640782553f2b399b28fde13}{
-\index{LatticeAlgos@{LatticeAlgos}!ENUM\_\-FILE@{ENUM\_\-FILE}}
-\index{ENUM\_\-FILE@{ENUM\_\-FILE}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{ENUM\_\-FILE}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf LatticeAlgos::ENUM\_\-FILE} = 2\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{class_lattice_algos_a824804a33640782553f2b399b28fde13}
-
-
-Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE. 
-
-
-
-Definition at line 77 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a80df6360d3246d74ae31e51e6c4bfa0e}{
-\index{LatticeAlgos@{LatticeAlgos}!ENUM\_\-MEM@{ENUM\_\-MEM}}
-\index{ENUM\_\-MEM@{ENUM\_\-MEM}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{ENUM\_\-MEM}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf LatticeAlgos::ENUM\_\-MEM} = 1\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{class_lattice_algos_a80df6360d3246d74ae31e51e6c4bfa0e}
-
-
-Enumeration mode that specifies to algorithms to mine and store clusters in memory. 
-
-
-
-Definition at line 75 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a04a0ea3a71c5b598242fa4ec3d4fce79}{
-\index{LatticeAlgos@{LatticeAlgos}!ENUM\_\-TOPK\_\-FILE@{ENUM\_\-TOPK\_\-FILE}}
-\index{ENUM\_\-TOPK\_\-FILE@{ENUM\_\-TOPK\_\-FILE}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{ENUM\_\-TOPK\_\-FILE}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf LatticeAlgos::ENUM\_\-TOPK\_\-FILE} = 3\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{class_lattice_algos_a04a0ea3a71c5b598242fa4ec3d4fce79}
-
-
-Enumeration mode that specifies to algorithms to mine only the top K clusters and output to a file, this file is specified by OUTFILE. 
-
-
-
-Definition at line 79 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a1c6a4b5dce3ccade9e17ce4b2a6afbe7}{
-\index{LatticeAlgos@{LatticeAlgos}!ENUM\_\-TOPK\_\-MEM@{ENUM\_\-TOPK\_\-MEM}}
-\index{ENUM\_\-TOPK\_\-MEM@{ENUM\_\-TOPK\_\-MEM}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{ENUM\_\-TOPK\_\-MEM}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf LatticeAlgos::ENUM\_\-TOPK\_\-MEM} = 4\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{class_lattice_algos_a1c6a4b5dce3ccade9e17ce4b2a6afbe7}
-
-
-Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory. 
-
-
-
-Definition at line 81 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a03adc61166377c993b4d1ef8f8ee12ee}{
-\index{LatticeAlgos@{LatticeAlgos}!enumerationMode@{enumerationMode}}
-\index{enumerationMode@{enumerationMode}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{enumerationMode}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf LatticeAlgos::enumerationMode}}}
-\label{class_lattice_algos_a03adc61166377c993b4d1ef8f8ee12ee}
-
-
-Users will set this variable to indicate the enumeration mode. 
-
-
-
-Definition at line 83 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a242b1f9b2ec58cec08c4c5c074c0c1e7}{
-\index{LatticeAlgos@{LatticeAlgos}!NAME\_\-MAPS@{NAME\_\-MAPS}}
-\index{NAME\_\-MAPS@{NAME\_\-MAPS}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{NAME\_\-MAPS}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf NameMap}$\ast$$>$ {\bf LatticeAlgos::NAME\_\-MAPS}}}
-\label{class_lattice_algos_a242b1f9b2ec58cec08c4c5c074c0c1e7}
-
-
-vector of name maps to be used to output clusters 
-
-
-
-Definition at line 64 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a8a6e4d766e7f93a288e015e93b3183a0}{
-\index{LatticeAlgos@{LatticeAlgos}!numConcepts@{numConcepts}}
-\index{numConcepts@{numConcepts}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{numConcepts}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf LatticeAlgos::numConcepts}}}
-\label{class_lattice_algos_a8a6e4d766e7f93a288e015e93b3183a0}
-
-
-keeps track of the total number of concepts or clusters enumerated 
-
-
-
-Definition at line 56 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a5e06ea8a8e76d5b6019481e778655a5c}{
-\index{LatticeAlgos@{LatticeAlgos}!OUT1@{OUT1}}
-\index{OUT1@{OUT1}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{OUT1}]{\setlength{\rightskip}{0pt plus 5cm}ofstream {\bf LatticeAlgos::OUT1}}}
-\label{class_lattice_algos_a5e06ea8a8e76d5b6019481e778655a5c}
-
-
-ofstream used to output to OUTFILE.concepts 
-
-
-
-Definition at line 68 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_ad6ee83e69ef859717cbc747edf4fc306}{
-\index{LatticeAlgos@{LatticeAlgos}!OUT2@{OUT2}}
-\index{OUT2@{OUT2}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{OUT2}]{\setlength{\rightskip}{0pt plus 5cm}ofstream {\bf LatticeAlgos::OUT2}}}
-\label{class_lattice_algos_ad6ee83e69ef859717cbc747edf4fc306}
-
-
-ofsteram used to output to OUTFILE.concept.names 
-
-
-
-Definition at line 70 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_aaf79cc2e8513fd28bf1e9329c3e678ab}{
-\index{LatticeAlgos@{LatticeAlgos}!OUTFILE@{OUTFILE}}
-\index{OUTFILE@{OUTFILE}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{OUTFILE}]{\setlength{\rightskip}{0pt plus 5cm}string {\bf LatticeAlgos::OUTFILE}}}
-\label{class_lattice_algos_aaf79cc2e8513fd28bf1e9329c3e678ab}
-
-
-if ENUM\_\-FILE or ENUM\_\-TOPK\_\-FILE is selected then this file is used to output the concepts 
-
-
-
-Definition at line 66 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_ad2bd9f8cb22cb27dfe527dd2bc38ec2d}{
-\index{LatticeAlgos@{LatticeAlgos}!ovlpFunction@{ovlpFunction}}
-\index{ovlpFunction@{ovlpFunction}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{ovlpFunction}]{\setlength{\rightskip}{0pt plus 5cm}double($\ast$ {\bf LatticeAlgos::ovlpFunction})({\bf NCluster} $\ast$, {\bf NCluster} $\ast$)}}
-\label{class_lattice_algos_ad2bd9f8cb22cb27dfe527dd2bc38ec2d}
-
-
-function pointer to an overlap function computer, interface function will set this according to ovlpMode 
-
-
-
-Definition at line 103 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a7a9a7568a564e929c494c7c94ed5dda5}{
-\index{LatticeAlgos@{LatticeAlgos}!ovlpMode@{ovlpMode}}
-\index{ovlpMode@{ovlpMode}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{ovlpMode}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf LatticeAlgos::ovlpMode}}}
-\label{class_lattice_algos_a7a9a7568a564e929c494c7c94ed5dda5}
-
-
-user will set this variable to inidicate the desired qualityMode 
-
-
-
-Definition at line 101 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_ae50e2eab1478e1bced92b0f1f1bcdc09}{
-\index{LatticeAlgos@{LatticeAlgos}!ovlpThresh@{ovlpThresh}}
-\index{ovlpThresh@{ovlpThresh}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{ovlpThresh}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf LatticeAlgos::ovlpThresh}}}
-\label{class_lattice_algos_ae50e2eab1478e1bced92b0f1f1bcdc09}
-
-
-a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster 
-
-
-
-Definition at line 105 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a84a7c48411084ff5d792af41e57ce96a}{
-\index{LatticeAlgos@{LatticeAlgos}!params@{params}}
-\index{params@{params}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{params}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$double$>$ {\bf LatticeAlgos::params}}}
-\label{class_lattice_algos_a84a7c48411084ff5d792af41e57ce96a}
-
-
-store the parameters for a quality function here, see the \hyperlink{_quality_measures_8h}{QualityMeasures.h} documentation for specification of these parameters 
-
-
-
-Definition at line 95 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a9a1d69347724b131f372706322776bbb}{
-\index{LatticeAlgos@{LatticeAlgos}!PRUNE\_\-SIZE@{PRUNE\_\-SIZE}}
-\index{PRUNE\_\-SIZE@{PRUNE\_\-SIZE}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{PRUNE\_\-SIZE}]{\setlength{\rightskip}{0pt plus 5cm}const int {\bf LatticeAlgos::PRUNE\_\-SIZE} = 1\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{class_lattice_algos_a9a1d69347724b131f372706322776bbb}
-
-
-prune mode that indicates pruning will be based on size (support pruning) 
-
-
-
-Definition at line 113 of file LatticeAlgos.h.
-
 \hypertarget{class_lattice_algos_a244d9a63307846c2df232091a78a6759}{
 \index{LatticeAlgos@{LatticeAlgos}!PRUNE\_\-SIZE\_\-VECTOR@{PRUNE\_\-SIZE\_\-VECTOR}}
 \index{PRUNE\_\-SIZE\_\-VECTOR@{PRUNE\_\-SIZE\_\-VECTOR}!LatticeAlgos@{LatticeAlgos}}
@@ -378,73 +172,8 @@ PRUNE\_\-SIZE\_\-VECTOR\mbox{[}domainId-\/1\mbox{]} should contain the minumum n
 
 Definition at line 122 of file LatticeAlgos.h.
 
-\hypertarget{class_lattice_algos_a5a4badfea96f02f89d8943ca7fecc2ab}{
-\index{LatticeAlgos@{LatticeAlgos}!pruneMode@{pruneMode}}
-\index{pruneMode@{pruneMode}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{pruneMode}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf LatticeAlgos::pruneMode}}}
-\label{class_lattice_algos_a5a4badfea96f02f89d8943ca7fecc2ab}
-
-
-user will set this variable to indicate the the desired pruning mode 
-
-
-
-Definition at line 115 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_ae25f31284b5956278f390d0edc412ef8}{
-\index{LatticeAlgos@{LatticeAlgos}!qualityFunction@{qualityFunction}}
-\index{qualityFunction@{qualityFunction}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{qualityFunction}]{\setlength{\rightskip}{0pt plus 5cm}double($\ast$ {\bf LatticeAlgos::qualityFunction})({\bf NCluster} $\ast$, vector$<$ double $>$ \&)}}
-\label{class_lattice_algos_ae25f31284b5956278f390d0edc412ef8}
-
-
-function pointer to a quality measure, interface functions will set this acrroding to qualityMode 
-
-
-
-Definition at line 93 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_aabdafd3fa45b3ed1d773b313e3a60e17}{
-\index{LatticeAlgos@{LatticeAlgos}!qualityMode@{qualityMode}}
-\index{qualityMode@{qualityMode}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{qualityMode}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf LatticeAlgos::qualityMode}}}
-\label{class_lattice_algos_aabdafd3fa45b3ed1d773b313e3a60e17}
-
-
-user will set this variable to indicate the desired qualityMode 
-
-
-
-Definition at line 91 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a7061dd2e2590fa24e0dfb16f28509dce}{
-\index{LatticeAlgos@{LatticeAlgos}!srchLvl@{srchLvl}}
-\index{srchLvl@{srchLvl}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{srchLvl}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf LatticeAlgos::srchLvl}}}
-\label{class_lattice_algos_a7061dd2e2590fa24e0dfb16f28509dce}
-
-
-keeps track of the search level in an enumeration algorithm 
-
-
-
-Definition at line 54 of file LatticeAlgos.h.
-
-\hypertarget{class_lattice_algos_a90e06533d513efc4635905624283eeae}{
-\index{LatticeAlgos@{LatticeAlgos}!topKK@{topKK}}
-\index{topKK@{topKK}!LatticeAlgos@{LatticeAlgos}}
-\subsubsection[{topKK}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf LatticeAlgos::topKK}}}
-\label{class_lattice_algos_a90e06533d513efc4635905624283eeae}
-
-
-the number of clusters an algorithm should enumerate if user only wants the top k clusters 
-
-
-
-Definition at line 109 of file LatticeAlgos.h.
-
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-/Users/alqadaf/Research/Code/core/headers/\hyperlink{_lattice_algos_8h}{LatticeAlgos.h}\end{DoxyCompactItemize}
+headers/LatticeAlgos.h\end{DoxyCompactItemize}

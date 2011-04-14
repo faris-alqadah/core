@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: NCluster Class Reference</title>
+<title>Star Shaped HIN-Clustering: NCluster Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -65,19 +58,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     </ul>
   </div>
 </div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('class_n_cluster.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -87,67 +67,101 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <!-- doxytag: class="NCluster" -->
-<p><code>#include &lt;<a class="el" href="_n_cluster_8h_source.html">NCluster.h</a>&gt;</code></p>
-
 <p><a href="class_n_cluster-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#af90ad520f3efec3f3c0b93ba9f46debc">NCluster</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#ab539b74dc75b6dd1db12bdb14a304d1f">NCluster</a> (unsigned int)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#ac2d41df0107c1f72c9574e066d61a7e0">NCluster</a> (unsigned int, bool)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#ab5480440512649ea2cee9d47d1684732">NCluster</a> (unsigned int, vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; &amp;)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a7f86cfa4150010e117f7520f34bbc6a4">NCluster</a> (<a class="el" href="class_n_cluster.html">NCluster</a> &amp;)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#aae72a31bc6c2f05934a6d2248d966be5">~NCluster</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a84dd370bb3e73f192187156cd7dba57b">DeepCopy</a> (<a class="el" href="class_n_cluster.html">NCluster</a> &amp;)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a695c426f13c2fb78015c2f6d8714dc38">Output</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#afb92f84876326645c2d3e46c011c6fdf">Output</a> (ofstream &amp;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af90ad520f3efec3f3c0b93ba9f46debc"></a><!-- doxytag: member="NCluster::NCluster" ref="af90ad520f3efec3f3c0b93ba9f46debc" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#af90ad520f3efec3f3c0b93ba9f46debc">NCluster</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#ac6460cead5fb2cf1a46354ab26f36e0a">NCluster</a> (unsigned int <a class="el" href="class_n_cluster.html#a926e474ba279516160b52ab36d208a69">n</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Alternate constructor.  <a href="#ac6460cead5fb2cf1a46354ab26f36e0a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#ad64a3005375dd6aad2848f227ce92ef6">NCluster</a> (unsigned int <a class="el" href="class_n_cluster.html#a926e474ba279516160b52ab36d208a69">n</a>, bool allocate)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Alternate constructor.  <a href="#ad64a3005375dd6aad2848f227ce92ef6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a5ef4833105e769e289f7e9dbf570dcef">NCluster</a> (unsigned int <a class="el" href="class_n_cluster.html#a926e474ba279516160b52ab36d208a69">n</a>, vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; &amp;aa)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Alternate constructor.  <a href="#a5ef4833105e769e289f7e9dbf570dcef"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7f86cfa4150010e117f7520f34bbc6a4"></a><!-- doxytag: member="NCluster::NCluster" ref="a7f86cfa4150010e117f7520f34bbc6a4" args="(NCluster &amp;)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a7f86cfa4150010e117f7520f34bbc6a4">NCluster</a> (<a class="el" href="class_n_cluster.html">NCluster</a> &amp;)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aae72a31bc6c2f05934a6d2248d966be5"></a><!-- doxytag: member="NCluster::~NCluster" ref="aae72a31bc6c2f05934a6d2248d966be5" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#aae72a31bc6c2f05934a6d2248d966be5">~NCluster</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a84dd370bb3e73f192187156cd7dba57b"></a><!-- doxytag: member="NCluster::DeepCopy" ref="a84dd370bb3e73f192187156cd7dba57b" args="(NCluster &amp;)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a84dd370bb3e73f192187156cd7dba57b">DeepCopy</a> (<a class="el" href="class_n_cluster.html">NCluster</a> &amp;)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a deep copy of the n-cluster. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a695c426f13c2fb78015c2f6d8714dc38"></a><!-- doxytag: member="NCluster::Output" ref="a695c426f13c2fb78015c2f6d8714dc38" args="()" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a695c426f13c2fb78015c2f6d8714dc38">Output</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints each IOset on a seperate line preceded by the Id of each <a class="el" href="class_i_o_set.html">IOSet</a> to stdout. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb92f84876326645c2d3e46c011c6fdf"></a><!-- doxytag: member="NCluster::Output" ref="afb92f84876326645c2d3e46c011c6fdf" args="(ofstream &amp;)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#afb92f84876326645c2d3e46c011c6fdf">Output</a> (ofstream &amp;)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints each IOset on a seperate line preceded by the Id of each <a class="el" href="class_i_o_set.html">IOSet</a> to ofstream. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a5f75034c596cda89b823bb842f54019e">Output</a> (ofstream &amp;, vector&lt; <a class="el" href="class_name_map.html">NameMap</a> * &gt; &amp;nm)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688">GetN</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a> (int)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a> (int <a class="el" href="class_n_cluster.html#a9360cadd4e338b91de61f86997acc890">id</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31">AddSet</a> (<a class="el" href="class_i_o_set.html">IOSet</a> *a)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a7d16c9515b311e4b734a53e15f6f499c">AssignSet</a> (int, <a class="el" href="class_i_o_set.html">IOSet</a> *)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a7d4e59bbd60c5f62fc1896ce472d1e27">AssignSetById</a> (int, <a class="el" href="class_i_o_set.html">IOSet</a> *)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#aad3afb3c6ca495bd69fe0593455ca785">GetQuality</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#abf7185a77e66f15d4ff3b400d51d1064">SetQuality</a> (double)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a185204e735f03d9670855e0767592149">GetId</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a62df66a6ed98f118dcdfebe3dc1fced5">SetId</a> (int)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a81e298f10335141a1257d29dc4c2e705">GetMarked</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#abb8e5da62c63785a3ac9f4ab3aad207e">SetMarked</a> (bool m)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a> (int <a class="el" href="class_n_cluster.html#a9360cadd4e338b91de61f86997acc890">id</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a35ad64188494aec6b0b5a255217ba11b">GetMaxElement</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints each IOset on a seperate line preceded by the Id of each <a class="el" href="class_i_o_set.html">IOSet</a> to ofstream.  <a href="#a5f75034c596cda89b823bb842f54019e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5e91f8c38a0122031c3f921b94e3a688"></a><!-- doxytag: member="NCluster::GetN" ref="a5e91f8c38a0122031c3f921b94e3a688" args="()" -->
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a5e91f8c38a0122031c3f921b94e3a688">GetN</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Resurns n, the number of sets in the n-cluster. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d197e1cf217fe1ce95b0ba0b4ee40bc"></a><!-- doxytag: member="NCluster::GetSet" ref="a7d197e1cf217fe1ce95b0ba0b4ee40bc" args="(int)" -->
+<a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a7d197e1cf217fe1ce95b0ba0b4ee40bc">GetSet</a> (int)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the ith set. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5d4ddbb124fc5d9c9cc706312ec80476"></a><!-- doxytag: member="NCluster::GetSetById" ref="a5d4ddbb124fc5d9c9cc706312ec80476" args="(int id)" -->
+<a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a5d4ddbb124fc5d9c9cc706312ec80476">GetSetById</a> (int <a class="el" href="class_n_cluster.html#a9360cadd4e338b91de61f86997acc890">id</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the set with id, if it exists, assertion is checked. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af4eeecc0717c16ffaa931a0100739f31"></a><!-- doxytag: member="NCluster::AddSet" ref="af4eeecc0717c16ffaa931a0100739f31" args="(IOSet *a)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#af4eeecc0717c16ffaa931a0100739f31">AddSet</a> (<a class="el" href="class_i_o_set.html">IOSet</a> *a)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the set a to the end of the n-cluster. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7d5ab8fb3293b472b57cb9e964f5b90e"></a><!-- doxytag: member="NCluster::AssignSet" ref="a7d5ab8fb3293b472b57cb9e964f5b90e" args="(int i, IOSet *a)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a7d5ab8fb3293b472b57cb9e964f5b90e">AssignSet</a> (int i, <a class="el" href="class_i_o_set.html">IOSet</a> *a)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a to the ith, deleting the previously defined ith set in the process. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b117e61aee299f09f385f0b890bf0e1"></a><!-- doxytag: member="NCluster::AssignSetById" ref="a0b117e61aee299f09f385f0b890bf0e1" args="(int id, IOSet *a)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a0b117e61aee299f09f385f0b890bf0e1">AssignSetById</a> (int <a class="el" href="class_n_cluster.html#a9360cadd4e338b91de61f86997acc890">id</a>, <a class="el" href="class_i_o_set.html">IOSet</a> *a)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a to the set with id, if it exists, previoulsy defined set with id is destroyed in the process. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aad3afb3c6ca495bd69fe0593455ca785"></a><!-- doxytag: member="NCluster::GetQuality" ref="aad3afb3c6ca495bd69fe0593455ca785" args="()" -->
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#aad3afb3c6ca495bd69fe0593455ca785">GetQuality</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the quality attribute. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf7185a77e66f15d4ff3b400d51d1064"></a><!-- doxytag: member="NCluster::SetQuality" ref="abf7185a77e66f15d4ff3b400d51d1064" args="(double)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#abf7185a77e66f15d4ff3b400d51d1064">SetQuality</a> (double)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the quality attribute. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a185204e735f03d9670855e0767592149"></a><!-- doxytag: member="NCluster::GetId" ref="a185204e735f03d9670855e0767592149" args="()" -->
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a185204e735f03d9670855e0767592149">GetId</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id attribute. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62df66a6ed98f118dcdfebe3dc1fced5"></a><!-- doxytag: member="NCluster::SetId" ref="a62df66a6ed98f118dcdfebe3dc1fced5" args="(int)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a62df66a6ed98f118dcdfebe3dc1fced5">SetId</a> (int)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the id attribute. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81e298f10335141a1257d29dc4c2e705"></a><!-- doxytag: member="NCluster::GetMarked" ref="a81e298f10335141a1257d29dc4c2e705" args="()" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a81e298f10335141a1257d29dc4c2e705">GetMarked</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the marked attribute. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb8e5da62c63785a3ac9f4ab3aad207e"></a><!-- doxytag: member="NCluster::SetMarked" ref="abb8e5da62c63785a3ac9f4ab3aad207e" args="(bool m)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#abb8e5da62c63785a3ac9f4ab3aad207e">SetMarked</a> (bool m)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the marked attribute. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf1d8f02e7b8ec537225e896ae26534c"></a><!-- doxytag: member="NCluster::ContainsIOSetId" ref="acf1d8f02e7b8ec537225e896ae26534c" args="(int id)" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#acf1d8f02e7b8ec537225e896ae26534c">ContainsIOSetId</a> (int <a class="el" href="class_n_cluster.html#a9360cadd4e338b91de61f86997acc890">id</a>)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if an <a class="el" href="class_i_o_set.html">IOSet</a> with id=id exists in self, false otherwsie. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a35ad64188494aec6b0b5a255217ba11b"></a><!-- doxytag: member="NCluster::GetMaxElement" ref="a35ad64188494aec6b0b5a255217ba11b" args="()" -->
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a35ad64188494aec6b0b5a255217ba11b">GetMaxElement</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the largest element in all sets of self. <br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a926e474ba279516160b52ab36d208a69">n</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a2333af10251a6a884395aab57b9fa400">sets</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a9e0aa868b02c27e6c282f9633a135aa9">quality</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a9360cadd4e338b91de61f86997acc890">id</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a89a39f622490f47ed6283b17fe1d0f44">marked</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a926e474ba279516160b52ab36d208a69"></a><!-- doxytag: member="NCluster::n" ref="a926e474ba279516160b52ab36d208a69" args="" -->
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a926e474ba279516160b52ab36d208a69">n</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">degree of the cluster <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2333af10251a6a884395aab57b9fa400"></a><!-- doxytag: member="NCluster::sets" ref="a2333af10251a6a884395aab57b9fa400" args="" -->
+vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a2333af10251a6a884395aab57b9fa400">sets</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">the actual data or sets <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e0aa868b02c27e6c282f9633a135aa9"></a><!-- doxytag: member="NCluster::quality" ref="a9e0aa868b02c27e6c282f9633a135aa9" args="" -->
+double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a9e0aa868b02c27e6c282f9633a135aa9">quality</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">quality of the n-cluster <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9360cadd4e338b91de61f86997acc890"></a><!-- doxytag: member="NCluster::id" ref="a9360cadd4e338b91de61f86997acc890" args="" -->
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a9360cadd4e338b91de61f86997acc890">id</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">id of the n-cluster <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a89a39f622490f47ed6283b17fe1d0f44"></a><!-- doxytag: member="NCluster::marked" ref="a89a39f622490f47ed6283b17fe1d0f44" args="" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_cluster.html#a89a39f622490f47ed6283b17fe1d0f44">marked</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">has this n-cluster been marked or flagged for whatever reason?? <br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="_n_cluster_8h_source.html#l00022">22</a> of file <a class="el" href="_n_cluster_8h_source.html">NCluster.h</a>.</p>
+<p>Definition at line <a class="el" href="_n_cluster_8h_source.html#l00013">13</a> of file <a class="el" href="_n_cluster_8h_source.html">NCluster.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="af90ad520f3efec3f3c0b93ba9f46debc"></a><!-- doxytag: member="NCluster::NCluster" ref="af90ad520f3efec3f3c0b93ba9f46debc" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">NCluster::NCluster </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00002">2</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab539b74dc75b6dd1db12bdb14a304d1f"></a><!-- doxytag: member="NCluster::NCluster" ref="ab539b74dc75b6dd1db12bdb14a304d1f" args="(unsigned int)" -->
+<a class="anchor" id="ac6460cead5fb2cf1a46354ab26f36e0a"></a><!-- doxytag: member="NCluster::NCluster" ref="ac6460cead5fb2cf1a46354ab26f36e0a" args="(unsigned int n)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -155,18 +169,27 @@ Protected Attributes</h2></td></tr>
           <td class="memname">NCluster::NCluster </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>nn</em></td><td>)</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Alternate constructor. </p>
+<p>Allocates n sets and sets size to n </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>number of sets to allocate </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00009">9</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ac2d41df0107c1f72c9574e066d61a7e0"></a><!-- doxytag: member="NCluster::NCluster" ref="ac2d41df0107c1f72c9574e066d61a7e0" args="(unsigned int, bool)" -->
+<a class="anchor" id="ad64a3005375dd6aad2848f227ce92ef6"></a><!-- doxytag: member="NCluster::NCluster" ref="ad64a3005375dd6aad2848f227ce92ef6" args="(unsigned int n, bool allocate)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -174,13 +197,13 @@ Protected Attributes</h2></td></tr>
           <td class="memname">NCluster::NCluster </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>nn</em>, </td>
+          <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>dontAllocate</em>&#160;</td>
+          <td class="paramname"><em>allocate</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -191,11 +214,21 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Alternate constructor. </p>
+<p>Makes the n-cluster of size n, but does not allocate the memory </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>size of the n-cluster </td></tr>
+    <tr><td class="paramname">allocate</td><td>this value does not matter, if its true or false, its just to inidcate that no memory should be allocated </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00027">27</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ab5480440512649ea2cee9d47d1684732"></a><!-- doxytag: member="NCluster::NCluster" ref="ab5480440512649ea2cee9d47d1684732" args="(unsigned int, vector&lt; IOSet * &gt; &amp;)" -->
+<a class="anchor" id="a5ef4833105e769e289f7e9dbf570dcef"></a><!-- doxytag: member="NCluster::NCluster" ref="a5ef4833105e769e289f7e9dbf570dcef" args="(unsigned int n, vector&lt; IOSet * &gt; &amp;aa)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -203,13 +236,13 @@ Protected Attributes</h2></td></tr>
           <td class="memname">NCluster::NCluster </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>nn</em>, </td>
+          <td class="paramname"><em>n</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">vector&lt; <a class="el" href="class_i_o_set.html">IOSet</a> * &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
+          <td class="paramname"><em>aa</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -219,292 +252,15 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Alternate constructor. </p>
+<p>Constructor n-cluster of size n and assigin a deep copy of the IOsets from the vector aa to the n-cluster  n size of the n-cluster  aa a vector of IOSets that will be used to initialize the sets of self by making a deep copy </p>
 
 <p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00017">17</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a7f86cfa4150010e117f7520f34bbc6a4"></a><!-- doxytag: member="NCluster::NCluster" ref="a7f86cfa4150010e117f7520f34bbc6a4" args="(NCluster &amp;)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">NCluster::NCluster </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_n_cluster.html">NCluster</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00036">36</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aae72a31bc6c2f05934a6d2248d966be5"></a><!-- doxytag: member="NCluster::~NCluster" ref="aae72a31bc6c2f05934a6d2248d966be5" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">NCluster::~NCluster </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00039">39</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="af4eeecc0717c16ffaa931a0100739f31"></a><!-- doxytag: member="NCluster::AddSet" ref="af4eeecc0717c16ffaa931a0100739f31" args="(IOSet *a)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::AddSet </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00109">109</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7d16c9515b311e4b734a53e15f6f499c"></a><!-- doxytag: member="NCluster::AssignSet" ref="a7d16c9515b311e4b734a53e15f6f499c" args="(int, IOSet *)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::AssignSet </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>idx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td>
-          <td class="paramname"><em>a</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00115">115</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7d4e59bbd60c5f62fc1896ce472d1e27"></a><!-- doxytag: member="NCluster::AssignSetById" ref="a7d4e59bbd60c5f62fc1896ce472d1e27" args="(int, IOSet *)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::AssignSetById </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td>
-          <td class="paramname"><em>a</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00122">122</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acf1d8f02e7b8ec537225e896ae26534c"></a><!-- doxytag: member="NCluster::ContainsIOSetId" ref="acf1d8f02e7b8ec537225e896ae26534c" args="(int id)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool NCluster::ContainsIOSetId </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00141">141</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a84dd370bb3e73f192187156cd7dba57b"></a><!-- doxytag: member="NCluster::DeepCopy" ref="a84dd370bb3e73f192187156cd7dba57b" args="(NCluster &amp;)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::DeepCopy </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_n_cluster.html">NCluster</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00047">47</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a185204e735f03d9670855e0767592149"></a><!-- doxytag: member="NCluster::GetId" ref="a185204e735f03d9670855e0767592149" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int NCluster::GetId </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00137">137</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a81e298f10335141a1257d29dc4c2e705"></a><!-- doxytag: member="NCluster::GetMarked" ref="a81e298f10335141a1257d29dc4c2e705" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool NCluster::GetMarked </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00139">139</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a35ad64188494aec6b0b5a255217ba11b"></a><!-- doxytag: member="NCluster::GetMaxElement" ref="a35ad64188494aec6b0b5a255217ba11b" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int NCluster::GetMaxElement </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00147">147</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5e91f8c38a0122031c3f921b94e3a688"></a><!-- doxytag: member="NCluster::GetN" ref="a5e91f8c38a0122031c3f921b94e3a688" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int NCluster::GetN </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00093">93</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aad3afb3c6ca495bd69fe0593455ca785"></a><!-- doxytag: member="NCluster::GetQuality" ref="aad3afb3c6ca495bd69fe0593455ca785" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double NCluster::GetQuality </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00134">134</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7d197e1cf217fe1ce95b0ba0b4ee40bc"></a><!-- doxytag: member="NCluster::GetSet" ref="a7d197e1cf217fe1ce95b0ba0b4ee40bc" args="(int)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_i_o_set.html">IOSet</a> * NCluster::GetSet </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>idx</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00099">99</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5d4ddbb124fc5d9c9cc706312ec80476"></a><!-- doxytag: member="NCluster::GetSetById" ref="a5d4ddbb124fc5d9c9cc706312ec80476" args="(int id)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_i_o_set.html">IOSet</a> * NCluster::GetSetById </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00103">103</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a5f75034c596cda89b823bb842f54019e"></a><!-- doxytag: member="NCluster::Output" ref="a5f75034c596cda89b823bb842f54019e" args="(ofstream &amp;, vector&lt; NameMap * &gt; &amp;nm)" -->
 <div class="memitem">
 <div class="memproto">
@@ -530,200 +286,24 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Prints each IOset on a seperate line preceded by the Id of each <a class="el" href="class_i_o_set.html">IOSet</a> to ofstream. </p>
+<p>Attempts to match the id of one of the name maps to the id of the sets of self. If the ids match, then then <a class="el" href="class_i_o_set.html">IOSet</a> is output using the name map, otherwise normal printing is performed. </p>
+
 <p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00073">73</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a695c426f13c2fb78015c2f6d8714dc38"></a><!-- doxytag: member="NCluster::Output" ref="a695c426f13c2fb78015c2f6d8714dc38" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::Output </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00058">58</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afb92f84876326645c2d3e46c011c6fdf"></a><!-- doxytag: member="NCluster::Output" ref="afb92f84876326645c2d3e46c011c6fdf" args="(ofstream &amp;)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::Output </td>
-          <td>(</td>
-          <td class="paramtype">ofstream &amp;&#160;</td>
-          <td class="paramname"><em>out</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00065">65</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a62df66a6ed98f118dcdfebe3dc1fced5"></a><!-- doxytag: member="NCluster::SetId" ref="a62df66a6ed98f118dcdfebe3dc1fced5" args="(int)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::SetId </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00138">138</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abb8e5da62c63785a3ac9f4ab3aad207e"></a><!-- doxytag: member="NCluster::SetMarked" ref="abb8e5da62c63785a3ac9f4ab3aad207e" args="(bool m)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::SetMarked </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>m</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00140">140</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abf7185a77e66f15d4ff3b400d51d1064"></a><!-- doxytag: member="NCluster::SetQuality" ref="abf7185a77e66f15d4ff3b400d51d1064" args="(double)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NCluster::SetQuality </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>q</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8cpp_source.html#l00135">135</a> of file <a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a9360cadd4e338b91de61f86997acc890"></a><!-- doxytag: member="NCluster::id" ref="a9360cadd4e338b91de61f86997acc890" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="class_n_cluster.html#a9360cadd4e338b91de61f86997acc890">NCluster::id</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8h_source.html#l00228">228</a> of file <a class="el" href="_n_cluster_8h_source.html">NCluster.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a89a39f622490f47ed6283b17fe1d0f44"></a><!-- doxytag: member="NCluster::marked" ref="a89a39f622490f47ed6283b17fe1d0f44" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="class_n_cluster.html#a89a39f622490f47ed6283b17fe1d0f44">NCluster::marked</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8h_source.html#l00229">229</a> of file <a class="el" href="_n_cluster_8h_source.html">NCluster.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a926e474ba279516160b52ab36d208a69"></a><!-- doxytag: member="NCluster::n" ref="a926e474ba279516160b52ab36d208a69" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int <a class="el" href="class_n_cluster.html#a926e474ba279516160b52ab36d208a69">NCluster::n</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8h_source.html#l00225">225</a> of file <a class="el" href="_n_cluster_8h_source.html">NCluster.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9e0aa868b02c27e6c282f9633a135aa9"></a><!-- doxytag: member="NCluster::quality" ref="a9e0aa868b02c27e6c282f9633a135aa9" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double <a class="el" href="class_n_cluster.html#a9e0aa868b02c27e6c282f9633a135aa9">NCluster::quality</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8h_source.html#l00227">227</a> of file <a class="el" href="_n_cluster_8h_source.html">NCluster.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2333af10251a6a884395aab57b9fa400"></a><!-- doxytag: member="NCluster::sets" ref="a2333af10251a6a884395aab57b9fa400" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_i_o_set.html">IOSet</a>*&gt; <a class="el" href="class_n_cluster.html#a2333af10251a6a884395aab57b9fa400">NCluster::sets</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_n_cluster_8h_source.html#l00226">226</a> of file <a class="el" href="_n_cluster_8h_source.html">NCluster.h</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/alqadaf/Research/Code/core/headers/<a class="el" href="_n_cluster_8h_source.html">NCluster.h</a></li>
-<li>/Users/alqadaf/Research/Code/core/source/<a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a></li>
+<li>headers/<a class="el" href="_n_cluster_8h_source.html">NCluster.h</a></li>
+<li>source/<a class="el" href="_n_cluster_8cpp_source.html">NCluster.cpp</a></li>
 </ul>
 </div>
-</div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="class_n_cluster.html">NCluster</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -732,6 +312,8 @@ Protected Attributes</h2></td></tr>
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>

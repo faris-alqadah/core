@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: /Users/alqadaf/Research/Code/core/headers/Context.h Source File</title>
+<title>Star Shaped HIN-Clustering: headers/Context.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -59,37 +52,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
-</div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('_context_8h.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="headertitle">
-<h1>/Users/alqadaf/Research/Code/core/headers/Context.h</h1>  </div>
+<h1>headers/Context.h</h1>  </div>
 </div>
 <div class="contents">
-<a href="_context_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
 <a name="l00002"></a>00002 
 <a name="l00003"></a>00003 
 <a name="l00011"></a>00011 <span class="preprocessor">#ifndef _CONTEXT_H</span>
 <a name="l00012"></a>00012 <span class="preprocessor"></span><span class="preprocessor">#define _CONTEXT_H</span>
 <a name="l00013"></a>00013 <span class="preprocessor"></span>
-<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="_n_cluster_8h.html">NCluster.h</a>&quot;</span>
-<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="_ops_8h.html">Ops.h</a>&quot;</span>
-<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="_name_map_8h.html">NameMap.h</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;NCluster.h&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;Ops.h&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;NameMap.h&quot;</span>
 <a name="l00017"></a>00017 
 <a name="l00018"></a><a class="code" href="class_context.html">00018</a> <span class="keyword">class </span><a class="code" href="class_context.html">Context</a> {
 <a name="l00019"></a>00019 <span class="keyword">public</span>:
@@ -139,34 +117,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00116"></a>00116     <span class="keywordtype">double</span> <a class="code" href="class_context.html#a1f3efbbcf1693d03bb6c4a8140312c83" title="Return the number of ones / |domain1|*|domain2|.">GetDensity</a>();
 <a name="l00117"></a>00117 
 <a name="l00118"></a>00118 <span class="keyword">private</span>:
-<a name="l00119"></a>00119   
-<a name="l00120"></a><a class="code" href="class_context.html#a8048e137193a79abba0741c75429c5ac">00120</a>     <a class="code" href="class_n_cluster.html">NCluster</a> *<a class="code" href="class_context.html#a8048e137193a79abba0741c75429c5ac">domain1</a>;   
-<a name="l00121"></a><a class="code" href="class_context.html#a2e9112268666d45cfb4139d01e7d7019">00121</a>     <a class="code" href="class_n_cluster.html">NCluster</a> *<a class="code" href="class_context.html#a2e9112268666d45cfb4139d01e7d7019" title="represent first domain">domain2</a>; 
-<a name="l00122"></a><a class="code" href="class_context.html#a134a1f80c8256db2afdb6d6f3096e0d6">00122</a>     <span class="keywordtype">int</span> <a class="code" href="class_context.html#a134a1f80c8256db2afdb6d6f3096e0d6" title="represent second domain">id</a>; 
-<a name="l00123"></a><a class="code" href="class_context.html#af22c18b4ad495688a68ad4d410009100">00123</a>     <span class="keywordtype">string</span> <a class="code" href="class_context.html#af22c18b4ad495688a68ad4d410009100" title="id of the context">name</a>; 
-<a name="l00124"></a><a class="code" href="class_context.html#a092b46cd54293fd8b18c514fb61c04de">00124</a>     <a class="code" href="class_name_map.html">NameMap</a> *<a class="code" href="class_context.html#a092b46cd54293fd8b18c514fb61c04de" title="name of the context">nameMap1</a>; 
-<a name="l00125"></a><a class="code" href="class_context.html#a24bd477af8de17c09869713cfa06265a">00125</a>     <a class="code" href="class_name_map.html">NameMap</a> *<a class="code" href="class_context.html#a24bd477af8de17c09869713cfa06265a" title="name map associated with domain 1">nameMap2</a>; 
-<a name="l00126"></a>00126 };
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128 
-<a name="l00129"></a>00129 <span class="preprocessor">#endif  </span><span class="comment">/* _CONTEXT_H */</span>
-<a name="l00130"></a>00130 
+<a name="l00120"></a><a class="code" href="class_context.html#a8048e137193a79abba0741c75429c5ac">00120</a>     <a class="code" href="class_n_cluster.html">NCluster</a> *<a class="code" href="class_context.html#a8048e137193a79abba0741c75429c5ac" title="represent first domain">domain1</a>;
+<a name="l00122"></a><a class="code" href="class_context.html#a2e9112268666d45cfb4139d01e7d7019">00122</a>     <a class="code" href="class_n_cluster.html">NCluster</a> *<a class="code" href="class_context.html#a2e9112268666d45cfb4139d01e7d7019" title="represent second domain">domain2</a>;
+<a name="l00124"></a><a class="code" href="class_context.html#a134a1f80c8256db2afdb6d6f3096e0d6">00124</a>     <span class="keywordtype">int</span> <a class="code" href="class_context.html#a134a1f80c8256db2afdb6d6f3096e0d6" title="id of the context">id</a>;
+<a name="l00126"></a><a class="code" href="class_context.html#af22c18b4ad495688a68ad4d410009100">00126</a>     <span class="keywordtype">string</span> <a class="code" href="class_context.html#af22c18b4ad495688a68ad4d410009100" title="name of the context">name</a>;
+<a name="l00128"></a><a class="code" href="class_context.html#a092b46cd54293fd8b18c514fb61c04de">00128</a>     <a class="code" href="class_name_map.html">NameMap</a> *<a class="code" href="class_context.html#a092b46cd54293fd8b18c514fb61c04de" title="name map associated with domain 1">nameMap1</a>;
+<a name="l00130"></a><a class="code" href="class_context.html#a24bd477af8de17c09869713cfa06265a">00130</a>     <a class="code" href="class_name_map.html">NameMap</a> *<a class="code" href="class_context.html#a24bd477af8de17c09869713cfa06265a" title="name map associated with domain 2">nameMap2</a>; 
+<a name="l00131"></a>00131 };
+<a name="l00132"></a>00132 
+<a name="l00133"></a>00133 
+<a name="l00134"></a>00134 <span class="preprocessor">#endif  </span><span class="comment">/* _CONTEXT_H */</span>
+<a name="l00135"></a>00135 
 </pre></div></div>
 </div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="_context_8h.html">Context.h</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -175,6 +144,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>

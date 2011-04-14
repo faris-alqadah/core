@@ -9,7 +9,7 @@ Author: Faris Alqadah.
 
 
 
-{\ttfamily \#include $<$berry.h$>$}
+{\ttfamily \#include \char`\"{}berry.h\char`\"{}}
 
 Inheritance diagram for BerryLatticeAlgos:\begin{figure}[H]
 \begin{center}
@@ -19,8 +19,6 @@ Inheritance diagram for BerryLatticeAlgos:\begin{figure}[H]
 \end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
-\item 
-\hyperlink{class_berry_lattice_algos_a02d8e6dd215d9925422adff01208a06c}{BerryLatticeAlgos} ()
 \item 
 void \hyperlink{class_berry_lattice_algos_aa740db0f43531fc872f94c062efe59b9}{Star\_\-N\_\-Concepts} (\hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int lrnrContext)
 \begin{DoxyCompactList}\small\item\em Inteface for Berry-\/based algorithms that compute the n-\/concepts or n-\/clusters from a star shaped HIN. \item\end{DoxyCompactList}\item 
@@ -37,7 +35,10 @@ vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ \hyperlink{class_be
 \begin{DoxyCompactList}\small\item\em Computes the maxmods of the sub-\/context ctx(A-\/c(s),c(t)) where domain s takes the place of attributes (see berry et al.) \item\end{DoxyCompactList}\item 
 list$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ \hyperlink{class_berry_lattice_algos_a8edc5b3fcb0f597ccca4324fdee0deec}{NonDominating\_\-MaxMods} (\hyperlink{class_context}{Context} $\ast$ctx, \hyperlink{class_n_cluster}{NCluster} $\ast$c, int s, int t, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$maxmods, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$primes, vector$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$domInfo)
 \begin{DoxyCompactList}\small\item\em Returns the set of non-\/dominating maxmods given a set of maxmods. \item\end{DoxyCompactList}\item 
-void \hyperlink{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}{RemoveMarked} (list$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ndMaxMods, \hyperlink{class_i_o_set}{IOSet} $\ast$marked)
+\hypertarget{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}{
+void \hyperlink{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}{RemoveMarked} (list$<$ \hyperlink{class_i_o_set}{IOSet} $\ast$ $>$ $\ast$ndMaxMods, \hyperlink{class_i_o_set}{IOSet} $\ast$marked)}
+\label{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}
+
 \begin{DoxyCompactList}\small\item\em Sets the flag to true for each maxmod which is non-\/domninating. \item\end{DoxyCompactList}\item 
 \hyperlink{class_n_cluster}{NCluster} $\ast$ \hyperlink{class_berry_lattice_algos_a87c253892ac8350043390b5c373a25a0}{MakeMatch} (\hyperlink{class_n_cluster}{NCluster} $\ast$lrnrConcept, \hyperlink{class_relation_graph}{RelationGraph} $\ast$g, int s, int t)
 \begin{DoxyCompactList}\small\item\em Attempts to find mathcing semi-\/concepts to lrnrConcept(s,t) in the rest of g. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -47,22 +48,6 @@ void \hyperlink{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}{Rem
 Author: Faris Alqadah. This is a derived class of \hyperlink{class_lattice_algos}{LatticeAlgos} and implements Lattice based algorithms based on the paper \char`\"{}A local approach to Concept Generation\char`\"{} by Berry et al. Essentialy, n-\/clusters as described in the disseration \char`\"{}Mining multi-\/domain information networks\char`\"{} are mined by generalizing the algorithm presented by Berry et al. to a star shaped network. In addition, functions for computing the upper and lower neighbors of a given concept in a single context are also provided. 
 
 Definition at line 15 of file berry.h.
-
-
-
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_berry_lattice_algos_a02d8e6dd215d9925422adff01208a06c}{
-\index{BerryLatticeAlgos@{BerryLatticeAlgos}!BerryLatticeAlgos@{BerryLatticeAlgos}}
-\index{BerryLatticeAlgos@{BerryLatticeAlgos}!BerryLatticeAlgos@{BerryLatticeAlgos}}
-\subsubsection[{BerryLatticeAlgos}]{\setlength{\rightskip}{0pt plus 5cm}BerryLatticeAlgos::BerryLatticeAlgos (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
-\label{class_berry_lattice_algos_a02d8e6dd215d9925422adff01208a06c}
-
-
-Definition at line 18 of file berry.h.
 
 
 
@@ -232,24 +217,6 @@ In addtion the primes of each maxmod is computed, while we keep track of what ma
 
 Definition at line 145 of file berry.cpp.
 
-\hypertarget{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}{
-\index{BerryLatticeAlgos@{BerryLatticeAlgos}!RemoveMarked@{RemoveMarked}}
-\index{RemoveMarked@{RemoveMarked}!BerryLatticeAlgos@{BerryLatticeAlgos}}
-\subsubsection[{RemoveMarked}]{\setlength{\rightskip}{0pt plus 5cm}void BerryLatticeAlgos::RemoveMarked (
-\begin{DoxyParamCaption}
-\item[{list$<$ {\bf IOSet} $\ast$ $>$ $\ast$}]{ndMaxMods, }
-\item[{{\bf IOSet} $\ast$}]{marked}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{class_berry_lattice_algos_a4e77968caf06f4b29704062c6834a329}
-
-
-Sets the flag to true for each maxmod which is non-\/domninating. 
-
-
-
-Definition at line 175 of file berry.cpp.
-
 \hypertarget{class_berry_lattice_algos_aa740db0f43531fc872f94c062efe59b9}{
 \index{BerryLatticeAlgos@{BerryLatticeAlgos}!Star\_\-N\_\-Concepts@{Star\_\-N\_\-Concepts}}
 \index{Star\_\-N\_\-Concepts@{Star\_\-N\_\-Concepts}!BerryLatticeAlgos@{BerryLatticeAlgos}}
@@ -325,5 +292,5 @@ Definition at line 289 of file berry.cpp.
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-/Users/alqadaf/Research/Code/core/headers/nclusters/\hyperlink{berry_8h}{berry.h}\item 
-/Users/alqadaf/Research/Code/core/source/nclusters/\hyperlink{berry_8cpp}{berry.cpp}\end{DoxyCompactItemize}
+headers/nclusters/berry.h\item 
+source/nclusters/berry.cpp\end{DoxyCompactItemize}

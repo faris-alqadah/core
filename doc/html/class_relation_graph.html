@@ -2,17 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>Heterogenous Information Network Clustering: RelationGraph Class Reference</title>
+<title>Star Shaped HIN-Clustering: RelationGraph Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript">
-$(document).ready(initResizable);
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload='searchBox.OnSelectItem(0);'>
@@ -26,8 +19,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">Heterogenous Information Network Clustering&#160;<span id="projectnumber">1.0</span></div>
-   <div id="projectbrief">Tools and algorithms for HIN-clustering</div>
+   <div id="projectname">Star Shaped HIN-Clustering&#160;<span id="projectnumber">1.0</span></div>
+   <div id="projectbrief">Cluster star shaped HIN (this includes bi-clustering)</div>
   </td>
  </tr>
  </tbody>
@@ -65,19 +58,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     </ul>
   </div>
 </div>
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-  initNavTree('class_relation_graph.html','');
-</script>
-<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -87,75 +67,76 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <!-- doxytag: class="RelationGraph" -->
-<p><code>#include &lt;<a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a>&gt;</code></p>
+<p><code>#include &quot;<a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a>&quot;</code></p>
 
 <p><a href="class_relation_graph-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a6bac261190e85c0fa8cce617184ea6a0">RelationGraph</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a801766615e87cb42f511cb068dd9d482">~RelationGraph</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6bac261190e85c0fa8cce617184ea6a0"></a><!-- doxytag: member="RelationGraph::RelationGraph" ref="a6bac261190e85c0fa8cce617184ea6a0" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a6bac261190e85c0fa8cce617184ea6a0">RelationGraph</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a801766615e87cb42f511cb068dd9d482"></a><!-- doxytag: member="RelationGraph::~RelationGraph" ref="a801766615e87cb42f511cb068dd9d482" args="()" -->
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a801766615e87cb42f511cb068dd9d482">~RelationGraph</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a5c1bd71649ec9c19f28b3fe0abda9540">AddContext</a> (<a class="el" href="class_context.html">Context</a> *c)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#adeb2d25e6c30b397daec5179473ba122">GetNumNodes</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds context c to the network.  <a href="#a5c1bd71649ec9c19f28b3fe0abda9540"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adeb2d25e6c30b397daec5179473ba122"></a><!-- doxytag: member="RelationGraph::GetNumNodes" ref="adeb2d25e6c30b397daec5179473ba122" args="()" -->
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#adeb2d25e6c30b397daec5179473ba122">GetNumNodes</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of nodes (domains) in the network. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a647ab3afb7708f13e5ec480462dedb39">IsEdge</a> (int id1, int id2)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_context.html">Context</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#acd16774976073a33da14d8461ba4165d">GetContexts</a> (int domain)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#adf3c6bb0287acf5e5569b88a3d3a9326">GetArtDomains</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_context.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32">GetContext</a> (int ctxId)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a82dafd34929842c2ddf93d42551db4f1">GetNeighbors</a> (int domain)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a3ce2cfa6d1becccfdef2f7fc851026d5">GetAllContextIds</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#ac4d09659ad3e4a4856abe9b15edc0105">GetAllDomainIds</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#ab7cc26b947be79d26f078da0dc1936eb">IsDomainId</a> (int dId)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#adbbbff1b919cf1c4f86620a0bd925cc4">IsContextId</a> (int cId)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a1a3279bf6ed14795cf41124f9cc730ac">Print</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_context.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#aed7ec9b885e3f3cba079232e0a59b027">GetContext</a> (int s, int t)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the ids are an edge in the network, false otherwise.  <a href="#a647ab3afb7708f13e5ec480462dedb39"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd16774976073a33da14d8461ba4165d"></a><!-- doxytag: member="RelationGraph::GetContexts" ref="acd16774976073a33da14d8461ba4165d" args="(int domain)" -->
+vector&lt; <a class="el" href="class_context.html">Context</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#acd16774976073a33da14d8461ba4165d">GetContexts</a> (int domain)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of contexts that contain domain. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf3c6bb0287acf5e5569b88a3d3a9326"></a><!-- doxytag: member="RelationGraph::GetArtDomains" ref="adf3c6bb0287acf5e5569b88a3d3a9326" args="()" -->
+<a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#adf3c6bb0287acf5e5569b88a3d3a9326">GetArtDomains</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_i_o_set.html">IOSet</a> of domain ids which correspond to the articulation nodes of the network. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb733508ef74b8b09adda722af855f32"></a><!-- doxytag: member="RelationGraph::GetContext" ref="afb733508ef74b8b09adda722af855f32" args="(int ctxId)" -->
+<a class="el" href="class_context.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#afb733508ef74b8b09adda722af855f32">GetContext</a> (int ctxId)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the context with the specified ctxId. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82dafd34929842c2ddf93d42551db4f1"></a><!-- doxytag: member="RelationGraph::GetNeighbors" ref="a82dafd34929842c2ddf93d42551db4f1" args="(int domain)" -->
+<a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a82dafd34929842c2ddf93d42551db4f1">GetNeighbors</a> (int domain)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reutnrs an <a class="el" href="class_i_o_set.html">IOSet</a> of doamins ids that share an edge with domain. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3ce2cfa6d1becccfdef2f7fc851026d5"></a><!-- doxytag: member="RelationGraph::GetAllContextIds" ref="a3ce2cfa6d1becccfdef2f7fc851026d5" args="()" -->
+<a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a3ce2cfa6d1becccfdef2f7fc851026d5">GetAllContextIds</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reutnrs an <a class="el" href="class_i_o_set.html">IOSet</a> of all the context ids. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac4d09659ad3e4a4856abe9b15edc0105"></a><!-- doxytag: member="RelationGraph::GetAllDomainIds" ref="ac4d09659ad3e4a4856abe9b15edc0105" args="()" -->
+<a class="el" href="class_i_o_set.html">IOSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#ac4d09659ad3e4a4856abe9b15edc0105">GetAllDomainIds</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reutnrs an <a class="el" href="class_i_o_set.html">IOSet</a> of all the domain ids. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab7cc26b947be79d26f078da0dc1936eb"></a><!-- doxytag: member="RelationGraph::IsDomainId" ref="ab7cc26b947be79d26f078da0dc1936eb" args="(int dId)" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#ab7cc26b947be79d26f078da0dc1936eb">IsDomainId</a> (int dId)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reutnrs true if dId is a domain id in the network, false otherwise. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adbbbff1b919cf1c4f86620a0bd925cc4"></a><!-- doxytag: member="RelationGraph::IsContextId" ref="adbbbff1b919cf1c4f86620a0bd925cc4" args="(int cId)" -->
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#adbbbff1b919cf1c4f86620a0bd925cc4">IsContextId</a> (int cId)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Reutnrs true if cId is a context id in the network, false otherwise. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1a3279bf6ed14795cf41124f9cc730ac"></a><!-- doxytag: member="RelationGraph::Print" ref="a1a3279bf6ed14795cf41124f9cc730ac" args="()" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a1a3279bf6ed14795cf41124f9cc730ac">Print</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the HIN. <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed7ec9b885e3f3cba079232e0a59b027"></a><!-- doxytag: member="RelationGraph::GetContext" ref="aed7ec9b885e3f3cba079232e0a59b027" args="(int s, int t)" -->
+<a class="el" href="class_context.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#aed7ec9b885e3f3cba079232e0a59b027">GetContext</a> (int s, int t)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the context correspoding to the edge (s,t), that is context with domains s and t. <br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_name_map.html">NameMap</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a79d93b2f1cb9226aa4a3fcbbe423588b">GetNameMaps</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a vector of name map pointers correspoding to each domain of the HIN.  <a href="#a79d93b2f1cb9226aa4a3fcbbe423588b"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_cluster.html">NCluster</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_context.html">Context</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_cluster.html">NCluster</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19682ef9117675a560dc472ccd8ed71e"></a><!-- doxytag: member="RelationGraph::domainContextMap" ref="a19682ef9117675a560dc472ccd8ed71e" args="" -->
+<a class="el" href="class_n_cluster.html">NCluster</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">domainContextMap</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">maps domains to contexts <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5332e76684098cd29d56cb4bd61ad006"></a><!-- doxytag: member="RelationGraph::contexts" ref="a5332e76684098cd29d56cb4bd61ad006" args="" -->
+vector&lt; <a class="el" href="class_context.html">Context</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">contexts</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">holds all the contexts <br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9f10cd7d1c80a5c6860efb3155a3737"></a><!-- doxytag: member="RelationGraph::domainRelations" ref="ae9f10cd7d1c80a5c6860efb3155a3737" args="" -->
+<a class="el" href="class_n_cluster.html">NCluster</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">domainRelations</a></td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">adajcency list of the actual graph <br/></td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="_relation_graph_8h_source.html#l00022">22</a> of file <a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a>.</p>
-</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a6bac261190e85c0fa8cce617184ea6a0"></a><!-- doxytag: member="RelationGraph::RelationGraph" ref="a6bac261190e85c0fa8cce617184ea6a0" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">RelationGraph::RelationGraph </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
+<div class="textblock"><p>Author: Faris Alqadah Class for representing a Heterogenous Information Network (HIN).</p>
+<p>Represent a Heterogenous Information Network (HIN) as described in data mining literature All edges in the network represent a context, and each node is a domain. The contexts are represented by the context class</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_context.html">Context</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00003">3</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a801766615e87cb42f511cb068dd9d482"></a><!-- doxytag: member="RelationGraph::~RelationGraph" ref="a801766615e87cb42f511cb068dd9d482" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">RelationGraph::~RelationGraph </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00006">6</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Member Function Documentation</h2>
+<p>Definition at line <a class="el" href="_relation_graph_8h_source.html#l00021">21</a> of file <a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a5c1bd71649ec9c19f28b3fe0abda9540"></a><!-- doxytag: member="RelationGraph::AddContext" ref="a5c1bd71649ec9c19f28b3fe0abda9540" args="(Context *c)" -->
 <div class="memitem">
 <div class="memproto">
@@ -171,128 +152,16 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Adds context c to the network. </p>
+<p>Add a context to the network. This method assumes the ids of the domains of the context are well defined, and will use these ids to construct the topplogy of the network. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>the context to add to the network, </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00010">10</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3ce2cfa6d1becccfdef2f7fc851026d5"></a><!-- doxytag: member="RelationGraph::GetAllContextIds" ref="a3ce2cfa6d1becccfdef2f7fc851026d5" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_i_o_set.html">IOSet</a> * RelationGraph::GetAllContextIds </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00097">97</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac4d09659ad3e4a4856abe9b15edc0105"></a><!-- doxytag: member="RelationGraph::GetAllDomainIds" ref="ac4d09659ad3e4a4856abe9b15edc0105" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_i_o_set.html">IOSet</a> * RelationGraph::GetAllDomainIds </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00104">104</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adf3c6bb0287acf5e5569b88a3d3a9326"></a><!-- doxytag: member="RelationGraph::GetArtDomains" ref="adf3c6bb0287acf5e5569b88a3d3a9326" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_i_o_set.html">IOSet</a> * RelationGraph::GetArtDomains </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00083">83</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afb733508ef74b8b09adda722af855f32"></a><!-- doxytag: member="RelationGraph::GetContext" ref="afb733508ef74b8b09adda722af855f32" args="(int ctxId)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_context.html">Context</a> * RelationGraph::GetContext </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ctxId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00076">76</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aed7ec9b885e3f3cba079232e0a59b027"></a><!-- doxytag: member="RelationGraph::GetContext" ref="aed7ec9b885e3f3cba079232e0a59b027" args="(int s, int t)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_context.html">Context</a> * RelationGraph::GetContext </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>s</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>t</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00146">146</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acd16774976073a33da14d8461ba4165d"></a><!-- doxytag: member="RelationGraph::GetContexts" ref="acd16774976073a33da14d8461ba4165d" args="(int domain)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt; <a class="el" href="class_context.html">Context</a> * &gt; * RelationGraph::GetContexts </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>domain</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00066">66</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
 
 </div>
 </div>
@@ -310,82 +179,11 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Returns a vector of name map pointers correspoding to each domain of the HIN. </p>
+<p>The name maps are not in any specfied order, use the id attribute of each name to figure out correspondce to domains!</p>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="class_name_map.html">NameMap</a> </dd></dl>
+
 <p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00156">156</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a82dafd34929842c2ddf93d42551db4f1"></a><!-- doxytag: member="RelationGraph::GetNeighbors" ref="a82dafd34929842c2ddf93d42551db4f1" args="(int domain)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_i_o_set.html">IOSet</a> * RelationGraph::GetNeighbors </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>domain</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00091">91</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adeb2d25e6c30b397daec5179473ba122"></a><!-- doxytag: member="RelationGraph::GetNumNodes" ref="adeb2d25e6c30b397daec5179473ba122" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int RelationGraph::GetNumNodes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00054">54</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adbbbff1b919cf1c4f86620a0bd925cc4"></a><!-- doxytag: member="RelationGraph::IsContextId" ref="adbbbff1b919cf1c4f86620a0bd925cc4" args="(int cId)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool RelationGraph::IsContextId </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>cId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00115">115</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab7cc26b947be79d26f078da0dc1936eb"></a><!-- doxytag: member="RelationGraph::IsDomainId" ref="ab7cc26b947be79d26f078da0dc1936eb" args="(int dId)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool RelationGraph::IsDomainId </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00111">111</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
 
 </div>
 </div>
@@ -414,94 +212,24 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Returns true if the ids are an edge in the network, false otherwise. </p>
+<p>Returns true if there exists a context in the network that has domains with id1 and id2 </p>
+
 <p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00058">58</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1a3279bf6ed14795cf41124f9cc730ac"></a><!-- doxytag: member="RelationGraph::Print" ref="a1a3279bf6ed14795cf41124f9cc730ac" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void RelationGraph::Print </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8cpp_source.html#l00122">122</a> of file <a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a>.</p>
-
-</div>
-</div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a5332e76684098cd29d56cb4bd61ad006"></a><!-- doxytag: member="RelationGraph::contexts" ref="a5332e76684098cd29d56cb4bd61ad006" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_context.html">Context</a>*&gt; <a class="el" href="class_relation_graph.html#a5332e76684098cd29d56cb4bd61ad006">RelationGraph::contexts</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8h_source.html#l00155">155</a> of file <a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a19682ef9117675a560dc472ccd8ed71e"></a><!-- doxytag: member="RelationGraph::domainContextMap" ref="a19682ef9117675a560dc472ccd8ed71e" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_n_cluster.html">NCluster</a> <a class="el" href="class_relation_graph.html#a19682ef9117675a560dc472ccd8ed71e">RelationGraph::domainContextMap</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8h_source.html#l00154">154</a> of file <a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae9f10cd7d1c80a5c6860efb3155a3737"></a><!-- doxytag: member="RelationGraph::domainRelations" ref="ae9f10cd7d1c80a5c6860efb3155a3737" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_n_cluster.html">NCluster</a> <a class="el" href="class_relation_graph.html#ae9f10cd7d1c80a5c6860efb3155a3737">RelationGraph::domainRelations</a><code> [private]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="_relation_graph_8h_source.html#l00156">156</a> of file <a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/alqadaf/Research/Code/core/headers/<a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a></li>
-<li>/Users/alqadaf/Research/Code/core/source/<a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a></li>
+<li>headers/<a class="el" href="_relation_graph_8h_source.html">RelationGraph.h</a></li>
+<li>source/<a class="el" href="_relation_graph_8cpp_source.html">RelationGraph.cpp</a></li>
 </ul>
 </div>
-</div>
-  <div id="nav-path" class="navpath">
-    <ul>
-      <li class="navelem"><a class="el" href="class_relation_graph.html">RelationGraph</a>      </li>
-      <li class="footer">Generated on Fri Mar 25 2011 16:58:22 for Heterogenous Information Network Clustering by&#160;
-<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
-    </ul>
-  </div>
 <!--- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -510,6 +238,8 @@ Private Attributes</h2></td></tr>
 </iframe>
 </div>
 
-
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 11 2011 15:16:39 for Star Shaped HIN-Clustering by&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </small></address>
 </body>
 </html>
