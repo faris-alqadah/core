@@ -9,6 +9,8 @@
 #define	_PREPROCESS_H
 
 #include "RelationGraph.h"
+#include "RContext.h"
+#include "OpsR.h"
 
 #include <utility>
 
@@ -23,6 +25,14 @@ using namespace std;
  */
 RelationGraph * MakeRelationGraph(string &inputFile);
 
+//! Reads an input file that only specifies a single real-valued context and stores it in memory as RContext object
+/*!
+ See the README file for the format of the input file.
+ \param inputFile the path to the input file
+ \sa RContext, MakeRContext
+ */
+RContext * MakeSingleRContext( string & inputFile);
+
 //! Returns a context object initialized to all the input variables
 /*!
     \param inputFile the path to the input file
@@ -34,13 +44,28 @@ RelationGraph * MakeRelationGraph(string &inputFile);
     \param nm2 pointer to the name map associated with domain2
 
  */
-
 Context * MakeContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2);
 
+
+//! Returns a RContext object initialized to all the input variables
+/*!
+    \param inputFile the path to the input file
+    \param dId1 id of domain1
+    \param dId2 id of domain2
+    \param name the name of the context
+    \param ctxId id of the context
+    \param nm1 pointer to the name map associated with domain1
+    \param nm2 pointer to the name map associated with domain2
+
+ */
+
+RContext * MakeRContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2);
 
 //! Returns an Ncluster representing the FIMI file in inputFile
 NCluster *MakeNClusterFromFimi(string &inputFile);
 
+//! Reutrns an NRCluster from a file in spare matrix format
+NRCluster *MakeNRClusterFromSparseFile(string &inputFile);
 
 
 //! Tokenizes the string into a vector of string based on token

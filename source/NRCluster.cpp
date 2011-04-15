@@ -100,6 +100,7 @@ RSet * NRCluster::GetSet(int idx){
     assert(idx >= 0 && idx < n);
     return sets[idx];
 }
+
 RSet * NRCluster::GetSetById(int id){
     for(int i=0; i < n; i++)
         if (sets[i]->Id() == id)
@@ -155,6 +156,14 @@ pair<int,double> NRCluster::GetMaxElement(){
      }
      return max;
  }
+int NRCluster::GetMaxIdx(){
+    int max=-1;
+    for(int i=0; i < n; i++){
+        int curr = sets[i]->GetMaxIdx();
+        if (curr > max) max = curr;
+    }
+    return max;
+}
 bool Compare_Quality(NRCluster *a, NRCluster *b){
     assert (a != NULL && b != NULL);
     return a->GetQuality() > b->GetQuality();

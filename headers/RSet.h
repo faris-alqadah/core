@@ -56,6 +56,8 @@ public:
     void Sort();
     //! Return the ith element
     pair<int,double> At(int i);
+    //! Return an IOSet of what indexes have values associated with them
+    IOSet *GetIdxs();
     //! Remove all elements from the RSet
     void Clear();
     //! Set the marked flag
@@ -64,7 +66,8 @@ public:
     bool GetMarked();
     //! Returns the largest element in the RSet (largest in terms of value)
     pair<int,double> GetMaxElement();
-
+    //! Returns the largest index in self
+    int GetMaxIdx();
 
 private:
     //! size of the RSet

@@ -107,6 +107,11 @@ RSet::~RSet(){}
        assert(idx >= 0 && idx <= size);
        return vals[idx];
    }
+    IOSet *RSet::GetIdxs(){
+        IOSet *ret = new IOSet;
+        for(int i=0; i < size; i++) ret->Add(vals[i].first);
+        return ret;
+    }
    void RSet::Clear(){
        vals.clear();
        size=0;
@@ -124,6 +129,15 @@ RSet::~RSet(){}
            ret.second=-1;
            return ret;
        }
+   }
+   bool comp_pair2 (pair<int,double> a,pair<int,double> b){
+            return a.first > b.first;
+   }
+   int RSet::GetMaxIdx(){
+       if (size > 0)
+        return (*max_element(vals.begin(),vals.begin()+size,comp_pair2)).first;
+       else
+           return -1;
    }
 
 bool RSet_Compare_Sup(RSet *a, RSet *b){

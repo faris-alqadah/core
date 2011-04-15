@@ -82,8 +82,8 @@ public:
     bool ContainsRSetId(int id);
     //! Returns the value of the largest element in all sets of self
     pair<int,double> GetMaxElement();
-
-
+    //! Returns the largest index of all RSets in self
+    int GetMaxIdx();
 
 protected:
     //! degree of the cluster

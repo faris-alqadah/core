@@ -31,6 +31,8 @@ OBJECTS = 	$(OBJ)/IOSet.o \
 		$(OBJ)/Berry.o \
 		$(OBJ)/RSet.o \
 		$(OBJ)/NRCluster.o \
+		$(OBJ)/RContext.o \
+		$(OBJ)/OpsR.o \
 		$(OBJ)/Timing.o 
 
 
@@ -99,6 +101,10 @@ $(OBJ)/RSet.o: $(SOURCE)/RSet.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/RSet.cpp -o $@
 $(OBJ)/NRCluster.o: $(SOURCE)/NRCluster.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/NRCluster.cpp -o $@
+$(OBJ)/RContext.o: $(SOURCE)/RContext.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/RContext.cpp -o $@
+$(OBJ)/OpsR.o: $(SOURCE)/OpsR.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/OpsR.cpp -o $@
 
 $(OBJ)/nclu.o: $(SOURCE)/$(DRIVERS)/nclu.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/nclu.cpp -o $@

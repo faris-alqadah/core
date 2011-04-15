@@ -47,12 +47,12 @@ public:
      */
     RSet * GetSet(int domain, int setNum);
 
-    //! Returns an RSet with all the labels or object-ids of the specifed domain
+    //! Returns an IOSet with all the labels (indicies) of the specifed domain
     /*!
         \param domain the id of the domain from which the  object-ids will be returned
 
      */
-    RSet *GetLabels(int domain);
+    IOSet *GetLabels(int domain);
 
     //! Return the id of the RContext
     int GetId();
@@ -96,13 +96,13 @@ public:
     //! Print the RContext to ofstream as a binary matrix
     void PrintAsMatrix(ofstream&);
 
-    //! Resturns a sub-RContext of the original RContext
-    /*!
-     Constructs a sub RContext based on the objects in the paramaters a and b
-     \param a set of objects from domain1 that will form the "rows" or first domain of the sub-RContext
-     \param b set of objects from domain2 that will form the "columns" or second domain of the sub-RContext
-     */
-    RContext * GetSubRContext(RSet *a, RSet *b);
+   // //! Resturns a sub-RContext of the original RContext
+   // /*!
+    // Constructs a sub RContext based on the objects in the paramaters a and b
+   //  \param a set of objects from domain1 that will form the "rows" or first domain of the sub-RContext
+   //  \param b set of objects from domain2 that will form the "columns" or second domain of the sub-RContext
+    // */
+   // RContext * GetSubRContext(IOSet *a, IOSet *b);
 
     //! Print the RContext in sparse pair style to stdout
     void PrintAsSparse();
@@ -114,6 +114,8 @@ public:
     int GetNumCells();
     //! Return the number of cells that are none zero or defined / |domain1|*|domain2|
     double GetDensity();
+    //!Prints some basic stats about the context such as density and number of elements in each domain
+    void PrintBasicStats();
 
 private:
      //!represent first domain
