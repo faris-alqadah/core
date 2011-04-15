@@ -131,7 +131,7 @@ RSet::~RSet(){}
        }
    }
    bool comp_pair2 (pair<int,double> a,pair<int,double> b){
-            return a.first > b.first;
+            return a.first < b.first;
    }
    int RSet::GetMaxIdx(){
        if (size > 0)

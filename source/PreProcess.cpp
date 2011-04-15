@@ -199,10 +199,11 @@ NRCluster *MakeNRClusterFromSparseFile(string &inputFile){
       if (myfile.is_open()){
           vector<RSet *> sets;
           int cnt=0;
-          for (string line; getline(myfile, line);) {
-              if(line == "###" ) break;
-
-                vector<string> firstEntries; //these are the comma seperated values
+          string line;
+          while(line != "###" || myfile.eof()) {
+              getline(myfile,line);
+              if (line == "###") break;
+              vector<string> firstEntries; //these are the comma seperated values
                 Tokenize(line,firstEntries,",");
                 RSet *t = new RSet;
                 for(int i=0; i < firstEntries.size(); i++){
@@ -217,7 +218,6 @@ NRCluster *MakeNRClusterFromSparseFile(string &inputFile){
                 sets.push_back(t);
                 cnt++;
           }
-          cout<<"\nsets size: "<<sets.size();
         return new NRCluster(sets.size(),sets);
   }else{
           string errMsg = "Could not open the sparse file: "+inputFile;

@@ -27,7 +27,6 @@ void DisplayUsage(){
     cout<<"\nUSAGE: test -i input_file "
         <<"\nREQUIRED: "
         <<"\n-i <inputFile>"
-        <<"\n-m n (number of domains) min1 min2 ... min_n the minimum cardinalites of each domain for n-cluster enumeration"
         <<"\nOPTIONAL: "
         <<"\n\n";
     exit(1);
