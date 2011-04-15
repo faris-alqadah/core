@@ -96,12 +96,27 @@ RSet::~RSet(){}
        }
    }
 
-   bool comp_pair (pair<int,double> a,pair<int,double> b){
+   bool comp_pair_vals_greater (pair<int,double> a,pair<int,double> b){
             return a.second > b.second;
+   }
+   bool comp_pair_vals_less (pair<int,double> a,pair<int,double> b){
+            return a.second < b.second;
+   }
+   bool comp_pair_idxs_greater (pair<int,double> a,pair<int,double> b){
+            return a.first > b.first;
+   }
+   bool comp_pair_idxs_less (pair<int,double> a,pair<int,double> b){
+            return a.first < b.first;
+   }
+   int RSet::GetMaxIdx(){
+       if (size > 0)
+        return (*max_element(vals.begin(),vals.begin()+size,comp_pair_idxs_less)).first;
+       else
+           return -1;
    }
 
    void RSet::Sort(){
-       sort(vals.begin(),vals.begin()+size,comp_pair);
+       sort(vals.begin(),vals.begin()+size,comp_pair_idxs_greater);
    }
    pair<int,double> RSet::At(int idx){
        assert(idx >= 0 && idx <= size);
@@ -122,7 +137,7 @@ RSet::~RSet(){}
 
    pair<int,double> RSet::GetMaxElement(){
        if (size > 0)
-        return *max_element(vals.begin(),vals.begin()+size,comp_pair);
+        return *max_element(vals.begin(),vals.begin()+size,comp_pair_vals_greater);
        else {
            pair<int,double> ret;
            ret.first=-1;
@@ -130,15 +145,17 @@ RSet::~RSet(){}
            return ret;
        }
    }
-   bool comp_pair2 (pair<int,double> a,pair<int,double> b){
-            return a.first < b.first;
-   }
-   int RSet::GetMaxIdx(){
+   pair<int,double> RSet::GetMinElement(){
        if (size > 0)
-        return (*max_element(vals.begin(),vals.begin()+size,comp_pair2)).first;
-       else
-           return -1;
+        return *min_element(vals.begin(),vals.begin()+size,comp_pair_vals_less);
+       else {
+           pair<int,double> ret;
+           ret.first=-1;
+           ret.second=-1;
+           return ret;
+       }
    }
+  
 
 bool RSet_Compare_Sup(RSet *a, RSet *b){
     assert(a != NULL && b != NULL);

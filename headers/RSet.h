@@ -66,6 +66,8 @@ public:
     bool GetMarked();
     //! Returns the largest element in the RSet (largest in terms of value)
     pair<int,double> GetMaxElement();
+    //! Returns the smalles element in the RSet (smallets in terms of value)
+    pair<int,double> GetMinElement();
     //! Returns the largest index in self
     int GetMaxIdx();
 

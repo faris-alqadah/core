@@ -18,6 +18,7 @@
 
 
 #include "LatticeOps.h"
+#include "RLatticeOps.h"
 #include "./algos_helpers/basic.h"
 #include "./algos_helpers/topk.h"
 #include "QualityMeasures.h"
@@ -36,11 +37,13 @@ public:
     numConcepts=0; //default
     dispProgress=false; //default
     enumerationMode=1; //seting default
-qualityMode=1; //default
-ovlpMode=1;
-ovlpThresh=0.25;  //this is the overlap threshold...setting default
-topKK = 100;      //this is "K" for top k enumerations...setting default
-pruneMode=1; //defaults
+    qualityMode=1; //default
+    ovlpMode=1;
+    ovlpThresh=0.25;  //this is the overlap threshold...setting default
+    topKK = 100;      //this is "K" for top k enumerations...setting default
+    pruneMode=1; //defaults
+    dispersionMode=1; //defaults
+    consistencyMode=1; //defaults
 }
 
 
@@ -70,7 +73,7 @@ ofstream OUT1;
 ofstream OUT2; 
 
 
-//Enumeation Modes
+/////////////////////////////////Enumeation Modes///////////////////////////////
 //! Enumeration mode that specifies to algorithms to mine and store clusters in memory
 static const int ENUM_MEM=1;
 //! Enumeration mode that specifies to algorithms to mine and output clusters to a file, this file is specified by OUTFILE
@@ -82,7 +85,7 @@ static const int ENUM_TOPK_MEM=4;
 //! Users will set this variable to indicate the enumeration mode
 int enumerationMode;
 
-//Quality Modes
+/////////////////////////////////Quality Modes///////////////////////////////
 //! quality mode that indicates to use the area of a concept as its quality measure
 static const int AREA=1;
 //! quality mode that indicates to use the beta area of a concept as its quality measure (see "An effective algorithm for mining 3-clusters" by Alqadah et al.)
@@ -94,7 +97,27 @@ double(*qualityFunction)(NCluster*, vector<double> &);
  //! store the parameters for a quality function here, see the QualityMeasures.h documentation for specification of these parameters
  vector<double> params;
 
-//Overlap modes
+
+/////////////////////////////////Dispersion Modes///////////////////////////////
+ //! dispersion function mode that indicate to use range as the dispersion function
+ static const int RANGE=1;
+ //! user will set this variable to indicate the desired disperion function
+ int dispersionMode;
+ //! function pointer to a dispersion fuinction, interface functions will set this according to dispersionMode
+ double(*dispersionFunction)(RSet*,vector<double> &);
+
+/////////////////////////////////Consistency Modes///////////////////////////////
+//! consistency function mode that uses the alpha-sigma rule, with assumed normal distributions
+ static const int ALPHA_SIGMA=1;
+//! consistency function mode that uses the maximum spacing estimator with assumed uniform distributions
+ static const int MAX_SPACE_UNIFORM=2;
+//! user will set this variable to indicate the desired consistency function
+ int consistencyMode;
+ //! function pointer to a consistency function, interface functions will set this according to consistencyMode
+ double(*consistencyFunction)(RSet*,vector<double>&);
+
+
+/////////////////////////////////Overlap Modes///////////////////////////////
  //! overlap mode that indicates to use the average jaccard coefficient across all sets of an n-cluster to compute overlapping
 static const int AVG_JACCARD=1;
  //! user will set this variable to inidicate the desired qualityMode
@@ -104,11 +127,11 @@ double(*ovlpFunction)(NCluster*,NCluster*);
 //! a threshold value that indicates how much overlap two clusters may have before an algorithm keeps the higher quality cluster
 double ovlpThresh;  
 
-//top k modes
+/////////////////////////////////Top K Modes///////////////////////////////
  //! the number of clusters an algorithm should enumerate if user only wants the top k clusters
 int topKK; 
 
-// prune modes
+/////////////////////////////////Prune Modes///////////////////////////////
  //! prune mode that indicates pruning will be based on size (support pruning)
 static const int PRUNE_SIZE=1;
  //! user will set this variable to indicate the the desired pruning mode
