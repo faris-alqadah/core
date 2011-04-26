@@ -1,0 +1,113 @@
+\begin{theindex}
+
+  \item {AddContext}
+    \subitem {RelationGraph}, \hyperpage{26}
+
+  \indexspace
+
+  \item {BerryLatticeAlgos}, \hyperpage{5}
+    \subitem {Enum\_\discretionary {-}{}{}NConcepts\_\discretionary {-}{}{}Berry}, 
+		\hyperpage{6}
+    \subitem {LowerNeighbors}, \hyperpage{7}
+    \subitem {MakeMatch}, \hyperpage{7}
+    \subitem {MaxMod\_\discretionary {-}{}{}Partition}, \hyperpage{7}
+    \subitem {NonDominating\_\discretionary {-}{}{}MaxMods}, 
+		\hyperpage{8}
+    \subitem {Star\_\discretionary {-}{}{}N\_\discretionary {-}{}{}Concepts}, 
+		\hyperpage{8}
+    \subitem {UpperNeighbors}, \hyperpage{9}
+
+  \indexspace
+
+  \item {Context}, \hyperpage{9}
+    \subitem {Context}, \hyperpage{12}
+    \subitem {GetLabels}, \hyperpage{12}
+    \subitem {GetNameMap}, \hyperpage{12}
+    \subitem {GetSet}, \hyperpage{13}
+    \subitem {GetSubContext}, \hyperpage{13}
+    \subitem {SetDomainId}, \hyperpage{13}
+    \subitem {SetNameMap}, \hyperpage{13}
+
+  \indexspace
+
+  \item {Enum\_\discretionary {-}{}{}NConcepts\_\discretionary {-}{}{}Berry}
+    \subitem {BerryLatticeAlgos}, \hyperpage{6}
+
+  \indexspace
+
+  \item {GetLabels}
+    \subitem {Context}, \hyperpage{12}
+  \item {GetNameMap}
+    \subitem {Context}, \hyperpage{12}
+  \item {GetNameMaps}
+    \subitem {RelationGraph}, \hyperpage{26}
+  \item {GetSet}
+    \subitem {Context}, \hyperpage{13}
+  \item {GetSubContext}
+    \subitem {Context}, \hyperpage{13}
+
+  \indexspace
+
+  \item {IOSet}, \hyperpage{14}
+    \subitem {SetSize}, \hyperpage{16}
+  \item {IsEdge}
+    \subitem {RelationGraph}, \hyperpage{26}
+
+  \indexspace
+
+  \item {LatticeAlgos}, \hyperpage{17}
+    \subitem {PRUNE\_\discretionary {-}{}{}SIZE\_\discretionary {-}{}{}VECTOR}, 
+		\hyperpage{19}
+  \item {LowerNeighbors}
+    \subitem {BerryLatticeAlgos}, \hyperpage{7}
+
+  \indexspace
+
+  \item {MakeMatch}
+    \subitem {BerryLatticeAlgos}, \hyperpage{7}
+  \item {MaxMod\_\discretionary {-}{}{}Partition}
+    \subitem {BerryLatticeAlgos}, \hyperpage{7}
+
+  \indexspace
+
+  \item {NameMap}, \hyperpage{19}
+  \item {NCluster}, \hyperpage{21}
+    \subitem {NCluster}, \hyperpage{23}
+    \subitem {Output}, \hyperpage{24}
+  \item {NonDominating\_\discretionary {-}{}{}MaxMods}
+    \subitem {BerryLatticeAlgos}, \hyperpage{8}
+
+  \indexspace
+
+  \item {Output}
+    \subitem {NCluster}, \hyperpage{24}
+
+  \indexspace
+
+  \item {PRUNE\_\discretionary {-}{}{}SIZE\_\discretionary {-}{}{}VECTOR}
+    \subitem {LatticeAlgos}, \hyperpage{19}
+
+  \indexspace
+
+  \item {RelationGraph}, \hyperpage{24}
+    \subitem {AddContext}, \hyperpage{26}
+    \subitem {GetNameMaps}, \hyperpage{26}
+    \subitem {IsEdge}, \hyperpage{26}
+
+  \indexspace
+
+  \item {SetDomainId}
+    \subitem {Context}, \hyperpage{13}
+  \item {SetNameMap}
+    \subitem {Context}, \hyperpage{13}
+  \item {SetSize}
+    \subitem {IOSet}, \hyperpage{16}
+  \item {Star\_\discretionary {-}{}{}N\_\discretionary {-}{}{}Concepts}
+    \subitem {BerryLatticeAlgos}, \hyperpage{8}
+
+  \indexspace
+
+  \item {UpperNeighbors}
+    \subitem {BerryLatticeAlgos}, \hyperpage{9}
+
+\end{theindex}
