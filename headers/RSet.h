@@ -52,6 +52,8 @@ public:
     void Remove(int);
     //! Find and remove the first element which has value=val if it exists
     void FindRemove(pair<int,double>);
+    //! Find an element with the given id, return NaN if not found
+    double FindReturn(int);
     //! Sort the elements of the RSet in asscending order
     void Sort();
     //! Return the ith element
@@ -70,7 +72,12 @@ public:
     pair<int,double> GetMinElement();
     //! Returns the largest index in self
     int GetMaxIdx();
-
+    //! Returns the variance of this RSet
+    double Variance();
+    //! Returns the standard deviation of self
+    double Std_Dev();
+    //! Returns the mean of self
+    double Mean();
 private:
     //! size of the RSet
     int size;

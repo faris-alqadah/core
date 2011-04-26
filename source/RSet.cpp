@@ -155,8 +155,29 @@ RSet::~RSet(){}
            return ret;
        }
    }
+   double RSet::FindReturn(int idx){
+       for(int i=0; i < size; i++)
+           if (vals[i].first == idx)
+               return vals[i].second;
+       return -99999990999;
+   }
   
 
+double RSet::Variance(){
+    double qi=0,q1=0,ai=0,a1=0,sz=size;
+    for(double i=0.0; i < size; i++){
+        ai=a1+(1.0/(i+1.0))*(vals[i].second-a1);
+        qi=q1+(vals[i].second-a1)*(vals[i].second-ai);
+        q1=qi;
+        a1=ai;
+    }
+    return (1.0/(size-1.0))*qi;
+}
+
+double RSet::Std_Dev(){
+    return sqrt(Variance());
+
+}
 bool RSet_Compare_Sup(RSet *a, RSet *b){
     assert(a != NULL && b != NULL);
     return a->Size() > b->Size();

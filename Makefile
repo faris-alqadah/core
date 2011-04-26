@@ -14,10 +14,12 @@ SOURCE = source
 HEADER = headers
 BIN = bin
 DRIVERS = drivers
-
+ALGOS_HELPERS = algos_helpers
+ALPHA_CONCEPTS = alpha_concepts
+NCLUSTERS = nclusters
 # objects
-
-OBJECTS = 	$(OBJ)/IOSet.o \
+#main objects
+MAIN_OBJECTS =  $(OBJ)/IOSet.o \
 		$(OBJ)/NameMap.o \
 		$(OBJ)/NCluster.o \
 		$(OBJ)/PreProcess.o \
@@ -26,44 +28,57 @@ OBJECTS = 	$(OBJ)/IOSet.o \
 		$(OBJ)/RelationGraph.o \
 		$(OBJ)/LatticeOps.o \
 		$(OBJ)/LatticeAlgos.o \
-		$(OBJ)/basic.o \
-		$(OBJ)/topk.o \
-		$(OBJ)/QualityMeasures.o \
-		$(OBJ)/Berry.o \
 		$(OBJ)/RSet.o \
 		$(OBJ)/NRCluster.o \
 		$(OBJ)/RContext.o \
 		$(OBJ)/OpsR.o \
-		$(OBJ)/consistency.o \
-		$(OBJ)/dispersion.o \
-		$(OBJ)/Timing.o 
-
+		$(OBJ)/QualityMeasures.o \
+		$(OBJ)/RLatticeOps.o \
+		$(OBJ)/Timing.o
+#algos helpers
+ALGOS_HELPER_OBJECTS = $(OBJ)/$(ALGOS_HELPERS)/basic.o \
+			$(OBJ)/$(ALGOS_HELPERS)/topk.o
+#alpha concepts
+ALPHA_CONCEPTS_OBJECTS = $(OBJ)/$(ALPHA_CONCEPTS)/consistency.o \
+			$(OBJ)/$(ALPHA_CONCEPTS)/dispersion.o \
+			$(OBJ)/$(ALPHA_CONCEPTS)/helpers.o
+#nclusters
+NCLUSTERS_OBJECTS = $(OBJ)/$(NCLUSTERS)/Berry.o
 
 #driver make programs
-NCLUOBJ	=	$(OBJ)/nclu.o
-QBBCOBJ =	$(OBJ)/qbbc.o
+NCLU_OBJ	=	$(OBJ)/$(NCLUSTERS)/nclu.o
+QBBC_OBJ =	$(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o
 
-NCLUTARGET = $(BIN)/nclu
-QBBCTARGET = $(BIN)/qbbc
+NCLU_TARGET = $(BIN)/nclu
+QBBC_TARGET = $(BIN)/qbbc
 
+#targets
 .cpp.o:
 	$(CC) -c $(CFLAGS) -o $@ $<
 
+nclu: $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(NCLU_OBJ)
+		$(LINK) $(LFLAGS) -o $(NCLU_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(NCLU_OBJ) $(LIBS)
 
-nclu: $(OBJECTS) $(NCLUOBJ)
-	$(LINK) $(LFLAGS) -o $(NCLUTARGET) $(OBJECTS) $(NCLUOBJ) $(LIBS)
+qbbc:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(QBBC_OBJ)
+		$(LINK) $(LFLAGS) -o $(QBBC_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(QBBC_OBJ) $(LIBS)
 
-qbbc: $(OBJECTS) $(QBBCOBJ)
-	$(LINK) $(LFLAGS) -o $(QBBCTARGET) $(OBJECTS) $(QBBCOBJ) $(LIBS)
+
+#install and setup scripts
+install:
+		mkdir $(OBJ)
+		mkdir $(BIN)
+qbbc_install:
+		mkdir $(OBJ)/$(ALPHA_CONCEPTS) 
+		mkdir $(OBJ)/$(ALGOS_HELPERS)
+
+nclu_install:
+		mkdir $(OBJ)/$(NCLUSTERS)
+		mkdir $(OBJ)/$(ALGOS_HELPERS)
 clean:
-	-rm -f $(OBJECTS) $(TARGET)
-
-
-
-
-
-
+		rm -rf $(OBJ)/
+		rm -rf $(BIN)
 # main data structures and functionality
+
 $(OBJ)/IOSet.o: $(SOURCE)/IOSet.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/IOSet.cpp -o $@
 $(OBJ)/NameMap.o: $(SOURCE)/NameMap.cpp
@@ -78,6 +93,8 @@ $(OBJ)/Timing.o: $(SOURCE)/Timing.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/Timing.cpp -o $@
 $(OBJ)/LatticeOps.o: $(SOURCE)/LatticeOps.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeOps.cpp -o $@
+$(OBJ)/RLatticeOps.o: $(SOURCE)/RLatticeOps.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/RLatticeOps.cpp -o $@
 $(OBJ)/LatticeAlgos.o: $(SOURCE)/LatticeAlgos.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/LatticeAlgos.cpp -o $@
 $(OBJ)/QualityMeasures.o: $(SOURCE)/QualityMeasures.cpp
@@ -96,42 +113,26 @@ $(OBJ)/NCluster.o: $(SOURCE)/NCluster.cpp
 $(OBJ)/PreProcess.o: $(SOURCE)/PreProcess.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE)/PreProcess.cpp -o $@
 
-# ncluster algorithms
-$(OBJ)/Berry.o: $(SOURCE)/nclusters/berry.cpp
-	 $(CC) $(CFLAGS) -c  $(SOURCE)/nclusters/berry.cpp -o $@
-
 # algorithm helpers
-$(OBJ)/basic.o: $(SOURCE)/algos_helpers/basic.cpp
-	 $(CC) $(CFLAGS) -c  $(SOURCE)/algos_helpers/basic.cpp -o $@
-$(OBJ)/topk.o: $(SOURCE)/algos_helpers/topk.cpp
-	 $(CC) $(CFLAGS) -c  $(SOURCE)/algos_helpers/topk.cpp -o $@
+$(OBJ)/$(ALGOS_HELPERS)/basic.o: $(SOURCE)/$(ALGOS_HELPERS)/basic.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/$(ALGOS_HELPERS)/basic.cpp -o $@
+$(OBJ)/$(ALGOS_HELPERS)/topk.o: $(SOURCE)/$(ALGOS_HELPERS)/topk.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE)/$(ALGOS_HELPERS)/topk.cpp -o $@
 
-#alpha concepts
-$(OBJ)/consistency.o: $(SOURCE)/alpha_concepts/consistency.cpp
-	 $(CC) $(CFLAGS) -c  $(SOURCE)/alpha_concepts/consistency.cpp -o $@
-$(OBJ)/dispersion.o: $(SOURCE)/alpha_concepts/dispersion.cpp
-	 $(CC) $(CFLAGS) -c  $(SOURCE)/alpha_concepts/dispersion.cpp -o $@
-
-
-# drive programs
-$(OBJ)/nclu.o: $(SOURCE)/$(DRIVERS)/nclu.cpp
-	$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/nclu.cpp -o $@
-
-$(OBJ)/qbbc.o: $(SOURCE)/$(DRIVERS)/qbbc.cpp
-	$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/qbbc.cpp -o $@
+#ncluster algorithms
+$(OBJ)/$(NCLUSTERS)/Berry.o: $(SOURCE)/$(NCLUSTERS)/berry.cpp
+		$(CC) $(CFLAGS) -c  $(SOURCE)/$(NCLUSTERS)/berry.cpp -o $@
+$(OBJ)/$(NCLUSTERS)/nclu.o: $(SOURCE)/$(DRIVERS)/nclu.cpp
+		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/nclu.cpp -o $@
 
 
-
-
-# dependency
-
-
-
-
-
-
-	
-
-
-
+#qbbc algorithms
+$(OBJ)/$(ALPHA_CONCEPTS)/consistency.o: $(SOURCE)/$(ALPHA_CONCEPTS)/consistency.cpp
+		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/consistency.cpp -o $@
+$(OBJ)/$(ALPHA_CONCEPTS)/dispersion.o: $(SOURCE)/$(ALPHA_CONCEPTS)/dispersion.cpp
+		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/dispersion.cpp -o $@
+$(OBJ)/$(ALPHA_CONCEPTS)/helpers.o: $(SOURCE)/$(ALPHA_CONCEPTS)/helpers.cpp
+		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/helpers.cpp -o $@
+$(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o: $(SOURCE)/$(DRIVERS)/qbbc.cpp
+		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/qbbc.cpp -o $@
 	  

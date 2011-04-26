@@ -22,10 +22,12 @@ NRCluster *TransposeSparse(NRCluster *a);
 //! Returns a the set of idxs that are common to both a and b
 IOSet *Common_Idxs(RSet *a, RSet *b);
 
-
+//! Return the intersection of the indices of a and elements of IOSet b
+RSet *Intersect(RSet *a, IOSet *b);
 
 //! Union two RSets by indicies, assumes that the RSets are sorted by index
 RSet *Union(RSet *a, RSet *b);
+
 
 
 

@@ -96,13 +96,24 @@ public:
     //! Print the RContext to ofstream as a binary matrix
     void PrintAsMatrix(ofstream&);
 
-   // //! Resturns a sub-RContext of the original RContext
-   // /*!
-    // Constructs a sub RContext based on the objects in the paramaters a and b
-   //  \param a set of objects from domain1 that will form the "rows" or first domain of the sub-RContext
-   //  \param b set of objects from domain2 that will form the "columns" or second domain of the sub-RContext
-    // */
-   // RContext * GetSubRContext(IOSet *a, IOSet *b);
+    //! Resturns a sub-RContext of the original RContext
+    /*!
+     Constructs a sub RContext based on the objects in the paramaters a and b
+     \param a set of objects from domain1 that will form the "rows" or first domain of the sub-RContext
+     \param b set of objects from domain2 that will form the "columns" or second domain of the sub-RContext
+     */
+    RContext * GetSubRContext(IOSet *a, IOSet *b);
+    //! Compute the standard deviations of each row and column and store them
+    void ComputeStdDevs();
+
+    //! Returns an standard deviation of a row / column or object set
+    /*!
+        \param domain the id of the domain from which the standard deviation will be looked up
+     *  \param setNum the object number in domain for which the standard deviation will be looked up
+     */
+    double GetStdDev(int domain, int setNum);
+
+
 
     //! Print the RContext in sparse pair style to stdout
     void PrintAsSparse();
@@ -116,6 +127,9 @@ public:
     double GetDensity();
     //!Prints some basic stats about the context such as density and number of elements in each domain
     void PrintBasicStats();
+    //!Print the standard deviations
+    void PrintStdDevs();
+
 
 private:
      //!represent first domain
@@ -130,6 +144,11 @@ private:
     NameMap *nameMap1;
     //! name map associated with domain 2
     NameMap *nameMap2;
+    //! stanard deviations of domain 1 (if computed)
+    RSet* stdDev1;
+    //! stanard deviations of domain 2 (if computed)
+    RSet* stdDev2;
+
 };
 
 

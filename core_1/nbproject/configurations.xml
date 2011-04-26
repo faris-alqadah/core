@@ -2,256 +2,28 @@
 <configurationDescriptor version="69">
   <logicalFolder name="root" displayName="root" projectFiles="true">
     <df name="core" root="..">
+      <df name="bin">
+      </df>
       <df name="core_1" kind="SOURCE_LOGICAL_FOLDER">
       </df>
       <df name="doc">
         <df name="html" kind="SOURCE_LOGICAL_FOLDER">
           <df name="search" kind="SOURCE_LOGICAL_FOLDER">
-            <in>all_61.html</in>
-            <in>all_62.html</in>
-            <in>all_63.html</in>
-            <in>all_64.html</in>
-            <in>all_65.html</in>
-            <in>all_66.html</in>
-            <in>all_67.html</in>
-            <in>all_69.html</in>
-            <in>all_6c.html</in>
-            <in>all_6d.html</in>
-            <in>all_6e.html</in>
-            <in>all_6f.html</in>
-            <in>all_70.html</in>
-            <in>all_71.html</in>
-            <in>all_72.html</in>
-            <in>all_73.html</in>
-            <in>all_74.html</in>
-            <in>all_75.html</in>
-            <in>all_7e.html</in>
-            <in>classes_62.html</in>
-            <in>classes_63.html</in>
-            <in>classes_69.html</in>
-            <in>classes_6c.html</in>
-            <in>classes_6e.html</in>
-            <in>classes_72.html</in>
-            <in>close.png</in>
-            <in>files_62.html</in>
-            <in>files_63.html</in>
-            <in>files_69.html</in>
-            <in>files_6c.html</in>
-            <in>files_6d.html</in>
-            <in>files_6e.html</in>
-            <in>files_6f.html</in>
-            <in>files_70.html</in>
-            <in>files_71.html</in>
-            <in>files_72.html</in>
-            <in>files_74.html</in>
-            <in>functions_61.html</in>
-            <in>functions_62.html</in>
-            <in>functions_63.html</in>
-            <in>functions_64.html</in>
-            <in>functions_65.html</in>
-            <in>functions_66.html</in>
-            <in>functions_67.html</in>
-            <in>functions_69.html</in>
-            <in>functions_6c.html</in>
-            <in>functions_6d.html</in>
-            <in>functions_6e.html</in>
-            <in>functions_6f.html</in>
-            <in>functions_70.html</in>
-            <in>functions_72.html</in>
-            <in>functions_73.html</in>
-            <in>functions_74.html</in>
-            <in>functions_75.html</in>
-            <in>functions_7e.html</in>
-            <in>mag_sel.png</in>
-            <in>nomatches.html</in>
-            <in>search.css</in>
-            <in>search.js</in>
-            <in>search_l.png</in>
-            <in>search_m.png</in>
-            <in>search_r.png</in>
-            <in>variables_61.html</in>
-            <in>variables_62.html</in>
-            <in>variables_63.html</in>
-            <in>variables_64.html</in>
-            <in>variables_65.html</in>
-            <in>variables_66.html</in>
-            <in>variables_69.html</in>
-            <in>variables_6c.html</in>
-            <in>variables_6d.html</in>
-            <in>variables_6e.html</in>
-            <in>variables_6f.html</in>
-            <in>variables_70.html</in>
-            <in>variables_71.html</in>
-            <in>variables_73.html</in>
-            <in>variables_74.html</in>
           </df>
-          <in>_context_8cpp.html</in>
-          <in>_context_8cpp_source.html</in>
-          <in>_context_8h.html</in>
-          <in>_context_8h_source.html</in>
-          <in>_i_o_set_8cpp.html</in>
-          <in>_i_o_set_8cpp_source.html</in>
-          <in>_i_o_set_8h.html</in>
-          <in>_i_o_set_8h_source.html</in>
-          <in>_lattice_algos_8cpp.html</in>
-          <in>_lattice_algos_8cpp_source.html</in>
-          <in>_lattice_algos_8h.html</in>
-          <in>_lattice_algos_8h_source.html</in>
-          <in>_lattice_ops_8cpp.html</in>
-          <in>_lattice_ops_8cpp_source.html</in>
-          <in>_lattice_ops_8h.html</in>
-          <in>_lattice_ops_8h_source.html</in>
-          <in>_main_8cpp.html</in>
-          <in>_main_8cpp_source.html</in>
-          <in>_n_cluster_8cpp.html</in>
-          <in>_n_cluster_8cpp_source.html</in>
-          <in>_n_cluster_8h.html</in>
-          <in>_n_cluster_8h_source.html</in>
-          <in>_name_map_8cpp.html</in>
-          <in>_name_map_8cpp_source.html</in>
-          <in>_name_map_8h.html</in>
-          <in>_name_map_8h_source.html</in>
-          <in>_ops_8cpp.html</in>
-          <in>_ops_8cpp_source.html</in>
-          <in>_ops_8h.html</in>
-          <in>_ops_8h_source.html</in>
-          <in>_pre_process_8cpp.html</in>
-          <in>_pre_process_8cpp_source.html</in>
-          <in>_pre_process_8h.html</in>
-          <in>_pre_process_8h_source.html</in>
-          <in>_quality_measures_8cpp.html</in>
-          <in>_quality_measures_8cpp_source.html</in>
-          <in>_quality_measures_8h.html</in>
-          <in>_quality_measures_8h_source.html</in>
-          <in>_relation_graph_8cpp.html</in>
-          <in>_relation_graph_8cpp_source.html</in>
-          <in>_relation_graph_8h.html</in>
-          <in>_relation_graph_8h_source.html</in>
-          <in>_timing_8cpp.html</in>
-          <in>_timing_8cpp_source.html</in>
-          <in>_timing_8h.html</in>
-          <in>_timing_8h_source.html</in>
-          <in>annotated.html</in>
-          <in>basic_8cpp.html</in>
-          <in>basic_8cpp_source.html</in>
-          <in>basic_8h.html</in>
-          <in>basic_8h_source.html</in>
-          <in>bc_s.png</in>
-          <in>berry_8cpp.html</in>
-          <in>berry_8cpp_source.html</in>
-          <in>berry_8h.html</in>
-          <in>berry_8h_source.html</in>
-          <in>class_berry_lattice_algos-members.html</in>
-          <in>class_berry_lattice_algos.html</in>
-          <in>class_berry_lattice_algos.png</in>
-          <in>class_context-members.html</in>
-          <in>class_context.html</in>
-          <in>class_i_o_set-members.html</in>
-          <in>class_i_o_set.html</in>
-          <in>class_lattice_algos-members.html</in>
-          <in>class_lattice_algos.html</in>
-          <in>class_lattice_algos.png</in>
-          <in>class_n_cluster-members.html</in>
-          <in>class_n_cluster.html</in>
-          <in>class_name_map-members.html</in>
-          <in>class_name_map.html</in>
-          <in>class_relation_graph-members.html</in>
-          <in>class_relation_graph.html</in>
-          <in>classes.html</in>
-          <in>closed.png</in>
-          <in>doxygen.css</in>
-          <in>doxygen.png</in>
-          <in>files.html</in>
-          <in>ftv2blank.png</in>
-          <in>ftv2doc.png</in>
-          <in>ftv2folderclosed.png</in>
-          <in>ftv2folderopen.png</in>
-          <in>ftv2lastnode.png</in>
-          <in>ftv2link.png</in>
-          <in>ftv2mlastnode.png</in>
-          <in>ftv2mnode.png</in>
-          <in>ftv2node.png</in>
-          <in>ftv2plastnode.png</in>
-          <in>ftv2pnode.png</in>
-          <in>ftv2splitbar.png</in>
-          <in>ftv2vertline.png</in>
-          <in>functions.html</in>
-          <in>functions_func.html</in>
-          <in>functions_vars.html</in>
-          <in>globals.html</in>
-          <in>globals_func.html</in>
-          <in>globals_vars.html</in>
-          <in>hierarchy.html</in>
-          <in>index.html</in>
-          <in>installdox</in>
-          <in>jquery.js</in>
-          <in>nav_f.png</in>
-          <in>nav_h.png</in>
-          <in>navtree.css</in>
-          <in>navtree.js</in>
-          <in>open.png</in>
-          <in>resize.js</in>
-          <in>tab_a.png</in>
-          <in>tab_b.png</in>
-          <in>tab_h.png</in>
-          <in>tab_s.png</in>
-          <in>tabs.css</in>
-          <in>topk_8cpp.html</in>
-          <in>topk_8cpp_source.html</in>
-          <in>topk_8h.html</in>
-          <in>topk_8h_source.html</in>
         </df>
         <df name="latex" kind="SOURCE_LOGICAL_FOLDER">
-          <in>Makefile</in>
-          <in>_context_8cpp.tex</in>
-          <in>_context_8h.tex</in>
-          <in>_i_o_set_8cpp.tex</in>
-          <in>_i_o_set_8h.tex</in>
-          <in>_lattice_algos_8cpp.tex</in>
-          <in>_lattice_algos_8h.tex</in>
-          <in>_lattice_ops_8cpp.tex</in>
-          <in>_lattice_ops_8h.tex</in>
-          <in>_main_8cpp.tex</in>
-          <in>_n_cluster_8cpp.tex</in>
-          <in>_n_cluster_8h.tex</in>
-          <in>_name_map_8cpp.tex</in>
-          <in>_name_map_8h.tex</in>
-          <in>_ops_8cpp.tex</in>
-          <in>_ops_8h.tex</in>
-          <in>_pre_process_8cpp.tex</in>
-          <in>_pre_process_8h.tex</in>
-          <in>_quality_measures_8cpp.tex</in>
-          <in>_quality_measures_8h.tex</in>
-          <in>_relation_graph_8cpp.tex</in>
-          <in>_relation_graph_8h.tex</in>
-          <in>_timing_8cpp.tex</in>
-          <in>_timing_8h.tex</in>
-          <in>annotated.tex</in>
-          <in>basic_8cpp.tex</in>
-          <in>basic_8h.tex</in>
-          <in>berry_8cpp.tex</in>
-          <in>berry_8h.tex</in>
-          <in>class_berry_lattice_algos.eps</in>
-          <in>class_berry_lattice_algos.tex</in>
-          <in>class_context.tex</in>
-          <in>class_i_o_set.tex</in>
-          <in>class_lattice_algos.eps</in>
-          <in>class_lattice_algos.tex</in>
-          <in>class_n_cluster.tex</in>
-          <in>class_name_map.tex</in>
-          <in>class_relation_graph.tex</in>
-          <in>doxygen.sty</in>
-          <in>files.tex</in>
-          <in>hierarchy.tex</in>
-          <in>refman.tex</in>
-          <in>topk_8cpp.tex</in>
-          <in>topk_8h.tex</in>
+        </df>
+        <df name="readmes">
         </df>
       </df>
       <df name="headers" kind="SOURCE_LOGICAL_FOLDER">
         <df name="algos_helpers">
           <in>basic.h</in>
           <in>topk.h</in>
+        </df>
+        <df name="alpha_concepts">
+          <in>consistency.h</in>
+          <in>dispersion.h</in>
         </df>
         <df name="nclusters">
           <in>berry.h</in>
@@ -261,10 +33,15 @@
         <in>LatticeAlgos.h</in>
         <in>LatticeOps.h</in>
         <in>NCluster.h</in>
+        <in>NRCluster.h</in>
         <in>NameMap.h</in>
         <in>Ops.h</in>
+        <in>OpsR.h</in>
         <in>PreProcess.h</in>
         <in>QualityMeasures.h</in>
+        <in>RContext.h</in>
+        <in>RLatticeOps.h</in>
+        <in>RSet.h</in>
         <in>RelationGraph.h</in>
         <in>Timing.h</in>
       </df>
@@ -275,6 +52,14 @@
           <in>basic.cpp</in>
           <in>topk.cpp</in>
         </df>
+        <df name="alpha_concepts">
+          <in>consistency.cpp</in>
+          <in>dispersion.cpp</in>
+        </df>
+        <df name="drivers">
+          <in>nclu.cpp</in>
+          <in>qbbc.cpp</in>
+        </df>
         <df name="nclusters">
           <in>berry.cpp</in>
         </df>
@@ -282,12 +67,16 @@
         <in>IOSet.cpp</in>
         <in>LatticeAlgos.cpp</in>
         <in>LatticeOps.cpp</in>
-        <in>Main.cpp</in>
         <in>NCluster.cpp</in>
+        <in>NRCluster.cpp</in>
         <in>NameMap.cpp</in>
         <in>Ops.cpp</in>
+        <in>OpsR.cpp</in>
         <in>PreProcess.cpp</in>
         <in>QualityMeasures.cpp</in>
+        <in>RContext.cpp</in>
+        <in>RLatticeOps.cpp</in>
+        <in>RSet.cpp</in>
         <in>RelationGraph.cpp</in>
         <in>Timing.cpp</in>
       </df>

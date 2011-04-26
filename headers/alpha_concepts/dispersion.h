@@ -18,8 +18,8 @@
  Range is computed as the maximum value - minimum value. The values
  are all assumed to be stored in the rset at a[0]. This is the naive computation.
  Runs in O(n) time.
-    \sa a the NRcluster to compute range for
-    \sa params no parameters needed so pass empty vector
+    \params a the NRcluster to compute range for
+    \params params no parameters needed so pass empty vector
  */
 double Range(RSet *a, vector<double> &params);
 
