@@ -4,12 +4,14 @@ RSet::RSet(){
     size=0;
     id = -1;
     marked=false;
+    quality=-1;
 }
 RSet::RSet(int sz){
     size = sz;
     id=-1;
     marked=false;
     vals.resize(sz);
+    quality=-1;
 }
 RSet::RSet( RSet * a){
     assert(a != NULL);
@@ -80,6 +82,7 @@ RSet::~RSet(){}
         size = a->Size();
         id = a->Id();
         marked = a->marked;
+        quality = a->GetQuality();
    }
    void RSet::Remove(int idx){
        assert(idx < size);
@@ -133,11 +136,12 @@ RSet::~RSet(){}
    }
    void RSet::SetMarked(bool a){ marked = a;}
    bool RSet::GetMarked(){return marked;}
-
+   void RSet::SetQuality(double q){quality = q;}
+   double RSet::GetQuality(){return quality;}
 
    pair<int,double> RSet::GetMaxElement(){
        if (size > 0)
-        return *max_element(vals.begin(),vals.begin()+size,comp_pair_vals_greater);
+        return *max_element(vals.begin(),vals.begin()+size,comp_pair_vals_less);
        else {
            pair<int,double> ret;
            ret.first=-1;

@@ -91,7 +91,10 @@ public:
     bool GetMarked();
     //! Returns the largest element in the IOSet
     int GetMaxElement();
-    
+    //! Returns the quality
+    double GetQuality();
+    //! Set the qualuty
+    void SetQuality(double);
 
 private:
     //! size of the ioset
@@ -101,7 +104,9 @@ private:
     //! vector to hold the data
     vector<unsigned int> d;
     //! has this ioset been marked for whatever reason??
-    bool marked; 
+    bool marked;
+    //! the quality of the ioset
+    double quality;
 
 };
 
@@ -110,6 +115,9 @@ bool Compare_Sup(IOSet *a, IOSet *b);
 
 //! Compartor function used for IOSets, returns true if the a->GetId() > b->GetId()
 bool Compare_Id(IOSet *a, IOSet *b);
+
+//! Compartor function used for IOSets, returns true if the a->GetQuality() > b->GetQuality()
+bool Compare_Quality_IOSet(IOSet *a, IOSet *b);
 
 
 

@@ -78,6 +78,10 @@ public:
     double Std_Dev();
     //! Returns the mean of self
     double Mean();
+    //! Set the quality
+    void SetQuality(double);
+    //!Returns the quality
+    double GetQuality();
 private:
     //! size of the RSet
     int size;
@@ -87,6 +91,8 @@ private:
     vector< pair<int,double> > vals;
     //! has this RSet been marked for whatever reason??
     bool marked;
+    //! the quality of this RSet
+    double quality;
 
 };
 

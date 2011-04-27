@@ -10,14 +10,14 @@ void RetainTopK_Overlap(vector<NCluster*> &v, NCluster *c,double (*Ovlp)(NCluste
         for(int i=0; i < v.size(); i++){
             if (Ovlp(c,v[i]) >= ovlpThresh && c->GetQuality() > v[i]->GetQuality()){
                 SwapDelete(v,c,i);
-                sort(v.begin(),v.end(),Compare_Quality);
+                sort(v.begin(),v.end(),Compare_Quality_NCluster);
                 return;
             }
         }
         int limit = v.size() < k ? v.size()-1:k-1;
         if(c->GetQuality() > v[limit]->GetQuality()){
             SwapDelete(v,c,limit);
-            sort(v.begin(),v.end(),Compare_Quality);
+            sort(v.begin(),v.end(),Compare_Quality_NCluster);
         }
     }
 

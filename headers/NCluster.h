@@ -98,7 +98,7 @@ protected:
 };
 
 //! Returns true if a->GetQuality() > b->GetQuality(), use this function with std:sort()
-bool Compare_Quality(NCluster *a, NCluster *b);
+bool Compare_Quality_NCluster(NCluster *a, NCluster *b);
 
 
 

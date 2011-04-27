@@ -4,11 +4,13 @@ IOSet::IOSet(){
     size=0;
     id = -1;
     marked=false;
+    quality=-1;
 }
 IOSet::IOSet(int sz){
     size = sz;
     id=-1;
     marked=false;
+    quality=-1;
     d.resize(sz);
 }
 IOSet::IOSet( IOSet * a){
@@ -80,6 +82,7 @@ IOSet::~IOSet(){}
         size = a->Size();
         id = a->Id();
         marked = a->marked;
+        quality = a->quality;
    }
    void IOSet::Remove(int idx){
        assert(idx < size);
@@ -115,6 +118,8 @@ IOSet::~IOSet(){}
         return *max_element(d.begin(),d.begin()+size);
        else return -1;
    }
+   double IOSet::GetQuality(){return quality;}
+    void IOSet::SetQuality(double q){quality = q;}
 
 bool Compare_Sup(IOSet *a, IOSet *b){
     assert(a != NULL && b != NULL);
@@ -125,5 +130,8 @@ bool Compare_Id(IOSet *a, IOSet *b){
     assert(a != NULL && b != NULL);
     return a->Id() > b->Id();
 }
-
+bool Compare_Quality_IOSet(IOSet *a, IOSet *b){
+     assert(a != NULL && b != NULL);
+     return a->GetQuality() > b->GetQuality();
+}
 

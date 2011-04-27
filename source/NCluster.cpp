@@ -153,7 +153,7 @@ bool NCluster::ContainsIOSetId(int id){
      }
      return max;
  }
-bool Compare_Quality(NCluster *a, NCluster *b){
+bool Compare_Quality_NCluster(NCluster *a, NCluster *b){
     assert (a != NULL && b != NULL);
     return a->GetQuality() > b->GetQuality();
 }

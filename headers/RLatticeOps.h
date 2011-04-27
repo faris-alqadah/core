@@ -20,14 +20,16 @@
     \param query the indices of the query objects
     \param s indicates the source domain id, in other words the query objects are derived from this domain
     \param t indicates the target domain (in other words the other domain of K is this domain id)
+    \param alpha the alpha value used for computing the operation
     \param d pointer to a dispersion function
     \param f pointer to a consistency function
-    \param paramsD parameter vector for the dispersion function
-    \param paramsF parameter vector for the consistency function
+    \param p pointer to helper function to create the paramater vector for the corresponding consistency function
 
  */
-IOSet *Prime_Alpha_Naive(RContext *K, IOSet *query, int s, int t, double(*d)(RSet*,vector<double> &),double(*f)(RSet*,vector<double> &),
-                    vector<double> &paramsD, vector<double> &paramsF);
+IOSet *Prime_Alpha_Naive(RContext *K, IOSet *query, int s, int t,double alpha,
+                            double(*d)(RSet*,vector<double> &),
+                            double(*f)(RSet*,vector<double> &),
+                            void(*p)(RContext *,IOSet *, int, int,int, vector<double> &));
 
 
 

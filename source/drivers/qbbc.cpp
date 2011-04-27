@@ -16,23 +16,27 @@
 
 #include "../../headers/Timing.h"
 #include "../../headers/PreProcess.h"
-#include "../../headers/LatticeAlgos.h"
+#include "../../headers/alpha_concepts/basic_prefix_alpha.h"
 #include "../../headers/RLatticeOps.h"
 #include "../../headers/alpha_concepts/helpers.h"
 
 
 string inputFile="~";
+string queryFile="~";
 double alpha=1.0;
-int numArgs=1;
-LatticeAlgos la;
-
+int numArgs=2;
+BasicPrefixAlphaAlgos la;
+IOSet *query;
+void(*paramFunction)(RContext *,IOSet *, int, int,int, vector<double> &);
 
 void DisplayUsage(){
     cout<<"\nUSAGE: test -i input_file "
         <<"\nREQUIRED: "
         <<"\n-i <inputFile>"
+        <<"\n-q <queryFile>"
         <<"\nOPTIONAL: "
         <<"\n-alpha <alpha value> (default is 1.0)"
+        <<"\n-c <consistency function> 1- alpha_sigma 2- max_space_uniform (default is 1)"
         <<"\n\n";
     exit(1);
 }
@@ -42,6 +46,25 @@ void CheckArguments(){
         cerr<<"\nINPUT FILE NOT ENTERED!";
         DisplayUsage();
     }
+    if(queryFile == "~"){
+        cerr<<"\nQUERY FILE NOT ENTERED!";
+        DisplayUsage();
+    }
+    if(la.consistencyMode < 1 || la.consistencyMode > 2){
+        cerr<<"\nINVALID CONSISTENCY MODE ENTERED";
+        DisplayUsage();
+    }else{
+        if (la.consistencyMode == la.ALPHA_SIGMA){
+            la.consistencyFunction=&AlphaSigma;
+            paramFunction =&Construct_AlphaSigma_Params;
+        }
+        else if(la.consistencyMode == la.MAX_SPACE_UNIFORM){
+            la.consistencyFunction=&AlphaSigma;
+            paramFunction = &Construct_MaxSpaceUniform_Params;
+        }
+    }
+    la.dispersionFunction=&Range;
+    cout<<"\ninput file: "<<inputFile<<"\nquery file: "<<queryFile<<"\nalpha: "<<alpha<<"\nconsistency mode: "<<la.consistencyMode;
     cout<<"\n"<<endl;
 }
 
@@ -56,11 +79,28 @@ void ProcessCmndLine(int argc, char ** argv){
                 inputFile = argv[++i];
            if(temp == "-alpha")
                alpha = atof(argv[++i]);
+           if(temp == "-q")
+               queryFile=argv[++i];
+           if(temp == "-c"){
+               la.consistencyMode = atoi(argv[++i]);
+           }
         }
     }
     CheckArguments();
 }
-
+void ReadQueryFile(){
+    query = new IOSet;
+    ifstream myfile(queryFile.c_str());
+    if (myfile.is_open()){
+        for (string line; getline(myfile, line);)
+            query->Add(atoi(line.c_str()));
+        query->Sort();
+    }else{
+        cerr<<"\nCould not open query file!\n";
+        exit(-1);
+    }
+    
+}
 
 void OutputStats(){
     ofstream outStat("stats");
@@ -70,41 +110,18 @@ void OutputStats(){
 
 int main(int argc, char** argv) {
     ProcessCmndLine(argc,argv);
+    ReadQueryFile();
     RContext *matrix = MakeSingleRContext(inputFile);
-    matrix->PrintBasicStats();
-    cout<<"\nPrinting in full matrix form....\n";
-    matrix->PrintAsMatrix();
-    cout<<"\nTesting std devs....\n";
-    matrix->ComputeStdDevs();
-    cout<<"\n";
-    matrix->PrintStdDevs();
-    cout<<"\nTesting sub context....\n";
-    IOSet *subRows = new IOSet; subRows->Add(0); subRows->Add(4); subRows->Add(5);
-    IOSet *subCols = new IOSet; subCols->Add(0); subCols->Add(3);
-
-    RContext *subMatrix = matrix->GetSubRContext(subRows,subCols);
-    subMatrix->PrintAsSparse();
-     cout<<"\nTesting std devs....\n";
-    subMatrix->ComputeStdDevs();
-    cout<<"\n";
-    subMatrix->PrintStdDevs();
-    cout<<"\n";
-    cout<<"\n\nNow test alpha operator for with range,3-sigma, and uniform space....\n";
-    //setup paramater vectors here
-    vector<double> threeSigmaParams(1);
-    vector<double> uniformParams(1);
-    vector<double> paramsRange;
-    la.consistencyFunction=&AlphaSigma;
-    la.dispersionFunction=&Range;
-    threeSigmaParams[0]=uniformParams[0]=alpha;
-    cout<<"\nQUERY SET (COLUMNS): \n"; subCols->Output();
-    cout<<"\nnow applying alpha (3 sigma) with alpha=...."<<alpha<<"\n";
-    Construct_AlphaSigma_Params(matrix,subCols,2, threeSigmaParams);
-    Construct_MaxSpaceUniform_Params(matrix,subCols,2, uniformParams);
-    IOSet *result = Prime_Alpha_Naive(matrix, subCols,2,1, la.dispersionFunction,la.consistencyFunction,paramsRange, uniformParams);
-    cout<<"\nResult is: \n";
-    result->Output();
-
+    cout<<"\nGot query with "<<query->Size()<<" objects...."
+        <<"\nTesting for exact hit.....\n";
+    IOSet *initRslt = Prime_Alpha_Naive(matrix,query,2,1,alpha, la.dispersionFunction,la.consistencyFunction,paramFunction);
+    if(initRslt->Size() > 0 ){
+        cout<<"\nGOT DIRECT HIT!!";
+    }else{
+        cout<<"\nNO direct hit..."
+            <<"\nUsing prefix tree....\n";
+        la.BasicPrefix(matrix,query,2);
+    }
     cout<<"\n";
     return (EXIT_SUCCESS);
 }
