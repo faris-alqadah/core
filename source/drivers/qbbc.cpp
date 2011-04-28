@@ -1,16 +1,8 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2009
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *  Simple driver program to test the core libraries
- *
- *
- *
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+/*!
+ Driver program for qbbc clustering (query based bi-clustering)
+
+
+ */
 
 #include <stdlib.h>
 
@@ -23,9 +15,8 @@
 
 string inputFile="~";
 string queryFile="~";
-double alpha=1.0;
 int numArgs=2;
-BasicPrefixAlphaAlgos la;
+BasicPrefix la;
 IOSet *query;
 void(*paramFunction)(RContext *,IOSet *, int, int,int, vector<double> &);
 
@@ -56,15 +47,15 @@ void CheckArguments(){
     }else{
         if (la.consistencyMode == la.ALPHA_SIGMA){
             la.consistencyFunction=&AlphaSigma;
-            paramFunction =&Construct_AlphaSigma_Params;
+            la.paramFunction =&Construct_AlphaSigma_Params;
         }
         else if(la.consistencyMode == la.MAX_SPACE_UNIFORM){
             la.consistencyFunction=&AlphaSigma;
-            paramFunction = &Construct_MaxSpaceUniform_Params;
+            la.paramFunction = &Construct_MaxSpaceUniform_Params;
         }
     }
     la.dispersionFunction=&Range;
-    cout<<"\ninput file: "<<inputFile<<"\nquery file: "<<queryFile<<"\nalpha: "<<alpha<<"\nconsistency mode: "<<la.consistencyMode;
+    cout<<"\ninput file: "<<inputFile<<"\nquery file: "<<queryFile<<"\nalpha: "<<la.alpha<<"\nconsistency mode: "<<la.consistencyMode;
     cout<<"\n"<<endl;
 }
 
@@ -78,7 +69,7 @@ void ProcessCmndLine(int argc, char ** argv){
            if(temp == "-i")//input file
                 inputFile = argv[++i];
            if(temp == "-alpha")
-               alpha = atof(argv[++i]);
+               la.alpha = atof(argv[++i]);
            if(temp == "-q")
                queryFile=argv[++i];
            if(temp == "-c"){
@@ -111,16 +102,20 @@ void OutputStats(){
 int main(int argc, char** argv) {
     ProcessCmndLine(argc,argv);
     ReadQueryFile();
-    RContext *matrix = MakeSingleRContext(inputFile);
+    la.K = MakeSingleRContext(inputFile);
+    la.K->ComputeStdDevs();
+    //this may change later
+    la.s = 2;
+    la.t=1;
     cout<<"\nGot query with "<<query->Size()<<" objects...."
         <<"\nTesting for exact hit.....\n";
-    IOSet *initRslt = Prime_Alpha_Naive(matrix,query,2,1,alpha, la.dispersionFunction,la.consistencyFunction,paramFunction);
+    IOSet *initRslt = Prime_Alpha_Naive(la.K,query,la.s,la.t,la.alpha, la.dispersionFunction,la.consistencyFunction,la.paramFunction);
     if(initRslt->Size() > 0 ){
         cout<<"\nGOT DIRECT HIT!!";
     }else{
         cout<<"\nNO direct hit..."
             <<"\nUsing prefix tree....\n";
-        la.BasicPrefix(matrix,query,2);
+        la.RunBasicPrefix(query);
     }
     cout<<"\n";
     return (EXIT_SUCCESS);

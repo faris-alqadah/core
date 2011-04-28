@@ -42,6 +42,7 @@ ALGOS_HELPER_OBJECTS = $(OBJ)/$(ALGOS_HELPERS)/basic.o \
 ALPHA_CONCEPTS_OBJECTS = $(OBJ)/$(ALPHA_CONCEPTS)/consistency.o \
 			$(OBJ)/$(ALPHA_CONCEPTS)/dispersion.o \
 			$(OBJ)/$(ALPHA_CONCEPTS)/basic_prefix_alpha.o \
+			$(OBJ)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.o \
 			$(OBJ)/$(ALPHA_CONCEPTS)/helpers.o
 #nclusters
 NCLUSTERS_OBJECTS = $(OBJ)/$(NCLUSTERS)/Berry.o
@@ -136,5 +137,7 @@ $(OBJ)/$(ALPHA_CONCEPTS)/helpers.o: $(SOURCE)/$(ALPHA_CONCEPTS)/helpers.cpp
 		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/helpers.cpp -o $@
 $(OBJ)/$(ALPHA_CONCEPTS)/basic_prefix_alpha.o: $(SOURCE)/$(ALPHA_CONCEPTS)/basic_prefix_alpha.cpp
 		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/basic_prefix_alpha.cpp -o $@
+$(OBJ)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.o: $(SOURCE)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.cpp
+		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.cpp -o $@
 $(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o: $(SOURCE)/$(DRIVERS)/qbbc.cpp
 		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/qbbc.cpp -o $@	  

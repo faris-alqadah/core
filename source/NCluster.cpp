@@ -111,6 +111,13 @@ void NCluster::AddSet(IOSet* a){
       sets.push_back(a);
       n++;
   }
+    void NCluster::RemoveSet(int i){
+        assert( i >= 0 && i < n);
+        IOSet *tmp = sets[i];
+        sets.erase(sets.begin()+i);
+        delete tmp;
+        n--;
+    }
 
 void NCluster::AssignSet(int idx, IOSet *a){
     assert(idx >= 0 && idx < n);

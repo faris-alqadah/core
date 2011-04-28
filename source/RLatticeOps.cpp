@@ -7,7 +7,6 @@ IOSet *Prime_Alpha_Naive(RContext *K, IOSet *query, int s, int t,double alpha,
     pair<int,int> dIds = K->GetDomainIds();
     assert( (dIds.first == s || dIds.first == t) && (dIds.second == s || dIds.second == t));
     IOSet *rslt = new IOSet;
-    cout<<"\nalpha: "<<alpha;
     for(int i=0; i < K->GetNumSets(t); i++){
         //get the subspace
         RSet *row = K->GetSet(t,i);

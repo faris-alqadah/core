@@ -80,6 +80,8 @@ public:
     bool ContainsIOSetId(int id);
     //! Returns the value of the largest element in all sets of self
     int GetMaxElement();
+    //! Remove the IOSet at index i
+    void RemoveSet(int i);
 
 
 

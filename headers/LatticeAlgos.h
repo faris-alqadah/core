@@ -42,8 +42,6 @@ public:
     ovlpThresh=0.25;  //this is the overlap threshold...setting default
     topKK = 100;      //this is "K" for top k enumerations...setting default
     pruneMode=1; //defaults
-    dispersionMode=1; //defaults
-    consistencyMode=1; //defaults
 }
 
 
@@ -98,23 +96,7 @@ double(*qualityFunction)(NCluster*, vector<double> &);
  vector<double> params;
 
 
-/////////////////////////////////Dispersion Modes///////////////////////////////
- //! dispersion function mode that indicate to use range as the dispersion function
- static const int RANGE=1;
- //! user will set this variable to indicate the desired disperion function
- int dispersionMode;
- //! function pointer to a dispersion fuinction, interface functions will set this according to dispersionMode
- double(*dispersionFunction)(RSet*,vector<double> &);
 
-/////////////////////////////////Consistency Modes///////////////////////////////
-//! consistency function mode that uses the alpha-sigma rule, with assumed normal distributions
- static const int ALPHA_SIGMA=1;
-//! consistency function mode that uses the maximum spacing estimator with assumed uniform distributions
- static const int MAX_SPACE_UNIFORM=2;
-//! user will set this variable to indicate the desired consistency function
- int consistencyMode;
- //! function pointer to a consistency function, interface functions will set this according to consistencyMode
- double(*consistencyFunction)(RSet*,vector<double>&);
 
 
 /////////////////////////////////Overlap Modes///////////////////////////////
