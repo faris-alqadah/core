@@ -40,7 +40,34 @@ void DstryVector( vector<t*> *v){
     }
     delete v;
 }
-
+template <class t>
+//! Destroy  a vector with elements of class t
+void DstryVector( vector<t*> &v){
+    for(int i=0; i < v.size(); i++){
+        if (v.at(i) != NULL){
+            delete v.at(i);
+            v.at(i) = NULL;
+        }
+    }
+}
+template <class t>
+//! Destroy  a list with pointer elements of class t
+void DstryList( list<t*> &v){
+    for(list<t*>::iterator it = v.begin(); it != v.end(); it++){
+        if ( (*it) != NULL){
+            delete (*it);
+            (*it) = NULL;
+        }
+    }
+}
+template <class t>
+//! Remove element at the iterator position from list and re-allocate the memory, then returns iterator to next element in the list
+list<t*>::iterator RemoveFromList( list<t*> &v, list<t*>::iterator it){
+    t *tmp = (*it);
+    list<t*>::iterator retIt = v.erase(it);
+    delete tmp;
+    return retIt;
+}
 
 //! Set intersection
 IOSet * Intersect( IOSet*, IOSet*);
@@ -74,6 +101,9 @@ double PercentOverlap_Sorensen( IOSet *a, IOSet *b );
 
 //! Assumes a.GetN == b.GetN, and returns(SUM_{i=0...GetN()-1} PercentOverlap(a[i],b[i]))/ GetN()
 double AverageOverlap(NCluster *a, NCluster *b);
+
+//! Returns 1 if the b[0] is of greater equal size 0 otherwise, this is used as an "overlap" function for query-based bi-clustering
+double GreaterEqualSize(NCluster *a, NCluster *b);
 
 //! Assumes a is the FIMI representation of a sparse matrix, and transposes it
 NCluster *TransposeFimi(NCluster *a);

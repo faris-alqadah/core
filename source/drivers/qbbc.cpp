@@ -83,8 +83,11 @@ void ReadQueryFile(){
     query = new IOSet;
     ifstream myfile(queryFile.c_str());
     if (myfile.is_open()){
-        for (string line; getline(myfile, line);)
+        while (!myfile.eof()){
+            string line;
+            getline(myfile, line);
             query->Add(atoi(line.c_str()));
+        }
         query->Sort();
     }else{
         cerr<<"\nCould not open query file!\n";
@@ -110,13 +113,14 @@ int main(int argc, char** argv) {
     cout<<"\nGot query with "<<query->Size()<<" objects...."
         <<"\nTesting for exact hit.....\n";
     IOSet *initRslt = Prime_Alpha_Naive(la.K,query,la.s,la.t,la.alpha, la.dispersionFunction,la.consistencyFunction,la.paramFunction);
-    if(initRslt->Size() > 0 ){
-        cout<<"\nGOT DIRECT HIT!!";
-    }else{
-        cout<<"\nNO direct hit..."
-            <<"\nUsing prefix tree....\n";
-        la.RunBasicPrefix(query);
-    }
+    //if(initRslt->Size() > 0 ){
+   //     cout<<"\nGOT DIRECT HIT!!\n";
+   //     initRslt->Output();
+   // }else{
+       // cout<<"\nNO direct hit..."
+         //   <<"\nUsing prefix tree....\n";
+        la.Qbbc_Prefix_Search(query);
+    //}
     cout<<"\n";
     return (EXIT_SUCCESS);
 }

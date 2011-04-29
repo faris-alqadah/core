@@ -16,17 +16,18 @@ BasicPrefix():AlphaConceptsAlgos() {};
 
 
 
-//! Inteface for the basic prefix tree enumeration of alpha semi-concepts
+//! Inteface for CHARM-like prefix tree search for the best alpha-concept that matches the query
 /*!
-    \param K pointer to the real-valued context
-    \param query the query set
-    \param qId id of the domain from which the query set is derived
+ Functions assumes that the s,t, and K parameters of the class have been set.
+
+    \param query the ids/indices of the query objects
+  
 
  So far only works with alpha sigma consistency and range, but should increase later.
- When changes are made, inidicate here what variables must be set in LatticeAlgos.
+ When changes are made, inidicate here what class variables must be set.
 
 */
-void RunBasicPrefix(IOSet *query);
+void Qbbc_Prefix_Search(IOSet *query);
 
 private :
 //! Compute alpha-semi concepts using basic prefix tree enumeration
@@ -42,15 +43,16 @@ private :
  When changes are made, inidicate here what variables must be set in LatticeAlgos.
 
 */
- void Enumerate_BasicPrefix(IOSet *prefix, IOSet *supSet, NCluster * pMinMax, NCluster * tail, NCluster *tailSupSet, vector< NCluster* > &tMinMax );
+ void Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax);
 
 
  
- void Merge_Prefix_Intersect(IOSet *supSet1, IOSet *supSet2, vector<NCluster*> &minMax1, vector<NCluster*> &minMax2,
-                      IOSet *supSetRslt, vector<NCluster*> &minMaxRslt);
+
 
  //! Compute the "Range Intersection" of two supporting sets
 /*!
+ Sets the quality of supSetRslt to the average range all of supporting rows/columns
+ 
     \param supSet1: indicies or ids of first supporting set
     \param supSet2: indicies or ids of second supporting set
     \param minMax1: indices of min and max values of each supporting set object with respect to the subspace1
@@ -72,8 +74,12 @@ private :
     \param newTailMinMax newly generated minmax vectors, this should be intiialized but empty
 */
  void Charm_Optimize(int k,
-                     NCluster *tail, NCluster *tailSupSet, vector<NCluster*> &tailMinMax,
-                     NCluster *newTail, NCluster *newTailSupSet, vector<NCluster *> & newTailMinMax );
+                    list<IOSet *> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
+                    list<IOSet *> &newTail, list<IOSet *> &newTailSupSet, list<NCluster *> &newTailMinMax );
+
+ void Construct_First_Level(int k,
+                     list<IOSet *> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
+                    list<IOSet *> &newTail, list<IOSet *> &newTailSupSet, list<NCluster *> &newTailMinMax );
 };
 #endif	/* BASIC_PREFIX_H */
 

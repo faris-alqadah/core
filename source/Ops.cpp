@@ -89,6 +89,10 @@ double AverageOverlap(NCluster *a, NCluster *b){
     for(int i=0; i < a->GetN(); i++) accum += PercentOverlap( a->GetSet(i), b->GetSet(i) );
     return accum/(double) a->GetN();
 }
+double GreaterEqualSize(NCluster *a, NCluster *b){
+    if (b->GetSet(0)->Size() >= a->GetSet(0)->Size()) return 1;
+    else return 0;
+}
 
 NCluster *TransposeFimi(NCluster *a){
     assert(a != NULL);
