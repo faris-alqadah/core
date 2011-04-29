@@ -9,7 +9,7 @@ void BasicPrefix::RunBasicPrefix(IOSet *query){
     //each query column
     
     //1. generate all the prefixes as indivual columns
-    vector<IOSet*> allPfx(query->Size());
+    NCluster * allPfx = new NCluster();
     vector<NCluster*> minMaxIdxs(query->Size()); //store the idxs of the maximum and minimum elements
     NCluster *supportSets = new NCluster(query->Size());
     for(int i=0; i < query->Size(); i++){
@@ -19,7 +19,7 @@ void BasicPrefix::RunBasicPrefix(IOSet *query){
         prefix->Add(query->At(i));
         prefix->SetId(currCol->Id());
         prefix->SetQuality(currCol->Size());
-        allPfx[i]=prefix;
+        allPfx->AddSet(prefix);
         //get support sets
         supportSets->AssignSet(i,currCol->GetIdxs());
         supportSets->GetSet(i)->SetId(currCol->Id());
@@ -34,35 +34,40 @@ void BasicPrefix::RunBasicPrefix(IOSet *query){
         }
     }
     //sort by size of supporting set
-    sort(allPfx.begin(),allPfx.end(),Compare_Quality_IOSet);
+    allPfx->SortSets();
     //now iterate again this time generating supporting sets and passing onto main algorithm
-    for(int i=0; i < allPfx.size();i++){
+    for(int i=0; i < 1;i++){
+        cout<<"\nTesting CHARM optimize....with "<<i<<"\n";
 
-        //generate tails
-        NCluster *tail = new NCluster(query->Size()-(i+1));
-        NCluster *tailSupSet = new NCluster(query->Size()-(i+1));
-        vector< NCluster* > tailMinMaxIdxs(query->Size()-(i+1));
-        for(int j=i+1; j < query->Size(); j++){
-            tail->AssignSet(j-(i+1),allPfx[j]);
-            tailSupSet->AssignSet(j-(i+1),supportSets->GetSet(j));
-            tailMinMaxIdxs[j-(i+1)] = minMaxIdxs[j];
+        cout<<"\nOn prefix: \t"; allPfx->GetSet(i)->Output();
+        cout<<"\ntail: \n"; allPfx->Output();
+        cout<<"\ntail sup set: \n"; supportSets->Output();
+        cout<<"\ntail min max idxs: ("<<minMaxIdxs.size()<<")\n";
+        for(int j=i+1; j < minMaxIdxs.size(); j++){
+            minMaxIdxs[j]->Output();
         }
-        cout<<"\nOn prefix: \t"; allPfx[i]->Output();
-        cout<<"\ntail: \n"; tail->Output();
-        cout<<"\ntail sup set: \n"; tailSupSet->Output();
-        cout<<"\ntail min max idxs: ("<<tailMinMaxIdxs.size()<<")\n";
-        for(int j=0; j < tailMinMaxIdxs.size(); j++){
-            tailMinMaxIdxs[j]->Output();
-        }       
+        NCluster *newTail = new NCluster;
+        NCluster *newTailSupSets = new NCluster;
+        vector<NCluster*> newTailMinMax;
+        Charm_Optimize(i,allPfx,supportSets,minMaxIdxs,newTail,newTailSupSets,newTailMinMax);
+        cout<<"\nOLD ones modified: \n";
+        cout<<"\nOn prefix: \t"; allPfx->GetSet(i)->Output();
+        cout<<"\ntail: \n"; allPfx->Output();
+        cout<<"\ntail sup set: \n"; supportSets->Output();
+        cout<<"\ntail min max idxs: ("<<minMaxIdxs.size()<<")\n";
+        for(int j=i+1; j < minMaxIdxs.size(); j++){
+            minMaxIdxs[j]->Output();
+        }
+        cout<<"\nResult: \n\n";
+        cout<<"\nPrefix after modified: \t";allPfx->GetSet(i)->Output();
+         cout<<"\nNew tail: \t"; newTail->Output();
+        cout<<"\n new tail sup set: \n"; newTailSupSets->Output();
+        cout<<"\nnew tail min max idxs: ("<<newTailMinMax.size()<<")\n";
+        for(int j=0; j < newTailMinMax.size(); j++){
+           newTailMinMax[j]->Output();
+        }
     }
-     cout<<"\nTesting range intersect...\n";
-        IOSet *rslt = new IOSet;
-        NCluster *minMaxRslt = new NCluster;
-        cout<<"\nrange intersecting 1 and 2....\n";
-        Range_Intersect(supportSets->GetSet(0),supportSets->GetSet(1),minMaxIdxs[0],minMaxIdxs[1],rslt,minMaxRslt);
-        cout<<"\nResult is: \n";
-        rslt->Output(); cout<<"\n";
-        minMaxRslt->Output();
+    
 }
 
  void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
@@ -101,11 +106,14 @@ void BasicPrefix::RunBasicPrefix(IOSet *query){
      }
      delete commonIdxs;
 }
- void BasicPrefix::Charm_Optimize(IOSet *currPrefix, IOSet *currSupSet, NCluster *currMinMax, int k,
-                     NCluster *tail, NCluster *tailSupSet, vector<NCluster*> &tailMinMax,
-                     NCluster *newTail, IOSet *newSupSet, NCluster * newMinMax ){
 
-     for(int i=k; i < tail->GetN(); i++){
+ void BasicPrefix::Charm_Optimize(int k,
+                     NCluster *tail, NCluster *tailSupSet, vector<NCluster*> &tailMinMax,
+                     NCluster *newTail, NCluster *newTailSupSet, vector<NCluster *> &newTailMinMax ){
+     IOSet *currPrefix = tail->GetSet(k);
+     IOSet *currSupSet = tailSupSet->GetSet(k);
+     NCluster *currMinMax = tailMinMax[k];
+     for(int i=k+1; i < tail->GetN(); i++){
           IOSet *supSetRslt = new IOSet;
           NCluster* minMaxRslt = new NCluster;
           //first perform intersection then all cases follow
@@ -124,16 +132,21 @@ void BasicPrefix::RunBasicPrefix(IOSet *query){
                   NCluster *tt = tailMinMax[i];
                   tailMinMax.erase(tailMinMax.begin()+i);
                   delete tt;
+                  delete supSetRslt;
+                  delete minMaxRslt;
 
               }else if(supSetRslt->Size() == tailSupSet->GetSet(i)->Size()){
                 //update the curr prefix
                   IOSet *tmp = currPrefix;
                   currPrefix = Union(currPrefix,tail->GetSet(i));
                   delete tmp;
+                  delete supSetRslt;
+                  delete minMaxRslt;
               }else if(supSetRslt->Size() == currSupSet->Size()){
                   //add to new tail
                   newTail->AddSet(new IOSet(tail->GetSet(i)));
-                  newSupSet
+                  newTailSupSet->AddSet(supSetRslt);
+                  newTailMinMax.push_back(minMaxRslt);
                  //update the current tail and supporting sets
                   tail->RemoveSet(i);
                   tailSupSet->RemoveSet(i);
@@ -143,6 +156,9 @@ void BasicPrefix::RunBasicPrefix(IOSet *query){
                   
               }else{
                   //add to new tail
+                    newTail->AddSet(new IOSet(tail->GetSet(i)));
+                    newTailSupSet->AddSet(supSetRslt);
+                    newTailMinMax.push_back(minMaxRslt);
               }
 
           }else{

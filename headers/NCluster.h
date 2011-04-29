@@ -82,6 +82,8 @@ public:
     int GetMaxElement();
     //! Remove the IOSet at index i
     void RemoveSet(int i);
+    //!Sort the sets by the quality variables of each IOSet
+    void SortSets();
 
 
 

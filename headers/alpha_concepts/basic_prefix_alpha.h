@@ -63,20 +63,17 @@ private :
                      );
  //! Applies "CHARM"-like optimization to the current prefix, to perform closure and generate next search subspace
 /*!
-    \param currPrefix the current prefix node
-    \param  currSupSet the support set of the prefix node
-    \param curMinMax indices of min and max values of each supporting set in currSupSet
     \param k this indicates where the tail should begin (k >= 0 and LESS than |tail| (see paper)
     \param tail ncluster of tails for currPrefix
     \param  tailSupSet ncluster of supporting sets, one for each node in tail
     \param tailMinMax vector of nucluster min max indicies for all supporting sets of all tail nodes
     \param newTail the newly generated tail, this should be initialized but empty
-    \param newSupSet newly generated supporting set, this should be initialized but empty
-    \param newMinMax newly generated minmax vectors, this should be intiialized but empty
+    \param newTailSupSet newly generated supporting set, this should be initialized but empty
+    \param newTailMinMax newly generated minmax vectors, this should be intiialized but empty
 */
- void Charm_Optimize(IOSet *currPrefix, IOSet *currSupSet, NCluster *currMinMax, int k,
+ void Charm_Optimize(int k,
                      NCluster *tail, NCluster *tailSupSet, vector<NCluster*> &tailMinMax,
-                     IOSet *newPrefix, IOSet *newSupSet, NCluster * newMinMax );
+                     NCluster *newTail, NCluster *newTailSupSet, vector<NCluster *> & newTailMinMax );
 };
 #endif	/* BASIC_PREFIX_H */
 

@@ -114,8 +114,8 @@ void NCluster::AddSet(IOSet* a){
     void NCluster::RemoveSet(int i){
         assert( i >= 0 && i < n);
         IOSet *tmp = sets[i];
-        sets.erase(sets.begin()+i);
         delete tmp;
+        sets.erase(sets.begin()+i);
         n--;
     }
 
@@ -159,6 +159,9 @@ bool NCluster::ContainsIOSetId(int id){
              max = m;
      }
      return max;
+ }
+ void NCluster::SortSets(){
+     sort(sets.begin(),sets.end(),Compare_Quality_IOSet);
  }
 bool Compare_Quality_NCluster(NCluster *a, NCluster *b){
     assert (a != NULL && b != NULL);
