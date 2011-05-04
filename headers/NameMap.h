@@ -17,6 +17,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <map>
 using namespace std;
 
 class NameMap {
@@ -32,6 +33,8 @@ public:
     string GetFileName();
     //! returns the string mapped to i
     string GetName(unsigned int i);
+    //! returns the id of name if it exists
+    int NameToId(string &n);
     //! Returns the number of entries in the map
     int GetNumEntries();
     //! Set the id attribute of the name map
@@ -47,7 +50,8 @@ private:
     string fileName;
     //id attribute to match to domains or IOSets
     int id;
-
+    //! reverse mapping of strings to ids
+    map<string,int> revMap;
 
 };
 

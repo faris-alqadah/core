@@ -125,6 +125,12 @@ RSet::~RSet(){}
        assert(idx >= 0 && idx <= size);
        return vals[idx];
    }
+    //! Returns the actual index of the object id objId in self
+    int RSet::GetIndexPtr(int objId){
+        for(int i=0; i < size; i++)
+            if (vals[i].first == objId) return i;
+        return -1;
+    }
     IOSet *RSet::GetIdxs(){
         IOSet *ret = new IOSet;
         for(int i=0; i < size; i++) ret->Add(vals[i].first);

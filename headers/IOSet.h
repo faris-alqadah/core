@@ -75,6 +75,8 @@ public:
     void Remove(int);
     //! Find and remove the specified element if it exists
     void FindRemove(int);
+    //!Return the index of the specified element and -1 if element does not exist
+    int GetIndex(int);
     //! Sort the elements of the IOSet in asscending order
     void Sort();
     //! Return the ith element

@@ -25,8 +25,10 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
         minMaxIdxs.push_back(new NCluster);
         for(int j=0; j < supportSets.back()->Size();j++){
             IOSet *mm = new IOSet;
-            mm->Add(query->At(i)); //just adding index of query object at this point since only single object
-            mm->Add(query->At(i)); //this is true for both max and min
+            RSet *theRow = K->GetSet(t,supportSets.back()->At(j));
+            int idxPtr=theRow->GetIndexPtr(query->At(i));
+            mm->Add(idxPtr); //just adding index of query object at this point since only single object
+            mm->Add(idxPtr); //this is true for both max and min
             mm->SetId(supportSets.back()->At(j));
             minMaxIdxs.back()->AddSet(mm);
         }
