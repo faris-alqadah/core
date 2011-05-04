@@ -83,10 +83,11 @@ void ReadQueryFile(){
     query = new IOSet;
     ifstream myfile(queryFile.c_str());
     if (myfile.is_open()){
-        while (!myfile.eof()){
-            string line;
-            getline(myfile, line);
+        string line;
+        getline(myfile,line);
+        while (!myfile.eof()){         
             query->Add(atoi(line.c_str()));
+            getline(myfile, line);
         }
         query->Sort();
     }else{

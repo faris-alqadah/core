@@ -100,7 +100,7 @@ IOSet::~IOSet(){}
        sort(d.begin(),d.begin()+size);
    }
    int IOSet::At(int idx){
-       assert(idx >= 0 && idx <= size);
+       assert(idx >= 0 && idx < size);
        return d[idx];
    }
    void IOSet::Clear(){

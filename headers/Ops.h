@@ -20,6 +20,7 @@
 
 #include"NCluster.h"
 #include <algorithm>
+#include<list>
 using namespace std;
 
 
@@ -53,20 +54,20 @@ void DstryVector( vector<t*> &v){
 template <class t>
 //! Destroy  a list with pointer elements of class t
 void DstryList( list<t*> &v){
-    for(list<t*>::iterator it = v.begin(); it != v.end(); it++){
+    typename list<t*>::iterator it;
+    it= v.begin();
+    while(it != v.end()){
         if ( (*it) != NULL){
             delete (*it);
             (*it) = NULL;
         }
+        it++;
     }
 }
 template <class t>
 //! Remove element at the iterator position from list and re-allocate the memory, then returns iterator to next element in the list
-list<t*>::iterator RemoveFromList( list<t*> &v, list<t*>::iterator it){
-    t *tmp = (*it);
-    list<t*>::iterator retIt = v.erase(it);
-    delete tmp;
-    return retIt;
+typename list<t*>::iterator RemoveFromList( list<t*> &v, typename list<t*>::iterator it){
+    return v.erase(it);
 }
 
 //! Set intersection

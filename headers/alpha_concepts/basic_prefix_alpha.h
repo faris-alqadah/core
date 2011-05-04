@@ -63,19 +63,7 @@ private :
  void Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
                       IOSet *supSetRslt, NCluster* minMaxRslt
                      );
- //! Applies "CHARM"-like optimization to the current prefix, to perform closure and generate next search subspace
-/*!
-    \param k this indicates where the tail should begin (k >= 0 and LESS than |tail| (see paper)
-    \param tail ncluster of tails for currPrefix
-    \param  tailSupSet ncluster of supporting sets, one for each node in tail
-    \param tailMinMax vector of nucluster min max indicies for all supporting sets of all tail nodes
-    \param newTail the newly generated tail, this should be initialized but empty
-    \param newTailSupSet newly generated supporting set, this should be initialized but empty
-    \param newTailMinMax newly generated minmax vectors, this should be intiialized but empty
-*/
- void Charm_Optimize(int k,
-                    list<IOSet *> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
-                    list<IOSet *> &newTail, list<IOSet *> &newTailSupSet, list<NCluster *> &newTailMinMax );
+
 
  void Construct_First_Level(int k,
                      list<IOSet *> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
