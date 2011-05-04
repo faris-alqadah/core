@@ -50,7 +50,7 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
         list<IOSet*>newTailSupSets;
         list<NCluster*> newTailMinMax;
         Construct_First_Level(i,allPfx,supportSets,minMaxIdxs,newTail,newTailSupSets,newTailMinMax);
-        Enumerate_BasicPrefix(newTail,newTailSupSets,newTailMinMax);
+        Enumerate_Charm(newTail,newTailSupSets,newTailMinMax);
         //clean up
         DstryList(newTail);
         DstryList(newTailSupSets);

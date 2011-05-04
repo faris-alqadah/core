@@ -22,8 +22,11 @@
           <in>topk.h</in>
         </df>
         <df name="alpha_concepts">
+          <in>alpha_concepts_algos.h</in>
+          <in>basic_prefix_alpha.h</in>
           <in>consistency.h</in>
           <in>dispersion.h</in>
+          <in>helpers.h</in>
         </df>
         <df name="nclusters">
           <in>berry.h</in>
@@ -46,6 +49,12 @@
         <in>Timing.h</in>
       </df>
       <df name="objs">
+        <df name="algos_helpers">
+        </df>
+        <df name="alpha_concepts">
+        </df>
+        <df name="nclusters">
+        </df>
       </df>
       <df name="source" kind="SOURCE_LOGICAL_FOLDER">
         <df name="algos_helpers">
@@ -53,8 +62,11 @@
           <in>topk.cpp</in>
         </df>
         <df name="alpha_concepts">
+          <in>alpha_concepts_algos.cpp</in>
+          <in>basic_prefix_alpha.cpp</in>
           <in>consistency.cpp</in>
           <in>dispersion.cpp</in>
+          <in>helpers.cpp</in>
         </df>
         <df name="drivers">
           <in>nclu.cpp</in>
