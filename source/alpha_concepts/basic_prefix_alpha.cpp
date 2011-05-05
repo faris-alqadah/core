@@ -139,7 +139,6 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
                           tailItC = RemoveFromList( tail, tailItC);
                           tailSupItC = RemoveFromList(tailSupSet,tailSupItC);
                           minMaxItC = RemoveFromList(tailMinMax,minMaxItC);
-
                           delete supSetRslt;
                           delete minMaxRslt;
                         //  cout<<"\ncase1";
@@ -169,8 +168,8 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
                       }else{
                           //add to new tail
                            newTail.push_back(Union(currPrefix,(*tailItC)));
-                          newTailSupSets.push_back(supSetRslt);
-                          newTailMinMax.push_back(minMaxRslt);
+                           newTailSupSets.push_back(supSetRslt);
+                           newTailMinMax.push_back(minMaxRslt);
                          //   cout<<"\ncase4";
                           //increment iterators
                           tailItC++; tailSupItC++; minMaxItC++;
@@ -202,12 +201,6 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
                 delete bicluster;
                 //now recurse
                 Enumerate_Charm(newTail,newTailSupSets,newTailMinMax);
-                //cout<<"\nnewTail size: "<<newTailMinMax.size();
-                //clean up
-               // DstryList(newTail);
-               // DstryList(newTailSupSets);
-               // DstryList(newTailMinMax);
-          
       }
   }
 
