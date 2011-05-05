@@ -4,28 +4,7 @@
 
 NameMap::NameMap(){}
 
-NameMap::NameMap(string _fileName, unsigned int _numEntries){
-  fileName = _fileName;
-  numEntries=_numEntries;
-  ifstream myfile;
-  mapping.resize(numEntries);
-  id = 0;
-  myfile.open(fileName.c_str());
-  assert(myfile.is_open() && numEntries > 0);
-  if (myfile.is_open()){
-    int lineNum = 0;
-    for (string line; getline(myfile, line);) {
-        if(lineNum == numEntries) break;
-        getline (myfile,line);
-        mapping[lineNum] = line;
-        lineNum++;
-    }
-  }
-  else{
-      cerr<<"\nCoult not open NAME file!! "<<fileName<<endl<<"\n";
-      exit(-1);
-  }    
-}
+
 
 NameMap::NameMap(string &_fileName){
  fileName = _fileName;
@@ -36,11 +15,18 @@ NameMap::NameMap(string &_fileName){
   assert(myfile.is_open());
   if (myfile.is_open()){
     int lineNum = 0;
-    for (string line; getline(myfile, line);) {
+    string line;
+    while (!myfile.eof()){
+        getline(myfile, line);
+        if(myfile.eof()) break;
         mapping.push_back(line);
         lineNum++;
         numEntries++;
+        
     }
+    //make rev map
+    for(int i=0; i < mapping.size(); i++)  revMap[mapping[i]] = i;
+
   }
   else{
       cerr<<"\nCoult not open NAME file!! "<<fileName<<endl<<"\n";
@@ -52,6 +38,13 @@ string NameMap::GetName(unsigned int x){
         return mapping[x];
 
 
+}
+
+int NameMap::NameToId(string& n){
+    if (revMap.count(n)>0){
+        return revMap[n];
+    }
+    return -1;
 }
 
 string NameMap::GetFileName(){return fileName;}

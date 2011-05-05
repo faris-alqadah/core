@@ -58,7 +58,10 @@ public:
     void Sort();
     //! Return the ith element
     pair<int,double> At(int i);
-    //! Return an IOSet of what indexes have values associated with them
+    //! Returns the actual index of the object id objId in self, if objId exists, -1 otherwise
+    int GetIndexPtr(int objId);
+    //! Sort the elements of the IOSet in asscending order
+    //! Return an IOSet of all indexes that have values associated with them
     IOSet *GetIdxs();
     //! Remove all elements from the RSet
     void Clear();

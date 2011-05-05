@@ -18,13 +18,15 @@ string queryFile="~";
 int numArgs=2;
 BasicPrefix la;
 IOSet *query;
+int queryDomain=-1;
+int otherDomain=-1;
 void(*paramFunction)(RContext *,IOSet *, int, int,int, vector<double> &);
 
 void DisplayUsage(){
     cout<<"\nUSAGE: test -i input_file "
         <<"\nREQUIRED: "
         <<"\n-i <inputFile>"
-        <<"\n-q <queryFile>"
+        <<"\n-q <domain_id> <queryFile>"
         <<"\nOPTIONAL: "
         <<"\n-alpha <alpha value> (default is 1.0)"
         <<"\n-c <consistency function> 1- alpha_sigma 2- max_space_uniform (default is 1)"
@@ -39,6 +41,10 @@ void CheckArguments(){
     }
     if(queryFile == "~"){
         cerr<<"\nQUERY FILE NOT ENTERED!";
+        DisplayUsage();
+    }
+    if(queryDomain == -1){
+        cerr<<"\nQUERY DOMAIN NOT ENTERED!";
         DisplayUsage();
     }
     if(la.consistencyMode < 1 || la.consistencyMode > 2){
@@ -70,8 +76,10 @@ void ProcessCmndLine(int argc, char ** argv){
                 inputFile = argv[++i];
            if(temp == "-alpha")
                la.alpha = atof(argv[++i]);
-           if(temp == "-q")
+           if(temp == "-q"){
+               queryDomain=atoi(argv[++i]);
                queryFile=argv[++i];
+           }
            if(temp == "-c"){
                la.consistencyMode = atoi(argv[++i]);
            }
@@ -80,16 +88,33 @@ void ProcessCmndLine(int argc, char ** argv){
     CheckArguments();
 }
 void ReadQueryFile(){
+    pair<int,int> dIds = la.K->GetDomainIds();
+    if(queryDomain == dIds.first){
+        otherDomain = dIds.second;
+    }else if (queryDomain == dIds.second){
+        otherDomain = dIds.first;
+    }else{
+        cerr<<"\nInvalid query domain entered!!\n";
+        exit(-1);
+    }
+    
     query = new IOSet;
     ifstream myfile(queryFile.c_str());
+    NameMap *nm = la.K->GetNameMap(queryDomain);
     if (myfile.is_open()){
         string line;
-        getline(myfile,line);
-        while (!myfile.eof()){         
-            query->Add(atoi(line.c_str()));
+        while (!myfile.eof()){
             getline(myfile, line);
+            if(myfile.eof()) break;
+            int curr = nm->NameToId(line);
+            if( curr != -1)
+                query->Add(curr);
         }
         query->Sort();
+        if (query->Size() < 2){
+            cerr<<"\nNot enough valid query terms!!\n";
+            exit(-1);
+        }
     }else{
         cerr<<"\nCould not open query file!\n";
         exit(-1);
@@ -105,15 +130,16 @@ void OutputStats(){
 
 int main(int argc, char** argv) {
     ProcessCmndLine(argc,argv);
-    ReadQueryFile();
     la.K = MakeSingleRContext(inputFile);
     la.K->ComputeStdDevs();
+    ReadQueryFile();
+    la.K->PrintBasicStats();
     //this may change later
-    la.s = 2;
-    la.t=1;
+    la.s = queryDomain;
+    la.t=otherDomain;
     cout<<"\nGot query with "<<query->Size()<<" objects...."
         <<"\nTesting for exact hit.....\n";
-    IOSet *initRslt = Prime_Alpha_Naive(la.K,query,la.s,la.t,la.alpha, la.dispersionFunction,la.consistencyFunction,la.paramFunction);
+    //IOSet *initRslt = Prime_Alpha_Naive(la.K,query,la.s,la.t,la.alpha, la.dispersionFunction,la.consistencyFunction,la.paramFunction);
     //if(initRslt->Size() > 0 ){
    //     cout<<"\nGOT DIRECT HIT!!\n";
    //     initRslt->Output();

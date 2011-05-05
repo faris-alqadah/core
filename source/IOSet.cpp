@@ -96,6 +96,12 @@ IOSet::~IOSet(){}
        if (it != d.end()) d.erase(it);
        size--;
    }
+   int IOSet::GetIndex(int a){
+       vector<unsigned int>::iterator it = find(d.begin(),d.end(),a);
+       if(it != d.end()) return (int)(it-d.begin());
+           return -1;
+   }
+
    void IOSet::Sort(){
        sort(d.begin(),d.begin()+size);
    }
