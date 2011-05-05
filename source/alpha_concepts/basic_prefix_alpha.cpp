@@ -19,7 +19,6 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
             }
             delete closure;
             delete minMax;
-           // cout<<"\nGot closure: \t"; CONCEPTS[0]->GetSetById(s)->Output();
             //if closure is not a superset of query attempt to include more objects via top neighbors
             if(ProperSubSet(origQuery,bicluster->GetSetById(s))){
                 //best upper neighbor
@@ -37,7 +36,7 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
     }
     cout<<"\nGot total of "<<hits.size()<<" hits";
     for(int i=0; i < hits.size(); i++){
-         cout<<"\nHit "<<i+1<<"\t"; hits[i]->GetSetById(s)->Output();   
+         cout<<"\nHit "<<i+1<<"||\t"; hits[i]->GetSetById(s)->Output();
      }   
 }
 void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
@@ -71,10 +70,6 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
         list<NCluster*> newTailMinMax;
         Construct_First_Level(i,allPfx,supportSets,minMaxIdxs,newTail,newTailSupSets,newTailMinMax);
         Enumerate_Charm(newTail,newTailSupSets,newTailMinMax);
-        //clean up
-       // DstryList(newTail);
-       // DstryList(newTailSupSets);
-       // DstryList(newTailMinMax);
         it++;
     }
     if(CONCEPTS.size() > 0){
@@ -106,8 +101,7 @@ void BasicPrefix::Make_Init_SupSets_MinMaxIdxs(IOSet *query, list<IOSet*> &prefi
         }
     }
 }
-
- NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
+NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
      NCluster *ret = new NCluster();
      for(int i=0; i < supSets->Size(); i++){
          ret->AddSet(new IOSet);
@@ -134,10 +128,7 @@ void BasicPrefix::Make_Init_SupSets_MinMaxIdxs(IOSet *query, list<IOSet*> &prefi
          if((*supSetIt)->Size() >= supSet->Size()){
              IOSet *supSetRslt = new IOSet;
              NCluster *minMaxRslt = new NCluster;
-             //cout<<"\nDoing range intersect...";
-            // cout<<"\nsize comps before: "<<(*supSetIt)->Size()<<"\t"<<supSet->Size();
              Range_Intersect(supSet,(*supSetIt),minMax,(*minMaxIt),supSetRslt,minMaxRslt);
-            // cout<<"\nsize comps: "<<supSetRslt->Size()<<"\t"<<supSet->Size(); cout<<"\n---\n";
              if( supSetRslt->Size() == supSet->Size()){
                  closure->Add( otherObjs->At(i));
              }

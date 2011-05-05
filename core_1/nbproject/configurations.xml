@@ -28,32 +28,34 @@
           <in>dispersion.h</in>
           <in>helpers.h</in>
         </df>
+        <df name="core">
+          <in>Context.h</in>
+          <in>IOSet.h</in>
+          <in>LatticeAlgos.h</in>
+          <in>LatticeOps.h</in>
+          <in>NCluster.h</in>
+          <in>NRCluster.h</in>
+          <in>NameMap.h</in>
+          <in>Ops.h</in>
+          <in>OpsR.h</in>
+          <in>PreProcess.h</in>
+          <in>QualityMeasures.h</in>
+          <in>RContext.h</in>
+          <in>RLatticeOps.h</in>
+          <in>RSet.h</in>
+          <in>RelationGraph.h</in>
+          <in>Timing.h</in>
+        </df>
         <df name="nclusters">
           <in>berry.h</in>
         </df>
-        <in>Context.h</in>
-        <in>IOSet.h</in>
-        <in>LatticeAlgos.h</in>
-        <in>LatticeOps.h</in>
-        <in>NCluster.h</in>
-        <in>NRCluster.h</in>
-        <in>NameMap.h</in>
-        <in>Ops.h</in>
-        <in>OpsR.h</in>
-        <in>PreProcess.h</in>
-        <in>QualityMeasures.h</in>
-        <in>RContext.h</in>
-        <in>RLatticeOps.h</in>
-        <in>RSet.h</in>
-        <in>RelationGraph.h</in>
-        <in>Timing.h</in>
       </df>
       <df name="objs">
         <df name="algos_helpers">
         </df>
         <df name="alpha_concepts">
         </df>
-        <df name="nclusters">
+        <df name="core">
         </df>
       </df>
       <df name="source" kind="SOURCE_LOGICAL_FOLDER">
@@ -68,6 +70,24 @@
           <in>dispersion.cpp</in>
           <in>helpers.cpp</in>
         </df>
+        <df name="core">
+          <in>Context.cpp</in>
+          <in>IOSet.cpp</in>
+          <in>LatticeAlgos.cpp</in>
+          <in>LatticeOps.cpp</in>
+          <in>NCluster.cpp</in>
+          <in>NRCluster.cpp</in>
+          <in>NameMap.cpp</in>
+          <in>Ops.cpp</in>
+          <in>OpsR.cpp</in>
+          <in>PreProcess.cpp</in>
+          <in>QualityMeasures.cpp</in>
+          <in>RContext.cpp</in>
+          <in>RLatticeOps.cpp</in>
+          <in>RSet.cpp</in>
+          <in>RelationGraph.cpp</in>
+          <in>Timing.cpp</in>
+        </df>
         <df name="drivers">
           <in>nclu.cpp</in>
           <in>qbbc.cpp</in>
@@ -75,22 +95,6 @@
         <df name="nclusters">
           <in>berry.cpp</in>
         </df>
-        <in>Context.cpp</in>
-        <in>IOSet.cpp</in>
-        <in>LatticeAlgos.cpp</in>
-        <in>LatticeOps.cpp</in>
-        <in>NCluster.cpp</in>
-        <in>NRCluster.cpp</in>
-        <in>NameMap.cpp</in>
-        <in>Ops.cpp</in>
-        <in>OpsR.cpp</in>
-        <in>PreProcess.cpp</in>
-        <in>QualityMeasures.cpp</in>
-        <in>RContext.cpp</in>
-        <in>RLatticeOps.cpp</in>
-        <in>RSet.cpp</in>
-        <in>RelationGraph.cpp</in>
-        <in>Timing.cpp</in>
       </df>
     </df>
     <logicalFolder name="ExternalFiles"
