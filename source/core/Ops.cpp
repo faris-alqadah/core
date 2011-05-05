@@ -20,7 +20,7 @@ IOSet * Difference( IOSet *a, IOSet *b){
      vector<unsigned int>::iterator it =set_difference (a->GetBegin(), a->GetBegin()+a->Size(),
                                                 b->GetBegin(), b->GetBegin()+b->Size(),
                                                 ret->GetBegin());
-
+     
      ret->SetSize(int(it - ret->GetBegin()));
      numDifference++;
      return ret;

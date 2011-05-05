@@ -119,7 +119,7 @@ void NCluster::AddSet(IOSet* a){
         n--;
     }
 
-void NCluster::AssignSet(int idx, IOSet *a){
+void NCluster::AssignSet(int idx, IOSet* a){
     assert(idx >= 0 && idx < n);
     IOSet *tmp = sets[idx];
     sets[idx] = a;
@@ -131,10 +131,9 @@ void NCluster::AssignSetById(int id, IOSet* a){
     for(int i=0; i < n; i++){
         if(sets[i]->Id() == id){
             IOSet *tmp = sets[i];
-            sets[i] = a;
+            sets[i] =a;
             delete tmp;
             tmp=NULL;
-            return;
         }
     }
   }

@@ -136,6 +136,61 @@ RSet::~RSet(){}
         for(int i=0; i < size; i++) ret->Add(vals[i].first);
         return ret;
     }
+    RSet* RSet::GetSubspace(IOSet *idxs){
+        assert(size >= idxs->Size() && idxs->Size() >= 1);
+        RSet *ret = new RSet;
+        for(int aPtr=0,bPtr=0; aPtr < size && bPtr < idxs->Size();){
+            if(vals[aPtr].first == idxs->At(bPtr)){
+                ret->Add(vals[aPtr]);
+                aPtr++;
+                bPtr++;
+            }else if(vals[aPtr].first > idxs->At(bPtr)) bPtr++;
+            else aPtr++;
+       }
+       return ret;
+    }
+    pair<double,double> RSet::GetMinMaxSubspace(IOSet *idxs){
+        assert(size >= idxs->Size() && idxs->Size() >= 1);
+        pair<double,double> ret;
+        ret.first=vals[0].second;
+        ret.second=vals[0].second;
+        for(int aPtr=0,bPtr=0; aPtr < size && bPtr < idxs->Size();){
+            if(vals[aPtr].first == idxs->At(bPtr)){
+                if(vals[aPtr].second < ret.first)
+                    ret.first = vals[aPtr].second;
+                else if (vals[aPtr].second > ret.second)
+                    ret.second = vals[aPtr].second;
+                aPtr++;
+                bPtr++;
+            }else if(vals[aPtr].first > idxs->At(bPtr)) bPtr++;
+            else aPtr++;
+       }
+       return ret;
+    }
+    pair<int,int> RSet::GetMinMaxSubspaceIdxs(IOSet *idxs){
+        assert(size >= idxs->Size() && idxs->Size() >= 1);
+        pair<double,double> ret;
+        ret.first=0;
+        ret.second=0;
+        double min=vals[0].second;
+        double max=vals[0].second;
+        for(int aPtr=0,bPtr=0; aPtr < size && bPtr < idxs->Size();){
+            if(vals[aPtr].first == idxs->At(bPtr)){
+                if(vals[aPtr].second < min){
+                    ret.first = aPtr;
+                    min = vals[aPtr].second;
+                }
+                else if (vals[aPtr].second >max){
+                    ret.second = aPtr;
+                    max=vals[aPtr].second;
+                }
+                aPtr++;
+                bPtr++;
+            }else if(vals[aPtr].first > idxs->At(bPtr)) bPtr++;
+            else aPtr++;
+       }
+       return ret;
+    }
    void RSet::Clear(){
        vals.clear();
        size=0;

@@ -90,7 +90,7 @@ bool Contains( IOSet *a,  IOSet *b );
 
 
 //! Returns true if b is a proper subet of a and false otherwise
-bool ProperSubSet(IOSet *, IOSet*);
+bool ProperSubSet(IOSet *a, IOSet*b);
 
 //! Returns Jaccard Coefficient |a intersect b| / |  a union b|
 double PercentOverlap( IOSet *a, IOSet *b );

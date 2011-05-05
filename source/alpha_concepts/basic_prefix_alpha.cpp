@@ -1,6 +1,45 @@
 #include "../../headers/alpha_concepts/basic_prefix_alpha.h"
 
+void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
+    //1. Get all hits for prefix search only in query space
+    IOSet *origQuery = new IOSet(query);
+    while(query->Size() > 1){
+        Qbbc_Prefix_Search(query);
+        //did we get a hit?
+        if (CONCEPTS.size() > 0){
+            bool gotAll = CONCEPTS[0]->GetSetById(s)->Size() == query->Size(); //were all query objects retrieved
+            //find closure
+            NCluster *minMax = Get_Min_Max_Idxs(CONCEPTS[0]->GetSetById(s),CONCEPTS[0]->GetSetById(t));
+            NCluster *bicluster = CONCEPTS[0];
+            IOSet *closure = Range_Closure(bicluster->GetSetById(s),bicluster->GetSetById(t),minMax);
+            if(closure->Size() > bicluster->GetSetById(s)->Size()){
+                IOSet *closureUnion = Union(bicluster->GetSetById(s),closure);
+                closureUnion->SetId(s);
+                bicluster->AssignSetById(s,closureUnion);
+            }
+            delete closure;
+            delete minMax;
+           // cout<<"\nGot closure: \t"; CONCEPTS[0]->GetSetById(s)->Output();
+            //if closure is not a superset of query attempt to include more objects via top neighbors
+            if(ProperSubSet(origQuery,bicluster->GetSetById(s))){
+                //best upper neighbor
+            }
+            IOSet *tmp = query;
+            query= Difference(query,bicluster->GetSetById(s));
+            delete tmp;
+            hits.push_back(new NCluster(*bicluster));
+            delete CONCEPTS[0]; //reset for next round
+            CONCEPTS.clear(); //reset for next round
 
+        }else{
+            break;
+        }
+    }
+    cout<<"\nGot total of "<<hits.size()<<" hits";
+    for(int i=0; i < hits.size(); i++){
+         cout<<"\nHit "<<i+1<<"\t"; hits[i]->GetSetById(s)->Output();   
+     }   
+}
 void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
     pair<int,int> dIds = K->GetDomainIds();
     assert(s == dIds.first || s == dIds.second);
@@ -11,28 +50,8 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
     //1. generate all the prefixes as indivual columns
     list<IOSet *> allPfx;
     list<NCluster*> minMaxIdxs; //store the idxs of the maximum and minimum elements
-    list<IOSet *> supportSets;
-    for(int i=0; i < query->Size(); i++){
-        //make prefix node
-        IOSet *prefix = new IOSet;
-        RSet *currCol = K->GetSet(s,query->At(i));
-        prefix->Add(query->At(i));
-        prefix->SetId(currCol->Id());
-        prefix->SetQuality(currCol->Size());
-        allPfx.push_back(prefix);
-        supportSets.push_back(currCol->GetIdxs());
-        supportSets.back()->SetId(currCol->Id());
-        minMaxIdxs.push_back(new NCluster);
-        for(int j=0; j < supportSets.back()->Size();j++){
-            IOSet *mm = new IOSet;
-            RSet *theRow = K->GetSet(t,supportSets.back()->At(j));
-            int idxPtr=theRow->GetIndexPtr(query->At(i));
-            mm->Add(idxPtr); //just adding index of query object at this point since only single object
-            mm->Add(idxPtr); //this is true for both max and min
-            mm->SetId(supportSets.back()->At(j));
-            minMaxIdxs.back()->AddSet(mm);
-        }
-    }
+    list<IOSet*> supportSets;
+    Make_Init_SupSets_MinMaxIdxs(query,allPfx,supportSets,minMaxIdxs);
     //sort by size of supporting set
     //allPfx->SortSets();
     //setup algorithm parameters
@@ -47,8 +66,6 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
     //now iterate again this time generating supporting sets and passing onto main algorithm
     int i=0;
     for(list<IOSet*>::iterator it = allPfx.begin(); it != allPfx.end(); i++){
-        cout<<"\nOn "<<i+1<<" OF "<<allPfx.size();
-        cout.flush();
         list<IOSet*> newTail;
         list<IOSet*>newTailSupSets;
         list<NCluster*> newTailMinMax;
@@ -60,12 +77,83 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
        // DstryList(newTailMinMax);
         it++;
     }
-    if (CONCEPTS.size() > 0){
-        cout<<"\nGot top hit: \n";
-        CONCEPTS[0]->Output();
+    if(CONCEPTS.size() > 0){
+        CONCEPTS[0]->GetSet(0)->SetId(s);
+        CONCEPTS[0]->GetSet(1)->SetId(t);
     }
-    
 }
+
+void BasicPrefix::Make_Init_SupSets_MinMaxIdxs(IOSet *query, list<IOSet*> &prefix,list<IOSet*> &supSets, list<NCluster*> &minMax){
+     for(int i=0; i < query->Size(); i++){
+        //make prefix node
+        IOSet *prefixx = new IOSet;
+        RSet *currCol = K->GetSet(s,query->At(i));
+        prefixx->Add(query->At(i));
+        prefixx->SetId(currCol->Id());
+        prefixx->SetQuality(currCol->Size());
+        prefix.push_back(prefixx);
+        supSets.push_back(currCol->GetIdxs());
+        supSets.back()->SetId(currCol->Id());
+        minMax.push_back(new NCluster);
+        for(int j=0; j < supSets.back()->Size();j++){
+            IOSet *mm = new IOSet;
+            RSet *theRow = K->GetSet(t,supSets.back()->At(j));
+            int idxPtr=theRow->GetIndexPtr(query->At(i));
+            mm->Add(idxPtr); //just adding index of query object at this point since only single object
+            mm->Add(idxPtr); //this is true for both max and min
+            mm->SetId(supSets.back()->At(j));
+            minMax.back()->AddSet(mm);
+        }
+    }
+}
+
+ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
+     NCluster *ret = new NCluster();
+     for(int i=0; i < supSets->Size(); i++){
+         ret->AddSet(new IOSet);
+         pair<int,int> minMax = K->GetSet(t,supSets->At(i))->GetMinMaxSubspaceIdxs(query);
+         ret->GetSet(i)->Add(minMax.first);
+         ret->GetSet(i)->Add(minMax.second);
+         ret->GetSet(i)->SetId(supSets->At(i));
+     }
+     return ret;
+ }
+
+ IOSet* BasicPrefix::Range_Closure(IOSet *prefix,IOSet *supSet, NCluster *minMax){
+     //get all other objects and their supporting sets + min-max idxs
+     IOSet *otherObjs = Difference(K->GetLabels(s),prefix);
+     IOSet *closure = new IOSet;
+     list<IOSet *> allPfx;
+     list<NCluster*> minMaxIdxs; //store the idxs of the maximum and minimum elements
+     list<IOSet*> supportSets;
+     Make_Init_SupSets_MinMaxIdxs(otherObjs,allPfx,supportSets,minMaxIdxs);
+     //for each other object range intersect supporting sets, if result is of equal size to supSet, then include item in closure
+     list<IOSet*>::iterator supSetIt = supportSets.begin();
+     list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
+     for(int i=0; i < otherObjs->Size(); i++){
+         if((*supSetIt)->Size() >= supSet->Size()){
+             IOSet *supSetRslt = new IOSet;
+             NCluster *minMaxRslt = new NCluster;
+             //cout<<"\nDoing range intersect...";
+            // cout<<"\nsize comps before: "<<(*supSetIt)->Size()<<"\t"<<supSet->Size();
+             Range_Intersect(supSet,(*supSetIt),minMax,(*minMaxIt),supSetRslt,minMaxRslt);
+            // cout<<"\nsize comps: "<<supSetRslt->Size()<<"\t"<<supSet->Size(); cout<<"\n---\n";
+             if( supSetRslt->Size() == supSet->Size()){
+                 closure->Add( otherObjs->At(i));
+             }
+             //delete and increment iterator
+             delete supSetRslt;
+             delete minMaxRslt;
+         }
+         delete (*supSetIt);
+         delete (*minMaxIt);
+         supSetIt =  RemoveFromList(supportSets,supSetIt); 
+         minMaxIt =  RemoveFromList(minMaxIdxs,minMaxIt);
+     }
+     delete otherObjs;
+     DstryList(allPfx);
+     return closure;
+ }
 
  void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
                       IOSet *supSetRslt, NCluster* minMaxRslt){
@@ -87,7 +175,9 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
          int minn =  (minVal == K->GetSet(t,rowId)->At(oldMin1).second) ? oldMin1 : oldMin2;
          int maxx = (maxVal == K->GetSet(t,rowId)->At(oldMax1).second) ? oldMax1 : oldMax2;
          //get range using new idxs
+         //double oldRange = K->GetSet(t,rowId)->At(oldMax1).second-K->GetSet(t,rowId)->At(oldMin1).second;
          double range = K->GetSet(t,rowId)->At(maxx).second-K->GetSet(t,rowId)->At(minn).second;
+        // cout<<"\nold range: "<<oldRange<<"\tnew range"<<range;
          //construct parameters for consistency function
          vector<double> lclParamsF; //construct parameter vector for the consistency function, make alpha the first element though
          lclParamsF.push_back(alpha);  //assign the variance for this particlar row / column

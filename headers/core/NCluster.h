@@ -61,9 +61,9 @@ public:
     //! Adds the set a to the end of the n-cluster
     void AddSet(IOSet* a);
     //! Assigns a to the ith, deleting the previously defined ith set in the process
-    void AssignSet(int i, IOSet *a);
+    void AssignSet(int i, IOSet* a);
     //! Assigns a to the set with id, if it exists, previoulsy defined set with id is destroyed in the process
-    void AssignSetById(int id, IOSet *a );
+    void AssignSetById(int id, IOSet* a );
     //! Returns the quality attribute
     double GetQuality();
     //! Set the quality attribute

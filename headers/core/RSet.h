@@ -63,6 +63,12 @@ public:
     //! Sort the elements of the IOSet in asscending order
     //! Return an IOSet of all indexes that have values associated with them
     IOSet *GetIdxs();
+    //!Returns a subspace of self as indicated by the idxs, assumes idxs is sorted for linear time perfomance
+    RSet* GetSubspace(IOSet *idxs);
+    //! Returns the minimum and maximum element in the subspace specified by idxs, assumes idxs is sorted for linear time performance
+    pair<double,double> GetMinMaxSubspace(IOSet *idxs);
+    //! Returns index pointers (i.e. actual index not id) to the minimum and maximum element in the subspace specified by idxs, assumes idxs is sorted for linear time performance
+    pair<int,int> GetMinMaxSubspaceIdxs(IOSet *idxs);
     //! Remove all elements from the RSet
     void Clear();
     //! Set the marked flag

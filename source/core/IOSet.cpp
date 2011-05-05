@@ -76,8 +76,9 @@ IOSet::~IOSet(){}
    }
    void IOSet::DeepCopy(IOSet *a){
        assert(a !=NULL);
-         d.resize(a->Size());
-        for(int i=0; i < a->Size(); i++)
+       d.clear();
+       d.resize(a->Size());
+       for(int i=0; i < a->Size(); i++)
             d[i] = a->At(i);
         size = a->Size();
         id = a->Id();

@@ -15,7 +15,7 @@
 
 string inputFile="~";
 string queryFile="~";
-int numArgs=2;
+int numArgs=5;
 BasicPrefix la;
 IOSet *query;
 int queryDomain=-1;
@@ -146,7 +146,8 @@ int main(int argc, char** argv) {
    // }else{
        // cout<<"\nNO direct hit..."
          //   <<"\nUsing prefix tree....\n";
-        la.Qbbc_Prefix_Search(query);
+    vector<NCluster*> hits;
+        la.Qbbc(query,hits);
     //}
     cout<<"\n";
     return (EXIT_SUCCESS);

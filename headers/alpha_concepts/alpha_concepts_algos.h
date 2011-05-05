@@ -17,6 +17,8 @@
 #define	_ALPHA_CONCEPTS_ALGOS_H
 
 #include "../core/LatticeAlgos.h"
+#include "consistency.h"
+#include "dispersion.h"
 
 class AlphaConceptsAlgos : public LatticeAlgos{
 public:

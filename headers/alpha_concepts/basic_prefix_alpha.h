@@ -16,12 +16,30 @@ BasicPrefix():AlphaConceptsAlgos() {};
 
 
 
-//! Inteface for CHARM-like prefix tree search for the best alpha-concept that matches the query
+
+//! The QBBC algorithm for query based clustering
 /*!
  Functions assumes that the s,t, and K parameters of the class have been set.
 
     \param query the ids/indices of the query objects
-  
+    \param hits an initially empty vector of nclusters to hold the hit(s) (ie the result)
+
+ So far only works with alpha sigma consistency and range, but should increase later.
+ When changes are made, inidicate here what class variables must be set.
+
+*/
+
+
+void Qbbc(IOSet *query, vector<NCluster*> &hits);
+
+private :
+
+    //! Inteface for CHARM-like prefix tree search for the best alpha-concept that matches the query
+/*!
+ Functions assumes that the s,t, and K parameters of the class have been set.
+
+    \param query the ids/indices of the query objects
+
 
  So far only works with alpha sigma consistency and range, but should increase later.
  When changes are made, inidicate here what class variables must be set.
@@ -29,7 +47,6 @@ BasicPrefix():AlphaConceptsAlgos() {};
 */
 void Qbbc_Prefix_Search(IOSet *query);
 
-private :
 //! Compute alpha-semi concepts using basic prefix tree enumeration
  /*!
     \param prefix the index of objects in the prefix set
@@ -52,6 +69,8 @@ private :
  //! Compute the "Range Intersection" of two supporting sets
 /*!
  Sets the quality of supSetRslt to the average range all of supporting rows/columns
+ This function assumets
+  K,s,t parameters are already predefined by algorithm interface.
  
     \param supSet1: indicies or ids of first supporting set
     \param supSet2: indicies or ids of second supporting set
@@ -65,9 +84,44 @@ private :
                      );
 
 
+ //! Find the "Range Closure" of a prefix and supporting set
+ /*!
+  The closure is defined as the set of objects K[t] - prefix, that is
+  also consistent in the space K[c+Prefix,supSet]. So far implementation is relativley naive.
+
+  This function assumets
+  K,s,t parameters are already predefined by algorithm interface.
+
+  \param prefix the current prefix set of the bicluster K[prefix,supset]
+  \param supSet the current supporting set
+  \param minMax indicies of min and max values of each supporting set object in supSet
+ */
+ IOSet* Range_Closure(IOSet *prefix,IOSet *supSet, NCluster *minMax);
+
+ //! Given inital query objects, creates the prefix list,supporting sets and min-max indiices of those support sets for the prefix objects
+ /*!
+    This function assumets
+  K,s,t parameters are already predefined by algorithm interface.
+  \param query the  objects for which supporting sets and min-max indicies should be generated
+  \param prefix an initially empty list that will hold prefix objects after function exectuiton
+  \param supSets an initially empty list that will hold supporting sets after function exectuiton
+  \param minMax an intially empty list that will hold the min-max indicies after function execution
+  */
+ void Make_Init_SupSets_MinMaxIdxs(IOSet *prefix, list<IOSet*> &prefix, list<IOSet*> &supSets, list<NCluster*> &minMax);
+
+
+ //!Given query objects and their supporting sets calculates the min-max idxs
+ /*!
+   This function assumets
+  K,s,t parameters are already predefined by algorithm interface.
+  \param query the query objects
+  \param supSets the supporting set objects
+  */
+ NCluster * Get_Min_Max_Idxs(IOSet *query, IOSet *supSets);
+
  void Construct_First_Level(int k,
-                     list<IOSet *> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
-                    list<IOSet *> &newTail, list<IOSet *> &newTailSupSet, list<NCluster *> &newTailMinMax );
+                         list<IOSet *> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
+                         list<IOSet *> &newTail, list<IOSet *> &newTailSupSet, list<NCluster *> &newTailMinMax );
 };
 #endif	/* BASIC_PREFIX_H */
 
