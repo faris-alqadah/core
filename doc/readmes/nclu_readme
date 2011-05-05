@@ -1,14 +1,5 @@
-Follow these steps to run nclu:
+To see synopsis of the program run ./bin/nclu
 
-1) Make sure you are on a linux / mac / unix box
-2) unzip / uncompress the file
-3) run make clean
-4) run make
-5) If there are any errors (there should not be!) email me! faris.alqadah@gmail.com
-
-6) You are ready to use the program (./nclu), below is a detailed explanation of running options, input format and an example run
-
-You can also see the relevant options by running ./nclu
 
 REQUIRED ARGUMENTS:
 -i <inputFile>:
@@ -133,7 +124,9 @@ num_atts.fimi:
 0 1
 0 2 4
 0 1
+###
 
+Note: notice the ### at the end of the FIMI file. Add this to the end of the file to denote the end of the FIMI file.
 BEWARE OF:
  1) CR characters from windows files! User must remove these
  2) Extra white lines or LF at the end of any of the files. The program
@@ -142,6 +135,7 @@ BEWARE OF:
  4) To specify a context in the input file, the same domain names specified in the input file
  	in the top lines must be used again to specify the context.
  5) The order of the domains when specifying a context matters (as described above).
+
  
  SAMPLE RUN OF NCLU:
  
