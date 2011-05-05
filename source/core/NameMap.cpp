@@ -1,6 +1,6 @@
 #include <fstream>
 
-#include "../headers/NameMap.h"
+#include "../../headers/core/NameMap.h"
 
 NameMap::NameMap(){}
 

@@ -5,7 +5,7 @@
 #define	HELPERS_H
 
 
-#include "../RContext.h"
+#include "../core/RContext.h"
 #include "../../headers/alpha_concepts/dispersion.h"
 
 //! Constructs the paramater vector  for the alpha sigma consistency function

@@ -7,7 +7,7 @@
 #ifndef RSET_H
 #define	RSET_H
 
-#include "../headers/IOSet.h"
+#include "IOSet.h"
 class RSet {
 public:
 

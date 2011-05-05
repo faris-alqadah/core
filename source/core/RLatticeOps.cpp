@@ -1,4 +1,4 @@
-#include "../headers/RLatticeOps.h"
+#include "../../headers/core/RLatticeOps.h"
 
 IOSet *Prime_Alpha_Naive(RContext *K, IOSet *query, int s, int t,double alpha, 
                          double(*d)(RSet*,vector<double> &),double(*f)(RSet*,vector<double> &),

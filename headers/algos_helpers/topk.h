@@ -2,8 +2,8 @@
 //! Helper functions for keeping track of the top K clusters during an enumeration algorithm
 
 
-#include "../RelationGraph.h"
-#include "../Ops.h"
+#include "../core/RelationGraph.h"
+#include "../core/Ops.h"
 #include "basic.h"
 //! Retains the top K clusters by checking for overlapping clusters then keeping the higher quality cluster if overlap occurs
 /*!

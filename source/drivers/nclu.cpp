@@ -1,21 +1,14 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2009
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *  Simple driver program to test the core libraries 
- *
- *
- *
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
+/*!
+ Author: Faris Alqadah
+ Driver program for the nclu algorithm
+
+
+ */
 
 #include <stdlib.h>
 
-#include "../../headers/Timing.h"
-#include "../../headers/PreProcess.h"
+#include "../../headers/core/Timing.h"
+#include "../../headers/core/PreProcess.h"
 #include "../../headers/nclusters/berry.h"
 
 

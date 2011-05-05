@@ -16,7 +16,7 @@
 #ifndef _ALPHA_CONCEPTS_ALGOS_H
 #define	_ALPHA_CONCEPTS_ALGOS_H
 
-#include "../LatticeAlgos.h"
+#include "../core/LatticeAlgos.h"
 
 class AlphaConceptsAlgos : public LatticeAlgos{
 public:

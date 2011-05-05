@@ -4,8 +4,8 @@
 
 
 #include "RContext.h"
-#include "../headers/alpha_concepts/dispersion.h"
-#include "../headers/alpha_concepts/consistency.h"
+#include "../alpha_concepts/dispersion.h"
+#include "../alpha_concepts/consistency.h"
 
 
 

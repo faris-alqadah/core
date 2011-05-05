@@ -1,4 +1,4 @@
-#include "../headers/OpsR.h"
+#include "../../headers/core/OpsR.h"
 
 
 NRCluster *TransposeSparse(NRCluster *a){

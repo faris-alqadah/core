@@ -7,7 +7,7 @@
 #ifndef NRCLUSTER_H
 #define	NRCLUSTER_H
 
-#include "../headers/RSet.h"
+#include "RSet.h"
 
 
 using namespace std;

@@ -8,8 +8,8 @@
 #ifndef CONSISTENCY_H
 #define	CONSISTENCY_H
 
-#include "../RContext.h"
-#include "../OpsR.h"
+#include "../core/RContext.h"
+#include "../core/OpsR.h"
 #include <cmath>
 
 //! Computes the alpha-sigma consistency function (see "Query-based Bi-clustering with real-valued concept lattices")

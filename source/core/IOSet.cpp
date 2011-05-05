@@ -1,4 +1,4 @@
-#include "../headers/IOSet.h"
+#include "../../headers/core/IOSet.h"
 
 IOSet::IOSet(){
     size=0;

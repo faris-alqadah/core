@@ -1,17 +1,5 @@
-/*______________________________________________________________________________
- _______________________________________________________________________________
- *@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- * Author: Faris Alqadah, Copyright 2008
- * This program is available for only academic use. Commercial use is not allowed.
- * Modification and re-distribution is permited only for academic use.
- * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
- *  Represent a context from Formal Concept Analysis
- *
- *
- *
- *______________________________________________________________________________
- *_____________________________________________________________________________*/
-#include "../headers/LatticeOps.h"
+
+#include "../../headers/core/LatticeOps.h"
 
 
 

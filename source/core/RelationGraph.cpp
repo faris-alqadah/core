@@ -1,4 +1,4 @@
-#include"../headers/RelationGraph.h"
+#include"../../headers/core/RelationGraph.h"
 
 RelationGraph::RelationGraph() {
 }

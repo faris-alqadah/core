@@ -9,8 +9,8 @@
 #ifndef DISPERSION_H
 #define	DISPERSION_H
 
-#include "../RContext.h"
-#include "../OpsR.h"
+#include "../core/RContext.h"
+#include "../core/OpsR.h"
 #include <cmath>
 
 //! Returns the range of the NRCluster

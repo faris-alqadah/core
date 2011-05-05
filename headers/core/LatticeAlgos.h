@@ -19,8 +19,8 @@
 
 #include "LatticeOps.h"
 #include "RLatticeOps.h"
-#include "./algos_helpers/basic.h"
-#include "./algos_helpers/topk.h"
+#include "../algos_helpers/basic.h"
+#include "../algos_helpers/topk.h"
 #include "QualityMeasures.h"
 
 #include<fstream>

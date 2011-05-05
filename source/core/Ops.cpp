@@ -1,5 +1,5 @@
 
-#include "../headers/Ops.h"
+#include "../../headers/core/Ops.h"
 
 
 int numIntersection=0;

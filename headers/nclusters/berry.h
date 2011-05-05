@@ -11,7 +11,7 @@
 #ifndef BERRY_H
 #define	BERRY_H
 
-#include "../LatticeAlgos.h"
+#include "../core/LatticeAlgos.h"
 class BerryLatticeAlgos : public LatticeAlgos{
 public:
 BerryLatticeAlgos():LatticeAlgos() {};

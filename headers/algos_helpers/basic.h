@@ -7,7 +7,7 @@
 #ifndef BASIC_H
 #define	BASIC_H
 
-#include "../RelationGraph.h"
+#include "../core/RelationGraph.h"
 
 
 

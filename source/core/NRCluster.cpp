@@ -1,4 +1,4 @@
-#include "../headers/NRCluster.h"
+#include "../../headers/core/NRCluster.h"
     NRCluster::NRCluster(){
         n=0;
         sets.resize(0);

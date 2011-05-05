@@ -6,10 +6,10 @@
 
 #include <stdlib.h>
 
-#include "../../headers/Timing.h"
-#include "../../headers/PreProcess.h"
+#include "../../headers/core/Timing.h"
+#include "../../headers/core/PreProcess.h"
 #include "../../headers/alpha_concepts/basic_prefix_alpha.h"
-#include "../../headers/RLatticeOps.h"
+#include "../../headers/core/RLatticeOps.h"
 #include "../../headers/alpha_concepts/helpers.h"
 
 
