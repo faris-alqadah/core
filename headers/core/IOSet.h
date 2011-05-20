@@ -52,6 +52,8 @@ public:
     void Output();
     //! Prints contents of the IOSet as space sperated intergers to ofstream
     void Output(ofstream& f);
+      //! Prints contents of the IOSet as space sperated names to std stream using namemap to map the integers to names
+    void Output(NameMap *n);
     //! Prints contents of the IOSet as space sperated names to ofstream using namemap to map the integers to names
     void Output(ofstream &f, NameMap *n);
    //! Adds integer x to the end of the IOSet, increasing the size of the IOSet

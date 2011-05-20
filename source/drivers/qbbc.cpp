@@ -15,6 +15,7 @@
 
 string inputFile="~";
 string queryFile="~";
+string outFile="~";
 int numArgs=5;
 BasicPrefix la;
 IOSet *query;
@@ -30,6 +31,7 @@ void DisplayUsage(){
         <<"\nOPTIONAL: "
         <<"\n-alpha <alpha value> (default is 1.0)"
         <<"\n-c <consistency function> 1- alpha_sigma 2- max_space_uniform (default is 1)"
+        <<"\n-o <output file path>"
         <<"\n\n";
     exit(1);
 }
@@ -62,6 +64,9 @@ void CheckArguments(){
     }
     la.dispersionFunction=&Range;
     cout<<"\ninput file: "<<inputFile<<"\nquery file: "<<queryFile<<"\nalpha: "<<la.alpha<<"\nconsistency mode: "<<la.consistencyMode;
+    if(outFile != "~"){
+        cout<<"\nOutput file: "<<outFile;
+    }
     cout<<"\n"<<endl;
 }
 
@@ -82,6 +87,9 @@ void ProcessCmndLine(int argc, char ** argv){
            }
            if(temp == "-c"){
                la.consistencyMode = atoi(argv[++i]);
+           }
+           if(temp == "-o"){
+               outFile=argv[++i];
            }
         }
     }
@@ -127,6 +135,21 @@ void OutputStats(){
     outStat.close();
 
 }
+void OutputFile(vector<NCluster*> &hits){
+    //output each hit to a file
+    for(int i=0; i < hits.size();i++){
+         std::stringstream ss;
+         ss << i;
+         string fileName1 = outFile+"."+ss.str()+".idxs";
+         string fileName2 = outFile+"."+ss.str()+".names";
+         ofstream outF1(fileName1.c_str());
+         ofstream outF2(fileName2.c_str());
+         hits[i]->Output(outF1);
+         hits[i]->GetSetById(la.s)->Output(outF2,la.K->GetNameMap(la.s));
+         outF1.close();
+         outF2.close();
+    }
+}
 
 int main(int argc, char** argv) {
     ProcessCmndLine(argc,argv);
@@ -139,16 +162,10 @@ int main(int argc, char** argv) {
     la.t=otherDomain;
     cout<<"\nGot query with "<<query->Size()<<" objects...."
         <<"\nTesting for exact hit.....\n";
-    //IOSet *initRslt = Prime_Alpha_Naive(la.K,query,la.s,la.t,la.alpha, la.dispersionFunction,la.consistencyFunction,la.paramFunction);
-    //if(initRslt->Size() > 0 ){
-   //     cout<<"\nGOT DIRECT HIT!!\n";
-   //     initRslt->Output();
-   // }else{
-       // cout<<"\nNO direct hit..."
-         //   <<"\nUsing prefix tree....\n";
     vector<NCluster*> hits;
-        la.Qbbc(query,hits);
-    //}
+    la.Qbbc(query,hits);
+    if(outFile != "~")
+        OutputFile(hits);
     cout<<"\n";
     return (EXIT_SUCCESS);
 }

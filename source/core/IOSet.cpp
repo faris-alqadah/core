@@ -37,6 +37,13 @@ IOSet::~IOSet(){}
             if(i != size-1) out<<" ";
        }
    }
+   void IOSet::Output(NameMap *nm){
+       for(int i=0; i < size; i++){
+            cout<<nm->GetName(d[i]);
+            if (i != size -1)
+                cout<<"\t";
+       }
+   }
    void IOSet::Output(ofstream& out, NameMap* nm){
         for(int i=0; i < size; i++){
             out<<nm->GetName(d[i]);
