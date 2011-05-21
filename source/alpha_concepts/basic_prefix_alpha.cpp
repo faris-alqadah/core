@@ -20,7 +20,7 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
             delete closure;
             delete minMax;
             //if closure is not a superset of query attempt to include more objects via top neighbors
-            if(Contains(origQuery,bicluster->GetSetById(s))){
+           // if(Contains(origQuery,bicluster->GetSetById(s))){
                 //best upper neighbor
                 cout<<"\nInitial hit: \n";
                 bicluster->Output();
@@ -29,28 +29,31 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
                  vector<NCluster*> *neighbors = Charm_UpperNeighbors(bicluster->GetSetById(s),bicluster->GetSetById(t), minMaxN);
                  //select best neighbor as least distortion
                  if (neighbors->size() > 0){
-                     int idxBest=0;
-                     double bestDist=100;
                      for(int i =0; i < neighbors->size(); i++){
                          NCluster *currNeighbor = neighbors->at(i);
                          currNeighbor->GetSet(0)->SetId(s);
                          currNeighbor->GetSet(1)->SetId(t);
-                         IOSet *diffT = Difference(bicluster->GetSetById(t),currNeighbor->GetSetById(t));
-                         IOSet *diffS = Difference(currNeighbor->GetSetById(s),bicluster->GetSetById(s));
-                         NCluster *sub = new NCluster;
-                         sub->AddSet(diffS);
-                         sub->GetSet(0)->SetId(s);
-                         sub->AddSet(new IOSet(bicluster->GetSetById(t)));
-                         sub->GetSet(1)->SetId(t);
-                         double dist = Distortion(sub,diffT,K,s,t);
-                         if(dist < bestDist){
-                             bestDist = dist;
-                             idxBest = i;
-                         }
+                         double dist = Distortion(bicluster->GetSetById(s),currNeighbor->GetSetById(s),
+                                                  bicluster->GetSetById(t),currNeighbor->GetSetById(t),K,s,t);
+                         currNeighbor->SetQuality(-1*dist);
                      }
-                     bicluster->AssignSetById(s,neighbors->at(idxBest)->GetSetById(s));
+                     sort(neighbors->begin(),neighbors->end(),Compare_Quality_NCluster);
+                     int kk = neighbors->size() < 20 ? neighbors->size() : 20;
+                     IOSet *uu = new IOSet(bicluster->GetSetById(s));
+                     for(int i=0; i < kk; i++){
+                          IOSet *tmp = uu;
+                          uu = Union(neighbors->at(i)->GetSetById(s),uu);
+                          delete tmp;
+                     }
+                     uu->SetId(s);
+                     //delete all neighbors
+                     for(int i =0; i < neighbors->size(); i++)
+                         delete neighbors->at(i);
+                     delete neighbors;
+                     bicluster->AssignSetById(s,uu);
+                     
                  }
-            }
+            //}
             IOSet *tmp = query;
             query= Difference(query,bicluster->GetSetById(s));
             delete tmp;
@@ -83,13 +86,13 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
     //allPfx->SortSets();
     //setup algorithm parameters
     enumerationMode = ENUM_TOPK_MEM;//only looking for the top hit
-    topKK = query->Size(); //only one top hit
+    topKK = 1; //only one top hit
     ovlpMode = AVG_JACCARD;  //overlap function will not really be used...but set it anyway
     ovlpFunction = &GreaterEqualSize; //overlap function will not really be used...but set it anyway
     params.push_back(query->Size()); //set the params for use with the quality function...the quality function is fraction of query*avg_range
     qualityFunction = &Imperfect_Query_Quality;
     PRUNE_SIZE_VECTOR.resize(2);   // make the prune size vector (at least 2 elements from each domain must be enumerated)
-    PRUNE_SIZE_VECTOR[0] =2; PRUNE_SIZE_VECTOR[1]=2;
+    PRUNE_SIZE_VECTOR[0] =1; PRUNE_SIZE_VECTOR[1]=1;
     //now iterate again this time generating supporting sets and passing onto main algorithm
     int i=0;
     for(list<IOSet*>::iterator it = allPfx.begin(); it != allPfx.end(); i++){
@@ -185,6 +188,8 @@ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
      list<NCluster*> minMaxIdxs; //store the idxs of the maximum and minimum elements
      list<IOSet*> supportSets;
      Make_Init_SupSets_MinMaxIdxs(otherObjs,allPfx,supportSets,minMaxIdxs);
+
+     list<IOSet*>::iterator allPfxIt = allPfx.begin();
      list<IOSet*>::iterator supSetIt = supportSets.begin();
      list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
      for(int i=0; i < otherObjs->Size(); i++){
@@ -202,11 +207,7 @@ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
                  list<IOSet*> supportSets1;
                  Make_Init_SupSets_MinMaxIdxs(otherObjs1,allPfx1,supportSets1,minMaxIdxs1);
                  pfx->Sort();
-               //  cout<<"\n#";
-                // pfx->Output();
                  IOSet *closure =Charm_Closure(pfx,supSetRslt,minMaxRslt,allPfx1,supportSets1,minMaxIdxs1);
-               //  cout<<"\nafter closure";
-                // closure->Output();
                  NCluster *bicluster = new NCluster;
                  bicluster->AddSet(closure);
                  bicluster->AddSet(new IOSet(supSetRslt));
@@ -219,9 +220,12 @@ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
              delete pfx;
              delete (*supSetIt);
              delete (*minMaxIt);
+             delete (*allPfxIt);
              supSetIt =  RemoveFromList(supportSets,supSetIt);
-              minMaxIt =  RemoveFromList(minMaxIdxs,minMaxIt);
+             minMaxIt =  RemoveFromList(minMaxIdxs,minMaxIt);
+             allPfxIt =  RemoveFromList(allPfx,allPfxIt);
      }
+     delete otherObjs;
      return neighbors;
       
         
@@ -278,13 +282,10 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                       delete supSetRslt;
                       delete minMaxRslt;
                       //increment iterators
+                      delete (*tailItC); delete (*tailSupItC); delete (*minMaxItC);
                       tailItC++; tailSupItC++; minMaxItC++;
                    }
-                  // cout<<"\ncurr prefix: \t"; ret->Output();
                 }
-               // cout<<"\nDONE\n";
-               // ret->Output();
-              //  cout<<"\nDONE\n";
   }
 
  void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
@@ -418,7 +419,7 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                 tailSupIt = RemoveFromList(tailSupSet,tailSupIt);
                 minMaxIt = RemoveFromList(tailMinMax,minMaxIt);
                 //check for different output modes
-                if(enumerationMode == ENUM_TOPK_MEM){
+                if(enumerationMode == ENUM_TOPK_MEM && bicluster->GetSet(1)->Size() > PRUNE_SIZE_VECTOR[1]){
                         SetQuality(bicluster,params,qualityFunction);
                         RetainTopK_Overlap(CONCEPTS,bicluster,ovlpFunction,ovlpThresh,topKK);
                 }

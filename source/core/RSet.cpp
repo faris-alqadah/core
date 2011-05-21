@@ -201,8 +201,17 @@ RSet::~RSet(){}
    double RSet::GetQuality(){return quality;}
 
    pair<int,double> RSet::GetMaxElement(){
-       if (size > 0)
-        return *max_element(vals.begin(),vals.begin()+size,comp_pair_vals_less);
+       if (size > 0){
+           pair<int,double> maxE = vals[0];
+           double maxVal = maxE.second;
+           for(int i=1; i < size; i++){
+               if(vals[i].second > maxVal){
+                   maxVal = vals[i].second;
+                   maxE = vals[i];
+               }
+           }
+           return maxE;
+       }
        else {
            pair<int,double> ret;
            ret.first=-1;
@@ -211,8 +220,17 @@ RSet::~RSet(){}
        }
    }
    pair<int,double> RSet::GetMinElement(){
-       if (size > 0)
-        return *min_element(vals.begin(),vals.begin()+size,comp_pair_vals_less);
+       if (size > 0){
+        pair<int,double> minE = vals[0];
+           double minVal = minE.second;
+           for(int i=1; i < size; i++){
+               if(vals[i].second < minVal){
+                   minVal = vals[i].second;
+                   minE = vals[i];
+               }
+           }
+           return minE;
+       }
        else {
            pair<int,double> ret;
            ret.first=-1;
@@ -227,7 +245,11 @@ RSet::~RSet(){}
        return -99999990999;
    }
   
-
+   double RSet::Mean(){
+       double accum=0;
+       for(int i=0; i < size; i++) accum += vals[i].second;
+       return accum/(double)size;
+   }
 double RSet::Variance(){
     double qi=0,q1=0,ai=0,a1=0,sz=size;
     for(double i=0.0; i < size; i++){

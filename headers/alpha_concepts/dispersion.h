@@ -36,7 +36,12 @@ double Range(RSet *a, vector<double> &params);
 double Imperfect_Query_Quality(NCluster *a, vector<double> &params);
 
 
-double Distortion(NCluster *full, IOSet *diff, RContext *k, int s, int t);
+double Distortion(IOSet *s1, IOSet *s2, IOSet *t1, IOSet *t2, RContext *k, int s, int t);
+
+double Std_Within(NCluster *a, RContext *k, int s, int t);
+
+double Std_Across(NCluster *a, RContext *k, int s, int t);
+
 #endif
 
 

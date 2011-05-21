@@ -22,6 +22,7 @@ IOSet *query;
 int queryDomain=-1;
 int otherDomain=-1;
 void(*paramFunction)(RContext *,IOSet *, int, int,int, vector<double> &);
+double queryQuality;
 
 void DisplayUsage(){
     cout<<"\nUSAGE: test -i input_file "
@@ -135,6 +136,15 @@ void OutputStats(){
     outStat.close();
 
 }
+double GetQueryQuality(IOSet *query){
+    //make the ncluster
+    NCluster *queryCluster = new NCluster;
+    queryCluster->AddSet(query);
+    queryCluster->AddSet(la.K->GetLabels(la.t));
+    queryCluster->GetSet(0)->SetId(la.s);
+    queryCluster->GetSet(1)->SetId(la.t);
+    queryQuality = Std_Across(queryCluster ,la.K, la.s, la.t)/Std_Within(queryCluster ,la.K, la.s, la.t);
+}
 void OutputFile(vector<NCluster*> &hits){
     //output each hit to a file
     for(int i=0; i < hits.size();i++){
@@ -144,7 +154,9 @@ void OutputFile(vector<NCluster*> &hits){
          string fileName2 = outFile+"."+ss.str()+".names";
          ofstream outF1(fileName1.c_str());
          ofstream outF2(fileName2.c_str());
+         hits[i]->SetQuality(Std_Across(hits[i] ,la.K, la.s, la.t)/Std_Within(hits[i] ,la.K, la.s, la.t));
          hits[i]->Output(outF1);
+         outF1<<"\n"<<queryQuality<<"\n"<<hits[i]->GetQuality();
          hits[i]->GetSetById(la.s)->Output(outF2,la.K->GetNameMap(la.s));
          outF1.close();
          outF2.close();
@@ -163,7 +175,9 @@ int main(int argc, char** argv) {
     cout<<"\nGot query with "<<query->Size()<<" objects...."
         <<"\nTesting for exact hit.....\n";
     vector<NCluster*> hits;
+    GetQueryQuality(query);
     la.Qbbc(query,hits);
+
     if(outFile != "~")
         OutputFile(hits);
     cout<<"\n";
