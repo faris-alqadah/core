@@ -16,8 +16,10 @@ void Construct_MaxSpaceUniform_Params(RContext* K, IOSet* query, int s, int t, i
     assert(params.size()==1);
     pair<int,int> dIds = K->GetDomainIds();
     assert(s == dIds.first || s == dIds.second);
-    params.push_back((double)K->GetLabels(t)->Size()); //size of <b>M</b>
+    params.push_back((double)K->GetNumSets(t)); //size of <b>M</b>
     vector<double> rangeParams;
-    params.push_back(Range(K->GetSet(t,tRow),rangeParams)); //range of full row/column <b>M</b>
+    RSet *sset = K->GetSet(t,tRow);
+    double rr = Range(sset,rangeParams);
+    params.push_back(rr); //range of full row/column <b>M</b>
     params.push_back(query->GetQuality());
 }

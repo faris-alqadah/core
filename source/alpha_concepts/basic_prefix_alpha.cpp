@@ -9,9 +9,13 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
         if (CONCEPTS.size() > 0){
             bool gotAll = CONCEPTS[0]->GetSetById(s)->Size() == query->Size(); //were all query objects retrieved
             //find closure
+
+           // cout<<"\ngetting min max...";
             NCluster *minMax = Get_Min_Max_Idxs(CONCEPTS[0]->GetSetById(s),CONCEPTS[0]->GetSetById(t));
             NCluster *bicluster = CONCEPTS[0];
+           // cout<<"\ngetting closure...\n";
             IOSet *closure = Range_Closure(bicluster->GetSetById(s),bicluster->GetSetById(t),minMax);
+           // cout<<"\ndone\n";
             if(closure->Size() > bicluster->GetSetById(s)->Size()){
                 IOSet *closureUnion = Union(bicluster->GetSetById(s),closure);
                 closureUnion->SetId(s);
@@ -24,9 +28,10 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
                 //best upper neighbor
                 cout<<"\nInitial hit: \n";
                 bicluster->Output();
+                cout.flush();
                 cout<<"\nshould get neighbors here...got these";
                  NCluster *minMaxN = Get_Min_Max_Idxs(bicluster->GetSetById(s),bicluster->GetSetById(t));
-                 cout<<"\nGot min max...\n";
+                // cout<<"\nGot min max...\n";
                  vector<NCluster*> *neighbors = Charm_UpperNeighbors(bicluster->GetSetById(s),bicluster->GetSetById(t), minMaxN);
                  //select best neighbor as least distortion
                  if (neighbors->size() > 0){
@@ -39,7 +44,7 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
                          currNeighbor->SetQuality(-1*dist);
                      }
                      sort(neighbors->begin(),neighbors->end(),Compare_Quality_NCluster);
-                     int kk = neighbors->size() < 20 ? neighbors->size() : 20;
+                     int kk = neighbors->size() < 5 ? neighbors->size() : 5;
                      IOSet *uu = new IOSet(bicluster->GetSetById(s));
                      for(int i=0; i < kk; i++){
                           IOSet *tmp = uu;
@@ -103,20 +108,24 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
         Construct_First_Level(i,allPfx,supportSets,minMaxIdxs,newTail,newTailSupSets,newTailMinMax);
         Enumerate_Charm(newTail,newTailSupSets,newTailMinMax);
         it++;
+       i++;
     }
-
     if(CONCEPTS.size() > 0){
         sort(CONCEPTS.begin(),CONCEPTS.end(),Compare_Quality_NCluster);
+        cout.flush();
         for(int i=0; i < CONCEPTS.size(); i++){
             CONCEPTS[i]->GetSet(0)->SetId(s);
             CONCEPTS[i]->GetSet(1)->SetId(t);
         }
+        CONCEPTS[0]->Output();
     }
 }
 
 void BasicPrefix::Make_Init_SupSets_MinMaxIdxs(IOSet *query, list<IOSet*> &prefix,list<IOSet*> &supSets, list<NCluster*> &minMax){
-     for(int i=0; i < query->Size(); i++){
+    for(int i=0; i < query->Size(); i++){
         //make prefix node
+        //cout<<"\ni"<<i;
+        //cout.flush();
         IOSet *prefixx = new IOSet;
         RSet *currCol = K->GetSet(s,query->At(i));
         prefixx->Add(query->At(i));
@@ -161,6 +170,7 @@ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
      list<IOSet*>::iterator supSetIt = supportSets.begin();
      list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
      for(int i=0; i < otherObjs->Size(); i++){
+         cout.flush();
          if((*supSetIt)->Size() >= supSet->Size()){
              IOSet *supSetRslt = new IOSet;
              NCluster *minMaxRslt = new NCluster;
@@ -195,7 +205,8 @@ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
      list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
      for(int i=0; i < otherObjs->Size(); i++){
              IOSet *pfx = new IOSet(prefix);
-             cout<<"\nform neighbors\n";
+             //cout<<"\nneighbor "<<i<<" of "<<otherObjs->Size()<<"\n";
+             //cout.flush();
              IOSet *supSetRslt = new IOSet;
              NCluster *minMaxRslt = new NCluster;
              Range_Intersect(supSet,(*supSetIt),minMax,(*minMaxIt),supSetRslt,minMaxRslt);
@@ -213,7 +224,7 @@ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
                  bicluster->AddSet(closure);
                  bicluster->AddSet(new IOSet(supSetRslt));
                  neighbors->push_back(bicluster);
-                 cout<<"\nneighbors size: "<<neighbors->size();
+                // cout<<"\nneighbors size: "<<neighbors->size();
                  delete otherObjs1;
              }
              //delete and increment iterator
@@ -244,6 +255,7 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                     NCluster* minMaxRslt = new NCluster;
                     //first perform intersection then all cases follow
                     Range_Intersect(currSupSet,(*tailSupItC),currMinMax,(*minMaxItC),supSetRslt,minMaxRslt);
+               
                     //now implement each case....
                     if (supSetRslt->Size() > PRUNE_SIZE_VECTOR[1]){
                       if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()){
@@ -256,7 +268,7 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                           tailItC = RemoveFromList( tail, tailItC);
                           tailSupItC = RemoveFromList(tailSupSet,tailSupItC);
                           minMaxItC = RemoveFromList(tailMinMax,minMaxItC);
-                          cout<<"\ncase1";
+                         // cout<<"\ncase1";
 
                       }else if(supSetRslt->Size() == currSupSet->Size() ){
                         //update the curr prefix
@@ -266,7 +278,7 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                           delete (*tailItC); delete (*tailSupItC); delete (*minMaxItC);
                           //increment iterators
                           tailItC++; tailSupItC++; minMaxItC++;
-                          cout<<"\ncase2";
+                         // cout<<"\ncase2";
                          // cout<<"\ncase2";
                       }else if(supSetRslt->Size() == (*tailSupItC)->Size() ){
                          //update the current tail and supporting sets
@@ -274,12 +286,12 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                           tailItC = RemoveFromList( tail, tailItC);
                           tailSupItC = RemoveFromList(tailSupSet,tailSupItC);
                           minMaxItC = RemoveFromList(tailMinMax,minMaxItC);
-                         cout<<"\ncase3";
+                         //cout<<"\ncase3";
 
                       }else{
                            delete (*tailItC); delete (*tailSupItC); delete (*minMaxItC);
                           tailItC++; tailSupItC++; minMaxItC++;
-                          cout<<"\ncase4";
+                         // cout<<"\ncase4";
                       }
                       delete supSetRslt;
                       delete minMaxRslt;
@@ -337,6 +349,7 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
 }
 
   void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax){
+                    if(tail.size() == 0 ){ return;}
       list<IOSet*>::iterator tailIt = tail.begin();
       list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
       list<NCluster*>::iterator minMaxIt = tailMinMax.begin();
@@ -352,11 +365,17 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                 list<IOSet*>::iterator tailSupItC =tailSupIt ;
                 list<NCluster*>::iterator minMaxItC = minMaxIt;
                 tailItC++; tailSupItC++; minMaxItC++;
+               // cout<<"\nin outer loop before inner...\n";
+               // cout<<"\n";
                 while(tailItC != tail.end()){
                     IOSet *supSetRslt = new IOSet;
                     NCluster* minMaxRslt = new NCluster;
                     //first perform intersection then all cases follow
+                    //cout<<"\nin charm doing intersect...";
+                    //cout<<"\n";
                     Range_Intersect(currSupSet,(*tailSupItC),currMinMax,(*minMaxItC),supSetRslt,minMaxRslt);
+                   // cout<<"\nfinished intersect....";
+                    //cout<<"\n";
                     //now implement each case....
                     if (supSetRslt->Size() > PRUNE_SIZE_VECTOR[1]){
                       if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()){
@@ -371,7 +390,7 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                           minMaxItC = RemoveFromList(tailMinMax,minMaxItC);
                           delete supSetRslt;
                           delete minMaxRslt;
-                        //  cout<<"\ncase1";
+                         //cout<<"\ncase1";
 
                       }else if(supSetRslt->Size() == currSupSet->Size() ){
                         //update the curr prefix
@@ -382,7 +401,6 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                           delete minMaxRslt;
                           //increment iterators
                           tailItC++; tailSupItC++; minMaxItC++;
-                         // cout<<"\ncase2";
                       }else if(supSetRslt->Size() == (*tailSupItC)->Size() ){
                           //add to new tail
                           newTail.push_back(Union(currPrefix,(*tailItC)));
@@ -400,22 +418,30 @@ IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster
                            newTail.push_back(Union(currPrefix,(*tailItC)));
                            newTailSupSets.push_back(supSetRslt);
                            newTailMinMax.push_back(minMaxRslt);
-                         //   cout<<"\ncase4";
+                           // cout<<"\ncase4";
                           //increment iterators
                           tailItC++; tailSupItC++; minMaxItC++;
                       }
                    }else{
                       delete supSetRslt;
                       delete minMaxRslt;
+                    //  cout<<"\nnone...";
                       //increment iterators
                       tailItC++; tailSupItC++; minMaxItC++;
                    }
                 }
                 //-------------END CHARM OPTIMIZATION---------------------------
                 //the current tail(i) and its support set should constitute a new bi-cluster
-                NCluster *bicluster = new NCluster;
-                bicluster->AddSet(new IOSet(currPrefix));
-                bicluster->AddSet( new IOSet(currSupSet));
+                 NCluster *bicluster = new NCluster;
+                if (currPrefix->Size() > 1 && currSupSet->Size() > 1){
+                   
+                    bicluster->AddSet(new IOSet(currPrefix));
+                    bicluster->AddSet( new IOSet(currSupSet));
+                }else{
+                    bicluster->AddSet(new IOSet());
+                    bicluster->AddSet( new IOSet());
+                }
+
                 //remove the current prefix,support set, and indicies and advance pointers to next element in tail
                 delete currPrefix;
                 delete currSupSet;
