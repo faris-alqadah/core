@@ -18,7 +18,7 @@ NameMap::NameMap(string &_fileName){
     string line;
     while (!myfile.eof()){
         getline(myfile, line);
-        if(myfile.eof()) break;
+        if(line == "###") break;
         mapping.push_back(line);
         lineNum++;
         numEntries++;
@@ -34,7 +34,7 @@ NameMap::NameMap(string &_fileName){
   }
 }
 string NameMap::GetName(unsigned int x){
-    assert ( x < numEntries);
+    assert ( x < mapping.size());
         return mapping[x];
 
 

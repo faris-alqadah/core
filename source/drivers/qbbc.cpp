@@ -143,7 +143,7 @@ double GetQueryQuality(IOSet *query){
     queryCluster->AddSet(la.K->GetLabels(la.t));
     queryCluster->GetSet(0)->SetId(la.s);
     queryCluster->GetSet(1)->SetId(la.t);
-    queryQuality = Std_Across(queryCluster ,la.K, la.s, la.t)/Std_Within(queryCluster ,la.K, la.s, la.t);
+    queryQuality = Mean_Square_Error(queryCluster ,la.K, la.s, la.t);
 }
 void OutputFile(vector<NCluster*> &hits){
     //output each hit to a file
@@ -154,7 +154,8 @@ void OutputFile(vector<NCluster*> &hits){
          string fileName2 = outFile+"."+ss.str()+".names";
          ofstream outF1(fileName1.c_str());
          ofstream outF2(fileName2.c_str());
-         hits[i]->SetQuality(Std_Across(hits[i] ,la.K, la.s, la.t)/Std_Within(hits[i] ,la.K, la.s, la.t));
+         //hits[i]->SetQuality(Std_Across(hits[i] ,la.K, la.s, la.t)/Std_Within(hits[i] ,la.K, la.s, la.t));
+         hits[i]->SetQuality(Mean_Square_Error(hits[i] ,la.K, la.s, la.t));
          hits[i]->Output(outF1);
          outF1<<"\n"<<queryQuality<<"\n"<<hits[i]->GetQuality();
          hits[i]->GetSetById(la.s)->Output(outF2,la.K->GetNameMap(la.s));

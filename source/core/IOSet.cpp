@@ -33,7 +33,7 @@ IOSet::~IOSet(){}
    void IOSet::Output(ofstream& out){
        assert(out.is_open());
        for(int i=0; i < size; i++){
-            out<<d[i]+1;
+            out<<d[i];
             if(i != size-1) out<<" ";
        }
    }

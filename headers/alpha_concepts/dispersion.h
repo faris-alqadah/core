@@ -42,6 +42,8 @@ double Std_Within(NCluster *a, RContext *k, int s, int t);
 
 double Std_Across(NCluster *a, RContext *k, int s, int t);
 
+double Mean_Square_Error(NCluster *a, RContext *k, int s, int t);
+
 #endif
 
 

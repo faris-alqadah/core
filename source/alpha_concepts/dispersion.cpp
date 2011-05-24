@@ -86,3 +86,54 @@ double Std_Across(NCluster *a, RContext *k, int s, int t){
     }
     return sqrt(sw/(c));
 }
+
+double Mean_Square_Error(NCluster *a, RContext *k, int s, int t){
+    IOSet *cols = a->GetSetById(s);
+    IOSet *rows = a->GetSetById(t);
+    double sum=0;
+    double cnt=0;
+    vector<double> rowMeans(k->GetNumSets(t));
+    vector<double> colMeans(k->GetNumSets(s));
+    double allMean;
+    //get col means
+    double meanTotal=0;
+    for(int i=0; i < cols->Size(); i++){
+        RSet *fullCol = k->GetSet(s,cols->At(i));
+
+        IOSet *idxs = Intersect(fullCol->GetIdxs(),rows);
+        double lclSum=0;
+        for(int j=0; j < idxs->Size(); j++) {
+            lclSum += fullCol->At(fullCol->GetIndexPtr(idxs->At(j))).second;
+            meanTotal += fullCol->At(fullCol->GetIndexPtr(idxs->At(j))).second;
+            cnt++;
+        }
+        colMeans[cols->At(i)]=lclSum/(double) idxs->Size();
+    }
+    //get row means
+    for(int i=0; i < rows->Size(); i++){
+        RSet *fullRow = k->GetSet(s,rows->At(i));
+        IOSet *idxs = Intersect(fullRow->GetIdxs(),cols);
+        double lclSum=0;
+        for(int j=0; j < idxs->Size(); j++) {
+            lclSum += fullRow->At(fullRow->GetIndexPtr(idxs->At(j))).second;
+            meanTotal += fullRow->At(fullRow->GetIndexPtr(idxs->At(j))).second;
+            cnt++;
+        }
+        rowMeans[rows->At(i)]=lclSum/(double) idxs->Size();
+    }
+    //get full mean
+    allMean = meanTotal/cnt;
+    //compute as in formula
+    for(int i=0; i < rows->Size(); i++){
+        RSet *fullRow = k->GetSet(s,rows->At(i));
+        IOSet *idxs = Intersect(fullRow->GetIdxs(),cols);
+        for(int j=0; j < idxs->Size(); j++) {
+            sum += pow( fullRow->At(fullRow->GetIndexPtr(idxs->At(j))).second- rowMeans[rows->At(i)] - colMeans[idxs->At(j)]+allMean,2);
+        }
+            
+        
+    }
+    return sum/cnt;
+
+
+}
