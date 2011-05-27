@@ -138,9 +138,8 @@ void BasicPrefix::Make_Init_SupSets_MinMaxIdxs(IOSet *query, list<IOSet*> &prefi
         for(int j=0; j < supSets.back()->Size();j++){
             IOSet *mm = new IOSet;
             RSet *theRow = K->GetSet(t,supSets.back()->At(j));
-            int idxPtr=theRow->GetIndexPtr(query->At(i));
-            mm->Add(idxPtr); //just adding index of query object at this point since only single object
-            mm->Add(idxPtr); //this is true for both max and min
+            mm->Add(query->At(i)); //just adding index of query object at this point since only single object
+            mm->Add(query->At(i)); //this is true for both max and min
             mm->SetId(supSets.back()->At(j));
             minMax.back()->AddSet(mm);
         }
@@ -170,7 +169,6 @@ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
      list<IOSet*>::iterator supSetIt = supportSets.begin();
      list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
      for(int i=0; i < otherObjs->Size(); i++){
-         cout.flush();
          if((*supSetIt)->Size() >= supSet->Size()){
              IOSet *supSetRslt = new IOSet;
              NCluster *minMaxRslt = new NCluster;

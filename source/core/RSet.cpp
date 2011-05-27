@@ -6,13 +6,12 @@ RSet::RSet(){
     marked=false;
     quality=-1;
 }
-RSet::RSet(int sz){
-    size = sz;
-    id=-1;
-    marked=false;
-    vals.resize(sz);
-    quality=-1;
-}
+//RSet::RSet(int sz){
+//    size = sz;
+//    id=-1;
+//    marked=false;
+//    quality=-1;
+//}
 RSet::RSet( RSet * a){
     assert(a != NULL);
     DeepCopy(a);
@@ -24,81 +23,44 @@ RSet::~RSet(){}
    int RSet::Id(){return id;}
    void RSet::SetId(int newId){id = newId;}
    void RSet::Output() {
-       for(int i=0; i < size; i++){
-           cout<<vals[i].first<<","<<vals[i].second;
-           if (i != size-1) cout <<" ";
+       for( it= vals.begin(); it != vals.end() ; it++){
+           cout<<(*it).first<<","<<(*it).second<<" ";
        }
 
    }
    void RSet::Output(ofstream& out){
        assert(out.is_open());
-       for(int i=0; i < size; i++){
-           out<<vals[i].first<<","<<vals[i].second;
-           if (i != size-1) out <<" ";
+       for( it= vals.begin(); it != vals.end() ; it++){
+           out<<(*it).first<<","<<(*it).second<<" ";
        }
    }
    void RSet::Output(ofstream& out, NameMap* nm){
-       for(int i=0; i < size; i++){
-           out<<nm->GetName(vals[i].first)<<","<<vals[i].second;
-           if (i != size-1) out <<"\t";
-       } 
-   }
-   void RSet::SetSize(int sz){
-       assert(sz >= 0);
-       size = sz;
-   }
-
-   void RSet::Resize(int sz){
-       assert(sz >= 0);
-       vals.resize(sz);
-       size =sz;
-   }
-   void RSet::Add(pair<int,double> a){
-       assert(a.first >= 0);
-       vals.push_back(a);
-       size++;
-   }
-   bool RSet::Equal(RSet &b){
-       if( size != b.size) return false;
-       else{
-           for(int i=0; i < size; i++)
-               if ( (vals[i].first != b.vals[i].first) || (vals[i].second != b.vals[i].second)) return false;
-           return true;
+       for( it= vals.begin(); it != vals.end() ; it++){
+           out<<nm->GetName((*it).first)<<","<<(*it).second<<"\t";
        }
    }
-   bool RSet::Contains(pair<int,double> a){
-       for(int i=0; i < size; i++)
-           if( (vals[i].second == a.second) && (vals[i].first == a.first) )
-               return true;
-      
-       return false;
+
+    void RSet::Add(pair<int,double> a){
+       assert(a.first >= 0);
+       vals.insert(vals.end(),a);
+       idxs.Add(a.first);
+       size++;
    }
    void RSet::DeepCopy(RSet *a){
        assert(a !=NULL);
-         vals.resize(a->Size());
-        for(int i=0; i < a->Size(); i++){
-            vals[i] = a->At(i);
+         vals.clear();
+         idxs.Clear();
+
+        for(it = a->vals.begin(); it != a->vals.end(); it++){
+            vals.insert(vals.end(),(*it));
+            idxs.Add((*it).first);
         }
         size = a->Size();
         id = a->Id();
         marked = a->marked;
         quality = a->GetQuality();
    }
-   void RSet::Remove(int idx){
-       assert(idx < size);
-        vals.erase(vals.begin()+idx);
-        size--;
-   }
-   void RSet::FindRemove(pair<int,double> a){
-       for(int i=0; i < size; i++){
-           if(vals[i].second == a.second && vals[i].first == a.first){
-               vals.erase(vals.begin()+i);
-               size--;
-               break;
-           }
-       }
-   }
-
+   
    bool comp_pair_vals_greater (pair<int,double> a,pair<int,double> b){
             return a.second > b.second;
    }
@@ -113,83 +75,42 @@ RSet::~RSet(){}
    }
    int RSet::GetMaxIdx(){
        if (size > 0)
-        return (*max_element(vals.begin(),vals.begin()+size,comp_pair_idxs_less)).first;
+        return idxs.At(size-1);
        else
            return -1;
    }
-
-   void RSet::Sort(){
-       sort(vals.begin(),vals.begin()+size,comp_pair_idxs_greater);
-   }
    pair<int,double> RSet::At(int idx){
        assert(idx >= 0 && idx <= size);
-       return vals[idx];
+       it = vals.find(idx);
+       if (it != vals.end()) return (*it);
    }
-    //! Returns the actual index of the object id objId in self
-    int RSet::GetIndexPtr(int objId){
-        for(int i=0; i < size; i++)
-            if (vals[i].first == objId) return i;
-        return -1;
-    }
+
     IOSet *RSet::GetIdxs(){
-        IOSet *ret = new IOSet;
-        for(int i=0; i < size; i++) ret->Add(vals[i].first);
+        return new IOSet(&idxs);
+    }
+    RSet* RSet::GetSubspace(IOSet *idxs1){
+        RSet *ret = new RSet;
+        map<int,double>::iterator itt;
+        for(int i=0; i < idxs1->Size(); i++){
+            itt = vals.find(idxs1->At(i));
+            if (itt != vals.end()) ret->Add((*itt));
+        }
         return ret;
     }
-    RSet* RSet::GetSubspace(IOSet *idxs){
-        assert(size >= idxs->Size() && idxs->Size() >= 1);
-        RSet *ret = new RSet;
-        for(int aPtr=0,bPtr=0; aPtr < size && bPtr < idxs->Size();){
-            if(vals[aPtr].first == idxs->At(bPtr)){
-                ret->Add(vals[aPtr]);
-                aPtr++;
-                bPtr++;
-            }else if(vals[aPtr].first > idxs->At(bPtr)) bPtr++;
-            else aPtr++;
-       }
-       return ret;
-    }
-    pair<double,double> RSet::GetMinMaxSubspace(IOSet *idxs){
-        assert(size >= idxs->Size() && idxs->Size() >= 1);
-        pair<double,double> ret;
-        ret.first=vals[0].second;
-        ret.second=vals[0].second;
-        for(int aPtr=0,bPtr=0; aPtr < size && bPtr < idxs->Size();){
-            if(vals[aPtr].first == idxs->At(bPtr)){
-                if(vals[aPtr].second < ret.first)
-                    ret.first = vals[aPtr].second;
-                else if (vals[aPtr].second > ret.second)
-                    ret.second = vals[aPtr].second;
-                aPtr++;
-                bPtr++;
-            }else if(vals[aPtr].first > idxs->At(bPtr)) bPtr++;
-            else aPtr++;
-       }
-       return ret;
-    }
     pair<int,int> RSet::GetMinMaxSubspaceIdxs(IOSet *idxs){
-        assert(size >= idxs->Size() && idxs->Size() >= 1);
-        pair<double,double> ret;
-        ret.first=0;
-        ret.second=0;
-        double min=vals[0].second;
-        double max=vals[0].second;
-        for(int aPtr=0,bPtr=0; aPtr < size && bPtr < idxs->Size();){
-            if(vals[aPtr].first == idxs->At(bPtr)){
-                if(vals[aPtr].second < min){
-                    ret.first = aPtr;
-                    min = vals[aPtr].second;
-                }
-                else if (vals[aPtr].second >max){
-                    ret.second = aPtr;
-                    max=vals[aPtr].second;
-                }
-                aPtr++;
-                bPtr++;
-            }else if(vals[aPtr].first > idxs->At(bPtr)) bPtr++;
-            else aPtr++;
-       }
-       return ret;
+        RSet *tmp = GetSubspace(idxs);
+        pair<int,int> ret;
+        if(tmp->Size() > 0){
+            pair<int,double> max = GetMaxElement();
+            pair<int,double> min = GetMinElement();
+            ret.first=min.first;
+            ret.second = max.first;
+        }else{
+            ret.first=-1;
+            ret.second=-1;
+        }
+        delete tmp;
+        return ret;
     }
    void RSet::Clear(){
        vals.clear();
@@ -202,15 +123,16 @@ RSet::~RSet(){}
 
    pair<int,double> RSet::GetMaxElement(){
        if (size > 0){
-           pair<int,double> maxE = vals[0];
-           double maxVal = maxE.second;
-           for(int i=1; i < size; i++){
-               if(vals[i].second > maxVal){
-                   maxVal = vals[i].second;
-                   maxE = vals[i];
+           it = vals.begin();
+           pair<int,double> max = (*it);
+           ++it;
+           while(it != vals.end()){
+               if( (*it).second > max.second){
+                   max = (*it);
                }
+               it++;
            }
-           return maxE;
+           return max;
        }
        else {
            pair<int,double> ret;
@@ -221,15 +143,16 @@ RSet::~RSet(){}
    }
    pair<int,double> RSet::GetMinElement(){
        if (size > 0){
-        pair<int,double> minE = vals[0];
-           double minVal = minE.second;
-           for(int i=1; i < size; i++){
-               if(vals[i].second < minVal){
-                   minVal = vals[i].second;
-                   minE = vals[i];
+           it = vals.begin();
+           pair<int,double> min = (*it);
+           ++it;
+           while(it != vals.end()){
+               if( (*it).second < min.second){
+                   min = (*it);
                }
+               it++;
            }
-           return minE;
+           return min;
        }
        else {
            pair<int,double> ret;
@@ -238,25 +161,24 @@ RSet::~RSet(){}
            return ret;
        }
    }
-   double RSet::FindReturn(int idx){
-       for(int i=0; i < size; i++)
-           if (vals[i].first == idx)
-               return vals[i].second;
-       return -99999990999;
-   }
+    double RSet::Sum(){
+        double accum=0;
+       for(it = vals.begin(); it != vals.end(); it++) accum += it->second;
+        return accum;
+    }
   
    double RSet::Mean(){
-       double accum=0;
-       for(int i=0; i < size; i++) accum += vals[i].second;
-       return accum/(double)size;
+        return Sum()/(double)size;
    }
 double RSet::Variance(){
     double qi=0,q1=0,ai=0,a1=0,sz=size;
+    it = vals.begin();
     for(double i=0.0; i < size; i++){
-        ai=a1+(1.0/(i+1.0))*(vals[i].second-a1);
-        qi=q1+(vals[i].second-a1)*(vals[i].second-ai);
+        ai=a1+(1.0/(i+1.0))*(it->second-a1);
+        qi=q1+(it->second-a1)*(it->second-ai);
         q1=qi;
         a1=ai;
+        it++;
     }
     return (1.0/(size-1.0))*qi;
 }

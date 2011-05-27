@@ -245,9 +245,9 @@ double RContext::GetStdDev(int domain, int setNum){
     assert(setNum >= 0);
     assert(domain == domain1->GetId() || domain == domain2->GetId());
     if (domain == domain1->GetId()){
-        return stdDev1->FindReturn(setNum);
+        return stdDev1->At(setNum).second;
     }else{
-         return stdDev2->FindReturn(setNum);
+         return stdDev2->At(setNum).second;
     }
 
 }

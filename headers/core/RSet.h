@@ -13,8 +13,6 @@ public:
 
    //! Default constructor
     RSet();
-       //! Constructor that pre-allocates the size of the RSet
-    RSet(int sz);
     //! Copy constructor
     RSet(RSet *a);
        //! Destructor
@@ -33,41 +31,16 @@ public:
     void Output(ofstream &f, NameMap *n);
    //! Adds pair to the end of the RSet, increasing the size of the RSet
     void Add(pair<int,double>);
-    //! Assigns the private size variable of the RSet without actually re-allocationg memory
-    /*!
-     This operation should mainly be used by set operation algorithms where size of the
-     RSet may not be known a-priori.
-     */
-    void SetSize(int x);
-
-    //! Resize the RSet to x, this will physically re-allocate and de-allocate memory unlike SetSize()
-    void Resize(int x);
-    //! Returns true if both RSets have the same size and the exact contenets in the exact order and false otherwise
-    bool Equal(RSet&);
-    //! Returns true if the RSet contains the value,index pair specified
-    bool Contains(pair<int,double>);
     //! Make a deep copy of the input RSet and assign it to self
     void DeepCopy(RSet*);
-    //! Remove the element at the specified index
-    void Remove(int);
-    //! Find and remove the first element which has value=val if it exists
-    void FindRemove(pair<int,double>);
-    //! Find an element with the given id, return NaN if not found
-    double FindReturn(int);
-    //! Sort the elements of the RSet in asscending order
-    void Sort();
-    //! Return the ith element
+    //! Return the  element indexed by i
     pair<int,double> At(int i);
-    //! Returns the actual index of the object id objId in self, if objId exists, -1 otherwise
-    int GetIndexPtr(int objId);
-    //! Sort the elements of the IOSet in asscending order
     //! Return an IOSet of all indexes that have values associated with them
     IOSet *GetIdxs();
-    //!Returns a subspace of self as indicated by the idxs, assumes idxs is sorted for linear time perfomance
+    //!Returns a subspace of self as indicated by the idxs, assumes idxs is sorted for log linear time perfomance
     RSet* GetSubspace(IOSet *idxs);
-    //! Returns the minimum and maximum element in the subspace specified by idxs, assumes idxs is sorted for linear time performance
-    pair<double,double> GetMinMaxSubspace(IOSet *idxs);
     //! Returns index pointers (i.e. actual index not id) to the minimum and maximum element in the subspace specified by idxs, assumes idxs is sorted for linear time performance
+    //! If subspace indicated by idxs does not exist, then -1,-1 is returned
     pair<int,int> GetMinMaxSubspaceIdxs(IOSet *idxs);
     //! Remove all elements from the RSet
     void Clear();
@@ -81,6 +54,8 @@ public:
     pair<int,double> GetMinElement();
     //! Returns the largest index in self
     int GetMaxIdx();
+    //! Get sum of all values
+    double Sum();
     //! Returns the variance of this RSet
     double Variance();
     //! Returns the standard deviation of self
@@ -99,7 +74,9 @@ private:
     //! vector to hold the values
     map<int,double>  vals;
     //! second copy of idxs, in sorted order to facilitate idx intersection
-    IOSet *idxs;
+    IOSet idxs;
+    //! iterator to be used for iterating in data structure
+    map<int,double>::iterator it;
     //! has this RSet been marked for whatever reason??
     bool marked;
     //! the quality of this RSet

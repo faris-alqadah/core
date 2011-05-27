@@ -19,20 +19,10 @@ double Distortion(IOSet *s1, IOSet *s2, IOSet *t1, IOSet *t2, RContext *k,int s,
         RSet *rr = k->GetSet(t,diffT->At(i));
         IOSet *lclInter = Intersect(rr->GetIdxs(),s2);
         IOSet *lclDiff = Difference(s2,lclInter);
-        //cout<<"\nrr: "; rr->Output();
-       // cout<<"\nlclInter sz: "<<lclInter->Size();
-       // cout<<"\nlclDiff sz: "<<lclDiff->Size();
-       // cout<<"\ns1 sz: "<<s1->Size();
         if(lclInter->Size() > 0){
              RSet *fullSub =  rr->GetSubspace(lclInter);
              RSet *subSub = rr->GetSubspace(s1);
-           //  cout<<"\n";
-            // fullSub->Output();
-            // cout<<"\n";
-            //make q subSub->Output();
              double rangeFull = fullSub->GetMaxElement().second - fullSub->GetMinElement().second;
-            // cout<<"\nfull range "<<fullSub->GetMaxElement().second<<"\t"<<fullSub->GetMinElement().second;
-            // cout<<"\nsub range "<<subSub->GetMaxElement().second<<"\t"<<subSub->GetMinElement().second;
              double rangeSub =  subSub->GetMaxElement().second - subSub->GetMinElement().second;
              dist += (1+lclDiff->Size())* (1-(rangeSub/rangeFull));
              delete fullSub;
@@ -40,7 +30,6 @@ double Distortion(IOSet *s1, IOSet *s2, IOSet *t1, IOSet *t2, RContext *k,int s,
         }else{
                 dist += (double)(1.0+lclDiff->Size());
         }
-        //cout<<"\n"<<dist;
         delete lclInter;
         delete lclDiff;
   }
@@ -90,50 +79,44 @@ double Std_Across(NCluster *a, RContext *k, int s, int t){
 double Mean_Square_Error(NCluster *a, RContext *k, int s, int t){
     IOSet *cols = a->GetSetById(s);
     IOSet *rows = a->GetSetById(t);
-    double sum=0;
-    double cnt=0;
-    vector<double> rowMeans(k->GetNumSets(t));
-    vector<double> colMeans(k->GetNumSets(s));
-    double allMean;
+    double mse=0;
+    double allCnt; // cnt of all values in the subspace
+    double allSum=0; //the sum of all values
+    double allMean=0;
+    vector<double> rowMeans(rows->Size());
+    vector<double> colMeans(cols->Size());
+    //get row means and total mean
+    for(int i=0; i < rows->Size();i++){
+        RSet *lclRow = k->GetSet(t,rows->At(i));
+        RSet *subSpace = lclRow->GetSubspace(cols);
+        if(subSpace->Size() > 0){
+            double sum = subSpace->Sum();
+            allSum += sum;
+            allCnt += subSpace->Size();
+            rowMeans.push_back( sum/(double)cols->Size());
+        }
+        delete subSpace;
+    }
+    allMean = allSum/allCnt;
     //get col means
-    double meanTotal=0;
     for(int i=0; i < cols->Size(); i++){
-        RSet *fullCol = k->GetSet(s,cols->At(i));
-
-        IOSet *idxs = Intersect(fullCol->GetIdxs(),rows);
-        double lclSum=0;
-        for(int j=0; j < idxs->Size(); j++) {
-            lclSum += fullCol->At(fullCol->GetIndexPtr(idxs->At(j))).second;
-            meanTotal += fullCol->At(fullCol->GetIndexPtr(idxs->At(j))).second;
-            cnt++;
+        RSet *lclCol = k->GetSet(s,cols->At(i));
+        RSet *subSpace = lclCol->GetSubspace(rows);
+        if(subSpace->Size() > 0){
+            colMeans.push_back(subSpace->Mean());
         }
-        colMeans[cols->At(i)]=lclSum/(double) idxs->Size();
+        delete subSpace;
     }
-    //get row means
-    for(int i=0; i < rows->Size(); i++){
-        RSet *fullRow = k->GetSet(s,rows->At(i));
-        IOSet *idxs = Intersect(fullRow->GetIdxs(),cols);
-        double lclSum=0;
-        for(int j=0; j < idxs->Size(); j++) {
-            lclSum += fullRow->At(fullRow->GetIndexPtr(idxs->At(j))).second;
-            meanTotal += fullRow->At(fullRow->GetIndexPtr(idxs->At(j))).second;
-            cnt++;
+    //now sum for all elements
+    for(int i=0; i < rows->Size();i++){
+        RSet *lclRow = k->GetSet(t,rows->At(i));
+        RSet *subSpace = lclRow->GetSubspace(cols);
+        if(subSpace->Size() > 0){
+            for(int j=0; j < subSpace->Size(); j++){
+                mse += pow(subSpace->At(cols->At(j)).second-rowMeans[j]-colMeans[j]+allMean,2);
+            }
         }
-        rowMeans[rows->At(i)]=lclSum/(double) idxs->Size();
+        delete subSpace;
     }
-    //get full mean
-    allMean = meanTotal/cnt;
-    //compute as in formula
-    for(int i=0; i < rows->Size(); i++){
-        RSet *fullRow = k->GetSet(s,rows->At(i));
-        IOSet *idxs = Intersect(fullRow->GetIdxs(),cols);
-        for(int j=0; j < idxs->Size(); j++) {
-            sum += pow( fullRow->At(fullRow->GetIndexPtr(idxs->At(j))).second- rowMeans[rows->At(i)] - colMeans[idxs->At(j)]+allMean,2);
-        }
-            
-        
-    }
-    return sum/cnt;
-
-
+    return mse/allCnt;
 }
