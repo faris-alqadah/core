@@ -97,7 +97,9 @@ private:
     //! id of the RSet
     int id;
     //! vector to hold the values
-    vector< pair<int,double> > vals;
+    map<int,double>  vals;
+    //! second copy of idxs, in sorted order to facilitate idx intersection
+    IOSet *idxs;
     //! has this RSet been marked for whatever reason??
     bool marked;
     //! the quality of this RSet

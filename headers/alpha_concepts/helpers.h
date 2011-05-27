@@ -41,6 +41,16 @@ void Construct_AlphaSigma_Params(RContext *K, IOSet* query, int s, int t, int tR
 void Construct_MaxSpaceUniform_Params(RContext* K, IOSet *query, int s,int t, int tRow, vector<double> &params);
 
 
+//! Compute the range intersect of two subspaces using a naive method
+/*! Sets the quality of supSetRslt to the average range all of supporting rows/columns
+    This function assumets
+  K,s,t parameters are already predefined by algorithm interface.
+
+    \param supSet1: indicies or ids of first supporting set
+    \param supSet2: indicies or ids of second supporting set
+*/
+IOSet * Naive_Range_Intersect(IOSet *supSet1, IOSet *supSet2);
+
 
 
 #endif	/* HELPERS_H */
