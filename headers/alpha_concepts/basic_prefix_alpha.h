@@ -49,9 +49,7 @@ void Qbbc_Prefix_Search(IOSet *query);
 
 //! Compute alpha-semi concepts using basic prefix tree enumeration
  /*!
-    \param prefix the index of objects in the prefix set
-    \param supSet index of objects in the supporting set of the prefix
-    \param pMinMax NCLuster in which each IOSet only has 2 elements indicating the index of the minium and maxmimum element for each object row in the supporting set
+   
     \param tail an ncluster of iosets that represent the ids or indicies of objects in the tail
     \param tailSupSet an ncluster of iosets of the objects in the support set of each element of tail
     \param tMinMax vector of NClusters in which each IOSet only has 2 elements that indicate the index of the minimum and maximum element for each object row in the tail supporting set
@@ -62,23 +60,21 @@ void Qbbc_Prefix_Search(IOSet *query);
 */
  void Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax);
 
-//! Compute the "Charm" upper neighbors of alpha-semi concepts using basic prefix tree enumeration
+//! Compute the "Charm" upper neighbors of alpha-concepts by applying single step of breadth-first CHARM
 
  /*!
 
-  \param prefix the current prefix set of the bicluster K[prefix,supset]
-  \param supSet the current supporting set
-  \param minMax indicies of min and max values of each supporting set object in supSet
+ \param tail an ncluster of iosets that represent the ids or indicies of objects in the tail
+    \param tailSupSet an ncluster of iosets of the objects in the support set of each element of tail
+    \param tMinMax vector of NClusters in which each IOSet only has 2 elements that indicate the index of the minimum and maximum element for each object row in the tail supporting set
 
  So far only works with alpha sigma consistency and range, but should increase later.
  When changes are made, inidicate here what variables must be set in LatticeAlgos.
 
 */
- vector<NCluster*> * Charm_UpperNeighbors(IOSet *prefix, IOSet *supSet, NCluster *minMax);
+ vector<NCluster*> * Charm_UpperNeighbors(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax);
 
- //! Compute the closure of a prefix utilizing charm method
 
- IOSet* Charm_Closure(IOSet *, IOSet *, NCluster*, list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax);
 
 
  //! Compute the "Range Intersection" of two supporting sets
@@ -99,19 +95,20 @@ void Qbbc_Prefix_Search(IOSet *query);
                      );
 
 
- //! Find the "Range Closure" of a prefix and supporting set
+ //! Find the "Range Closure" of a prefix and supporting set, along with the Charm upper neighbors
  /*!
   The closure is defined as the set of objects K[t] - prefix, that is
   also consistent in the space K[c+Prefix,supSet]. So far implementation is relativley naive.
+  The charm upper neighbors are defined as those concepts under the same prefix branch.
 
   This function assumets
   K,s,t parameters are already predefined by algorithm interface.
 
-  \param prefix the current prefix set of the bicluster K[prefix,supset]
+  \param prefix the current prefix set of the bicluster K[prefix,supset]. This set will be update with the closure.
   \param supSet the current supporting set
   \param minMax indicies of min and max values of each supporting set object in supSet
  */
- IOSet* Range_Closure(IOSet *prefix,IOSet *supSet, NCluster *minMax);
+vector<NCluster*> * Range_Closure_Charm_Neighbors(IOSet * prefix,IOSet *supSet, NCluster *minMax);
 
  //! Given inital query objects, creates the prefix list,supporting sets and min-max indiices of those support sets for the prefix objects
  /*!

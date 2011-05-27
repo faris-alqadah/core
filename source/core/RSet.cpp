@@ -108,8 +108,8 @@ RSet::~RSet(){}
         RSet *tmp = GetSubspace(idxs);
         pair<int,int> ret;
         if(tmp->Size() > 0){
-            pair<int,double> max = GetMaxElement();
-            pair<int,double> min = GetMinElement();
+            pair<int,double> max = tmp->GetMaxElement();
+            pair<int,double> min = tmp->GetMinElement();
             ret.first=min.first;
             ret.second = max.first;
         }else{

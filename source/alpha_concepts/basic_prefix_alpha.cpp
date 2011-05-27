@@ -12,27 +12,15 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
 
            // cout<<"\ngetting min max...";
             NCluster *minMax = Get_Min_Max_Idxs(CONCEPTS[0]->GetSetById(s),CONCEPTS[0]->GetSetById(t));
-            NCluster *bicluster = CONCEPTS[0];
-           // cout<<"\ngetting closure...\n";
-            IOSet *closure = Range_Closure(bicluster->GetSetById(s),bicluster->GetSetById(t),minMax);
+            NCluster *bicluster = new NCluster(*CONCEPTS[0]);
+            cout<<"\nbi cluster: \n"; bicluster->Output();
+            vector<NCluster*> *neighbors = Range_Closure_Charm_Neighbors(bicluster->GetSetById(s),bicluster->GetSetById(t),minMax);
            // cout<<"\ndone\n";
-            if(closure->Size() > bicluster->GetSetById(s)->Size()){
-                IOSet *closureUnion = Union(bicluster->GetSetById(s),closure);
-                closureUnion->SetId(s);
-                bicluster->AssignSetById(s,closureUnion);
-            }
-            delete closure;
-            delete minMax;
-            //if closure is not a superset of query attempt to include more objects via top neighbors
-           // if(Contains(origQuery,bicluster->GetSetById(s))){
-                //best upper neighbor
+           // delete minMax;
                 cout<<"\nInitial hit: \n";
                 bicluster->Output();
-                cout.flush();
-                cout<<"\nshould get neighbors here...got these";
-                 NCluster *minMaxN = Get_Min_Max_Idxs(bicluster->GetSetById(s),bicluster->GetSetById(t));
-                // cout<<"\nGot min max...\n";
-                 vector<NCluster*> *neighbors = Charm_UpperNeighbors(bicluster->GetSetById(s),bicluster->GetSetById(t), minMaxN);
+                //cout.flush();
+                cout<<"\nshould get neighbors here...got these "<<neighbors->size();
                  //select best neighbor as least distortion
                  if (neighbors->size() > 0){
                      for(int i =0; i < neighbors->size(); i++){
@@ -59,11 +47,10 @@ void BasicPrefix::Qbbc(IOSet *query,vector<NCluster*> &hits){
                      bicluster->AssignSetById(s,uu);
                      
                  }
-            //}
             IOSet *tmp = query;
             query= Difference(query,bicluster->GetSetById(s));
             delete tmp;
-            hits.push_back(new NCluster(*bicluster));
+            hits.push_back(bicluster);
             delete CONCEPTS[0]; //reset for next round
             CONCEPTS.clear(); //reset for next round
 
@@ -157,151 +144,145 @@ NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
      return ret;
  }
 
- IOSet* BasicPrefix::Range_Closure(IOSet *prefix,IOSet *supSet, NCluster *minMax){
+vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix,IOSet *supSet, NCluster *minMax){
+     //compute closure and all the upper neighbors
      //get all other objects and their supporting sets + min-max idxs
      IOSet *otherObjs = Difference(K->GetLabels(s),prefix);
      IOSet *closure = new IOSet;
+     //the current lists
      list<IOSet *> allPfx;
      list<NCluster*> minMaxIdxs; //store the idxs of the maximum and minimum elements
      list<IOSet*> supportSets;
      Make_Init_SupSets_MinMaxIdxs(otherObjs,allPfx,supportSets,minMaxIdxs);
+//     //now make lists that will be used for upper neighbors
+     list<IOSet *> tail;
+     list<IOSet *> tailSupSet;
+     list<NCluster *> tailMinMax;
+
      //for each other object range intersect supporting sets, if result is of equal size to supSet, then include item in closure
      list<IOSet*>::iterator supSetIt = supportSets.begin();
      list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
      for(int i=0; i < otherObjs->Size(); i++){
+
          if((*supSetIt)->Size() >= supSet->Size()){
              IOSet *supSetRslt = new IOSet;
              NCluster *minMaxRslt = new NCluster;
              Range_Intersect(supSet,(*supSetIt),minMax,(*minMaxIt),supSetRslt,minMaxRslt);
-             if( supSetRslt->Size() == supSet->Size()){
-                 closure->Add( otherObjs->At(i));
+             if(supSetRslt->Size() > 0){
+                 if( supSetRslt->Size() == supSet->Size()){
+                     prefix->Add(otherObjs->At(i));
+                     delete supSetRslt; //delete since they will not be used in the tail to generate neighbors
+                     delete minMaxRslt;
+                   }else{
+                     IOSet *single = new IOSet;
+                     single->Add(otherObjs->At(i));
+                     tail.push_back( Union(prefix,single)); //make a union for the prefix tail
+                     tailSupSet.push_back(supSetRslt);  //store the supporting set
+                     tailMinMax.push_back(minMaxRslt); //store the min max idxs
+                     delete single;
+                   }
+
+             }else{
+                delete supSetRslt;
+                delete minMaxRslt;
              }
-             //delete and increment iterator
-             delete supSetRslt;
-             delete minMaxRslt;
          }
          delete (*supSetIt);
          delete (*minMaxIt);
-         supSetIt =  RemoveFromList(supportSets,supSetIt); 
+         supSetIt =  RemoveFromList(supportSets,supSetIt);
          minMaxIt =  RemoveFromList(minMaxIdxs,minMaxIt);
      }
      delete otherObjs;
      DstryList(allPfx);
-     return closure;
- }
-
- vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(IOSet *prefix, IOSet *supSet, NCluster *minMax){
-     IOSet *otherObjs = Difference(K->GetLabels(s),prefix);
-     vector<NCluster*> *neighbors = new vector<NCluster*>;
-     list<IOSet *> allPfx;
-     list<NCluster*> minMaxIdxs; //store the idxs of the maximum and minimum elements
-     list<IOSet*> supportSets;
-     Make_Init_SupSets_MinMaxIdxs(otherObjs,allPfx,supportSets,minMaxIdxs);
-
-     list<IOSet*>::iterator allPfxIt = allPfx.begin();
-     list<IOSet*>::iterator supSetIt = supportSets.begin();
-     list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
-     for(int i=0; i < otherObjs->Size(); i++){
-             IOSet *pfx = new IOSet(prefix);
-             //cout<<"\nneighbor "<<i<<" of "<<otherObjs->Size()<<"\n";
-             //cout.flush();
-             IOSet *supSetRslt = new IOSet;
-             NCluster *minMaxRslt = new NCluster;
-             Range_Intersect(supSet,(*supSetIt),minMax,(*minMaxIt),supSetRslt,minMaxRslt);
-             if( supSetRslt->Size() > PRUNE_SIZE_VECTOR[1]){
-                 pfx->Add( otherObjs->At(i));
-                 IOSet *otherObjs1 = new IOSet;
-                 for(int j=i+1; j < otherObjs->Size(); j++) otherObjs1->Add(otherObjs->At(j));
-                 list<IOSet *> allPfx1;
-                 list<NCluster*> minMaxIdxs1; //store the idxs of the maximum and minimum elements
-                 list<IOSet*> supportSets1;
-                 Make_Init_SupSets_MinMaxIdxs(otherObjs1,allPfx1,supportSets1,minMaxIdxs1);
-                 pfx->Sort();
-                 IOSet *closure =Charm_Closure(pfx,supSetRslt,minMaxRslt,allPfx1,supportSets1,minMaxIdxs1);
-                 NCluster *bicluster = new NCluster;
-                 bicluster->AddSet(closure);
-                 bicluster->AddSet(new IOSet(supSetRslt));
-                 neighbors->push_back(bicluster);
-                // cout<<"\nneighbors size: "<<neighbors->size();
-                 delete otherObjs1;
-             }
-             //delete and increment iterator
-             delete supSetRslt;
-             delete minMaxRslt;
-             delete pfx;
-             delete (*supSetIt);
-             delete (*minMaxIt);
-             delete (*allPfxIt);
-             supSetIt =  RemoveFromList(supportSets,supSetIt);
-             minMaxIt =  RemoveFromList(minMaxIdxs,minMaxIt);
-             allPfxIt =  RemoveFromList(allPfx,allPfxIt);
-     }
-     delete otherObjs;
+//     //replace prefix by closure
+     prefix->Sort(); //incase it was unsorted by additions
+     //delete tmp;
+     //now get the neighbors
+     vector<NCluster*> * neighbors = Charm_UpperNeighbors(tail,tailSupSet,tailMinMax);
      return neighbors;
-      
-        
  }
 
-IOSet* BasicPrefix::Charm_Closure(IOSet *currPrefix, IOSet *currSupSet, NCluster *currMinMax,
-                        list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax){
-                IOSet * ret = new IOSet(currPrefix);
-                list<IOSet*>::iterator tailItC = tail.begin();
-                list<IOSet*>::iterator tailSupItC =tailSupSet.begin() ;
-                list<NCluster*>::iterator minMaxItC = tailMinMax.begin();
+ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax){
+     vector<NCluster*> *neighbors = new vector<NCluster*>;
+      if(tail.size() == 0 ){ return neighbors;}
+      list<IOSet*>::iterator tailIt = tail.begin();
+      list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
+      list<NCluster*>::iterator minMaxIt = tailMinMax.begin();
+      tailIt++; tailSupIt++; minMaxIt++; //advance one to only compute other neighbors since prefix is first memeber of tail
+      while(tailIt != tail.end()){
+                IOSet *currPrefix = (*tailIt);
+                IOSet *currSupSet = (*tailSupIt);
+                NCluster *currMinMax = (*minMaxIt);
+                //-------------BEGIN CHARM OPTIMIZATION-------------------------
+                list<IOSet*>::iterator tailItC = tailIt;
+                list<IOSet*>::iterator tailSupItC =tailSupIt ;
+                list<NCluster*>::iterator minMaxItC = minMaxIt;
+                tailItC++; tailSupItC++; minMaxItC++;
+                bool makeNeighbor=true;
                 while(tailItC != tail.end()){
                     IOSet *supSetRslt = new IOSet;
                     NCluster* minMaxRslt = new NCluster;
-                    //first perform intersection then all cases follow
                     Range_Intersect(currSupSet,(*tailSupItC),currMinMax,(*minMaxItC),supSetRslt,minMaxRslt);
-               
-                    //now implement each case....
-                    if (supSetRslt->Size() > PRUNE_SIZE_VECTOR[1]){
-                      if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()){
+                    if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()){
                           //update the curr prefix
-                          IOSet *tmp = ret;
-                          ret = Union(ret,(*tailItC));
+                          IOSet *tmp = currPrefix;
+                          currPrefix = Union(currPrefix,(*tailItC));
                           delete tmp;
                           //update the current tail and supporting sets
                           delete (*tailItC); delete (*tailSupItC); delete (*minMaxItC);
                           tailItC = RemoveFromList( tail, tailItC);
                           tailSupItC = RemoveFromList(tailSupSet,tailSupItC);
                           minMaxItC = RemoveFromList(tailMinMax,minMaxItC);
-                         // cout<<"\ncase1";
+                         //cout<<"\ncase1";
 
                       }else if(supSetRslt->Size() == currSupSet->Size() ){
                         //update the curr prefix
-                          IOSet *tmp = ret;
-                          ret = Union(ret,(*tailItC));
+                          IOSet *tmp = currPrefix;
+                          currPrefix = Union(currPrefix,(*tailItC));
                           delete tmp;
-                          delete (*tailItC); delete (*tailSupItC); delete (*minMaxItC);
-                          //increment iterators
-                          tailItC++; tailSupItC++; minMaxItC++;
-                         // cout<<"\ncase2";
-                         // cout<<"\ncase2";
-                      }else if(supSetRslt->Size() == (*tailSupItC)->Size() ){
-                         //update the current tail and supporting sets
+                          //get rid of subsets...these are not upper neighbors
                           delete (*tailItC); delete (*tailSupItC); delete (*minMaxItC);
                           tailItC = RemoveFromList( tail, tailItC);
                           tailSupItC = RemoveFromList(tailSupSet,tailSupItC);
                           minMaxItC = RemoveFromList(tailMinMax,minMaxItC);
-                         //cout<<"\ncase3";
+                      }else if(supSetRslt->Size() == (*tailSupItC)->Size() ){
+                           //get rid of self, cannot be an upper neighbor
+                          makeNeighbor=false;
+                          tailItC = tail.end(); //to break the loop
+                          cout<<"\ncase3 COULD NOT MAKE IT!";
 
                       }else{
-                           delete (*tailItC); delete (*tailSupItC); delete (*minMaxItC);
                           tailItC++; tailSupItC++; minMaxItC++;
-                         // cout<<"\ncase4";
                       }
-                      delete supSetRslt;
-                      delete minMaxRslt;
-                   }else{
-                      delete supSetRslt;
-                      delete minMaxRslt;
-                      //increment iterators
-                      delete (*tailItC); delete (*tailSupItC); delete (*minMaxItC);
-                      tailItC++; tailSupItC++; minMaxItC++;
-                   }
+                    //clear the results, they were just for checking
+                    delete supSetRslt;
+                    delete minMaxRslt;
+                   
                 }
-  }
+                //-------------END CHARM OPTIMIZATION---------------------------
+                if(makeNeighbor){
+                   if (currPrefix->Size() > 1 && currSupSet->Size() > 1){
+                        NCluster *bicluster = new NCluster;
+                        bicluster->AddSet(new IOSet(currPrefix));
+                        bicluster->AddSet( new IOSet(currSupSet));
+                        bicluster->GetSet(0)->SetId(s);
+                        bicluster->GetSet(1)->SetId(t);
+                        cout<<"\n neighbor: !\n"; bicluster->Output();
+                        neighbors->push_back(bicluster);
+                    }
+                }
+                delete currPrefix;
+                delete currSupSet;
+                delete currMinMax;
+                tailIt = RemoveFromList( tail, tailIt);
+                tailSupIt = RemoveFromList(tailSupSet,tailSupIt);
+                minMaxIt = RemoveFromList(tailMinMax,minMaxIt);
+             
+      }
+       return neighbors;
+ }
+
+
 
  void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
                       IOSet *supSetRslt, NCluster* minMaxRslt){
