@@ -80,9 +80,16 @@ RSet::~RSet(){}
            return -1;
    }
    pair<int,double> RSet::At(int idx){
-       assert(idx >= 0 && idx <= size);
+       assert(idx >= 0);
        it = vals.find(idx);
-       if (it != vals.end()) return (*it);
+       if (it != vals.end()) 
+           return (*it);
+       else{
+           pair<int,double> ret;
+           ret.first=-1;
+           ret.second=-1;
+           return ret;
+       }
    }
 
     IOSet *RSet::GetIdxs(){

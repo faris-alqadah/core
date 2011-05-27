@@ -113,7 +113,9 @@ double Mean_Square_Error(NCluster *a, RContext *k, int s, int t){
         RSet *subSpace = lclRow->GetSubspace(cols);
         if(subSpace->Size() > 0){
             for(int j=0; j < subSpace->Size(); j++){
-                mse += pow(subSpace->At(cols->At(j)).second-rowMeans[j]-colMeans[j]+allMean,2);
+                pair<int,double> val = subSpace->At(cols->At(j));
+                if(val.first != -1)
+                    mse += pow(val.second-rowMeans[j]-colMeans[j]+allMean,2);
             }
         }
         delete subSpace;

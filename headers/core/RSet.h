@@ -34,6 +34,7 @@ public:
     //! Make a deep copy of the input RSet and assign it to self
     void DeepCopy(RSet*);
     //! Return the  element indexed by i
+    //! if not in the rset then return value is -1,-1
     pair<int,double> At(int i);
     //! Return an IOSet of all indexes that have values associated with them
     IOSet *GetIdxs();

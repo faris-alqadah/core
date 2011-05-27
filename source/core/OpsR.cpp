@@ -4,12 +4,15 @@
 NRCluster *TransposeSparse(NRCluster *a){
     assert(a != NULL);
     NRCluster *ret = new NRCluster(a->GetMaxIdx()+1);
-    for(int i=0; i < a->GetN(); i++)
-        for(int j=0; j < a->GetSet(i)->Size(); j++){
-            pair<int,double> val = a->GetSet(i)->At(j);
+    for(int i=0; i < a->GetN(); i++){
+        IOSet *idxs = a->GetSet(i)->GetIdxs();
+        for(int j=0; j < idxs->Size(); j++){
+            pair<int,double> val = a->GetSet(i)->At(idxs->At(j));
             val.first=i;
-            ret->GetSet(a->GetSet(i)->At(j).first)->Add( val );
+            ret->GetSet(a->GetSet(i)->At(idxs->At(j)).first)->Add( val );
         }
+        delete idxs;
+    }
      //set ids
      for(int i=0; i < ret->GetN(); i++) ret->GetSet(i)->SetId(i);
     return ret;
