@@ -61,7 +61,7 @@ void Qbbc_Prefix_Search(IOSet *query);
  void Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax);
 
 //! The alpha charm algorithm for star-shaped information networks...
-void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax);
+void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax, IOSet *tailRun);
 
 
 //! Prunes the second tails based on the first
@@ -71,8 +71,7 @@ void Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, list<NCluster*>
 
 
 
-//! Determine if a cluster is found after a charm step
-bool Is_Star_Cluster(list<IOSet*> &currPfx,list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax);
+
 
 //! Compute the "Charm" upper neighbors of alpha-concepts by applying single step of breadth-first CHARM
 

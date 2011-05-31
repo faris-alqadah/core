@@ -79,6 +79,64 @@ RelationGraph* MakeRelationGraph(string &inputFile){
 
 }
 
+
+RelationGraphR* MakeRelationGraphR(string &inputFile){
+          ifstream myfile(inputFile.c_str());
+          if (myfile.is_open()){
+              string line;
+              getline (myfile,line);
+              int numDomains = atoi(line.c_str()); //get the number of domains
+              getline (myfile,line);
+              int numContexts = atoi(line.c_str()); //get the number of contexts
+              if(numContexts + 1 != numDomains) {
+                  string errMsg = "Number of domains and number of contexts are not consistent";
+                  Error(errMsg);
+              }
+              vector<string> domainNames;
+              map<string,int> domainName_id_map;
+              vector<NameMap*> nameMaps;
+              //get set names and thier name files
+              for(int i=0; i < numDomains; i++){
+                 getline(myfile,line); //this is the domain name
+                 domainNames.push_back(line);
+                 domainName_id_map[line]=i+1;
+                 getline(myfile,line); //this is the path to the namefile
+                 NameMap *nmp = new NameMap(line);
+                 nmp->SetId(i+1);
+                 nameMaps.push_back(nmp);
+               }
+               //now get contexts and relation graph
+              RelationGraphR *grph = new RelationGraphR();
+              for(int i=0; i < numContexts; i++){
+                  getline(myfile,line); //this line specifies the two domains
+                  vector<string> currDomainNames;
+                  string ctxName;
+                  Tokenize(line,currDomainNames,"--");
+                  int dId1 = domainName_id_map[currDomainNames[0]];
+                  //check if a new element was inserted indicating an error
+                  if(domainName_id_map.size() > numDomains) {
+                      string errMsg = "Error specifying context..."+currDomainNames[0]+" does not match any previoulsy defined domain";
+                      Error(errMsg);
+                  }
+                  int dId2 = domainName_id_map[currDomainNames[1]];
+                  //check if a new element was inserted indicating an error
+                  if(domainName_id_map.size() > numDomains) {
+                      string errMsg = "Error specifying context..."+currDomainNames[1]+" does not match any previoulsy defined domain";
+                      Error(errMsg);
+                  }
+                  ctxName = currDomainNames[0]+"__"+currDomainNames[1];
+                  getline(myfile,line);  //this line specifies the fimi file
+                  grph->AddRContext(MakeRContext(line,dId1,dId2,ctxName,i+1,nameMaps[dId1-1],nameMaps[dId2-1]));
+              }
+	      myfile.close();
+              return grph;
+          }
+	  else{
+              string errMsg="Could not open the input file: "+inputFile;
+              Error(errMsg);
+	  }
+}
+
 RContext * MakeSingleRContext( string & inputFile){
        ifstream myfile(inputFile.c_str());
           if (myfile.is_open()){
@@ -154,6 +212,7 @@ Context * MakeContext(string &inputFile,int dId1, int dId2, string &name, int ct
     return ret;
 
 }
+
 RContext * MakeRContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2){
     NRCluster *dmn1 = MakeNRClusterFromSparseFile(inputFile);
     

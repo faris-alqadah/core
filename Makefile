@@ -38,6 +38,7 @@ MAIN_OBJECTS =  $(OBJ_CORE)/IOSet.o \
 		$(OBJ_CORE)/RContext.o \
 		$(OBJ_CORE)/NRCluster.o \
 		$(OBJ_CORE)/OpsR.o \
+		$(OBJ_CORE)/RelationGraphR.o \
 		$(OBJ_CORE)/Timing.o
 #algos helpers
 ALGOS_HELPER_OBJECTS = $(OBJ)/$(ALGOS_HELPERS)/basic.o \
@@ -97,6 +98,8 @@ $(OBJ_CORE)/Ops.o: $(SOURCE_CORE)/Ops.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE_CORE)/Ops.cpp -o $@
 $(OBJ_CORE)/RelationGraph.o: $(SOURCE_CORE)/RelationGraph.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE_CORE)/RelationGraph.cpp -o $@
+$(OBJ_CORE)/RelationGraphR.o: $(SOURCE_CORE)/RelationGraphR.cpp
+	 $(CC) $(CFLAGS) -c  $(SOURCE_CORE)/RelationGraphR.cpp -o $@
 $(OBJ_CORE)/Context.o: $(SOURCE_CORE)/Context.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE_CORE)/Context.cpp -o $@
 $(OBJ_CORE)/Timing.o: $(SOURCE_CORE)/Timing.cpp

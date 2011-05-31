@@ -130,6 +130,7 @@ void BasicPrefix::Make_Init_SupSets_MinMaxIdxs(IOSet *query, list<IOSet*> &prefi
         }
     }
 }
+
 NCluster * BasicPrefix::Get_Min_Max_Idxs(IOSet *query, IOSet *supSets){
      NCluster *ret = new NCluster();
      for(int i=0; i < supSets->Size(); i++){
@@ -339,18 +340,7 @@ void Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, list<NCluster*>
      delete ids1; delete ids2; delete symmDiff;
 }
 
-bool Is_Star_Cluster(list<IOSet*> &pfx){
-    list<IOSet*>::iterator it = pfx.begin();
-    it++;
-    while(it != pfx.end()){
-        if( Contains((*it),(*pfx.begin()) ) ){
 
-        }else{
-            return false;
-        }
-    }
-    return true;
-}
  void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
                       IOSet *supSetRslt, NCluster* minMaxRslt){
      assert( supSetRslt != NULL && minMaxRslt != NULL);
@@ -392,7 +382,10 @@ bool Is_Star_Cluster(list<IOSet*> &pfx){
      delete commonIdxs;
 }
 
-  void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax){
+
+ void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax, IOSet *tailRun);
+
+ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax){
                     if(tail.size() == 0 ){ return;}
       list<IOSet*>::iterator tailIt = tail.begin();
       list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
@@ -505,8 +498,7 @@ bool Is_Star_Cluster(list<IOSet*> &pfx){
   }
 
    
-
-   void BasicPrefix::Construct_First_Level(int k,
+void BasicPrefix::Construct_First_Level(int k,
                      list<IOSet *> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
                     list<IOSet *> &newTail, list<IOSet *> &newTailSupSet, list<NCluster *> &newTailMinMax ){
      //iterate to kth element

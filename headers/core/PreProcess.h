@@ -10,6 +10,7 @@
 
 #include "RelationGraph.h"
 #include "RContext.h"
+#include "RelationGraphR.h"
 #include "OpsR.h"
 
 #include <utility>
@@ -24,6 +25,14 @@ using namespace std;
  \sa RelationGraph
  */
 RelationGraph * MakeRelationGraph(string &inputFile);
+
+//! Reads an input file that specifies a full relation graph and creates the relation graph store in memory as RelationGraphR object
+/*!
+ See the README file for the format of the input file.
+ \param inputFile the path to the input file
+ \sa RelationGraphR
+ */
+RelationGraphR * MakeRelationGraphR(string &inputFile);
 
 //! Reads an input file that only specifies a single real-valued context and stores it in memory as RContext object
 /*!
