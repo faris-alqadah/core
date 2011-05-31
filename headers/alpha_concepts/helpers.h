@@ -52,6 +52,23 @@ void Construct_MaxSpaceUniform_Params(RContext* K, IOSet *query, int s,int t, in
 IOSet * Naive_Range_Intersect(IOSet *supSet1, IOSet *supSet2);
 
 
+//! Construct vectors of iterators for use in Star Charm
+void Create_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax, IOSet *tailRun,
+                                vector< list< list<IOSet*> *>::iterator > &tailIts,
+                                vector< list< list<IOSet*> *>::iterator > &supIts,
+                                vector< list< list<NCluster*> *>::iterator > &minMaxIts);
+
+
+//! update vectors of iterators for use in Star Charm
+void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax, IOSet *tailRun,
+                                vector< list< list<IOSet*> *>::iterator > &tailIts,
+                                vector< list< list<IOSet*> *>::iterator > &supIts,
+                                vector< list< list<NCluster*> *>::iterator > &minMaxIts);
+
+//! Determine if the current branch of star charm is complete
+bool Done_Star_Charm(list< list<IOSet*>* > &tails,IOSet *tailRun,
+                    vector< list< list<IOSet*> *>::iterator > &tailIts);
+
 
 #endif	/* HELPERS_H */
 
