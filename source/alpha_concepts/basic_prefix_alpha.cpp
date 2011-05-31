@@ -111,8 +111,6 @@ void BasicPrefix::Qbbc_Prefix_Search(IOSet *query){
 void BasicPrefix::Make_Init_SupSets_MinMaxIdxs(IOSet *query, list<IOSet*> &prefix,list<IOSet*> &supSets, list<NCluster*> &minMax){
     for(int i=0; i < query->Size(); i++){
         //make prefix node
-        //cout<<"\ni"<<i;
-        //cout.flush();
         IOSet *prefixx = new IOSet;
         RSet *currCol = K->GetSet(s,query->At(i));
         prefixx->Add(query->At(i));
@@ -202,7 +200,7 @@ vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix,IOSe
      return neighbors;
  }
 
- vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax){
+vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax){
      vector<NCluster*> *neighbors = new vector<NCluster*>;
       if(tail.size() == 0 ){ return neighbors;}
       list<IOSet*>::iterator tailIt = tail.begin();
@@ -249,7 +247,6 @@ vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix,IOSe
                            //get rid of self, cannot be an upper neighbor
                           makeNeighbor=false;
                           tailItC = tail.end(); //to break the loop
-                          cout<<"\ncase3 COULD NOT MAKE IT!";
 
                       }else{
                           tailItC++; tailSupItC++; minMaxItC++;
@@ -267,7 +264,7 @@ vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix,IOSe
                         bicluster->AddSet( new IOSet(currSupSet));
                         bicluster->GetSet(0)->SetId(s);
                         bicluster->GetSet(1)->SetId(t);
-                        cout<<"\n neighbor: !\n"; bicluster->Output();
+                       // cout<<"\n neighbor: !\n"; bicluster->Output();
                         neighbors->push_back(bicluster);
                     }
                 }
@@ -284,6 +281,76 @@ vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix,IOSe
 
 
 
+void Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, list<NCluster*> &tailMinMax1,
+                 list<IOSet*> &tail2, list<IOSet*> &tailSupSet2, list<NCluster*> &tailMinMax2){
+     list<IOSet*>::iterator tailIt1 = tail1.begin();
+     list<IOSet*>::iterator tailSupIt1 = tailSupSet1.begin();
+     list<NCluster*>::iterator minMaxIt1 = tailMinMax1.begin();
+     list<IOSet*>::iterator tailIt2 = tail2.begin();
+     list<IOSet*>::iterator tailSupIt2 = tailSupSet2.begin();
+     list<NCluster*>::iterator minMaxIt2 = tailMinMax2.begin();
+     //take symmetric difference of ids and remove those nodes
+     //get symmetric difference
+     IOSet *ids1 = new IOSet;
+     IOSet *ids2 = new IOSet;
+     while(tailIt1 != tail1.end()){
+         ids1->Add( (*tailIt1)->Id());
+         tailIt1++;
+     }
+     while(tailIt2 != tail2.end()){
+         ids2->Add( (*tailIt2)->Id());
+         tailIt2++;
+     }
+     IOSet *symmDiff = SymmDifference(ids1,ids2);
+     //now remove those nodes that have ids in symmDiff
+     tailIt1 = tail1.begin();
+     int i=0;
+     while( i < symmDiff->Size() && tailIt1 != tail1.end()){
+         if(symmDiff->At(i) == (*tailIt1)->Id()){ //remove this node
+                delete (*tailIt1); delete (*tailSupIt1); delete (*minMaxIt1);
+                tailIt1 = RemoveFromList( tail1, tailIt1);
+                tailSupIt1 = RemoveFromList(tailSupSet1,tailSupIt1);
+                minMaxIt1 = RemoveFromList(tailMinMax1,minMaxIt1);
+                i++;
+         }
+         else if(symmDiff->At(i) < (*tailIt1)->Id()){
+                i++;
+         }else{
+             tailIt1++; tailSupIt1++; minMaxIt1++;
+         }
+     }
+     tailIt2 = tail2.begin();
+     i=0;
+     while( i < symmDiff->Size() && tailIt2 != tail2.end()){
+         if(symmDiff->At(i) == (*tailIt2)->Id()){ //remove this node
+                delete (*tailIt2); delete (*tailSupIt2); delete (*minMaxIt2);
+                tailIt2 = RemoveFromList( tail2, tailIt2);
+                tailSupIt2 = RemoveFromList(tailSupSet2,tailSupIt2);
+                minMaxIt2 = RemoveFromList(tailMinMax2,minMaxIt2);
+                i++;
+         }
+         else if(symmDiff->At(i) < (*tailIt2)->Id()){
+                i++;
+         }else{
+             tailIt2++; tailSupIt2++; minMaxIt2++;
+         }
+     }
+     //clean up
+     delete ids1; delete ids2; delete symmDiff;
+}
+
+bool Is_Star_Cluster(list<IOSet*> &pfx){
+    list<IOSet*>::iterator it = pfx.begin();
+    it++;
+    while(it != pfx.end()){
+        if( Contains((*it),(*pfx.begin()) ) ){
+
+        }else{
+            return false;
+        }
+    }
+    return true;
+}
  void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
                       IOSet *supSetRslt, NCluster* minMaxRslt){
      assert( supSetRslt != NULL && minMaxRslt != NULL);
@@ -304,9 +371,7 @@ vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix,IOSe
          int minn =  (minVal == K->GetSet(t,rowId)->At(oldMin1).second) ? oldMin1 : oldMin2;
          int maxx = (maxVal == K->GetSet(t,rowId)->At(oldMax1).second) ? oldMax1 : oldMax2;
          //get range using new idxs
-         //double oldRange = K->GetSet(t,rowId)->At(oldMax1).second-K->GetSet(t,rowId)->At(oldMin1).second;
          double range = K->GetSet(t,rowId)->At(maxx).second-K->GetSet(t,rowId)->At(minn).second;
-        // cout<<"\nold range: "<<oldRange<<"\tnew range"<<range;
          //construct parameters for consistency function
          vector<double> lclParamsF; //construct parameter vector for the consistency function, make alpha the first element though
          lclParamsF.push_back(alpha);  //assign the variance for this particlar row / column
