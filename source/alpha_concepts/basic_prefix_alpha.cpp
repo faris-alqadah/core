@@ -101,6 +101,8 @@ void BasicPrefix::StarCharm(){
      list<list<NCluster*> *> tailMinMax;
      cout<<"\nMaking initial support sets....\n";
      Make_Init_SupSets_MinMaxIdxs_Star_Charm(tails,tailSupSet,tailMinMax);
+     cout<<"\nCalling star charm...\n";
+     Enumerate_Star_Charm(tails,tailSupSet,tailMinMax);
 }
 
  void BasicPrefix::Make_Init_SupSets_MinMaxIdxs_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax){
