@@ -79,7 +79,10 @@ RContext * RelationGraphR::GetRContext(int ctxId) {
             return contexts[i];
     return NULL;
 }
-
+    void RelationGraphR::ComputeStdDevs(){
+        for(int i=0; i < contexts.size(); i++)
+            contexts[i]->ComputeStdDevs();
+    }
 IOSet *RelationGraphR::GetArtDomains() {
     IOSet *ret = new IOSet;
     for (int i = 0; i < domainRelations.GetN(); i++)

@@ -51,6 +51,8 @@ bool IsEdge(int id1,int id2);
 
 //! Returns a vector of rcontexts that contain domain
     vector<RContext*> * GetContexts(int domain);
+//! Compute standatd deviations in all contexts
+    void ComputeStdDevs();
 //! Returns an IOSet of domain ids which correspond to the articulation nodes of the network
     IOSet *GetArtDomains();
 

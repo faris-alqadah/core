@@ -24,6 +24,7 @@
         <df name="alpha_concepts">
           <in>alpha_concepts_algos.h</in>
           <in>basic_prefix_alpha.h</in>
+          <in>berry_alpha.h</in>
           <in>consistency.h</in>
           <in>dispersion.h</in>
           <in>helpers.h</in>
@@ -44,6 +45,7 @@
           <in>RLatticeOps.h</in>
           <in>RSet.h</in>
           <in>RelationGraph.h</in>
+          <in>RelationGraphR.h</in>
           <in>Timing.h</in>
         </df>
         <df name="nclusters">
@@ -86,9 +88,11 @@
           <in>RLatticeOps.cpp</in>
           <in>RSet.cpp</in>
           <in>RelationGraph.cpp</in>
+          <in>RelationGraphR.cpp</in>
           <in>Timing.cpp</in>
         </df>
         <df name="drivers">
+          <in>hina.cpp</in>
           <in>nclu.cpp</in>
           <in>qbbc.cpp</in>
         </df>

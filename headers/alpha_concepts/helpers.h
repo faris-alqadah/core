@@ -7,6 +7,7 @@
 
 #include "../core/RContext.h"
 #include "../../headers/alpha_concepts/dispersion.h"
+#include "../core/Ops.h"
 
 //! Constructs the paramater vector  for the alpha sigma consistency function
 /*!
@@ -53,22 +54,21 @@ IOSet * Naive_Range_Intersect(IOSet *supSet1, IOSet *supSet2);
 
 
 //! Construct vectors of iterators for use in Star Charm
-void Create_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax, IOSet *tailRun,
-                                vector< list< list<IOSet*> *>::iterator > &tailIts,
-                                vector< list< list<IOSet*> *>::iterator > &supIts,
-                                vector< list< list<NCluster*> *>::iterator > &minMaxIts);
+void Create_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax,
+                                vector< list<IOSet*>::iterator > &tailIts,
+                                vector< list<IOSet*>::iterator > &supIts,
+                                vector< list<NCluster*>::iterator > &minMaxIts);
 
 
 //! update vectors of iterators for use in Star Charm
-void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax, IOSet *tailRun,
-                                vector< list< list<IOSet*> *>::iterator > &tailIts,
-                                vector< list< list<IOSet*> *>::iterator > &supIts,
-                                vector< list< list<NCluster*> *>::iterator > &minMaxIts);
+void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax,
+                                vector< list<IOSet*>::iterator > &tailIts,
+                                vector<  list<IOSet*>::iterator > &supIts,
+                                vector<  list<NCluster*>::iterator > &minMaxIts);
 
-//! Determine if the current branch of star charm is complete
-bool Done_Star_Charm(list< list<IOSet*>* > &tails,IOSet *tailRun,
-                    vector< list< list<IOSet*> *>::iterator > &tailIts);
 
+//! Delete lists of lists of tails, supporting sets, and min max indices
+void Delete_New_Tails_Star_Charm(list< list<IOSet*>* > &newTails, list< list<IOSet*> *> &newSupSets, list < list<NCluster*> *> &newMinMaxs);
 
 #endif	/* HELPERS_H */
 

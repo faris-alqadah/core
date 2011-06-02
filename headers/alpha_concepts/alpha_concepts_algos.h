@@ -19,6 +19,7 @@
 #include "../core/LatticeAlgos.h"
 #include "consistency.h"
 #include "dispersion.h"
+#include "helpers.h"
 
 class AlphaConceptsAlgos : public LatticeAlgos{
 public:
@@ -58,6 +59,8 @@ double alpha;
  /////////////////////////////////Data structures for easy reference///////////////////////////////
  //! The real valued context for which the algorithm is being applied
  RContext *K;
+ //! Real-valued HIN
+ RelationGraphR *NETWORK;
  //! Id of the source or query domain
  int s;
  //!Id of the target or non-query domain

@@ -56,10 +56,11 @@ NCLUSTERS_OBJECTS = $(OBJ)/$(NCLUSTERS)/Berry.o
 #driver make programs
 NCLU_OBJ	=	$(OBJ)/$(NCLUSTERS)/nclu.o
 QBBC_OBJ =	$(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o
+STAR_CHARM_OBJ = $(OBJ)/$(ALPHA_CONCEPTS)/starcharm.o
 
 NCLU_TARGET = $(BIN)/nclu
 QBBC_TARGET = $(BIN)/qbbc
-
+STAR_CHARM_TARGET = $(BIN)/starcharm
 #targets
 .cpp.o:
 	$(CC) -c $(CFLAGS) -o $@ $<
@@ -70,6 +71,8 @@ nclu: $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(NCLU_OBJ)
 qbbc:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(QBBC_OBJ)
 		$(LINK) $(LFLAGS) -o $(QBBC_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(QBBC_OBJ) $(LIBS)
 
+starcharm:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(STAR_CHARM_OBJ)
+		$(LINK) $(LFLAGS) -o $(STAR_CHARM_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(STAR_CHARM_OBJ) $(LIBS)
 
 #install and setup scripts
 install:
@@ -80,6 +83,10 @@ install:
 		mkdir -p $(BIN)
 qbbc_install:
 		mkdir -p $(OBJ)/$(ALPHA_CONCEPTS) 
+		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
+
+starcharm_install:
+		mkdir -p $(OBJ)/$(ALPHA_CONCEPTS)
 		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
 
 nclu_install:
@@ -152,3 +159,6 @@ $(OBJ)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.o: $(SOURCE)/$(ALPHA_CONCEPTS)/alp
 		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.cpp -o $@
 $(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o: $(SOURCE)/$(DRIVERS)/qbbc.cpp
 		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/qbbc.cpp -o $@	  
+#starcharm algorithm
+$(OBJ)/$(ALPHA_CONCEPTS)/starcharm.o: $(SOURCE)/$(DRIVERS)/star_charm.cpp
+		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/star_charm.cpp -o $@

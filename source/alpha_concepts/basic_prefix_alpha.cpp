@@ -296,7 +296,7 @@ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<I
     return neighbors;
 }
 
-void Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, list<NCluster*> &tailMinMax1,
+void BasicPrefix::Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, list<NCluster*> &tailMinMax1,
         list<IOSet*> &tail2, list<IOSet*> &tailSupSet2, list<NCluster*> &tailMinMax2) {
     list<IOSet*>::iterator tailIt1 = tail1.begin();
     list<IOSet*>::iterator tailSupIt1 = tailSupSet1.begin();
@@ -404,54 +404,95 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
 }
 
 
-void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax, IOSet *tailRun){
-    
+void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax){
+
     //create vector of iterators for all tails, support sets and minMaxs
-    vector< list< list<IOSet*> *>::iterator > tailIts;
-    vector< list< list<IOSet*> *>::iterator > supIts;
-    vector< list< list<NCluster*> *>::iterator > minMaxIts;
-    Create_AllTails_Iterators_Star_Charm(tails,tailSupSet,tailMinMax,tailRun,tailIts,supIts,minMaxIts);
-    
-    while(!Done_Star_Charm(tails,tailRun,tailIts)){
+    vector< list<IOSet*>::iterator > tailIts;
+    vector< list<IOSet*>::iterator > supIts;
+    vector< list<NCluster*>::iterator > minMaxIts;
+    Create_AllTails_Iterators_Star_Charm(tails, tailSupSet, tailMinMax, tailIts, supIts, minMaxIts);
+
+    while (tailIts[0] != tails.front()->end()) {
 
 
-    //outer iterator of tails
-    list< list<IOSet*>* >::iterator outerTailIt = tails.begin();
-    list< list<IOSet*>* >::iterator outerSupIt = tailSupSet.begin();
-    list< list<NCluster*>* >::iterator outerMinMaxIt = tailMinMax.begin();
+        //outer iterator of tails
+        list< list<IOSet*>* >::iterator outerTailIt = tails.begin();
+        list< list<IOSet*>* >::iterator outerSupIt = tailSupSet.begin();
+        list< list<NCluster*>* >::iterator outerMinMaxIt = tailMinMax.begin();
 
-    list<list<IOSet*> *> newTails;
-    list<list<IOSet*> *> newSupSets;
-    list<list<NCluster*> *> newMinMaxs;
+        list<list<IOSet*> *> newTails;
+        list<list<IOSet*> *> newSupSets;
+        list<list<NCluster*> *> newMinMaxs;
 
-    int idCtr=0;
-    for(int i=0; i < tailIts.size(); i++){
-        //run charm on this edge?
-        if(tailRun->Contains(i)){
-            list<IOSet *>* newTail = new list<IOSet*>;
-            list<IOSet *>* newSupSet = new list<IOSet*>;
-            list<NCluster *>* newMinMax = new list<NCluster*>;
-            Charm_Step(**outerTailIt,**outerSupIt,**outerMinMaxIt,*newTail,*newSupSet,*newMinMax);
-            newTails.push_back(newTail);
-            newSupSets.push_back(newSupSet);
-            newMinMaxs.push_back(newMinMax);
-            idCtr++;
+        for (int i = 0; i < tailIts.size(); i++) {
+            //run charm on this edge?
+                list<IOSet *>* newTail = new list<IOSet*>;
+                list<IOSet *>* newSupSet = new list<IOSet*>;
+                list<NCluster *>* newMinMax = new list<NCluster*>;
+                Charm_Step(**outerTailIt, **outerSupIt, **outerMinMaxIt, *newTail, *newSupSet, *newMinMax);
+                newTails.push_back(newTail);
+                newSupSets.push_back(newSupSet);
+                newMinMaxs.push_back(newMinMax);
+                outerTailIt++;
+                outerSupIt++;
+                outerMinMaxIt++;
         }
-        outerTailIt++;
-        outerSupIt++;
-        outerMinMaxIt++;
+        //determine if cluster is found
+        if( Determine_Clusters(tails,newTails,newSupSets,newMinMaxs)){
+            //create cluster and recurse
+            cout<<"\nFound cluster!\n";
+              //prune new search space
+            list<IOSet*> * lrnrNewTails = newTails.front();
+            list<IOSet*> * lrnrNewSupSets = newSupSets.front();
+            list<NCluster*> * lrnrNewMinMaxs = newMinMaxs.front();
+            list< list<IOSet*>* >::iterator newTailIt = newTails.begin();
+            list< list<IOSet*>* >::iterator newSupIt = newSupSets.begin();
+            list< list<NCluster*>* >::iterator newMinMaxIt = newMinMaxs.begin();
+            newTailIt++; newSupIt++; newMinMaxIt++;
+            while(newTailIt != newTails.end()){
+                Prune_Tails(*lrnrNewTails,*lrnrNewSupSets,*lrnrNewMinMaxs,*(*newTailIt),*(*newSupIt),*(*newMinMaxIt));
+                newTailIt++; newSupIt++; newMinMaxIt++;
+            }
+            Enumerate_Star_Charm(newTails,newSupSets,newMinMaxs);
+        }else{
+            //delete all new tails
+            Delete_New_Tails_Star_Charm(newTails,newSupSets,newMinMaxs);
+        }
+         //update all the tails
+         Update_AllTails_Iterators_Star_Charm(tails, tailSupSet, tailMinMax,tailIts,supIts,minMaxIts);
     }
-    //determine if cluster is found
-        
-    //determine new tail Run
+}
 
-    //update all the tails
-    Update_AllTails_Iterators_Star_Charm(tails,tailSupSet,tailMinMax,tailRun,tailIts,supIts,minMaxIts);
-    // prune tails
-    
-    //recurse
+bool BasicPrefix::Determine_Clusters(list< list<IOSet*>* > &tails, list< list<IOSet*>* > &newTtails,
+                        list< list<IOSet*> *> &newSupSets, list < list<NCluster*> *> &newMinMaxs){
+
+    list<list<IOSet*> *>::iterator tailIt = tails.begin();
+    IOSet *lrnrSet = (*(*tailIt)->begin());
+    tailIt++;
+    while (tailIt != tails.end()){
+        IOSet *currSet = (*(*tailIt)->begin());
+        IOSet *intersect = Intersect(currSet,lrnrSet);
+        if( currSet->Size() == lrnrSet->Size() && intersect->Size() == currSet->Size()){
+                ;//do nothing since equal
+
+        }
+        else if(intersect->Size() == lrnrSet->Size() && lrnrSet->Size() < currSet->Size()){
+            ; //do nothing since this also constitutes a cluster
+        }
+        else if(intersect->Size() == currSet->Size() && lrnrSet->Size() > currSet->Size()){
+                //learner is super set of currset, so more testing needed
+                //to determine if a cluster can be formed with curr set
+            delete intersect;
+            return false;
+        }
+        else{
+            delete intersect;
+            return false;
+        }
+        delete intersect;
+        tailIt++;
     }
-    delete tailRun;
+    return true;
 }
 
 
@@ -581,7 +622,7 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
     }
 }
 
-void Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
+void BasicPrefix::Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
                  list<IOSet*> &newTail, list<IOSet*> &newTailSupSets, list<NCluster*> &newTailMinMax ) {
     if (tail.size() == 0) {
         return;
@@ -610,6 +651,7 @@ void Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &t
                     //update the curr prefix
                     IOSet *tmp = currPrefix;
                     currPrefix = Union(currPrefix, (*tailItC));
+                    currPrefix->SetId(tmp->Id());
                     delete tmp;
                     //update the current tail and supporting sets
                     delete (*tailItC);
@@ -626,6 +668,7 @@ void Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &t
                     //update the curr prefix
                     IOSet *tmp = currPrefix;
                     currPrefix = Union(currPrefix, (*tailItC));
+                    currPrefix->SetId(tmp->Id());
                     delete tmp;
                     delete supSetRslt;
                     delete minMaxRslt;
@@ -635,7 +678,9 @@ void Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &t
                     minMaxItC++;
                 } else if (supSetRslt->Size() == (*tailSupItC)->Size()) {
                     //add to new tail
-                    newTail.push_back(Union(currPrefix, (*tailItC)));
+                    IOSet *newNode = Union(currPrefix, (*tailItC));
+                    newNode->SetId((*tailItC)->Id());
+                    newTail.push_back(newNode);
                     newTailSupSets.push_back(supSetRslt);
                     newTailMinMax.push_back(minMaxRslt);
                     //update the current tail and supporting sets
@@ -649,7 +694,9 @@ void Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &t
 
                 } else {
                     //add to new tail
-                    newTail.push_back(Union(currPrefix, (*tailItC)));
+                    IOSet *newNode = Union(currPrefix, (*tailItC));
+                    newNode->SetId((*tailItC)->Id());
+                    newTail.push_back(newNode);
                     newTailSupSets.push_back(supSetRslt);
                     newTailMinMax.push_back(minMaxRslt);
                     // cout<<"\ncase4";

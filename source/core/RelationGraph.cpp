@@ -73,6 +73,7 @@ vector<Context*> * RelationGraph::GetContexts(int domain) {
     } else return NULL;
 }
 
+
 Context * RelationGraph::GetContext(int ctxId) {
     for (int i = 0; i < contexts.size(); i++)
         if (contexts[i]->GetId() == ctxId)
