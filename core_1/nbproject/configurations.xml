@@ -92,9 +92,9 @@
           <in>Timing.cpp</in>
         </df>
         <df name="drivers">
-          <in>hina.cpp</in>
           <in>nclu.cpp</in>
           <in>qbbc.cpp</in>
+          <in>star_charm.cpp</in>
         </df>
         <df name="nclusters">
           <in>berry.cpp</in>

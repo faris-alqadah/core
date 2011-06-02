@@ -66,6 +66,77 @@ void BasicPrefix::Qbbc(IOSet *query, vector<NCluster*> &hits) {
     }
 }
 
+
+void BasicPrefix::StarCharm(){
+    IOSet *artDomains = NETWORK->GetArtDomains();
+    if(!artDomains->Contains(s)){
+         string errMsg = "Specifed artiucaltion node domain is not an articulation node\n";
+        cerr<<errMsg; exit(-1);
+    }
+    if( artDomains->Size() != 1 && NETWORK->GetNumNodes() > 2) {
+        string errMsg = "StarCharm must be called with a star shaped hin\n";
+        cerr<<errMsg; exit(-1);
+    }
+    if(NETWORK->GetNumNodes() < 2){
+        string errMsg = "Network has fewer than two nodes!\n";
+        cerr<<errMsg; exit(-1);
+    }
+    if( NETWORK->GetRContext(1) == NULL){
+        string errMsg = "StarCharm called with invalid learner context id for the given hin\n";
+        cerr<<errMsg; exit(-1);
+    }
+    PRUNE_SIZE_VECTOR.resize(NETWORK->GetNumNodes());
+    //check values of prune_size_vector are all >= 1,
+    for(int i=0; i < NETWORK->GetNumNodes(); i++)
+        if(PRUNE_SIZE_VECTOR[i] < 1){
+            PRUNE_SIZE_VECTOR[i] = 1;
+            cout<<"\nReset prune size vector at "<<i<<" to 1\n";
+        }
+    //reset variables
+     srchLvl=0;
+     numConcepts=0;
+     //make the initial lists to call c
+     list<list<IOSet*> *> tails;
+     list<list<IOSet*> *> tailSupSet;
+     list<list<NCluster*> *> tailMinMax;
+     cout<<"\nMaking initial support sets....\n";
+     Make_Init_SupSets_MinMaxIdxs_Star_Charm(tails,tailSupSet,tailMinMax);
+}
+
+ void BasicPrefix::Make_Init_SupSets_MinMaxIdxs_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax){
+     IOSet *fullSpace = NETWORK->GetRContext(1)->GetLabels(s);
+     for(int i=0; i < NETWORK->GetNumNodes()-1; i++){
+         tails.push_back(new list<IOSet*>);
+         tailSupSet.push_back(new list<IOSet*>);
+         tailMinMax.push_back(new list<NCluster*>);
+         list<IOSet*> * currTail = tails.back();
+         list<IOSet*> * currSupSet = tailSupSet.back();
+         list<NCluster*> *currMinMax = tailMinMax.back();
+
+         RContext *currContext = NETWORK->GetRContext(i+1);
+         pair<int,int> domains = currContext->GetDomainIds();
+         int otherDomain = domains.first == s ? domains.second : domains.first;
+         for(int j=0; j < fullSpace->Size(); j++){
+             IOSet *currPfx = new IOSet;
+             RSet *currCol = currContext->GetSet(s,j);
+             currPfx->Add(fullSpace->At(j));
+             currPfx->SetId(fullSpace->At(j));
+             currPfx->SetQuality(0);
+             currTail->push_back(currPfx);
+             currSupSet->push_back(currCol->GetIdxs());
+             currSupSet->back()->SetId(currCol->Id());
+             currMinMax->push_back(new NCluster);
+             for(int k=0; k < currSupSet->back()->Size(); k++){
+                 IOSet *mm = new IOSet;
+                 RSet *theRow = currContext->GetSet(otherDomain,currSupSet->back()->At(k));
+                 mm->Add(fullSpace->At(j)); //just adding index of object at this point twice since single object
+                 mm->Add(fullSpace->At(j));
+                 currMinMax->back()->AddSet(mm);
+             }
+         }
+     }
+ }
+
 void BasicPrefix::Qbbc_Prefix_Search(IOSet *query) {
     pair<int, int> dIds = K->GetDomainIds();
     assert(s == dIds.first || s == dIds.second);

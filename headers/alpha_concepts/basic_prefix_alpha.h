@@ -24,13 +24,27 @@ BasicPrefix():AlphaConceptsAlgos() {};
     \param query the ids/indices of the query objects
     \param hits an initially empty vector of nclusters to hold the hit(s) (ie the result)
 
- So far only works with alpha sigma consistency and range, but should increase later.
+ So far only works with alpha sigma consistency, max space uniform and range, but should increase later.
  When changes are made, inidicate here what class variables must be set.
 
 */
 
 
 void Qbbc(IOSet *query, vector<NCluster*> &hits);
+
+//! The starcharm algorithm for real-valued HINs and low-variance clusters
+/*!
+ Functions assumes that the real-valued HIN has been initailized and the central domain id has been
+ set to s.
+
+
+So far only works with alpha sigma consistency, max space uniform and range, but should increase later.
+ When changes are made, inidicate here what class variables must be set..
+
+*/
+
+
+void StarCharm();
 
 private :
 
@@ -59,6 +73,10 @@ void Qbbc_Prefix_Search(IOSet *query);
 
 */
  void Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax);
+
+
+//! Make the initial tails and support sets for star charm
+ void Make_Init_SupSets_MinMaxIdxs_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax);
 
 //! The alpha charm algorithm for star-shaped information networks...
 void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax);

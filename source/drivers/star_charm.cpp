@@ -15,7 +15,7 @@
 
 string inputFile="~";
 string outFile="~";
-int numArgs=5;
+int numArgs=2;
 BasicPrefix la;
 IOSet *query;
 int queryDomain=-1;
@@ -98,7 +98,8 @@ int main(int argc, char** argv) {
     //compute standard deviations of each context
     la.NETWORK->ComputeStdDevs();
     la.NETWORK->Print();
-
+    la.s = 1; //central domain assumed to be first domain listed
+    la.StarCharm();
     cout<<"\n";
     return (EXIT_SUCCESS);
 }
