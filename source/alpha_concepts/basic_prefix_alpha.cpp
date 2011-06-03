@@ -133,6 +133,7 @@ void BasicPrefix::StarCharm(){
                  RSet *theRow = currContext->GetSet(otherDomain,currSupSet->back()->At(k));
                  mm->Add(fullSpace->At(j)); //just adding index of object at this point twice since single object
                  mm->Add(fullSpace->At(j));
+                 mm->SetId(currSupSet->back()->At(k));
                  currMinMax->back()->AddSet(mm);
              }
          }
@@ -476,63 +477,130 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
     delete commonIdxs;
 }
 
+void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
+                      IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain){
+
+//    cout<<"\nIntersecting: \n"; supSet1->Output(); cout<<"\n"; supSet2->Output(); cout.flush();
+//    cout<<"\nother domain : "<<otherDomain;
+//    cout<<"\nMin maxs: \n"; minMax1->Output(); cout<<"\n"; minMax2->Output(); cout.flush();
+     assert(supSetRslt != NULL && minMaxRslt != NULL);
+     RContext *currContext = NETWORK->GetRContext(s,otherDomain);
+     supSetRslt->SetQuality(0.0);
+    //first intersect the indices
+     IOSet *commonIdxs = Intersect(supSet1, supSet2);
+    //update min max results for each index compute range and add sets that meet range requirement
+     for (int i = 0; i < commonIdxs->Size(); i++) {
+        //get max and mins for curr row
+        int rowId = commonIdxs->At(i);
+        RSet *row = currContext->GetSet(otherDomain, rowId);
+        int oldMin1 = minMax1->GetSetById(rowId)->At(0);
+        int oldMin2 = minMax2->GetSetById(rowId)->At(0);
+        int oldMax1 = minMax1->GetSetById(rowId)->At(1);
+        int oldMax2 = minMax2->GetSetById(rowId)->At(1);
+        double minVal = min(currContext->GetSet(otherDomain, rowId)->At(oldMin1).second, currContext->GetSet(otherDomain, rowId)->At(oldMin2).second);
+        double maxVal = max(currContext->GetSet(otherDomain, rowId)->At(oldMax1).second, currContext->GetSet(otherDomain, rowId)->At(oldMax2).second);
+        int minn = (minVal == currContext->GetSet(otherDomain, rowId)->At(oldMin1).second) ? oldMin1 : oldMin2;
+        int maxx = (maxVal == currContext->GetSet(otherDomain, rowId)->At(oldMax1).second) ? oldMax1 : oldMax2;
+        //get range using new idxs
+        double range = currContext->GetSet(otherDomain, rowId)->At(maxx).second - currContext->GetSet(otherDomain, rowId)->At(minn).second;
+        //construct parameters for consistency function
+        vector<double> lclParamsF; //construct parameter vector for the consistency function, macurrContexte alpha the first element though
+        lclParamsF.push_back(alpha); //assign the variance for this particlar row / column
+        paramFunction(currContext, commonIdxs, s, otherDomain, rowId, lclParamsF);
+        //now do consistency checcurrContext
+        if (range < consistencyFunction(row, lclParamsF)) {
+            supSetRslt->Add(rowId);
+            supSetRslt->SetQuality(supSetRslt->GetQuality() + range);
+            IOSet *minMax = new IOSet;
+            minMax->Add(minn);
+            minMax->Add(maxx);
+            minMax->SetId(rowId);
+            minMaxRslt->AddSet(minMax);
+        }
+    }
+    if (supSetRslt->Size() > 0) supSetRslt->SetQuality(supSetRslt->GetQuality() / (double) supSetRslt->Size());
+    else supSetRslt->SetQuality(-1);
+    delete commonIdxs;
+   // cout<<"\nresult: \n"; supSetRslt->Output(); cout<<"\n"; minMaxRslt->Output();
+ }
+
 
 void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax){
 
-    //create vector of iterators for all tails, support sets and minMaxs
-    vector< list<IOSet*>::iterator > tailIts;
-    vector< list<IOSet*>::iterator > supIts;
-    vector< list<NCluster*>::iterator > minMaxIts;
-    Create_AllTails_Iterators_Star_Charm(tails, tailSupSet, tailMinMax, tailIts, supIts, minMaxIts);
-
-    while (tailIts[0] != tails.front()->end()) {
-
-
+    srchLvl++;
+    int lclIters=0;
+    while (tails.front()->size() > 0) {
+        if(dispProgress && srchLvl == 1){
+            cout<<"\nOn "<<lclIters+1<<" of "<<tails.front()->size();
+            cout.flush();
+        }
         //outer iterator of tails
         list< list<IOSet*>* >::iterator outerTailIt = tails.begin();
         list< list<IOSet*>* >::iterator outerSupIt = tailSupSet.begin();
         list< list<NCluster*>* >::iterator outerMinMaxIt = tailMinMax.begin();
-
+        
         list<list<IOSet*> *> newTails;
         list<list<IOSet*> *> newSupSets;
         list<list<NCluster*> *> newMinMaxs;
-
-        for (int i = 0; i < tailIts.size(); i++) {
+        int otherId=2;
+       // cout<<"\ntails size: "<<tails.size();
+        for (int i = 0; i < tails.size(); i++){
             //run charm on this edge?
+          //  cout<<"\nCHARM STEP "<<otherId;
                 list<IOSet *>* newTail = new list<IOSet*>;
                 list<IOSet *>* newSupSet = new list<IOSet*>;
                 list<NCluster *>* newMinMax = new list<NCluster*>;
-                Charm_Step(**outerTailIt, **outerSupIt, **outerMinMaxIt, *newTail, *newSupSet, *newMinMax);
-                newTails.push_back(newTail);
-                newSupSets.push_back(newSupSet);
-                newMinMaxs.push_back(newMinMax);
+               // cout<<"\ncurr tail before charm: ";
+               // Output_Tail(**outerTailIt);
+                Star_Charm_Step(**outerTailIt, **outerSupIt, **outerMinMaxIt, *newTail, *newSupSet, *newMinMax,otherId);
+                if(newTail->size() > 0){
+                    newTails.push_back(newTail);
+                    newSupSets.push_back(newSupSet);
+                    newMinMaxs.push_back(newMinMax);
+                     //prune new tails
+                     if(i > 0){
+                        Prune_Tails(*newTails.front(),*newSupSets.front(),*newMinMaxs.front(),
+                                *newTails.back(),*newSupSets.back(),*newMinMaxs.back() );
+                        }
+                }else{
+                    delete newTail;
+                    delete newSupSet;
+                    delete newMinMax;
+                }
+               // cout<<"\ncurr tail after charm: ";
+                //Output_Tail(**outerTailIt);
                 outerTailIt++;
                 outerSupIt++;
                 outerMinMaxIt++;
+                otherId++;
         }
         //determine if cluster is found
         if( Determine_Clusters(tails,newTails,newSupSets,newMinMaxs)){
             //create cluster and recurse
-            cout<<"\nFound cluster!\n";
-              //prune new search space
-            list<IOSet*> * lrnrNewTails = newTails.front();
-            list<IOSet*> * lrnrNewSupSets = newSupSets.front();
-            list<NCluster*> * lrnrNewMinMaxs = newMinMaxs.front();
-            list< list<IOSet*>* >::iterator newTailIt = newTails.begin();
-            list< list<IOSet*>* >::iterator newSupIt = newSupSets.begin();
-            list< list<NCluster*>* >::iterator newMinMaxIt = newMinMaxs.begin();
-            newTailIt++; newSupIt++; newMinMaxIt++;
-            while(newTailIt != newTails.end()){
-                Prune_Tails(*lrnrNewTails,*lrnrNewSupSets,*lrnrNewMinMaxs,*(*newTailIt),*(*newSupIt),*(*newMinMaxIt));
-                newTailIt++; newSupIt++; newMinMaxIt++;
+            if( (*(*tails.begin())->begin())->Size() > 1){
+                cout<<"\nFound cluster!\n"; (*(*tails.begin())->begin())->Output();
+                cout<<"\nsup set1 : \n"; (*(*tailSupSet.begin())->begin())->Output();
+                cout<<"\nsup set 2: \n";(*(*++tailSupSet.begin())->begin())->Output();
+                cout.flush();
             }
-            Enumerate_Star_Charm(newTails,newSupSets,newMinMaxs);
+            if(newTails.size() > 0){
+                //cout<<"\nbefore recursive call: \t";tails.front()->front()->Output();
+                Enumerate_Star_Charm(newTails,newSupSets,newMinMaxs);
+                srchLvl--;
+            }
         }else{
             //delete all new tails
+            //cout<<"\ndeleting new tails...";
             Delete_New_Tails_Star_Charm(newTails,newSupSets,newMinMaxs);
         }
          //update all the tails
-         Update_AllTails_Iterators_Star_Charm(tails, tailSupSet, tailMinMax,tailIts,supIts,minMaxIts);
+       // cout<<"\nupdating tails on level..."<<srchLvl<<"\tlclIters: "<<lclIters<<"\tsize: "<<tails.size();
+       // cout.flush();
+       // cout<<"||\t"; tails.front()->front()->Output();
+
+         Update_AllTails_Iterators_Star_Charm(tails, tailSupSet, tailMinMax);
+         lclIters++;
+        // cout<<"\n------\n";
     }
 }
 
@@ -695,8 +763,8 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
     }
 }
 
-void BasicPrefix::Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
-                 list<IOSet*> &newTail, list<IOSet*> &newTailSupSets, list<NCluster*> &newTailMinMax ) {
+void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
+                 list<IOSet*> &newTail, list<IOSet*> &newTailSupSets, list<NCluster*> &newTailMinMax,int otherDomain ) {
     if (tail.size() == 0) {
         return;
     }
@@ -717,14 +785,14 @@ void BasicPrefix::Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
             //first perform intersection then all cases follow
-            Range_Intersect(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt);
+            Range_Intersect_Star_Charm(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,otherDomain);
             //now implement each case....
             if (supSetRslt->Size() > PRUNE_SIZE_VECTOR[1]){
                 if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()) {
                     //update the curr prefix
-                    IOSet *tmp = currPrefix;
-                    currPrefix = Union(currPrefix, (*tailItC));
-                    currPrefix->SetId(tmp->Id());
+                    IOSet *tmp = (*tailIt);
+                    (*tailIt) = Union((*tailIt), (*tailItC));
+                    (*tailIt)->SetId(tmp->Id());
                     delete tmp;
                     //update the current tail and supporting sets
                     delete (*tailItC);
@@ -735,13 +803,13 @@ void BasicPrefix::Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<
                     minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
                     delete supSetRslt;
                     delete minMaxRslt;
-                    //cout<<"\ncase1";
+                    //cout<<"\ncase1 "; (*tailIt)->Output();
 
                 } else if (supSetRslt->Size() == currSupSet->Size()) {
                     //update the curr prefix
-                    IOSet *tmp = currPrefix;
-                    currPrefix = Union(currPrefix, (*tailItC));
-                    currPrefix->SetId(tmp->Id());
+                    IOSet *tmp = (*tailIt);
+                    (*tailIt)= Union((*tailIt), (*tailItC));
+                    (*tailIt)->SetId(tmp->Id());
                     delete tmp;
                     delete supSetRslt;
                     delete minMaxRslt;
@@ -749,9 +817,11 @@ void BasicPrefix::Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<
                     tailItC++;
                     tailSupItC++;
                     minMaxItC++;
+                   // cout<<"\ncase2";
+
                 } else if (supSetRslt->Size() == (*tailSupItC)->Size()) {
                     //add to new tail
-                    IOSet *newNode = Union(currPrefix, (*tailItC));
+                    IOSet *newNode = Union((*tailIt), (*tailItC));
                     newNode->SetId((*tailItC)->Id());
                     newTail.push_back(newNode);
                     newTailSupSets.push_back(supSetRslt);
@@ -767,7 +837,7 @@ void BasicPrefix::Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<
 
                 } else {
                     //add to new tail
-                    IOSet *newNode = Union(currPrefix, (*tailItC));
+                    IOSet *newNode = Union((*tailIt), (*tailItC));
                     newNode->SetId((*tailItC)->Id());
                     newTail.push_back(newNode);
                     newTailSupSets.push_back(supSetRslt);
@@ -777,11 +847,12 @@ void BasicPrefix::Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<
                     tailItC++;
                     tailSupItC++;
                     minMaxItC++;
+                   // cout<<"\ncase4 "; newNode->Output();
                 }
             } else {
                 delete supSetRslt;
                 delete minMaxRslt;
-                //  cout<<"\nnone...";
+                // cout<<"\nno case";
                 //increment iterators
                 tailItC++;
                 tailSupItC++;

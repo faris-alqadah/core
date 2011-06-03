@@ -41,30 +41,13 @@ void Construct_AlphaSigma_Params(RContext *K, IOSet* query, int s, int t, int tR
  */
 void Construct_MaxSpaceUniform_Params(RContext* K, IOSet *query, int s,int t, int tRow, vector<double> &params);
 
+//! Ouptut a list of iosets that represent a tail
+void Output_Tail(list<IOSet*> &tail);
 
-//! Compute the range intersect of two subspaces using a naive method
-/*! Sets the quality of supSetRslt to the average range all of supporting rows/columns
-    This function assumets
-  K,s,t parameters are already predefined by algorithm interface.
-
-    \param supSet1: indicies or ids of first supporting set
-    \param supSet2: indicies or ids of second supporting set
-*/
-IOSet * Naive_Range_Intersect(IOSet *supSet1, IOSet *supSet2);
-
-
-//! Construct vectors of iterators for use in Star Charm
-void Create_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax,
-                                vector< list<IOSet*>::iterator > &tailIts,
-                                vector< list<IOSet*>::iterator > &supIts,
-                                vector< list<NCluster*>::iterator > &minMaxIts);
 
 
 //! update vectors of iterators for use in Star Charm
-void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax,
-                                vector< list<IOSet*>::iterator > &tailIts,
-                                vector<  list<IOSet*>::iterator > &supIts,
-                                vector<  list<NCluster*>::iterator > &minMaxIts);
+void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax);
 
 
 //! Delete lists of lists of tails, supporting sets, and min max indices

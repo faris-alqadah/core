@@ -31,6 +31,7 @@ void DisplayUsage(){
         <<"\n-alpha <alpha value> (default is 1.0)"
         <<"\n-c <consistency function> 1- alpha_sigma 2- max_space_uniform (default is 1)"
         <<"\n-o <output file path>"
+        <<"\n-prog <display progress>"
         <<"\n\n";
     exit(1);
 }
@@ -55,9 +56,11 @@ void CheckArguments(){
     }
     la.dispersionFunction=&Range;
     cout<<"\ninput file: "<<inputFile<<"\nalpha: "<<la.alpha<<"\nconsistency mode: "<<la.consistencyMode;
+    if(la.dispProgress) cout<<"\nDisplay progress option enabled";
     if(outFile != "~"){
         cout<<"\nOutput file: "<<outFile;
     }
+
     cout<<"\n"<<endl;
 }
 
@@ -77,6 +80,9 @@ void ProcessCmndLine(int argc, char ** argv){
            }
            if(temp == "-o"){
                outFile=argv[++i];
+           }
+           if(temp == "-prog"){
+               la.dispProgress=true;
            }
         }
     }

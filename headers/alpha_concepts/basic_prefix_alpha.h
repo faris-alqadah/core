@@ -86,7 +86,9 @@ void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &t
  //! Compute the "Range Intersection" of two supporting sets for the star charm algorithm 
 
  void Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
-                      IOSet *supSetRslt, NCluster* minMaxRslt, RContext *currContext, int otherDomain);
+                      IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain);
+
+
 
 
 //! Prunes the second tails based on the first
@@ -95,8 +97,8 @@ void Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, list<NCluster*>
 
 
 //! A single step of CHARM
-void Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
-                list<IOSet*> &newTail, list<IOSet*> &newTailSupSets, list<NCluster*> &newTailMinMax);
+void Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
+                list<IOSet*> &newTail, list<IOSet*> &newTailSupSets, list<NCluster*> &newTailMinMax, int otherDomain);
 
 //! Determine if resulting tails are a star-cluster
 bool Determine_Clusters(list< list<IOSet*>* > &tails, list< list<IOSet*>* > &newTtails,

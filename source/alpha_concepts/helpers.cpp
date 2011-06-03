@@ -24,55 +24,44 @@ void Construct_MaxSpaceUniform_Params(RContext* K, IOSet* query, int s, int t, i
     params.push_back(query->GetQuality());
 }
 
-IOSet *Naive_Range_Intersect(IOSet *supSet1, IOSet *supSet2){
 
-}
 
-void Create_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax,
-                                vector< list<IOSet*>::iterator > &tailIts,
-                                vector< list<IOSet*>::iterator > &supIts,
-                                vector< list<NCluster*>::iterator > &minMaxIts){
 
+void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax){
+    //cout<<"\nUpdating tails...\n";
     list< list<IOSet*>* >::iterator outerTailIt = tails.begin();
     list< list<IOSet*>* >::iterator outerSupIt = tailSupSet.begin();
     list< list<NCluster*>* >::iterator outerMinMaxIt = tailMinMax.begin();
-    for(int i=0; i < tails.size(); i++){
-            tailIts.push_back( (*outerTailIt)->begin());
-            supIts.push_back( (*outerSupIt)->begin());
-            minMaxIts.push_back( (*outerMinMaxIt)->begin());
-        
-        outerTailIt++;
-        outerSupIt++;
-        outerMinMaxIt++;
+    
+     for(int j=0; j < tails.size(); j++){
+        // cout<<"\nj: "<<j<<"\t"<<(*outerTailIt)->size();
+         if( (*outerTailIt)->size() > 0 ){
+             if( (*outerTailIt)->front() != NULL){
+                 delete (*outerTailIt)->front();
+                 delete (*outerSupIt)->front();
+                 delete (*outerMinMaxIt)->front();
+             }
+             RemoveFromList(*(*outerTailIt), (*outerTailIt)->begin());
+             RemoveFromList(*(*outerSupIt), (*outerSupIt)->begin());
+             RemoveFromList(*(*outerMinMaxIt), (*outerMinMaxIt)->begin());
+         }
+         outerTailIt++;
+         outerSupIt++;
+         outerMinMaxIt++;
     }
 
 }
 
-void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax,
-                                vector< list<IOSet*>::iterator > &tailIts,
-                                vector< list<IOSet*>::iterator > &supIts,
-                                vector<  list<NCluster*>::iterator > &minMaxIts){
-
-    list< list<IOSet*>* >::iterator outerTailIt = tails.begin();
-    list< list<IOSet*>* >::iterator outerSupIt = tailSupSet.begin();
-    list< list<NCluster*>* >::iterator outerMinMaxIt = tailMinMax.begin();
-    int i=0;
-    for(int j=0; j < tails.size(); j++){
-            delete (*tailIts[i]);
-            delete (*supIts[i]);
-            delete (*minMaxIts[i]);
-            tailIts[i] = RemoveFromList(*(*outerTailIt), tailIts[i]);
-            supIts[i] = RemoveFromList(*(*outerSupIt), supIts[i]);
-            minMaxIts[i] = RemoveFromList(*(*outerMinMaxIt), minMaxIts[i]);
-            i++;
-            outerTailIt++;
-            outerSupIt++;
-            outerMinMaxIt++;
+void Output_Tail(list<IOSet*> &tail){
+    list<IOSet*>::iterator it = tail.begin();
+    cout<<"\n~~~";
+    while(it != tail.end()){
+        cout<<"\n";
+        (*it)->Output();
+        it++;
     }
-
+    cout<<"\n~~~";
 }
-
-
 
 
 void Delete_New_Tails_Star_Charm(list< list<IOSet*>* > &newTails, list< list<IOSet*> *> &newSupSets, list < list<NCluster*> *> &newMinMaxs){
