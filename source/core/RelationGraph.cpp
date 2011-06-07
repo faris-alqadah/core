@@ -112,6 +112,21 @@ IOSet * RelationGraph::GetAllDomainIds() {
 bool RelationGraph::IsDomainId(int dId) {
     return domainRelations.ContainsIOSetId(dId);
 }
+int RelationGraph::NumObjsInDomain(int dId){
+    assert(IsDomainId(dId));
+    vector<Context*> *ctxs = GetContexts(dId);
+    int ret= ctxs->at(0)->GetNumSets(dId);
+    delete ctxs;
+    return ret;
+}
+
+IOSet * RelationGraph::GetLabels(int dId){
+    assert(IsDomainId(dId));
+    vector<Context*> *ctxs = GetContexts(dId);
+    IOSet* ret= ctxs->at(0)->GetLabels(dId);
+    delete ctxs;
+    return ret;
+}
 
 bool RelationGraph::IsContextId(int cId) {
     for (int i = 0; i < contexts.size(); i++)

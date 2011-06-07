@@ -39,6 +39,13 @@ void AddContext(Context *c);
 //! Returns the number of nodes (domains) in the network
 int GetNumNodes();
 
+
+
+/*! Return the number of elements in this domain*/
+int NumObjsInDomain(int dId);
+
+//! Return an IOSet of all objects in the specifed domain
+IOSet *GetLabels(int dId);
 //! Returns true if the ids are an edge in the network, false otherwise
 /*!
  Returns true if there exists a context in the network that has domains

@@ -190,6 +190,7 @@ int main(int argc, char** argv) {
     //since this was not possible during execution
     //of the algorithm
     if(la.enumerationMode == la.ENUM_TOPK_FILE){
+        sort(la.CONCEPTS.begin(),la.CONCEPTS.end(),Compare_Quality_NCluster);
         OutputClustersFile();
     }
     cout<<"\n";

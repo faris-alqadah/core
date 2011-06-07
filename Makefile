@@ -39,6 +39,7 @@ MAIN_OBJECTS =  $(OBJ_CORE)/IOSet.o \
 		$(OBJ_CORE)/NRCluster.o \
 		$(OBJ_CORE)/OpsR.o \
 		$(OBJ_CORE)/RelationGraphR.o \
+		$(OBJ_CORE)/BasicStats.o \
 		$(OBJ_CORE)/Timing.o
 #algos helpers
 ALGOS_HELPER_OBJECTS = $(OBJ)/$(ALGOS_HELPERS)/basic.o \
@@ -132,6 +133,8 @@ $(OBJ_CORE)/NCluster.o: $(SOURCE_CORE)/NCluster.cpp
 
 $(OBJ_CORE)/PreProcess.o: $(SOURCE_CORE)/PreProcess.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE_CORE)/PreProcess.cpp -o $@
+$(OBJ_CORE)/BasicStats.o: $(SOURCE_CORE)/BasicStats.cpp
+	$(CC) $(CFLAGS) -c $(SOURCE_CORE)/BasicStats.cpp -o $@
 
 # algorithm helpers
 $(OBJ)/$(ALGOS_HELPERS)/basic.o: $(SOURCE)/$(ALGOS_HELPERS)/basic.cpp

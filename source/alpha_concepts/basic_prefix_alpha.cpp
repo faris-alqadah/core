@@ -9,7 +9,6 @@ void BasicPrefix::Qbbc(IOSet *query, vector<NCluster*> &hits) {
         if (CONCEPTS.size() > 0) {
             bool gotAll = CONCEPTS[0]->GetSetById(s)->Size() == query->Size(); //were all query objects retrieved
             //find closure
-
             // cout<<"\ngetting min max...";
             NCluster *minMax = Get_Min_Max_Idxs(CONCEPTS[0]->GetSetById(s), CONCEPTS[0]->GetSetById(t));
             NCluster *bicluster = new NCluster(*CONCEPTS[0]);
@@ -156,22 +155,39 @@ void BasicPrefix::StarCharm(){
          for(int j=0; j < fullSpace->Size(); j++){
              IOSet *currPfx = new IOSet;
              RSet *currCol = currContext->GetSet(s,j);
-             currPfx->Add(fullSpace->At(j));
-             currPfx->SetId(fullSpace->At(j));
-             currPfx->SetQuality(0);
-             currTail->push_back(currPfx);
-             currSupSet->push_back(currCol->GetIdxs());
-             currSupSet->back()->SetId(currCol->Id());
-             currMinMax->push_back(new NCluster);
-             for(int k=0; k < currSupSet->back()->Size(); k++){
-                 IOSet *mm = new IOSet;
-                 RSet *theRow = currContext->GetSet(otherDomain,currSupSet->back()->At(k));
-                 mm->Add(fullSpace->At(j)); //just adding index of object at this point twice since single object
-                 mm->Add(fullSpace->At(j));
-                 mm->SetId(currSupSet->back()->At(k));
-                 currMinMax->back()->AddSet(mm);
+             if(currCol->Size() >= PRUNE_SIZE_VECTOR[i+1]){  //prune small columns from the get go
+                 currPfx->Add(fullSpace->At(j));
+                 currPfx->SetId(fullSpace->At(j));
+                 currPfx->SetQuality(0);
+                 currTail->push_back(currPfx);
+                 currSupSet->push_back(currCol->GetIdxs());
+                 currSupSet->back()->SetId(currCol->Id());
+                 currMinMax->push_back(new NCluster);
+                 for(int k=0; k < currSupSet->back()->Size(); k++){
+                     IOSet *mm = new IOSet;
+                     RSet *theRow = currContext->GetSet(otherDomain,currSupSet->back()->At(k));
+                     mm->Add(fullSpace->At(j)); //just adding index of object at this point twice since single object
+                     mm->Add(fullSpace->At(j));
+                     mm->SetId(currSupSet->back()->At(k));
+                     currMinMax->back()->AddSet(mm);
+                 }
              }
          }
+     }
+     //prune the search spaces
+     list< list<IOSet*> *>::iterator tailIt = tails.begin();
+     list< list<IOSet*> *>::iterator supIt = tailSupSet.begin();
+     list< list<NCluster*> *>::iterator minMaxIt = tailMinMax.begin();
+     while( tailIt != tails.end()){
+         list< list<IOSet*> *>::iterator tailIt2 = tailIt;
+         list< list<IOSet*> *>::iterator supIt2 = supIt;
+         list< list<NCluster*> *>::iterator minMaxIt2 = minMaxIt;
+         tailIt2++; supIt2++; minMaxIt2++;
+         while(tailIt2 != tails.end()){
+            Prune_Tails( (**tailIt) ,(**supIt),(**minMaxIt),(**tailIt2),(**supIt2),(**minMaxIt2));
+            tailIt2++; supIt2++; minMaxIt2++;
+         }
+         tailIt++;supIt++;minMaxIt++;
      }
  }
 
@@ -619,13 +635,13 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
                 outerSupIt++;
                 outerMinMaxIt++;
                 otherId++;
-               // cout<<"\npotential cluster: ";
-              //  (*(*tails.begin())->begin())->Output();
-               // cout<<"\nsupport set: ";
-               // (*(*tailSupSet.begin())->begin())->Output();
+                //cout<<"\npotential cluster: ";
+                //(*(*tails.begin())->begin())->Output();
+                //cout<<"\nsupport set: ";
+                //(*(*tailSupSet.begin())->begin())->Output();
         }
         //determine if cluster is found
-        if( Determine_Clusters(tails,newTails,newSupSets,newMinMaxs)){
+        if( Determine_Clusters(tails,newTails,tailSupSet,newMinMaxs)){
             //create cluster and recurse
             if( (*(*tails.begin())->begin())->Size() >= PRUNE_SIZE_VECTOR[0] ){
                 NCluster *ncluster = new NCluster;
@@ -639,6 +655,9 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
                      supIt++;
                      idd++;
                  }
+                 //cout<<"\nNew cluster: \n";
+                 //ncluster->Output();
+                 //cout.flush();
                  if( enumerationMode == ENUM_MEM)
                         StoreCluster(CONCEPTS,ncluster);
                     else if(enumerationMode == ENUM_FILE) {
@@ -667,16 +686,28 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
 }
 
 bool BasicPrefix::Determine_Clusters(list< list<IOSet*>* > &tails, list< list<IOSet*>* > &newTtails,
-                        list< list<IOSet*> *> &newSupSets, list < list<NCluster*> *> &newMinMaxs){
+                        list< list<IOSet*> *> &supSets, list < list<NCluster*> *> &newMinMaxs){
 
     list<list<IOSet*> *>::iterator tailIt = tails.begin();
+    list<list<IOSet*> *>::iterator supIt = supSets.begin();
+
     IOSet *lrnrSet = (*(*tailIt)->begin());
+    IOSet *lrnrSupSet = (*(*supIt)->begin());
+    if(lrnrSupSet->Size() < PRUNE_SIZE_VECTOR[1]) return false;
     tailIt++;
+    supIt++;
+    int domain=2;
+
+    //cout<<"\nchecking...";
+    //cout<<"\nlearner set is: "; lrnrSet->Output();
+   // cout<<"\nlearner suppot set is : "; lrnrSupSet->Output();
     while (tailIt != tails.end()){
         IOSet *currSet = (*(*tailIt)->begin());
-       // if (currSet->Size() < 2){
-        //    return false;
-       // }
+        IOSet *currSupSet = (*(*supIt)->begin());
+        //cout<<"\nsz chck"; curr; cout<<"\nsup:"; currSupSet->Output(); cout<<"\n";cout.flush();
+       if (currSupSet->Size() < PRUNE_SIZE_VECTOR[domain]){
+            return false;
+        }
         IOSet *intersect = Intersect(currSet,lrnrSet);
         if( currSet->Size() == lrnrSet->Size() && intersect->Size() == currSet->Size()){
                 ;//do nothing since equal
@@ -698,6 +729,8 @@ bool BasicPrefix::Determine_Clusters(list< list<IOSet*>* > &tails, list< list<IO
         }
         delete intersect;
         tailIt++;
+        domain++;
+        supIt++;
     }
     return true;
 }

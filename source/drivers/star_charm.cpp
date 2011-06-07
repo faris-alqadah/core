@@ -29,7 +29,7 @@ void DisplayUsage(){
         <<"\nREQUIRED: "
         <<"\n-i <inputFile>"
         <<"\n-m n (number of domains) min1 min2 ... min_n the minimum cardinalites of each domain for n-cluster enumeration"
-        <<"\nOPTIONAL: "
+        <<"\nOPTIONAL (use in this order): "
         <<"\n-alpha <alpha value> (default is 1.0)"
         <<"\n-c <consistency function> 1- alpha_sigma 2- max_space_uniform (default is 1)"
         <<"\n-o <output file path>"
@@ -73,7 +73,7 @@ void CheckArguments(){
     else if(la.enumerationMode == la.ENUM_TOPK_FILE && la.OUTFILE != "~"){
           cout<<"\nOutput clusters option enabled: "<<la.OUTFILE;
     }
-     if(la.enumerationMode == la.ENUM_TOPK_FILE || la.enumerationMode == la.ENUM_TOPK_MEM){
+   if(la.enumerationMode == la.ENUM_TOPK_FILE || la.enumerationMode == la.ENUM_TOPK_MEM){
         if(la.ovlpThresh < 0 || la.ovlpThresh > 1){
             cout<<"\nOverlap threshold not in correct range!";
              DisplayUsage();
@@ -110,14 +110,9 @@ void CheckArguments(){
         for(int i=0; i < la.PRUNE_SIZE_VECTOR.size(); i++)
             cout<<"\nDOMAIN "<<i+1<<" min: "<<la.PRUNE_SIZE_VECTOR[i];
     }
-
-
     la.dispersionFunction=&Range;
     cout<<"\ninput file: "<<inputFile<<"\nalpha: "<<la.alpha<<"\nconsistency mode: "<<la.consistencyMode;
     if(la.dispProgress) cout<<"\nDisplay progress option enabled";
-    if(outFile != "~"){
-        cout<<"\nOutput file: "<<outFile;
-    }
 
     cout<<"\n"<<endl;
 }
@@ -144,7 +139,8 @@ void ProcessCmndLine(int argc, char ** argv){
                la.consistencyMode = atoi(argv[++i]);
            }
            else if(temp == "-o"){
-               outFile=argv[++i];
+               la.OUTFILE= argv[++i];
+               la.enumerationMode = la.ENUM_FILE;
            }
            else if(temp == "-prog"){
                la.dispProgress=true;
@@ -195,6 +191,8 @@ int main(int argc, char** argv) {
     la.s = 1; //central domain assumed to be first domain listed
     la.StarCharm();
     if(la.enumerationMode == la.ENUM_TOPK_FILE){
+        cout<<"\nOutputing clusters to file....\n";
+        sort(la.CONCEPTS.begin(),la.CONCEPTS.end(),Compare_Quality_NCluster);
         OutputClustersFile();
     }
     cout<<"\n";
