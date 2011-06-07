@@ -80,9 +80,11 @@ void UpdateSampleSet(NCluster*,NCluster*);
            2. Create initial cluster C starting with random object in r
            3. Attempt to make deal with C
            4. If deal is made with C update selection set
- 
+
+
+ Assumes RewardFunc variable has been set.
  */
-void GHIN(double(*RewardFunc)(NCluster*,int,int));
+void GHIN_Alg();
 
 
 
@@ -195,6 +197,13 @@ bool CheckRepeat(NCluster *);
   Make the first set of all objects that can be selected for initial state
 */
 NCluster* MakeInitialSampleSet();
+
+/*!
+  Update the set suitable for selection by removing all the elements of
+  the input NCluster
+*/
+
+void UpdateSampleSet(NCluster *selection, NCluster *currCluster, NCluster *clustered);
 
 #endif	/* FRAMEWORK_H */
 

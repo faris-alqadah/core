@@ -14,7 +14,6 @@ NCluster* Ghin::SelectInit(int domain, NCluster *sampleSet){
     IOSet *neighbors = hin->GetNeighbors(domain);
     int neighborDomain = neighbors->At( rand() % neighbors->Size());
     Context *ctx = hin->GetContext(domain,neighborDomain);
-
     IOSet *a =  Prime(init,hin,domain,neighborDomain,1);
     if ( a != NULL){
         init->GetSetById(neighborDomain)->DeepCopy(a);
@@ -27,13 +26,11 @@ NCluster* Ghin::SelectInit(int domain, NCluster *sampleSet){
             UpdateSampleSet(sampleSet,init);
             delete init;
             return final;
-
         }else{
             delete a;
             //update the sample set
              UpdateSampleSet(sampleSet,init);
             delete init;
-
             return NULL;
         }
     }else{
@@ -42,6 +39,73 @@ NCluster* Ghin::SelectInit(int domain, NCluster *sampleSet){
         delete init;
         return NULL;
     }
+}
+
+NCluster* Ghin::MakeDeal(NCluster *candidate,double(*RewardFunc)(NCluster*,int,int)){
+    int N = hin->GetNumNodes();
+    int max_iters = 50;
+    int cnt=0;
+    bool change=true;
+    bool add=true;
+    vector<int> order(N);
+    for(int i=0; i < N; i++) order[i] =i+1;
+    //clear
+    random_shuffle(order.begin(),order.end());
+    int no_change_cnt=0;
+    while (no_change_cnt < 2 && cnt < max_iters ){
+        vector<IOSet*> changedSets(N+1);
+        change=false;
+        //randomize the order of deal making
+        for(int i=0; i < N; i++){
+            changedSets[order[i]] = new IOSet(candidate->GetSet(order[i]));
+            bool currChange = MaximizeDomain(candidate,changedSets[order[i]],order[i],RewardFunc,add);
+            change = change || currChange;
+        }
+        //destroy the vector
+        for(int i=0; i < N; i++) {
+            delete changedSets[i];
+            changedSets[i] = NULL;
+        }
+        if(change) no_change_cnt=0;
+        else no_change_cnt++;
+        if(add && !change) add = false;  //cannot add anymore
+        else if (add && change) add=true; //can maybe add some more
+        else if (!add & !change) add = true; //cannot remove anymore
+        else if (!add && change) add=false; //can maybe still remove move
+        cnt++;
+    }
+    NCluster *ret = new NCluster(N);
+    ret->DeepCopy(*candidate);
+    if(no_change_cnt > 1 && cnt < max_iters){
+        ret->SetQuality(1.0);
+    }else{
+        ret->SetQuality(0.0);
+    }
+    return ret;
+}
+
+bool Ghin::MaximizeDomain(NCluster *a, IOSet *c, int domain ,double(*RewardFunc)(NCluster*,int,int),bool add ){
+    bool ret=false;
+    if(!add){
+        IOSet *removed = RemoveSet_Reward(a,domain,RewardFunc);
+        if( removed != NULL){
+            IOSet *diff = Difference(c,removed);
+            a->GetSetById(domain)->DeepCopy(diff);
+            delete removed;
+            delete diff;
+            ret = true;
+        }
+    }else{
+        IOSet *add = AddSet_Reward(a,domain,RewardFunc);
+        if ( add != NULL){
+            IOSet *unin = Union(c,add);
+            a->GetSetById(domain)->DeepCopy(unin);
+            delete add;
+            delete unin;
+            ret = true;
+        }
+    }
+    return ret;
 }
 
 ////////////////////////////////Reward Funtions/////////////////////////////////
@@ -158,6 +222,56 @@ void Ghin::Compute_Score(NCluster *a,double(*RewardFunc)(NCluster*,int,int) ){
         a->GetSet(i)->SetQuality(quality_cnt);
     }
 }
+
+void  Ghin::GHIN_Alg(){
+    srand ( time(NULL) );
+    //1. mark domains (optional)
+    //2. Set selection set to everything
+    NCluster *selection = MakeInitialSampleSet();
+    NCluster *clustered = new NCluster(hin->GetNumNodes());
+    //3. Iteratte until selection is not empty
+    int numIters = 0;
+    while( !SelectEmpty(selection)){
+         //1. select random domain
+        int strtDomain = SelectRandomDomain();
+        //2. Create initial cluster
+        NCluster *init = SelectInit(strtDomain,selection);
+        if(init != NULL){
+             NCluster *initCopy = new NCluster(*init);
+            //3. Attempt to make deal
+            NCluster *result = MakeDeal(init,RewardFunc);
+
+            bool foundCluster=false;
+            if (result->GetQuality() == 1 && !CheckRepeat(result)){
+                Compute_Score(result,RewardFunc);
+                if(dispProgress){
+                    cout<<"\nfinal selection \n"; result->Output();
+
+                }
+                foundCluster=true;
+                 CONCEPTS.push_back(result);
+                if(tiredMode){
+                    UpdateTired(result);
+                }
+                UpdateSampleSet(selection,init,clustered);
+                UpdateSampleSet(selection,result,clustered);
+            }
+            //4. Update selection
+            delete initCopy;
+            if (!foundCluster) delete result;
+            delete init;
+        }
+        if (dispProgress && (numIters % 100 == 0)) {
+                 cout<<"\nProgress...";
+                 for(int i=0; i < hin->GetNumNodes(); i++)
+                        cout<<"\n"<<selection->GetSet(i)->Size()<<" of "<<hin->NumObjsInDomain(i+1);
+                 cout<<"\nGot "<<CONCEPTS.size()<<" clusters...\nnum_iters: "<<numIters;
+
+       }
+       numIters++;
+    }
+}
+
 ///////////////////HELPER FUNCTIONS/////////////////////////////////////////////
 int Ghin::SelectRandomDomain(){
 
@@ -188,7 +302,6 @@ bool Ghin::CheckRepeat(NCluster *a){
     if(CONCEPTS.size() == 0) return false;
     else{
         for(int i=0; i < CONCEPTS.size(); i++){
-            bool repeat=false;
             for(int j=0; j < hin->GetNumNodes(); j++){
                 if ( a->GetSet(j)->Equal(*CONCEPTS[i]->GetSet(j)) || a->GetSet(j)->Size() < 1)
                     return true;
@@ -206,4 +319,18 @@ NCluster* Ghin::MakeInitialSampleSet(){
         for(int j=0; j < hin->NumObjsInDomain(i+1); j++)
             init->GetSet(i)->Add(j);
      return init;
+}
+
+
+
+void Ghin::UpdateSampleSet(NCluster *selection, NCluster *currCluster, NCluster *clustered){
+    for(int i=0; i < hin->GetNumNodes(); i++){
+        IOSet *n = Difference(selection->GetSet(i),currCluster->GetSet(i));
+        IOSet *u = Union(currCluster->GetSet(i),clustered->GetSet(i));
+        clustered->GetSet(i)->DeepCopy(u);
+        selection->GetSet(i)->DeepCopy(n);
+        delete u;
+        delete n;
+    }
+
 }

@@ -119,24 +119,21 @@ int main(int argc, char** argv) {
     framework.hin->Print();
     if(framework.tiredMode)
         framework.InitTiring();
-
-
-
-
     StartTiming();
-
-    GHIN(RewardFunc);
+    framework.GHIN_Alg();
     EndTiming();
-    sort(finalClusters.begin(),finalClusters.end(), CompQualitySet);
-    if(setClassify){
-        ofstream out(setClassifyFile.c_str());
-        OutputSetForClassify(setNumClassify,out);
-    }
-    sort(finalClusters.begin(),finalClusters.end(), CompQualitySet);
-    if(outputClusters){
-        ofstream out(clustersOutputFile.c_str());
-        OutputClustersNamesTreeClu(out);
-    }
+
+//
+//    sort(.begin(),finalClusters.end(), CompQualitySet);
+//    if(setClassify){
+//        ofstream out(setClassifyFile.c_str());
+//        OutputSetForClassify(setNumClassify,out);
+//    }
+//    sort(finalClusters.begin(),finalClusters.end(), CompQualitySet);
+//    if(outputClusters){
+//        ofstream out(clustersOutputFile.c_str());
+//        OutputClustersNamesTreeClu(out);
+//    }
 
     cout<<"\n";
     return (EXIT_SUCCESS);

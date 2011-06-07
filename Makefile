@@ -22,6 +22,7 @@ DRIVERS = drivers
 ALGOS_HELPERS = algos_helpers
 ALPHA_CONCEPTS = alpha_concepts
 NCLUSTERS = nclusters
+GHIN = ghin
 # objects
 #main objects
 MAIN_OBJECTS =  $(OBJ_CORE)/IOSet.o \
@@ -53,15 +54,18 @@ ALPHA_CONCEPTS_OBJECTS = $(OBJ)/$(ALPHA_CONCEPTS)/consistency.o \
 			$(OBJ)/$(ALPHA_CONCEPTS)/helpers.o
 #nclusters
 NCLUSTERS_OBJECTS = $(OBJ)/$(NCLUSTERS)/Berry.o
-
+#ghin
+GHIN_OBJECTS = $(OBJ)/$(GHIN)/Framework.o
 #driver make programs
 NCLU_OBJ	=	$(OBJ)/$(NCLUSTERS)/nclu.o
 QBBC_OBJ =	$(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o
 STAR_CHARM_OBJ = $(OBJ)/$(ALPHA_CONCEPTS)/starcharm.o
+GHIN_OBJ = $(OBJ)/$(GHIN)/ghin.o
 
 NCLU_TARGET = $(BIN)/nclu
 QBBC_TARGET = $(BIN)/qbbc
 STAR_CHARM_TARGET = $(BIN)/starcharm
+GHIN_TARGET = $(BIN)/ghin
 #targets
 .cpp.o:
 	$(CC) -c $(CFLAGS) -o $@ $<
@@ -74,6 +78,8 @@ qbbc:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(QBBC_
 
 starcharm:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(STAR_CHARM_OBJ)
 		$(LINK) $(LFLAGS) -o $(STAR_CHARM_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(STAR_CHARM_OBJ) $(LIBS)
+ghin:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(GHIN_OBJECTS) $(GHIN_OBJ)
+		$(LINK) $(LFLAGS) -o $(GHIN_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(GHIN_OBJECTS) $(GHIN_OBJ) $(LIBS)
 
 #install and setup scripts
 install:
@@ -92,6 +98,9 @@ starcharm_install:
 
 nclu_install:
 		mkdir -p $(OBJ)/$(NCLUSTERS)
+		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
+ghin_install:
+		mkdir -p $(OBJ)/$(GHIN)
 		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
 clean:
 		rm -rf $(OBJ)
@@ -165,3 +174,8 @@ $(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o: $(SOURCE)/$(DRIVERS)/qbbc.cpp
 #starcharm algorithm
 $(OBJ)/$(ALPHA_CONCEPTS)/starcharm.o: $(SOURCE)/$(DRIVERS)/star_charm.cpp
 		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/star_charm.cpp -o $@
+#ghin algorithm
+$(OBJ)/$(GHIN)/Framework.o: $(SOURCE)/$(GHIN)/Framework.cpp
+		$(CC) $(CFLAGS) -c  $(SOURCE)/$(GHIN)/Framework.cpp -o $@
+$(OBJ)/$(GHIN)/ghin.o: $(SOURCE)/$(DRIVERS)/ghin.cpp
+		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/ghin.cpp -o $@
