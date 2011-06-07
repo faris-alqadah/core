@@ -56,11 +56,11 @@ void Output_Tail(list<IOSet*> &tail){
     list<IOSet*>::iterator it = tail.begin();
     cout<<"\n~~~";
     while(it != tail.end()){
-        cout<<"\n";
+        cout<<"| ";
         (*it)->Output();
         it++;
     }
-    cout<<"\n~~~";
+    cout<<"\n~~~"<<tail.size();
 }
 
 

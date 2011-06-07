@@ -20,17 +20,23 @@ BasicPrefix la;
 IOSet *query;
 int queryDomain=-1;
 int otherDomain=-1;
+double beta=0.5;
 void(*paramFunction)(RContext *,IOSet *, int, int,int, vector<double> &);
-double queryQuality;
+
 
 void DisplayUsage(){
     cout<<"\nUSAGE: test -i input_file "
         <<"\nREQUIRED: "
         <<"\n-i <inputFile>"
+        <<"\n-m n (number of domains) min1 min2 ... min_n the minimum cardinalites of each domain for n-cluster enumeration"
         <<"\nOPTIONAL: "
         <<"\n-alpha <alpha value> (default is 1.0)"
         <<"\n-c <consistency function> 1- alpha_sigma 2- max_space_uniform (default is 1)"
         <<"\n-o <output file path>"
+        <<"\n\t these will be output to filename.concepts and filenames.concepts.names"
+        <<"\n-k <num>(>0) only enumerate the top k clusters (default is to use area to rank) "
+        <<"\n-beta <num>(0-1) specify beta value to use beta-ranking of clusters "
+        <<"\n-ovlp <num>(0-1) specify percent overlap to use when ranking top k (default is 0.25)"
         <<"\n-prog <display progress>"
         <<"\n\n";
     exit(1);
@@ -54,6 +60,58 @@ void CheckArguments(){
             la.paramFunction = &Construct_MaxSpaceUniform_Params;
         }
     }
+    if(la.enumerationMode == la.ENUM_FILE && la.OUTFILE != "~")
+        cout<<"\nOutput clusters option enabled: "<<la.OUTFILE;
+    else if( la.enumerationMode == la.ENUM_FILE && la.OUTFILE == "~"){
+        cout<<"\nOutput option enabled but file not specified!";
+        DisplayUsage();
+    }
+    else if(la.enumerationMode == la.ENUM_TOPK_FILE && la.OUTFILE == "~"){
+         cout<<"\nOutput option enabled but file not specified!";
+        DisplayUsage();
+    }
+    else if(la.enumerationMode == la.ENUM_TOPK_FILE && la.OUTFILE != "~"){
+          cout<<"\nOutput clusters option enabled: "<<la.OUTFILE;
+    }
+     if(la.enumerationMode == la.ENUM_TOPK_FILE || la.enumerationMode == la.ENUM_TOPK_MEM){
+        if(la.ovlpThresh < 0 || la.ovlpThresh > 1){
+            cout<<"\nOverlap threshold not in correct range!";
+             DisplayUsage();
+        }
+        if(beta < 0 || beta > 1){
+            cout<<"\nBeta value not in correct range!";
+            DisplayUsage();
+        }
+        if(la.topKK < 0){
+            cout<<"\nk not in correct range!";
+            DisplayUsage();
+        }
+        //if reached here then all parameters are correct
+        cout<<"\nTOP K mode enabled with k= "<<la.topKK<<" and max overlap= "<<la.ovlpThresh<<" and clusters ranked by ";
+        if(la.qualityMode == la.BETA){
+            cout<<"BETA-balance function";
+            //set the correct parameters for params
+            la.topKparams.resize(2);
+            la.topKparams[0] = 0;
+            la.topKparams[1] = beta;
+        }
+        else if(la.qualityMode == la.AREA){
+            cout<<"Area function";
+            la.topKparams.resize(1);
+            la.topKparams[0] = 1;
+        }
+    }
+    if(la.pruneMode == la.PRUNE_SIZE){
+        cout<<"\nPrune size enabled...limits are: ";
+        if (la.PRUNE_SIZE_VECTOR.size() < 2){
+            cout<<"\nMin cardinalities not defined!";
+            DisplayUsage();
+        }
+        for(int i=0; i < la.PRUNE_SIZE_VECTOR.size(); i++)
+            cout<<"\nDOMAIN "<<i+1<<" min: "<<la.PRUNE_SIZE_VECTOR[i];
+    }
+
+
     la.dispersionFunction=&Range;
     cout<<"\ninput file: "<<inputFile<<"\nalpha: "<<la.alpha<<"\nconsistency mode: "<<la.consistencyMode;
     if(la.dispProgress) cout<<"\nDisplay progress option enabled";
@@ -73,16 +131,38 @@ void ProcessCmndLine(int argc, char ** argv){
            string temp = argv[i];
            if(temp == "-i")//input file
                 inputFile = argv[++i];
-           if(temp == "-alpha")
+           else if(temp == "-m"){
+              int n = atoi(argv[++i]);
+              la.PRUNE_SIZE_VECTOR.resize(n);
+              for(int j=0; j < n; j++)
+                  la.PRUNE_SIZE_VECTOR[j] = atoi(argv[++i]);
+
+           }
+           else if(temp == "-alpha")
                la.alpha = atof(argv[++i]);
-           if(temp == "-c"){
+           else if(temp == "-c"){
                la.consistencyMode = atoi(argv[++i]);
            }
-           if(temp == "-o"){
+           else if(temp == "-o"){
                outFile=argv[++i];
            }
-           if(temp == "-prog"){
+           else if(temp == "-prog"){
                la.dispProgress=true;
+           }
+           else if(temp == "-k"){
+               if(la.enumerationMode == la.ENUM_FILE)
+                    la.enumerationMode = la.ENUM_TOPK_FILE;
+               else
+                   la.enumerationMode = la.ENUM_TOPK_MEM;
+               la.topKK = atoi(argv[++i]);
+           }
+           else if(temp == "-ovlp"){
+               la.ovlpThresh = atof(argv[++i]);
+           }
+           else if(temp == "-beta"){
+               la.qualityMode= la.BETA;
+               beta = atof(argv[++i]);
+
            }
         }
     }
@@ -95,7 +175,15 @@ void OutputStats(){
     outStat.close();
 
 }
-
+void OutputClustersFile(){
+    int lim = la.CONCEPTS.size() > la.topKK ? la.topKK:la.CONCEPTS.size();
+    for(int i=0; i < lim; i++){
+        OutputCluster(la.CONCEPTS[i], la.OUT1);
+        OutputCluster(la.CONCEPTS[i],la.OUT2,la.NAME_MAPS);
+    }
+    la.OUT1.close();
+    la.OUT2.close();
+}
 
 
 int main(int argc, char** argv) {
@@ -106,6 +194,9 @@ int main(int argc, char** argv) {
     la.NETWORK->Print();
     la.s = 1; //central domain assumed to be first domain listed
     la.StarCharm();
+    if(la.enumerationMode == la.ENUM_TOPK_FILE){
+        OutputClustersFile();
+    }
     cout<<"\n";
     return (EXIT_SUCCESS);
 }

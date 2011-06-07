@@ -29,6 +29,10 @@ AlphaConceptsAlgos():LatticeAlgos() {
     alpha=1; //default
 };
 
+//! Paramater vector for top K cluster enumeration
+vector<double> topKparams;
+
+
 /*! Pointer to a function  that creates the parameters for a
  consistency function
  */

@@ -85,13 +85,48 @@ void BasicPrefix::StarCharm(){
         string errMsg = "StarCharm called with invalid learner context id for the given hin\n";
         cerr<<errMsg; exit(-1);
     }
-    PRUNE_SIZE_VECTOR.resize(NETWORK->GetNumNodes());
+    string file1 = OUTFILE+".concepts";
+    string file2 = OUTFILE+".concepts.names";
+    OUT1.open(file1.c_str());
+    OUT2.open(file2.c_str());
+
+    if(enumerationMode == ENUM_FILE && !OUT1.is_open()){
+         string errMsg = "Star_CHARM called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set\n";
+        cerr<<errMsg; exit(-1);
+    }else if(enumerationMode == ENUM_FILE || enumerationMode == ENUM_TOPK_FILE){
+        //setup name maps
+        NAME_MAPS = (*NETWORK->GetNameMaps());
+
+    }
+    if(enumerationMode == ENUM_TOPK_FILE &&!OUT1.is_open()){
+         string errMsg = "Star_CHARM called with ENUM_FILE mode, however, OUTFILE is not valid file or has not been set\n";
+        cerr<<errMsg; exit(-1);
+    }
+    if( PRUNE_SIZE_VECTOR.size() < NETWORK->GetNumNodes()){
+        string errMsg = "Star_CHARM called with size pruning, however, PRUNE_SIZE_VECTOR does not contain threshold values for all domains\n";
+        cerr<<errMsg; exit(-1);
+    }
+
     //check values of prune_size_vector are all >= 1,
     for(int i=0; i < NETWORK->GetNumNodes(); i++)
         if(PRUNE_SIZE_VECTOR[i] < 1){
             PRUNE_SIZE_VECTOR[i] = 1;
             cout<<"\nReset prune size vector at "<<i<<" to 1\n";
         }
+    //reset variables
+     srchLvl=0;
+     numConcepts=0;
+    //set the quality function pointer and the ovlp function pointer
+     if(qualityMode == AREA){
+        qualityFunction=&Area;
+     }else if(qualityMode == BETA){
+         qualityFunction=&Beta;
+     }
+     //set the overlap function pointer
+     if(ovlpMode == AVG_JACCARD){
+         ovlpFunction=&AverageOverlap;
+     }
+
     //reset variables
      srchLvl=0;
      numConcepts=0;
@@ -378,6 +413,9 @@ void BasicPrefix::Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, li
     list<IOSet*>::iterator tailIt2 = tail2.begin();
     list<IOSet*>::iterator tailSupIt2 = tailSupSet2.begin();
     list<NCluster*>::iterator minMaxIt2 = tailMinMax2.begin();
+
+    //cout<<"\nIn prune tails...";
+    //cout<<"\ntail1 "<<tail1.size()<<"\ttail2 "<<tail2.size();
     //take symmetric difference of ids and remove those nodes
     //get symmetric difference
     IOSet *ids1 = new IOSet;
@@ -434,6 +472,8 @@ void BasicPrefix::Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, li
     delete ids1;
     delete ids2;
     delete symmDiff;
+    //cout<<"\ndone prune tails...";
+   // cout<<"\ntail1 "<<tail1.size()<<"\ttail2 "<<tail2.size();
 }
 
 void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
@@ -485,41 +525,43 @@ void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCl
 //    cout<<"\nMin maxs: \n"; minMax1->Output(); cout<<"\n"; minMax2->Output(); cout.flush();
      assert(supSetRslt != NULL && minMaxRslt != NULL);
      RContext *currContext = NETWORK->GetRContext(s,otherDomain);
-     supSetRslt->SetQuality(0.0);
+     //supSetRslt->SetQuality(0.0);
     //first intersect the indices
      IOSet *commonIdxs = Intersect(supSet1, supSet2);
+     if (commonIdxs->Size() >= PRUNE_SIZE_VECTOR[otherDomain-1]){
     //update min max results for each index compute range and add sets that meet range requirement
-     for (int i = 0; i < commonIdxs->Size(); i++) {
-        //get max and mins for curr row
-        int rowId = commonIdxs->At(i);
-        RSet *row = currContext->GetSet(otherDomain, rowId);
-        int oldMin1 = minMax1->GetSetById(rowId)->At(0);
-        int oldMin2 = minMax2->GetSetById(rowId)->At(0);
-        int oldMax1 = minMax1->GetSetById(rowId)->At(1);
-        int oldMax2 = minMax2->GetSetById(rowId)->At(1);
-        double minVal = min(currContext->GetSet(otherDomain, rowId)->At(oldMin1).second, currContext->GetSet(otherDomain, rowId)->At(oldMin2).second);
-        double maxVal = max(currContext->GetSet(otherDomain, rowId)->At(oldMax1).second, currContext->GetSet(otherDomain, rowId)->At(oldMax2).second);
-        int minn = (minVal == currContext->GetSet(otherDomain, rowId)->At(oldMin1).second) ? oldMin1 : oldMin2;
-        int maxx = (maxVal == currContext->GetSet(otherDomain, rowId)->At(oldMax1).second) ? oldMax1 : oldMax2;
-        //get range using new idxs
-        double range = currContext->GetSet(otherDomain, rowId)->At(maxx).second - currContext->GetSet(otherDomain, rowId)->At(minn).second;
-        //construct parameters for consistency function
-        vector<double> lclParamsF; //construct parameter vector for the consistency function, macurrContexte alpha the first element though
-        lclParamsF.push_back(alpha); //assign the variance for this particlar row / column
-        paramFunction(currContext, commonIdxs, s, otherDomain, rowId, lclParamsF);
-        //now do consistency checcurrContext
-        if (range < consistencyFunction(row, lclParamsF)) {
-            supSetRslt->Add(rowId);
-            supSetRslt->SetQuality(supSetRslt->GetQuality() + range);
-            IOSet *minMax = new IOSet;
-            minMax->Add(minn);
-            minMax->Add(maxx);
-            minMax->SetId(rowId);
-            minMaxRslt->AddSet(minMax);
+         for (int i = 0; i < commonIdxs->Size(); i++) {
+            //get max and mins for curr row
+            int rowId = commonIdxs->At(i);
+            RSet *row = currContext->GetSet(otherDomain, rowId);
+            int oldMin1 = minMax1->GetSetById(rowId)->At(0);
+            int oldMin2 = minMax2->GetSetById(rowId)->At(0);
+            int oldMax1 = minMax1->GetSetById(rowId)->At(1);
+            int oldMax2 = minMax2->GetSetById(rowId)->At(1);
+            double minVal = min(currContext->GetSet(otherDomain, rowId)->At(oldMin1).second, currContext->GetSet(otherDomain, rowId)->At(oldMin2).second);
+            double maxVal = max(currContext->GetSet(otherDomain, rowId)->At(oldMax1).second, currContext->GetSet(otherDomain, rowId)->At(oldMax2).second);
+            int minn = (minVal == currContext->GetSet(otherDomain, rowId)->At(oldMin1).second) ? oldMin1 : oldMin2;
+            int maxx = (maxVal == currContext->GetSet(otherDomain, rowId)->At(oldMax1).second) ? oldMax1 : oldMax2;
+            //get range using new idxs
+            double range = currContext->GetSet(otherDomain, rowId)->At(maxx).second - currContext->GetSet(otherDomain, rowId)->At(minn).second;
+            //construct parameters for consistency function
+            vector<double> lclParamsF; //construct parameter vector for the consistency function, macurrContexte alpha the first element though
+            lclParamsF.push_back(alpha); //assign the variance for this particlar row / column
+            paramFunction(currContext, commonIdxs, s, otherDomain, rowId, lclParamsF);
+            //now do consistency checcurrContext
+            if (range < consistencyFunction(row, lclParamsF)) {
+                supSetRslt->Add(rowId);
+                supSetRslt->SetQuality(supSetRslt->GetQuality() + range);
+                IOSet *minMax = new IOSet;
+                minMax->Add(minn);
+                minMax->Add(maxx);
+                minMax->SetId(rowId);
+                minMaxRslt->AddSet(minMax);
+            }
         }
-    }
-    if (supSetRslt->Size() > 0) supSetRslt->SetQuality(supSetRslt->GetQuality() / (double) supSetRslt->Size());
-    else supSetRslt->SetQuality(-1);
+     }
+    //if (supSetRslt->Size() > 0) supSetRslt->SetQuality(supSetRslt->GetQuality() / (double) supSetRslt->Size());
+    //else supSetRslt->SetQuality(-1);
     delete commonIdxs;
    // cout<<"\nresult: \n"; supSetRslt->Output(); cout<<"\n"; minMaxRslt->Output();
  }
@@ -531,7 +573,7 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
     int lclIters=0;
     while (tails.front()->size() > 0) {
         if(dispProgress && srchLvl == 1){
-            cout<<"\nOn "<<lclIters+1<<" of "<<tails.front()->size();
+            cout<<"\nOn "<<lclIters+1<<" of "<<tails.front()->size()<<"\tgot "<<CONCEPTS.size()<<" cluster so far...";
             cout.flush();
         }
         //outer iterator of tails
@@ -543,15 +585,17 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
         list<list<IOSet*> *> newSupSets;
         list<list<NCluster*> *> newMinMaxs;
         int otherId=2;
-       // cout<<"\ntails size: "<<tails.size();
+        //cout<<"\ntails size: "<<tails.size();
         for (int i = 0; i < tails.size(); i++){
             //run charm on this edge?
-          //  cout<<"\nCHARM STEP "<<otherId;
+          // cout<<"\nCHARM STEP "<<otherId;
                 list<IOSet *>* newTail = new list<IOSet*>;
                 list<IOSet *>* newSupSet = new list<IOSet*>;
                 list<NCluster *>* newMinMax = new list<NCluster*>;
-               // cout<<"\ncurr tail before charm: ";
-               // Output_Tail(**outerTailIt);
+              // cout<<"\ncurr tail before charm: ";
+              // Output_Tail(**outerTailIt);
+             //  cout<<"\nsup before: ";
+              // Output_Tail(**outerSupIt);
                 Star_Charm_Step(**outerTailIt, **outerSupIt, **outerMinMaxIt, *newTail, *newSupSet, *newMinMax,otherId);
                 if(newTail->size() > 0){
                     newTails.push_back(newTail);
@@ -568,39 +612,57 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
                     delete newMinMax;
                 }
                // cout<<"\ncurr tail after charm: ";
-                //Output_Tail(**outerTailIt);
+              //  Output_Tail(**outerTailIt);
+               // cout<<"\nnew sup sets after: ";
+
                 outerTailIt++;
                 outerSupIt++;
                 outerMinMaxIt++;
                 otherId++;
+               // cout<<"\npotential cluster: ";
+              //  (*(*tails.begin())->begin())->Output();
+               // cout<<"\nsupport set: ";
+               // (*(*tailSupSet.begin())->begin())->Output();
         }
         //determine if cluster is found
         if( Determine_Clusters(tails,newTails,newSupSets,newMinMaxs)){
             //create cluster and recurse
-            if( (*(*tails.begin())->begin())->Size() > 1){
-                cout<<"\nFound cluster!\n"; (*(*tails.begin())->begin())->Output();
-                cout<<"\nsup set1 : \n"; (*(*tailSupSet.begin())->begin())->Output();
-                cout<<"\nsup set 2: \n";(*(*++tailSupSet.begin())->begin())->Output();
-                cout.flush();
+            if( (*(*tails.begin())->begin())->Size() >= PRUNE_SIZE_VECTOR[0] ){
+                NCluster *ncluster = new NCluster;
+                ncluster->AddSet(new IOSet((*(*tails.begin())->begin())));
+                ncluster->GetSet(0)->SetId(1);
+                 list< list<IOSet*>* >::iterator supIt = tailSupSet.begin();
+                 int idd=2;
+                 while(supIt != tailSupSet.end()){
+                     ncluster->AddSet(new IOSet((*(*supIt)->begin())));
+                     ncluster->GetSet(idd-1)->SetId(idd);
+                     supIt++;
+                     idd++;
+                 }
+                 if( enumerationMode == ENUM_MEM)
+                        StoreCluster(CONCEPTS,ncluster);
+                    else if(enumerationMode == ENUM_FILE) {
+                        OutputCluster(ncluster,OUT1);
+                        OutputCluster(ncluster,OUT2,NAME_MAPS);
+                    }
+                    else if( ( enumerationMode == ENUM_TOPK_MEM) || (enumerationMode == ENUM_TOPK_FILE)){
+                        SetQuality(ncluster,topKparams,qualityFunction);
+                        RetainTopK_Overlap(CONCEPTS,ncluster,ovlpFunction,ovlpThresh,topKK);
+                    }
             }
-            if(newTails.size() > 0){
+            if(newTails.size() == NETWORK->GetNumNodes()-1){
                 //cout<<"\nbefore recursive call: \t";tails.front()->front()->Output();
                 Enumerate_Star_Charm(newTails,newSupSets,newMinMaxs);
                 srchLvl--;
+            }else{
+                Delete_New_Tails_Star_Charm(newTails,newSupSets,newMinMaxs);
             }
         }else{
-            //delete all new tails
-            //cout<<"\ndeleting new tails...";
             Delete_New_Tails_Star_Charm(newTails,newSupSets,newMinMaxs);
         }
          //update all the tails
-       // cout<<"\nupdating tails on level..."<<srchLvl<<"\tlclIters: "<<lclIters<<"\tsize: "<<tails.size();
-       // cout.flush();
-       // cout<<"||\t"; tails.front()->front()->Output();
-
          Update_AllTails_Iterators_Star_Charm(tails, tailSupSet, tailMinMax);
          lclIters++;
-        // cout<<"\n------\n";
     }
 }
 
@@ -612,6 +674,9 @@ bool BasicPrefix::Determine_Clusters(list< list<IOSet*>* > &tails, list< list<IO
     tailIt++;
     while (tailIt != tails.end()){
         IOSet *currSet = (*(*tailIt)->begin());
+       // if (currSet->Size() < 2){
+        //    return false;
+       // }
         IOSet *intersect = Intersect(currSet,lrnrSet);
         if( currSet->Size() == lrnrSet->Size() && intersect->Size() == currSet->Size()){
                 ;//do nothing since equal
@@ -623,8 +688,9 @@ bool BasicPrefix::Determine_Clusters(list< list<IOSet*>* > &tails, list< list<IO
         else if(intersect->Size() == currSet->Size() && lrnrSet->Size() > currSet->Size()){
                 //learner is super set of currset, so more testing needed
                 //to determine if a cluster can be formed with curr set
-            delete intersect;
-            return false;
+            //delete intersect;
+            //return false;
+            ; // do nothing since superset so declate cluster
         }
         else{
             delete intersect;
@@ -787,7 +853,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
             //first perform intersection then all cases follow
             Range_Intersect_Star_Charm(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,otherDomain);
             //now implement each case....
-            if (supSetRslt->Size() > PRUNE_SIZE_VECTOR[1]){
+            if (supSetRslt->Size() > 0){
                 if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()) {
                     //update the curr prefix
                     IOSet *tmp = (*tailIt);
@@ -803,7 +869,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
                     delete supSetRslt;
                     delete minMaxRslt;
-                    //cout<<"\ncase1 "; (*tailIt)->Output();
+                   // cout<<"\ncase1 "; (*tailIt)->Output();
 
                 } else if (supSetRslt->Size() == currSupSet->Size()) {
                     //update the curr prefix
@@ -817,7 +883,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     tailItC++;
                     tailSupItC++;
                     minMaxItC++;
-                   // cout<<"\ncase2";
+                    //cout<<"\ncase2";
 
                 } else if (supSetRslt->Size() == (*tailSupItC)->Size()) {
                     //add to new tail
@@ -833,7 +899,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     tailItC = RemoveFromList(tail, tailItC);
                     tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
                     minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
-                    // cout<<"\ncase3";
+                   //  cout<<"\ncase3"; newNode->Output();
 
                 } else {
                     //add to new tail
@@ -847,7 +913,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     tailItC++;
                     tailSupItC++;
                     minMaxItC++;
-                   // cout<<"\ncase4 "; newNode->Output();
+                  //  cout<<"\ncase4 "; newNode->Output();
                 }
             } else {
                 delete supSetRslt;
