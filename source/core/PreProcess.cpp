@@ -245,7 +245,6 @@ NCluster *MakeNClusterFromFimi(string &inputFile){
                 sets.push_back(t);
                 cnt++;
           }
-          cout<<"\nsets size: "<<sets.size();
         return new NCluster(sets.size(),sets);
   }else{
           string errMsg = "Could not open the FIMI file: "+inputFile;

@@ -14,7 +14,7 @@
  */
 #ifndef FRAMEWORK_H
 #define	FRAMEWORK_H
-#include "Helper.h"
+
 #include "../core/BasicStats.h"
 #include "../core/LatticeAlgos.h"
 using namespace std;
@@ -25,6 +25,9 @@ Ghin():LatticeAlgos() {
     w=-1;
     tiredMode=false;
     rewardMode=-1;
+    totalIters=0;
+    totalCands=0;
+    avgNashIters=0;
 };
 
 
@@ -33,35 +36,30 @@ Ghin():LatticeAlgos() {
  Typically this involves selecting a random domain (player) and selecting the prime
   in all neighbors, while in nodes that have similar color select nodes that share a
   more nodes than expected
+
+  \param domain the domaain to seed for an initial candidate
+  \param sampleSet the sample set from which to draw objects
+  \param clustered objects that have already been clustered
  */
-NCluster* SelectInit();
+NCluster* SelectInit(int domain, NCluster *sampleSet, NCluster *clustered);
 
 
 /*!
   Iterate until a nash equalibrium is reached or return NULL
  */
 
-NCluster* MakeDeal(NCluster*, double(*RewardFunc)(NCluster*,int,int));
+NCluster* MakeDeal(NCluster*);
 
 /*!
    Attempts to maximuze the reward of a single domain c while holding all other
    selections constant
    Reutnrs true if a change is made otherwise false
  */
-bool MaximizeDomain(NCluster *, IOSet *c, int,double(*RewardFunc)(NCluster*,int,int),bool);
+bool MaximizeDomain(NCluster *, IOSet *c, int,bool);
 
 
 
-/*
- * Check if the subspace is a Nash Equalibrium point by attempting to remove
- * an object and check if the reward for any player increases
- */
-//bool Is_Nash(NCluster *, IOSet*(*RewardDec)(NCluster*,int) );
 
-/*!
-  Make the first set of all objects that can be selected for initial state
- */
-NCluster* MakeInitialSampleSet();
 
 /*!
   Update the set suitable for selection by removing all the elements of
@@ -91,7 +89,7 @@ void GHIN_Alg();
 //! Pointer to reward function
 //! the two integers specify the domains for which the reward function is computed
 //! these are naive implementations of reward functions
-double (*RewardFunc)(NCluster*,int,int);
+double (Ghin::*RewardFunc)(NCluster*,int,int);
 
 //! weight value that is used in conjuction with different reward functions
 double w;
@@ -102,9 +100,9 @@ int rewardMode;
 //! run with tiring party-goer mode?
 bool tiredMode;
 //! The simple weighted zeros reward function
-static int SIMPLE_WEIGHTED=1;
+static const int SIMPLE_WEIGHTED=1;
 //! Expected satisfaction reward function using hyper-geomtric distribution
-static int EXPECTED_SAT=2;
+static const int EXPECTED_SAT=2;
 
 ///////////////////////Data Structs/////////////////////////////////////////////
 //! pointer to a hin
@@ -112,17 +110,25 @@ RelationGraph *hin;
 vector< vector<double> > tired;
 
 
+//////////////////////////Some algorithm stats//////////////////////////////////
+//! total number of iterations GHIN algorithms utilized
+int totalIters;
+//! total number of candidates generated to find Nash equalibrium
+double totalCands;
+//! avg number of iterations to find a nash equalibrium or fail...
+double avgNashIters;
+
 /////////////////////////REWARD FUNCTIONS///////////////////////////////////////
 
-/*!
-    Given a reward function, computes a satasfaction score for the cluster, and assigns it to
- the .quality field of the ncluster.
- \params a the ncluster to compute score for, a->Quality() will be set to the score
- \param obj the object id to compute for
- \param doamin the domain id for which to compute the score with respect to
-
- */
-void Compute_Score(NCluster *a,double(*RewardFunc)(NCluster*,int,int) );
+///*!
+//    Given a reward function, computes a satasfaction score for the cluster, and assigns it to
+// the .quality field of the ncluster.
+// \params a the ncluster to compute score for, a->Quality() will be set to the score
+// \param obj the object id to compute for
+// \param doamin the domain id for which to compute the score with respect to
+//
+// */
+//void Compute_Score(NCluster *a);
 
 
 /*!
@@ -162,7 +168,7 @@ double Exp_Sat_Score(NCluster *a, int obj, int domain);
     \param RewardFunc pointer to the reward function to be used
  */
 
-IOSet *AddSet_Reward(NCluster *a, int domain, double(*RewardFunc)(NCluster*,int,int));
+IOSet *AddSet_Reward(NCluster *a, int domain);
 
 /*!
  Returns the set of objects in the current cluster and specifed domain whose removal increases the reward function
@@ -170,7 +176,7 @@ IOSet *AddSet_Reward(NCluster *a, int domain, double(*RewardFunc)(NCluster*,int,
     \param domain the domain for which possible addtions are computed
     \param RewardFunc pointer to the reward function to be used
  */
-IOSet *RemoveSet_Reward(NCluster *a, int domain, double (*RewardFunc)(NCluster*,int,int));
+IOSet *RemoveSet_Reward(NCluster *a, int domain);
 
 
 ////////////////////////////////////Helper functions////////////////////////////
@@ -204,6 +210,6 @@ NCluster* MakeInitialSampleSet();
 */
 
 void UpdateSampleSet(NCluster *selection, NCluster *currCluster, NCluster *clustered);
-
+};
 #endif	/* FRAMEWORK_H */
 

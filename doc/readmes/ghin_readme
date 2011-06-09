@@ -1,41 +1,31 @@
-To see synopsis of the program run ./bin/nclu
+To see synopsis of the program run ./bin/ghin
 
 
 REQUIRED ARGUMENTS:
 -i <inputFile>:
 	path to the input file (see below for input file format and description)
--m n(number of domains) m1 m2...mn:
-	first type the number of domains (for bi-clustering this is 2) 
-	next type the minimum number of elements required in each concept to call it a bi-cluster
-	to enumerate all concepts as bi-clusters simply type 1 1 etc.
-	
+-w <weight of zeros> 
+	a real number >= 0.0. Refer to GHIN paper and specific reward functions for more details.
+-reward <{1,2}>
+	select the reward function:
+		1- the simple satisfaction reward function
+		2- expected satisfaction (hypergeometric) reward function
+	refer to paper for details.	
 OPTINAL ARGUMENTS:
--l lrnr:
-	specify the learner context (only applicable when doing n >= 3 clustering)
+-tiring 
+      flag specifying to use the tiring party-goers option as described in the paper. Currently
+      the tiring function is hard-coded as 1/(x^(3/2))
 -o <filename>:
 	this tells the program to output the clusters to the specified file
 	two files will be generated
 	filename.concepts and filename.concepts.names
 	the first file only contains the bi-clusters as integer indices
 	filename.concepts.names contains the bi-clusters with the actual names of objects
--k <k> :
-	only enumerate the top k bi-clusters. In this case other parameters may have to be input
-		depending on how top clusters should be ranked
--beta <0-1>:
-	If using top k ranking and beta balanced area should be used to rank bi-clusters, then enter value of beta between 0 and 1
--ovlp <0-1>:
-	If using top k ranking then you must specify the maximum allowable overlap so that the  the top k bi-clusters will be ranked
-	as those not exceeding the overlap threshold AND maximizing the quality criterion.
 -prog
 	set this option if you would like view progress of the algorithm
 	
 DEFAULTS:
-	-First context is always considered the learner.
-	-First listed domain of the learner is what is used to construct prefix tree and maxmods.
-		(In the case of bi-clustering it is then much more efficient to make the first domain
-		  the domain with the fewer objects. In n >= 3 clustering, this cannot be controlled 
-		  because we have to construct the prefix tree according to the articulation domain)
-	-If top k is selected then the ranking function is area with default ovlp set to 0.25
+	No defaults, be sure to specify all required arguments.
 	
 	
 
@@ -139,14 +129,9 @@ BEWARE OF:
  
  SAMPLE RUN OF NCLU:
  
- To enumerate all the concepts of nums--atts and output these concepts to files, run
+ To enumerate all bi-clusters in nums--atts dataset using the expected satisfaction reward function, w = 3, and tiring party goers:
  
- ./bin/nclu -i nums.input -m 2 1 1 -o file
- assuming nums.input is the correct path this will produce files file.concepts and file.concepts.names
+ ./bin/ghin -i nums.input -w 3.0 -reward 2 -tiring -o result
+ assuming nums.input is the correct path this will produce files result.concepts and result.concepts.names
  
-To enumerate all the concepts of nums--atts that have at least 3 numbers and 2 attributes then
-
- ./bin/nclu -i nums.input -m 2 3 2 -o file
-
-
 

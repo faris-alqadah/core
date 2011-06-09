@@ -13,17 +13,17 @@
 #include "../../headers/core/LatticeOps.h"
 #include "../../headers/core/Timing.h"
 
-#include "../headers/ghin/Framework.h"
-#include "../headers/ghin/Rewards.h"
+#include "../../headers/ghin/Framework.h"
 
-int numArgs=2;
+
+int numArgs=7;
 
 float enumConceptsTime;
 float simMatTime;
 
 //! framework object to implement algorithm
 Ghin framework;
-
+string inputFile="~";
 
 
 using namespace std;
@@ -59,8 +59,13 @@ void CheckArguments(){
         DisplayUsage();
     }
     //now check operation modes
-    if(framework.enumerationMode == framework.ENUM_FILE && framework.OUTFILE != "~")
+    if(framework.enumerationMode == framework.ENUM_FILE && framework.OUTFILE != "~"){
         cout<<"\nOutput clusters option enabled: "<<framework.OUTFILE;
+        string file1 = framework.OUTFILE+".concepts";
+        string file2 = framework.OUTFILE+".concepts.names";
+        framework.OUT1.open(file1.c_str());
+        framework.OUT2.open(file2.c_str());
+    }
     else if( framework.enumerationMode == framework.ENUM_FILE && framework.OUTFILE == "~"){
         cout<<"\nOutput option enabled but file not specified!";
         DisplayUsage();
@@ -70,9 +75,11 @@ void CheckArguments(){
     
     if (framework.rewardMode == framework.SIMPLE_WEIGHTED){
          cout<<"\nReward function is: SIMPLE WEIGHTED with w= "<<framework.w;
+         framework.RewardFunc = &Ghin::Simple_Weighted_Score;
 
      }else if(framework.rewardMode == framework.EXPECTED_SAT){
-             cout<<"\nReward function is: SIMPLE WEIGHTED with w= "<<framework.w;
+             cout<<"\nReward function is: EXPECTED SATISFACTION with w= "<<framework.w;
+              framework.RewardFunc = &Ghin::Exp_Sat_Score;
      }
      if(framework.tiredMode == true)
          cout<<"\nTiring mode enabled";
@@ -80,9 +87,7 @@ void CheckArguments(){
 
 
 }
-void OutputStats(){
 
-}
 
 void ProcessCmndLine(int argc, char ** argv){
     if (argc < numArgs+1) DisplayUsage();
@@ -98,7 +103,7 @@ void ProcessCmndLine(int argc, char ** argv){
                framework.dispProgress=true;
            }
            else if(temp == "-o"){
-               framework.enumerationMode == framework.ENUM_FILE;
+               framework.enumerationMode = framework.ENUM_FILE;
                framework.OUTFILE= argv[++i];
            }
            else if(temp == "-tiring"){
@@ -111,29 +116,41 @@ void ProcessCmndLine(int argc, char ** argv){
     }
     CheckArguments();
 }
-
-
+void OutputClustersFile(){
+    int lim = framework.CONCEPTS.size() > framework.topKK ? framework.topKK:framework.CONCEPTS.size();
+    for(int i=0; i < lim; i++){
+        OutputCluster(framework.CONCEPTS[i], framework.OUT1);
+        OutputCluster(framework.CONCEPTS[i],framework.OUT2,framework.NAME_MAPS);
+    }
+    framework.OUT1.close();
+    framework.OUT2.close();
+}
+void OutputStats(){
+    ofstream outStat("stats");
+    outStat<<"\nAlgorithm execution time: "<<ComputeTime()
+           <<"\nTotal iterations : "<<framework.totalIters
+           <<"\nTotal candidates for nash: "<<framework.totalCands
+           <<"\nAverage iterations to find nash or fail "<<framework.avgNashIters/framework.totalCands
+           <<"\n# set intersections "<<numIntersection
+           <<"\n# subset checks "<<numSubset
+           <<"\n# set unions "<<numUnion
+           <<"\n# set differences "<<numDifference;
+    outStat.close();
+}
 int main(int argc, char** argv) {
     ProcessCmndLine(argc,argv);
     framework.hin = MakeRelationGraph(inputFile);
+    framework.NAME_MAPS = *framework.hin->GetNameMaps();
     framework.hin->Print();
     if(framework.tiredMode)
         framework.InitTiring();
     StartTiming();
     framework.GHIN_Alg();
     EndTiming();
+    if( framework.enumerationMode == framework.ENUM_FILE){
+         OutputClustersFile();
+    }
 
-//
-//    sort(.begin(),finalClusters.end(), CompQualitySet);
-//    if(setClassify){
-//        ofstream out(setClassifyFile.c_str());
-//        OutputSetForClassify(setNumClassify,out);
-//    }
-//    sort(finalClusters.begin(),finalClusters.end(), CompQualitySet);
-//    if(outputClusters){
-//        ofstream out(clustersOutputFile.c_str());
-//        OutputClustersNamesTreeClu(out);
-//    }
 
     cout<<"\n";
     return (EXIT_SUCCESS);

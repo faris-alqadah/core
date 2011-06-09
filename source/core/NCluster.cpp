@@ -84,6 +84,7 @@ void NCluster::Output(ofstream& out, vector<NameMap*>& nm){
             }
         }
         if(!found){
+            out<<"["<<sets[i]->Id()<<"]\t";
             sets[i]->Output(out);
             out<<"\n";
         } 

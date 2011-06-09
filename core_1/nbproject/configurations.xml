@@ -30,6 +30,7 @@
           <in>helpers.h</in>
         </df>
         <df name="core">
+          <in>BasicStats.h</in>
           <in>Context.h</in>
           <in>IOSet.h</in>
           <in>LatticeAlgos.h</in>
@@ -48,6 +49,8 @@
           <in>RelationGraphR.h</in>
           <in>Timing.h</in>
         </df>
+        <df name="ghin">
+        </df>
         <df name="nclusters">
           <in>berry.h</in>
         </df>
@@ -58,6 +61,8 @@
         <df name="alpha_concepts">
         </df>
         <df name="core">
+        </df>
+        <df name="ghin">
         </df>
       </df>
       <df name="source" kind="SOURCE_LOGICAL_FOLDER">
@@ -73,6 +78,7 @@
           <in>helpers.cpp</in>
         </df>
         <df name="core">
+          <in>BasicStats.cpp</in>
           <in>Context.cpp</in>
           <in>IOSet.cpp</in>
           <in>LatticeAlgos.cpp</in>
@@ -92,9 +98,12 @@
           <in>Timing.cpp</in>
         </df>
         <df name="drivers">
+          <in>ghin.cpp</in>
           <in>nclu.cpp</in>
           <in>qbbc.cpp</in>
           <in>star_charm.cpp</in>
+        </df>
+        <df name="ghin">
         </df>
         <df name="nclusters">
           <in>berry.cpp</in>
