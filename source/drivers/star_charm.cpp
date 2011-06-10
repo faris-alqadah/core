@@ -140,7 +140,10 @@ void ProcessCmndLine(int argc, char ** argv){
            }
            else if(temp == "-o"){
                la.OUTFILE= argv[++i];
-               la.enumerationMode = la.ENUM_FILE;
+               if (la.enumerationMode == la.ENUM_TOPK_MEM)
+                   la.enumerationMode = la.ENUM_TOPK_FILE;
+               else
+                la.enumerationMode = la.ENUM_FILE;
            }
            else if(temp == "-prog"){
                la.dispProgress=true;

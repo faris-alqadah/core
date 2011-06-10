@@ -32,15 +32,12 @@ void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< li
     list< list<IOSet*>* >::iterator outerTailIt = tails.begin();
     list< list<IOSet*>* >::iterator outerSupIt = tailSupSet.begin();
     list< list<NCluster*>* >::iterator outerMinMaxIt = tailMinMax.begin();
-    
-     for(int j=0; j < tails.size(); j++){
+    for(int j=0; j < tails.size(); j++){
         // cout<<"\nj: "<<j<<"\t"<<(*outerTailIt)->size();
          if( (*outerTailIt)->size() > 0 ){
-             if( (*outerTailIt)->front() != NULL){
-                 delete (*outerTailIt)->front();
-                 delete (*outerSupIt)->front();
-                 delete (*outerMinMaxIt)->front();
-             }
+             if( (*outerTailIt)->front() != NULL)     delete (*outerTailIt)->front();
+             if((*outerSupIt)->front() != NULL )      delete (*outerSupIt)->front();
+             if((*outerMinMaxIt)->front() != NULL)    delete (*outerMinMaxIt)->front();
              RemoveFromList(*(*outerTailIt), (*outerTailIt)->begin());
              RemoveFromList(*(*outerSupIt), (*outerSupIt)->begin());
              RemoveFromList(*(*outerMinMaxIt), (*outerMinMaxIt)->begin());
@@ -49,7 +46,6 @@ void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< li
          outerSupIt++;
          outerMinMaxIt++;
     }
-
 }
 
 void Output_Tail(list<IOSet*> &tail){
@@ -73,9 +69,9 @@ void Delete_New_Tails_Star_Charm(list< list<IOSet*>* > &newTails, list< list<IOS
         list<IOSet*>::iterator supIt = (*outerSupIt)->begin();
         list<NCluster*>::iterator minMaxIt = (*outerMinMaxIt)->begin();
         while(tailIt != (*outerTailIt)->end()){
-            delete (*tailIt);
-            delete (*supIt);
-            delete (*minMaxIt);
+            if (*tailIt != NULL) delete (*tailIt);
+            if(*supIt != NULL) delete (*supIt);
+            if(*minMaxIt !=NULL) delete (*minMaxIt);
             tailIt = RemoveFromList(*(*outerTailIt), tailIt);
             supIt = RemoveFromList(*(*outerSupIt), supIt);
             minMaxIt = RemoveFromList(*(*outerMinMaxIt), minMaxIt);

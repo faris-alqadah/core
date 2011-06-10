@@ -95,14 +95,22 @@ void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &t
 void Prune_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, list<NCluster*> &tailMinMax1,
                  list<IOSet*> &tail2, list<IOSet*> &tailSupSet2, list<NCluster*> &tailMinMax2);
 
-
+//! Adjuts tails after each charm step on respective context to keep the search space aligned.
+//! Also determines if it is possible to form cluster in aligned search space / continue with search
+bool Adjust_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, list<NCluster*> &tailMinMax1,
+                                list<IOSet*> &tail2, list<IOSet*> &tailSupSet2, list<NCluster*> &tailMinMax2, int otherId);
 //! A single step of CHARM
 void Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,
                 list<IOSet*> &newTail, list<IOSet*> &newTailSupSets, list<NCluster*> &newTailMinMax, int otherDomain);
 
-//! Determine if resulting tails are a star-cluster
-bool Determine_Clusters(list< list<IOSet*>* > &tails, list< list<IOSet*>* > &newTtails,
-                        list< list<IOSet*> *> &newSupSets, list < list<NCluster*> *> &newMinMaxs);
+
+
+
+//! Deterine if a cluster can be formed in the case that the learner set is a super-set of the 'client' set
+//! returns true if possible, and will adjust the tails if it is possible
+bool Determine_Subset_Cluster_Star_Charm(IOSet *lrnrSet, list<IOSet*> &clientTails, list<IOSet*> &clientSupSets,
+                                         list<NCluster*> &clientMinMaxs,int clientId);
+
 
 //! Compute the "Charm" upper neighbors of alpha-concepts by applying single step of breadth-first CHARM
 
