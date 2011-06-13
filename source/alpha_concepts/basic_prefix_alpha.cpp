@@ -713,14 +713,20 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
             //create cluster and recurse
             //cout<<"\ncluster found...\nis tail large enough?"; cout.flush();
             if( (*(*tails.begin())->begin())->Size() >= PRUNE_SIZE_VECTOR[0] ){
+                 //  cout<<"\nNew cluster!\n";
                 NCluster *ncluster = new NCluster;
+               // (*(*tails.begin())->begin())->Output();
+                //cout<<"\n";
                 ncluster->AddSet(new IOSet((*(*tails.begin())->begin())));
                 ncluster->GetSet(0)->SetId(1);
                  list< list<IOSet*>* >::iterator supIt = tailSupSet.begin();
                  int idd=2;
                  while(supIt != tailSupSet.end()){
-                     ncluster->AddSet(new IOSet((*(*supIt)->begin())));
-                     ncluster->GetSet(idd-1)->SetId(idd);
+                         ncluster->AddSet(new IOSet((*(*supIt)->begin())));
+                       //  (*(*supIt)->begin())->Output();
+                         //cout<<"\n";
+                         ncluster->GetSet(idd-1)->SetId(idd);
+                     
                      supIt++;
                      idd++;
                  }
