@@ -658,6 +658,13 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
         int otherId=2;
         //cout<<"\ntails size: "<<tails.size();
         bool clusterFound=true;
+        bool cont=true; //continue with search?
+        // cout<<"\ncompare tails....\n";
+       //  Output_Tail(**tails.begin());
+       //  cout<<"\n~sup size: "<<tailSupSet.front()->size();
+       //  cout<<"\n...next one....\n";
+       //  cout<<"\n~sup size: "<<(*++tailSupSet.begin())->size();
+       //   Output_Tail(**++tails.begin());
         for (int i = 0; i < tails.size(); i++){
             //run charm on this edge?
           // cout<<"\nCHARM STEP "<<otherId;
@@ -667,38 +674,46 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
                 list<NCluster *>* newMinMax = new list<NCluster*>;
               // cout<<"\ncurr tail before charm: ";
               // Output_Tail(**outerTailIt);
-             //  cout<<"\nsup before: ";
-              // Output_Tail(**outerSupIt);
+              // cout<<"\nsup set before: \n";
+              // (*outerSupIt)->front()->Output();
+             //  cout.flush();
                 Star_Charm_Step(**outerTailIt, **outerSupIt, **outerMinMaxIt, *newTail, *newSupSet, *newMinMax,otherId);
+                //first add new tails if any..and do pruning...
                 if(newTail->size() > 0){
                      //prune new tails
                      newTails.push_back(newTail);
                      newSupSets.push_back(newSupSet);
                      newMinMaxs.push_back(newMinMax);
-                     if(i > 0){
-                        if(Adjust_Tails(*tails.front(),*tailSupSet.front(),*tailMinMax.front(), **outerTailIt,**outerSupIt,**outerMinMaxIt,otherId)){
-                            //possible to make cluster so add new tails
-                            //and prune them
-                            Prune_Tails(*newTails.front(),*newSupSets.front(),*newMinMaxs.front(),
-                                *newTails.back(),*newSupSets.back(),*newMinMaxs.back() );
-                        }
-                        else{
-                            clusterFound=false;
-                        }
-                      }
-                    
+                     //prune new tails if necessary
+                     if(i > 0 ){
+                                Prune_Tails(*newTails.front(),*newSupSets.front(),*newMinMaxs.front(),
+                                    *newTails.back(),*newSupSets.back(),*newMinMaxs.back() );
+                     }
                 }else{
                     delete newTail;
                     delete newSupSet;
                     delete newMinMax;
+                    cont=false;
+                }
+                //now check if cluster formation is possible
+                if(i > 0){
+                        if(Adjust_Tails(*tails.front(),*tailSupSet.front(),*tailMinMax.front(), **outerTailIt,**outerSupIt,**outerMinMaxIt,otherId)){
+                                //cluster formation possible
+                            
+                        }
+                        else{ //not possible to make cluster
+                            clusterFound=false;
+                            cont=false;
+                        }
                 }
                 if(!clusterFound){
                     break;
                 }
                // cout<<"\ncurr tail after charm: ";
               //  Output_Tail(**outerTailIt);
-               // cout<<"\nnew sup sets after: ";
-
+               // cout<<"\nnew sup set after: ";
+                //(*outerSupIt)->front()->Output();
+                //cout.flush();
                 outerTailIt++;
                 outerSupIt++;
                 outerMinMaxIt++;
@@ -708,23 +723,32 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
 //                cout<<"\nsupport set: ";
 //                (*(*tailSupSet.begin())->begin())->Output();
         }
+//         cout<<"\ncompare tails after charm steps....\n";
+//         Output_Tail(**tails.begin());
+//         cout<<"\n~sup size: "<<tailSupSet.front()->size();
+//         cout<<"\n...next one....\n";
+//         cout<<"\n~sup size: "<<(*++tailSupSet.begin())->size();
+//         Output_Tail(**++tails.begin());
         //determine if cluster is found
         if( clusterFound){
             //create cluster and recurse
             //cout<<"\ncluster found...\nis tail large enough?"; cout.flush();
             if( (*(*tails.begin())->begin())->Size() >= PRUNE_SIZE_VECTOR[0] ){
-                 //  cout<<"\nNew cluster!\n";
+                 // cout<<"\nNew cluster!\n";
                 NCluster *ncluster = new NCluster;
-               // (*(*tails.begin())->begin())->Output();
-                //cout<<"\n";
+                //(*(*tails.begin())->begin())->Output();
+               // cout<<"\n";
+               // cout.flush();
                 ncluster->AddSet(new IOSet((*(*tails.begin())->begin())));
                 ncluster->GetSet(0)->SetId(1);
                  list< list<IOSet*>* >::iterator supIt = tailSupSet.begin();
                  int idd=2;
                  while(supIt != tailSupSet.end()){
+                      // (*(*supIt)->begin())->Output();
+                       // cout<<"\n";
+                       // cout.flush();
                          ncluster->AddSet(new IOSet((*(*supIt)->begin())));
-                       //  (*(*supIt)->begin())->Output();
-                         //cout<<"\n";
+                       
                          ncluster->GetSet(idd-1)->SetId(idd);
                      
                      supIt++;
@@ -735,27 +759,31 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
 //                 cout.flush();
                  if( enumerationMode == ENUM_MEM)
                         StoreCluster(CONCEPTS,ncluster);
-                    else if(enumerationMode == ENUM_FILE) {
+                 else if(enumerationMode == ENUM_FILE) {
                         OutputCluster(ncluster,OUT1);
                         OutputCluster(ncluster,OUT2,NAME_MAPS);
-                    }
-                    else if( ( enumerationMode == ENUM_TOPK_MEM) || (enumerationMode == ENUM_TOPK_FILE)){
+                  }else if( ( enumerationMode == ENUM_TOPK_MEM) || (enumerationMode == ENUM_TOPK_FILE)){
                         SetQuality(ncluster,topKparams,qualityFunction);
                         RetainTopK_Overlap(CONCEPTS,ncluster,ovlpFunction,ovlpThresh,topKK);
-                    }
+                  }
             }
            // cout<<"\nnew tails size before recursive: "<<newTails.size(); cout.flush();
-            if(newTails.size() == NETWORK->GetNumNodes()-1){
-                //cout<<"\nbefore recursive call: \t";tails.front()->front()->Output();
+            if(newTails.size() == NETWORK->GetNumNodes()-1 && cont){
+               // cout<<"\nrecursing...";
+               // cout.flush();
                 Enumerate_Star_Charm(newTails,newSupSets,newMinMaxs);
                 srchLvl--;
             }else{
+               // cout<<"\ndeleting new tails...\n";
+               // cout.flush();
                 Delete_New_Tails_Star_Charm(newTails,newSupSets,newMinMaxs);
             }
         }else{ //no cluseter found
             Delete_New_Tails_Star_Charm(newTails,newSupSets,newMinMaxs);
         }
          //update all the tails
+         //cout<<"\nUpdate tails";
+        // cout.flush();
          Update_AllTails_Iterators_Star_Charm(tails, tailSupSet, tailMinMax);
          lclIters++;
     }
