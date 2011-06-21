@@ -733,7 +733,7 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
         if( clusterFound){
             //create cluster and recurse
             //cout<<"\ncluster found...\nis tail large enough?"; cout.flush();
-            if( (*(*tails.begin())->begin())->Size() >= PRUNE_SIZE_VECTOR[0] ){
+            if( (*(*tails.begin())->begin())->Size() >= PRUNE_SIZE_VECTOR[0] && Check_Size_Bounds(tailSupSet, PRUNE_SIZE_VECTOR) ){
                  // cout<<"\nNew cluster!\n";
                 NCluster *ncluster = new NCluster;
                 //(*(*tails.begin())->begin())->Output();

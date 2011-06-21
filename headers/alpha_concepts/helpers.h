@@ -53,5 +53,7 @@ void Update_AllTails_Iterators_Star_Charm(list< list<IOSet*>* > &tails, list< li
 //! Delete lists of lists of tails, supporting sets, and min max indices
 void Delete_New_Tails_Star_Charm(list< list<IOSet*>* > &newTails, list< list<IOSet*> *> &newSupSets, list < list<NCluster*> *> &newMinMaxs);
 
+bool Check_Size_Bounds( list< list<IOSet*>* > &supSets, vector<int> &minSupp);
+
 #endif	/* HELPERS_H */
 

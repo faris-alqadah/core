@@ -85,3 +85,15 @@ void Delete_New_Tails_Star_Charm(list< list<IOSet*>* > &newTails, list< list<IOS
 
     }
 }
+
+bool Check_Size_Bounds( list< list<IOSet*>* > &supSets, vector<int> &minSup){
+     list< list<IOSet*>* >::iterator supIt = supSets.begin();
+     int idd=2;
+     while(supIt != supSets.end()){
+         if( (*(*supIt)->begin() )->Size() < minSup[idd-1] )
+             return false;
+         supIt++;
+         idd++;
+     }
+     return true;
+}
