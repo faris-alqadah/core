@@ -26,7 +26,6 @@ public:
 AlphaConceptsAlgos():LatticeAlgos() {
     consistencyMode=1; //default
     dispersionMode=1; //default
-    alpha=1; //default
 };
 
 //! Paramater vector for top K cluster enumeration
@@ -38,9 +37,8 @@ vector<double> topKparams;
  */
 void(*paramFunction)(RContext *,IOSet *, int, int,int, vector<double> &);
 
-//! the alpha parameter for alpha concepts or semi-concepts
-double alpha;
-
+//! map, mapping a context id to a value of alpha. alpha is the alpha value for low variance bi-clusteirng
+map<int,double> alpha;
 /////////////////////////////////Dispersion Modes///////////////////////////////
  //! dispersion function mode that indicate to use range as the dispersion function
  static const int RANGE=1;

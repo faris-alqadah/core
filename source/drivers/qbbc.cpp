@@ -17,6 +17,7 @@ string inputFile="~";
 string queryFile="~";
 string outFile="~";
 int numArgs=5;
+int numContexts=0;
 BasicPrefix la;
 IOSet *query;
 int queryDomain=-1;
@@ -63,8 +64,11 @@ void CheckArguments(){
             la.paramFunction = &Construct_MaxSpaceUniform_Params;
         }
     }
+    if(la.alpha.size() < 1){  //default alpha to 1
+        la.alpha[1] =1.0;
+    }
     la.dispersionFunction=&Range;
-    cout<<"\ninput file: "<<inputFile<<"\nquery file: "<<queryFile<<"\nalpha: "<<la.alpha<<"\nconsistency mode: "<<la.consistencyMode;
+    cout<<"\ninput file: "<<inputFile<<"\nquery file: "<<queryFile<<"\nalpha: "<<la.alpha[1]<<"\nconsistency mode: "<<la.consistencyMode;
     if(outFile != "~"){
         cout<<"\nOutput file: "<<outFile;
     }
@@ -80,8 +84,9 @@ void ProcessCmndLine(int argc, char ** argv){
            string temp = argv[i];
            if(temp == "-i")//input file
                 inputFile = argv[++i];
-           if(temp == "-alpha")
-               la.alpha = atof(argv[++i]);
+         if(temp == "-alpha"){
+             la.alpha[1] = atof(argv[++i]);
+           }
            if(temp == "-q"){
                queryDomain=atoi(argv[++i]);
                queryFile=argv[++i];

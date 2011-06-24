@@ -295,7 +295,7 @@ vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix, IOS
         if ((*supSetIt)->Size() >= supSet->Size()) {
             IOSet *supSetRslt = new IOSet;
             NCluster *minMaxRslt = new NCluster;
-            Range_Intersect(supSet, (*supSetIt), minMax, (*minMaxIt), supSetRslt, minMaxRslt);
+            Range_Intersect(supSet, (*supSetIt), minMax, (*minMaxIt), supSetRslt, minMaxRslt,K->GetId());
             if (supSetRslt->Size() > 0) {
                 if (supSetRslt->Size() == supSet->Size()) {
                     prefix->Add(otherObjs->At(i));
@@ -356,7 +356,7 @@ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<I
         while (tailItC != tail.end()) {
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
-            Range_Intersect(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt);
+            Range_Intersect(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,K->GetId());
             if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()) {
                 //update the curr prefix
                 IOSet *tmp = currPrefix;
@@ -541,7 +541,7 @@ bool BasicPrefix::Adjust_Tails(list<IOSet*> &tail1, list<IOSet*> &tailSupSet1, l
 }
 
 void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
-        IOSet *supSetRslt, NCluster* minMaxRslt) {
+        IOSet *supSetRslt, NCluster* minMaxRslt,int ctxId) {
     assert(supSetRslt != NULL && minMaxRslt != NULL);
     supSetRslt->SetQuality(0.0);
     //first intersect the indices
@@ -563,7 +563,7 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
         double range = K->GetSet(t, rowId)->At(maxx).second - K->GetSet(t, rowId)->At(minn).second;
         //construct parameters for consistency function
         vector<double> lclParamsF; //construct parameter vector for the consistency function, make alpha the first element though
-        lclParamsF.push_back(alpha); //assign the variance for this particlar row / column
+        lclParamsF.push_back(alpha[ctxId]); //assign the variance for this particlar row / column
         paramFunction(K, commonIdxs, s, t, rowId, lclParamsF);
         //now do consistency check
         if (range < consistencyFunction(row, lclParamsF)) {
@@ -582,7 +582,7 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
 }
 
 void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
-                      IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain){
+                      IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain,int ctxId){
 
 //    cout<<"\nIntersecting: \n"; supSet1->Output(); cout<<"\n"; supSet2->Output(); cout.flush();
 //    cout<<"\nother domain : "<<otherDomain;
@@ -610,7 +610,7 @@ void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCl
             double range = currContext->GetSet(otherDomain, rowId)->At(maxx).second - currContext->GetSet(otherDomain, rowId)->At(minn).second;
             //construct parameters for consistency function
             vector<double> lclParamsF; //construct parameter vector for the consistency function, macurrContexte alpha the first element though
-            lclParamsF.push_back(alpha); //assign the variance for this particlar row / column
+            lclParamsF.push_back(alpha[ctxId]); //assign the variance for this particlar row / column
             paramFunction(currContext, commonIdxs, s, otherDomain, rowId, lclParamsF);
             //now do consistency checcurrContext
             if (range < consistencyFunction(row, lclParamsF)) {
@@ -813,7 +813,7 @@ bool BasicPrefix::Determine_Subset_Cluster_Star_Charm(IOSet *lrnrSet, list<IOSet
         if( diff->Contains( (*it)->Id()) ){
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
-            Range_Intersect_Star_Charm(currSupSet, (*supIt), currMinMax, (*minMaxIt), supSetRslt, minMaxRslt,clientId);
+            Range_Intersect_Star_Charm(currSupSet, (*supIt), currMinMax, (*minMaxIt), supSetRslt, minMaxRslt,clientId,NETWORK->GetRContext(1,clientId)->GetId());
             if(supSetRslt->Size() > 0){
                 clientSet->Add( (*it)->Id());
                 IOSet *tmp = currSupSet;
@@ -859,17 +859,11 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
         tailItC++;
         tailSupItC++;
         minMaxItC++;
-        // cout<<"\nin outer loop before inner...\n";
-        // cout<<"\n";
         while (tailItC != tail.end()) {
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
             //first perform intersection then all cases follow
-            //cout<<"\nin charm doing intersect...";
-            //cout<<"\n";
-            Range_Intersect(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt);
-            // cout<<"\nfinished intersect....";
-            //cout<<"\n";
+            Range_Intersect(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,K->GetId());
             //now implement each case....
             if (supSetRslt->Size() > PRUNE_SIZE_VECTOR[1]) {
                 if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()) {
@@ -886,8 +880,6 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
                     delete supSetRslt;
                     delete minMaxRslt;
-                    //cout<<"\ncase1";
-
                 } else if (supSetRslt->Size() == currSupSet->Size()) {
                     //update the curr prefix
                     IOSet *tmp = currPrefix;
@@ -911,14 +903,11 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     tailItC = RemoveFromList(tail, tailItC);
                     tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
                     minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
-                    // cout<<"\ncase3";
-
                 } else {
                     //add to new tail
                     newTail.push_back(Union(currPrefix, (*tailItC)));
                     newTailSupSets.push_back(supSetRslt);
                     newTailMinMax.push_back(minMaxRslt);
-                    // cout<<"\ncase4";
                     //increment iterators
                     tailItC++;
                     tailSupItC++;
@@ -927,7 +916,6 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
             } else {
                 delete supSetRslt;
                 delete minMaxRslt;
-                //  cout<<"\nnone...";
                 //increment iterators
                 tailItC++;
                 tailSupItC++;
@@ -986,7 +974,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
             //first perform intersection then all cases follow
-            Range_Intersect_Star_Charm(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,otherDomain);
+            Range_Intersect_Star_Charm(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,otherDomain,NETWORK->GetRContext(1,otherDomain)->GetId());
             //now implement each case....
             if (supSetRslt->Size() > 0){
                 if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()) {
@@ -1087,7 +1075,7 @@ void BasicPrefix::Construct_First_Level(int k,
         IOSet *supSetRslt = new IOSet;
         NCluster* minMaxRslt = new NCluster;
         Range_Intersect(currSupSet, (*tailSupIt), currMinMax, (*minMaxIt),
-                supSetRslt, minMaxRslt);
+                supSetRslt, minMaxRslt,K->GetId());
         if (supSetRslt->Size() > 0) {
             newTail.push_back(Union(currPrefix, (*tailIt)));
             newTailSupSet.push_back(supSetRslt);

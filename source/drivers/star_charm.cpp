@@ -12,10 +12,12 @@
 #include "../../headers/core/RLatticeOps.h"
 #include "../../headers/alpha_concepts/helpers.h"
 
+using namespace std;
 
 string inputFile="~";
 string outFile="~";
 int numArgs=2;
+int numContexts=0;
 BasicPrefix la;
 IOSet *query;
 int queryDomain=-1;
@@ -30,7 +32,7 @@ void DisplayUsage(){
         <<"\n-i <inputFile>"
         <<"\n-m n (number of domains) min1 min2 ... min_n the minimum cardinalites of each domain for n-cluster enumeration"
         <<"\nOPTIONAL (use in this order): "
-        <<"\n-alpha <alpha value> (default is 1.0)"
+        <<"\n-alpha <num_contexts> <alpha value_1>...<alpha_value_num> (default is 1.0 for all)"
         <<"\n-c <consistency function> 1- alpha_sigma 2- max_space_uniform (default is 1)"
         <<"\n-o <output file path>"
         <<"\n\t these will be output to filename.concepts and filenames.concepts.names"
@@ -111,7 +113,13 @@ void CheckArguments(){
             cout<<"\nDOMAIN "<<i+1<<" min: "<<la.PRUNE_SIZE_VECTOR[i];
     }
     la.dispersionFunction=&Range;
-    cout<<"\ninput file: "<<inputFile<<"\nalpha: "<<la.alpha<<"\nconsistency mode: "<<la.consistencyMode;
+    if(numContexts == 0){
+        cout<<"\nALPHA values not defined for contexts! Please specify!\n";
+        DisplayUsage();
+    }
+    cout<<"\ninput file: "<<inputFile<<"\nalpha: ";
+    for(int i=0; i < numContexts; i++) cout<<la.alpha[i+1]<<" ";
+    cout<<"\nconsistency mode: "<<la.consistencyMode;
     if(la.dispProgress) cout<<"\nDisplay progress option enabled";
 
     cout<<"\n"<<endl;
@@ -129,12 +137,15 @@ void ProcessCmndLine(int argc, char ** argv){
            else if(temp == "-m"){
               int n = atoi(argv[++i]);
               la.PRUNE_SIZE_VECTOR.resize(n);
-              for(int j=0; j < n; j++)
+              for(int j=0; j < numContexts; j++)
                   la.PRUNE_SIZE_VECTOR[j] = atoi(argv[++i]);
 
            }
-           else if(temp == "-alpha")
-               la.alpha = atof(argv[++i]);
+           else if(temp == "-alpha"){
+                numContexts=atoi(argv[++i]);
+               for(int j=0; j < numContexts; j++)
+                    la.alpha[j+1] = atof(argv[++i]);
+           }
            else if(temp == "-c"){
                la.consistencyMode = atoi(argv[++i]);
            }

@@ -86,7 +86,7 @@ void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &t
  //! Compute the "Range Intersection" of two supporting sets for the star charm algorithm 
 
  void Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
-                      IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain);
+                      IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain, int ctxId);
 
 
 
@@ -141,9 +141,10 @@ bool Determine_Subset_Cluster_Star_Charm(IOSet *lrnrSet, list<IOSet*> &clientTai
     \param minMax2: indicies of min and max values of each supporting set object with respect to the subspace2
     \param supSetRslt: place holder for result, should be initialized but empty
     \param: minMaxRslt: place holder for result, should be initialized but empty
+    \param ctxId: the id of the context
 */
  void Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
-                      IOSet *supSetRslt, NCluster* minMaxRslt
+                      IOSet *supSetRslt, NCluster* minMaxRslt,int ctxId
                      );
 
 
