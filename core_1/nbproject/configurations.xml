@@ -50,6 +50,7 @@
           <in>Timing.h</in>
         </df>
         <df name="ghin">
+          <in>Framework.h</in>
         </df>
         <df name="nclusters">
           <in>berry.h</in>
@@ -63,6 +64,13 @@
         <df name="core">
         </df>
         <df name="ghin">
+        </df>
+      </df>
+      <df name="scripts">
+        <df name="matlab" kind="SOURCE_LOGICAL_FOLDER">
+          <in>read_nclusters.m</in>
+        </df>
+        <df name="ruby" kind="SOURCE_LOGICAL_FOLDER">
         </df>
       </df>
       <df name="source" kind="SOURCE_LOGICAL_FOLDER">
@@ -104,6 +112,8 @@
           <in>star_charm.cpp</in>
         </df>
         <df name="ghin">
+          <in>Framework.cpp</in>
+          <in>Lattice_Heur.cpp</in>
         </df>
         <df name="nclusters">
           <in>berry.cpp</in>

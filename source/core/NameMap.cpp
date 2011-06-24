@@ -34,6 +34,9 @@ NameMap::NameMap(string &_fileName){
   }
 }
 string NameMap::GetName(unsigned int x){
+//    cout<<"\nx: "<<x<<"\t"<<mapping.size()<<"\t"<<fileName;
+//    cout.flush();
+//    cout<<"\ntest";
     assert ( x < mapping.size());
         return mapping[x];
 

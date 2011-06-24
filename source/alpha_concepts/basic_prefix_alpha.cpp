@@ -68,7 +68,7 @@ void BasicPrefix::Qbbc(IOSet *query, vector<NCluster*> &hits) {
 
 void BasicPrefix::StarCharm(){
     IOSet *artDomains = NETWORK->GetArtDomains();
-    if(!artDomains->Contains(s)){
+    if(!artDomains->Contains(s) && NETWORK->GetNumNodes() >2){
          string errMsg = "Specifed artiucaltion node domain is not an articulation node\n";
         cerr<<errMsg; exit(-1);
     }
@@ -637,7 +637,7 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
     int lclIters=0;
     while (tails.front()->size() > 0) {
         if(dispProgress && srchLvl == 1){
-            cout<<"\nOn "<<lclIters+1<<" of "<<tails.front()->size()<<"\tgot "<<CONCEPTS.size()<<" cluster so far...";
+            cout<<"\nOn "<<lclIters+1<<" of "<<tails.front()->size()<<"\tgot "<<numConcepts<<" cluster so far...";
             cout.flush();
             
         }
@@ -757,14 +757,18 @@ void BasicPrefix::Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<
 //                 cout<<"\nNew cluster: \n";
 //                 ncluster->Output();
 //                 cout.flush();
-                 if( enumerationMode == ENUM_MEM)
+                 if( enumerationMode == ENUM_MEM){
                         StoreCluster(CONCEPTS,ncluster);
+                        numConcepts=CONCEPTS.size();
+                 }
                  else if(enumerationMode == ENUM_FILE) {
                         OutputCluster(ncluster,OUT1);
                         OutputCluster(ncluster,OUT2,NAME_MAPS);
+                        numConcepts++;
                   }else if( ( enumerationMode == ENUM_TOPK_MEM) || (enumerationMode == ENUM_TOPK_FILE)){
                         SetQuality(ncluster,topKparams,qualityFunction);
                         RetainTopK_Overlap(CONCEPTS,ncluster,ovlpFunction,ovlpThresh,topKK);
+                        numConcepts=CONCEPTS.size();
                   }
             }
            // cout<<"\nnew tails size before recursive: "<<newTails.size(); cout.flush();
