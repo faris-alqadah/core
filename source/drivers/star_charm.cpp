@@ -135,9 +135,9 @@ void ProcessCmndLine(int argc, char ** argv){
            if(temp == "-i")//input file
                 inputFile = argv[++i];
            else if(temp == "-m"){
-              int n = atoi(argv[++i]);
-              la.PRUNE_SIZE_VECTOR.resize(n);
-              for(int j=0; j < numContexts; j++)
+              int nn = atoi(argv[++i]);
+              la.PRUNE_SIZE_VECTOR.resize(nn);
+              for(int j=0; j < nn; j++)
                   la.PRUNE_SIZE_VECTOR[j] = atoi(argv[++i]);
 
            }
