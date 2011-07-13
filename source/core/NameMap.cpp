@@ -12,7 +12,7 @@ NameMap::NameMap(string &_fileName){
  ifstream myfile;
  id = 0;
   myfile.open(fileName.c_str());
-  assert(myfile.is_open());
+  //assert(myfile.is_open());
   if (myfile.is_open()){
     int lineNum = 0;
     string line;

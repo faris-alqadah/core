@@ -11,7 +11,6 @@
 %
 %
 function [prec,rcl,fpr,tpr] = prec_rcl(actual,predict)
-    
     predict = logical(predict);
     tp= numel(find(actual(predict)==1));
     fp = numel(find(actual(predict)==0));
