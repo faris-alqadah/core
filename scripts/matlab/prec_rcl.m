@@ -16,7 +16,7 @@ function [prec,rcl,fpr,tpr] = prec_rcl(actual,predict)
     fp = numel(find(actual(predict)==0));
     tn = numel(find(actual(~predict)==0));
     fn =  numel(find(actual(~predict)==1));
-    P = tp+fn;
+    P = numel(find(actual));%tp+fn;
     N = fp+tn;
     prec = tp/(tp+fp);
     rcl = tp/(P);
