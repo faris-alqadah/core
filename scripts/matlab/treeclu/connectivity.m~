@@ -16,20 +16,20 @@ function [conn,econn]= connectivity(ctx,si,sj)
    sub = ctx(si,sj);
    conn(1) = conn(sub);
    conn(2) = conn(1);
-   conn(3) = self_conn(sub);
-   conn(4) = self_conn(sub');
-   
+ 
    
 end
 
 function sc = self_conn(sub)
     [x y] = size(sub);
+    nrml = 1/(nchoosek(x,2)*y);
     c=0;
     for i=1:x
         for j=i+1:x
             c = c+ numel(find(bitand(sub(x(i),:),sub(x(j),:))));
         end
     end
+    sc = c/nrml;
     
 end
 
@@ -37,10 +37,26 @@ function c = conn(sub)
     numel(find(sub == 1)) / numel(sub);
 end
 
-function ec = exp_conn(sub)
-
+function ec = exp_conn(full,gi,gj)
+    [x y] = size(full);
+    sub = full(gi,:);
+    ones = numel(find(sub == 1));
+    ec = (numel(gi)/y)*ones;
 end
 
-function esc = exp_self_conn(sub)
-
+function esc = exp_self_conn(full,gi,gj)
+    [x y] = size(full);
+    nrml = 1/(nchoosek(numel(gi),2)*y^2);
+    sub = full(gi,:);
+    % first compute number of ones in each row
+    ones_cnt = zeros(numel(gi),1);
+    for i=1:numel(gi)
+        ones_cnt(i) = numel(find(sub(gi(i),:)));
+    end
+    ctr=0;
+    max = numel(ones_cnt
+    % now compute directly from formula
+    for i=:numel(gi)-1
+        ctr = ctr+(ones_cnt(i)*(sum(ones_cnt(i+1:numel(ones_cnt))));
+    end
 end
