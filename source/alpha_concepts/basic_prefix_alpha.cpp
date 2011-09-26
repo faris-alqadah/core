@@ -1,7 +1,12 @@
 #include "../../headers/alpha_concepts/basic_prefix_alpha.h"
 
 void BasicPrefix::Qbbc(IOSet *query, vector<NCluster*> &hits) {
+    //make name maps
+     NAME_MAPS.resize(2);
+     NAME_MAPS[0] = K->GetNameMap(1);
+     NAME_MAPS[1] = K->GetNameMap(2);
     //1. Get all hits for prefix search only in query space
+
     IOSet *origQuery = new IOSet(query);
     while (query->Size() > 1) {
         Qbbc_Prefix_Search(query);

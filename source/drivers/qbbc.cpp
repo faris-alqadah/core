@@ -154,16 +154,13 @@ void OutputFile(vector<NCluster*> &hits){
     //output each hit to a file
     for(int i=0; i < hits.size();i++){
          std::stringstream ss;
-         ss << i;
-         string fileName1 = outFile+"."+ss.str()+".idxs";
-         string fileName2 = outFile+"."+ss.str()+".names";
+         ss << i+1;
+         string fileName1 = outFile+"."+ss.str()+".concepts";
+         string fileName2 = outFile+"."+ss.str()+".concepts.names";
          ofstream outF1(fileName1.c_str());
          ofstream outF2(fileName2.c_str());
-         //hits[i]->SetQuality(Std_Across(hits[i] ,la.K, la.s, la.t)/Std_Within(hits[i] ,la.K, la.s, la.t));
-         hits[i]->SetQuality(Mean_Square_Error(hits[i] ,la.K, la.s, la.t));
-         hits[i]->Output(outF1);
-         outF1<<"\n"<<queryQuality<<"\n"<<hits[i]->GetQuality();
-         hits[i]->GetSetById(la.s)->Output(outF2,la.K->GetNameMap(la.s));
+         OutputCluster(hits[i], outF1);
+         OutputCluster(hits[i], outF2,la.NAME_MAPS);
          outF1.close();
          outF2.close();
     }
