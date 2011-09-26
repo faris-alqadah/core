@@ -75,6 +75,17 @@ void Qbbc_Prefix_Search(IOSet *query);
  void Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax);
 
 
+ //!
+ /*!
+Determine if all nodes under the current prefix node branch satisfy the property that d (dispersion) <= f()/2 where f() is the consistency function
+
+    \param tail: the prefix nodes
+    \param tailSupSet: supporting set of prefix nodes
+    \param tailMinMax: indices of min and max positions in supporting sets
+    \param ctxId: the id of the context
+*/
+ bool Satisfy_Half_Condition(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,int ctxId);
+
 //! Make the initial tails and support sets for star charm
  void Make_Init_SupSets_MinMaxIdxs_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax);
 

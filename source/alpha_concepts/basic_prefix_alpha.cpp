@@ -586,6 +586,32 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
     delete commonIdxs;
 }
 
+ bool BasicPrefix::Satisfy_Half_Condition(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,int ctxId){
+     list<IOSet*>::iterator tailIt = tail.begin();
+     list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
+     list<NCluster*>::iterator minMaxIt = tailMinMax.begin();
+     while (tailIt != tail.end()) {
+         IOSet *commonIdxs = (*tailSupIt);
+         NCluster *currMinMax = (*minMaxIt);
+          for (int i = 0; i < commonIdxs->Size(); i++) {
+            int rowId = commonIdxs->At(i);
+            RSet *row = K->GetSet(t, rowId);
+            double range = K->GetSet(t, rowId)->At(currMinMax->GetSetById(rowId)->At(1)).second - K->GetSet(t, rowId)->At(currMinMax->GetSetById(rowId)->At(0)).second;
+            vector<double> lclParamsF; //construct parameter vector for the consistency function, make alpha the first element though
+            lclParamsF.push_back(alpha[ctxId]); //assign the variance for this particlar row / column
+            paramFunction(K, commonIdxs, s, t, rowId, lclParamsF);
+            //now do consistency check
+            if (range > consistencyFunction(row, lclParamsF)*0.5){
+               return false;
+            }
+          }
+        tailIt++;
+        tailSupIt++;
+        minMaxIt++;
+     }
+     return true;
+ }
+
 void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
                       IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain,int ctxId){
 
@@ -850,6 +876,7 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
     list<IOSet*>::iterator tailIt = tail.begin();
     list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
     list<NCluster*>::iterator minMaxIt = tailMinMax.begin();
+    bool flg = Satisfy_Half_Condition(tail,tailSupSet, tailMinMax,K->GetId());
     while (tailIt != tail.end()) {
         IOSet *currPrefix = (*tailIt);
         IOSet *currSupSet = (*tailSupIt);
@@ -864,6 +891,7 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
         tailItC++;
         tailSupItC++;
         minMaxItC++;
+
         while (tailItC != tail.end()) {
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
@@ -877,12 +905,18 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     currPrefix = Union(currPrefix, (*tailItC));
                     delete tmp;
                     //update the current tail and supporting sets
-                    delete (*tailItC);
-                    delete (*tailSupItC);
-                    delete (*minMaxItC);
-                    tailItC = RemoveFromList(tail, tailItC);
-                    tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
-                    minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
+                    if (flg){
+                        delete (*tailItC);
+                        delete (*tailSupItC);
+                        delete (*minMaxItC);
+                        tailItC = RemoveFromList(tail, tailItC);
+                        tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
+                        minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
+                    }else{
+                        tailItC++;
+                        tailSupItC++;
+                        minMaxItC++;
+                    }
                     delete supSetRslt;
                     delete minMaxRslt;
                 } else if (supSetRslt->Size() == currSupSet->Size()) {
@@ -902,12 +936,19 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     newTailSupSets.push_back(supSetRslt);
                     newTailMinMax.push_back(minMaxRslt);
                     //update the current tail and supporting sets
-                    delete (*tailItC);
-                    delete (*tailSupItC);
-                    delete (*minMaxItC);
-                    tailItC = RemoveFromList(tail, tailItC);
-                    tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
-                    minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
+                    if(flg){
+                        delete (*tailItC);
+                        delete (*tailSupItC);
+                        delete (*minMaxItC);
+                        tailItC = RemoveFromList(tail, tailItC);
+                        tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
+                        minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
+                    }else{
+                         tailItC++;
+                         tailSupItC++;
+                         minMaxItC++;
+                    }
+
                 } else {
                     //add to new tail
                     newTail.push_back(Union(currPrefix, (*tailItC)));

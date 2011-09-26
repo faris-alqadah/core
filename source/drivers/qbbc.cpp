@@ -152,11 +152,11 @@ double GetQueryQuality(IOSet *query){
 }
 void OutputFile(vector<NCluster*> &hits){
     //output each hit to a file
-    for(int i=0; i < hits.size();i++){
+    for(int i=0; i < 1 /*hits.size()*/;i++){
          std::stringstream ss;
          ss << i+1;
-         string fileName1 = outFile+"."+ss.str()+".concepts";
-         string fileName2 = outFile+"."+ss.str()+".concepts.names";
+         string fileName1 = outFile+".concepts";
+         string fileName2 = outFile+".concepts.names";
          ofstream outF1(fileName1.c_str());
          ofstream outF2(fileName2.c_str());
          OutputCluster(hits[i], outF1);
