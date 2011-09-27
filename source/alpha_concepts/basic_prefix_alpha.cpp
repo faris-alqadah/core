@@ -1016,6 +1016,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
     tailItC++;
     tailSupItC++;
     minMaxItC++;
+    bool flg = Satisfy_Half_Condition(tail,tailSupSet, tailMinMax,NETWORK->GetRContext(1,otherDomain)->GetId());
     while (tailItC != tail.end()){
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
@@ -1030,12 +1031,18 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     (*tailIt)->SetId(tmp->Id());
                     delete tmp;
                     //update the current tail and supporting sets
-                    delete (*tailItC);
-                    delete (*tailSupItC);
-                    delete (*minMaxItC);
-                    tailItC = RemoveFromList(tail, tailItC);
-                    tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
-                    minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
+                    if (flg){
+                        delete (*tailItC);
+                        delete (*tailSupItC);
+                        delete (*minMaxItC);
+                        tailItC = RemoveFromList(tail, tailItC);
+                        tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
+                        minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
+                    }else{
+                         tailItC++;
+                         tailSupItC++;
+                          minMaxItC++;
+                    }
                     delete supSetRslt;
                     delete minMaxRslt;
                    // cout<<"\ncase1 "; (*tailIt)->Output();
@@ -1062,12 +1069,18 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                     newTailSupSets.push_back(supSetRslt);
                     newTailMinMax.push_back(minMaxRslt);
                     //update the current tail and supporting sets
-                    delete (*tailItC);
-                    delete (*tailSupItC);
-                    delete (*minMaxItC);
-                    tailItC = RemoveFromList(tail, tailItC);
-                    tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
-                    minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
+                    if(flg){
+                        delete (*tailItC);
+                        delete (*tailSupItC);
+                        delete (*minMaxItC);
+                        tailItC = RemoveFromList(tail, tailItC);
+                        tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
+                        minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
+                     }else{
+                        tailItC++;
+                        tailSupItC++;
+                         minMaxItC++;
+                     }
                    //  cout<<"\ncase3"; newNode->Output();
 
                 } else {
