@@ -84,7 +84,7 @@ Determine if all nodes under the current prefix node branch satisfy the property
     \param tailMinMax: indices of min and max positions in supporting sets
     \param ctxId: the id of the context
 */
- bool Satisfy_Half_Condition(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,int ctxId);
+ bool Satisfy_Half_Condition(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,RContext *k,int ss,int tt);
 
 //! Make the initial tails and support sets for star charm
  void Make_Init_SupSets_MinMaxIdxs_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &tailSupSet, list < list<NCluster*> *> &tailMinMax);

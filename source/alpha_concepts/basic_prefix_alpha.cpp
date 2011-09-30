@@ -586,7 +586,7 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
     delete commonIdxs;
 }
 
- bool BasicPrefix::Satisfy_Half_Condition(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,int ctxId){
+ bool BasicPrefix::Satisfy_Half_Condition(list<IOSet*> &tail, list<IOSet*> &tailSupSet, list<NCluster*> &tailMinMax,RContext *k,int ss, int tt){
      list<IOSet*>::iterator tailIt = tail.begin();
      list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
      list<NCluster*>::iterator minMaxIt = tailMinMax.begin();
@@ -595,11 +595,11 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
          NCluster *currMinMax = (*minMaxIt);
           for (int i = 0; i < commonIdxs->Size(); i++) {
             int rowId = commonIdxs->At(i);
-            RSet *row = K->GetSet(t, rowId);
-            double range = K->GetSet(t, rowId)->At(currMinMax->GetSetById(rowId)->At(1)).second - K->GetSet(t, rowId)->At(currMinMax->GetSetById(rowId)->At(0)).second;
+            RSet *row = k->GetSet(tt, rowId);
+            double range = k->GetSet(tt, rowId)->At(currMinMax->GetSetById(rowId)->At(1)).second - k->GetSet(tt, rowId)->At(currMinMax->GetSetById(rowId)->At(0)).second;
             vector<double> lclParamsF; //construct parameter vector for the consistency function, make alpha the first element though
-            lclParamsF.push_back(alpha[ctxId]); //assign the variance for this particlar row / column
-            paramFunction(K, commonIdxs, s, t, rowId, lclParamsF);
+            lclParamsF.push_back(alpha[k->GetId()]); //assign the variance for this particlar row / column
+            paramFunction(k, commonIdxs, ss, tt, rowId, lclParamsF);
             //now do consistency check
             if (range > consistencyFunction(row, lclParamsF)*0.5){
                return false;
@@ -876,7 +876,7 @@ void BasicPrefix::Enumerate_Charm(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
     list<IOSet*>::iterator tailIt = tail.begin();
     list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
     list<NCluster*>::iterator minMaxIt = tailMinMax.begin();
-    bool flg = Satisfy_Half_Condition(tail,tailSupSet, tailMinMax,K->GetId());
+    bool flg = Satisfy_Half_Condition(tail,tailSupSet, tailMinMax,K,s,t);
     while (tailIt != tail.end()) {
         IOSet *currPrefix = (*tailIt);
         IOSet *currSupSet = (*tailSupIt);
@@ -1016,7 +1016,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
     tailItC++;
     tailSupItC++;
     minMaxItC++;
-    bool flg = Satisfy_Half_Condition(tail,tailSupSet, tailMinMax,NETWORK->GetRContext(1,otherDomain)->GetId());
+    bool flg = Satisfy_Half_Condition(tail,tailSupSet, tailMinMax,NETWORK->GetRContext(1,otherDomain),1,otherDomain);
     while (tailItC != tail.end()){
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;

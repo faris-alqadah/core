@@ -4,8 +4,8 @@
 % Computes precision, recall, false postive rate, true positive rate
 %
 %   Input:
-%           predict: binary vector of predicted values
-%           actual: binary vector of actual values
+%           actual: binary vector of predicted values
+%           predict: binary vector of actual values
 %    Returns:
 %           prec,rcl,fpr,tpr
 %
