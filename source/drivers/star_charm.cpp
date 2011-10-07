@@ -201,6 +201,8 @@ int main(int argc, char** argv) {
     la.NETWORK = MakeRelationGraphR(inputFile);
     //compute standard deviations of each context
     la.NETWORK->ComputeStdDevs();
+    //compute ranges of each context
+    la.NETWORK->ComputeRange();
     la.NETWORK->Print();
     la.s = 1; //central domain assumed to be first domain listed
     la.StarCharm();

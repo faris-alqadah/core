@@ -27,5 +27,14 @@ double AlphaSigma(RSet *a, vector<double> &params);
  */
 double MaxSpaceUniform(RSet *a, vector<double> &params);
 
+
+//! Computes the alpha*min range consistency function (see "An Association Analysis Approach to Biclustering" by Pandey et al.)
+/*!
+
+    \params a the RSet to compute the maximum spacing uniform estimator for
+    \params params params[0] should contain the alpha value
+ */
+//double MinRange(RSet *a, vector<double> &params)
+
 #endif
 

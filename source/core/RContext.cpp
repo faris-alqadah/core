@@ -194,7 +194,7 @@ int RContext::GetNumCells(){
 }
 
 double RContext::GetDensity(){
-    return (double)GetNumCells() / ( (double)domain1->GetN()*(double)domain2->GetN() );
+    return ( (double)GetNumCells()) / ( (double)domain1->GetN()*(double)domain2->GetN() );
 }
 
 pair<int,int> RContext::GetDomainIds(){

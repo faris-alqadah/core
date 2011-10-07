@@ -29,6 +29,7 @@ function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_mat
         orig_mse = [];
         query_mse = [];
         i
+        box_ctr=1;
         for j=1:n
             % read the query file
             query_file = [query_file_dir num2str(j)];
@@ -38,7 +39,7 @@ function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_mat
             if numel(query_c{1}{1}) > 1
                 
                 q_matrix = full_matrix(:,query_c{1}{1});
-                o_mse = mean_square_error(q_matrix);
+                o_mse = mean_square_error_sparse(q_matrix);
                 for k=1:x(i)
                     cluster_file_name = [file_dirs{i} num2str(j) '_' num2str(k) '.concepts'];
                     if fopen(cluster_file_name) > 0
@@ -47,9 +48,10 @@ function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_mat
                         [cluster cluster_name] = read_nclusters(cluster_file_name,cluster_file_name);
                         matrix = full_matrix(cluster{1}{2},cluster{1}{1});
                         orig_mse=[orig_mse o_mse];
-                        mm=mean_square_error_sparse(matrix);
+                        mm=mean_square_error_spar(matrix);
                         query_mse = [query_mse mm];
-                        box_mse(i,j*
+                        box_mse(i,box_ctr)=mm;
+                        box_ctr=box_ctr+1;
                     end
                 end
             end
@@ -64,5 +66,9 @@ function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_mat
     xlabel('Seed MSE','FontSize',16);
     ylabel('Bi-cluster MSE','FontSize',16);
     legend(method_names);
+    figure(2)
+    boxplot(box_mse','labels',method_names);
+    ylabel('MSE','FontSize',16);
+    set(gca,'YScale','log');
    
 end

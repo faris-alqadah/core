@@ -119,7 +119,7 @@ void ReadQueryFile(){
         string line;
         while (!myfile.eof()){
             getline(myfile, line);
-            if(myfile.eof()) break;
+            cout.flush();
             int curr = nm->NameToId(line);
             if( curr != -1)
                 query->Add(curr);
@@ -180,7 +180,6 @@ int main(int argc, char** argv) {
     cout<<"\nGot query with "<<query->Size()<<" objects...."
         <<"\nTesting for exact hit.....\n";
     vector<NCluster*> hits;
-    GetQueryQuality(query);
     la.Qbbc(query,hits);
 
     if(outFile != "~")

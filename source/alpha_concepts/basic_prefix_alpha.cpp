@@ -67,6 +67,13 @@ void BasicPrefix::Qbbc(IOSet *query, vector<NCluster*> &hits) {
     for (int i = 0; i < hits.size(); i++) {
         cout << "\nHit " << i + 1 << "||\n";
         hits[i]->GetSetById(s)->Output(K->GetNameMap(s));
+        cout<<"\n";
+         hits[i]->GetSetById(t)->Output(K->GetNameMap(t));
+         cout << "\nHit " << i + 1 << "||\n";
+        hits[i]->GetSetById(s)->Output();
+        cout<<"\n";
+         hits[i]->GetSetById(t)->Output();
+
     }
 }
 

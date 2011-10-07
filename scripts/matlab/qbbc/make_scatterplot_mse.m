@@ -67,7 +67,7 @@ function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_mat
     ylabel('Bi-cluster MSE','FontSize',16);
     legend(method_names);
     figure(2)
-    boxplot(box_mse',method_names);
+    boxplot(box_mse','labels',method_names);
     ylabel('MSE','FontSize',16);
     set(gca,'YScale','log');
    
