@@ -60,7 +60,7 @@ void CheckArguments(){
             la.paramFunction =&Construct_AlphaSigma_Params;
         }
         else if(la.consistencyMode == la.MAX_SPACE_UNIFORM){
-            la.consistencyFunction=&AlphaSigma;
+            la.consistencyFunction=& MaxSpaceUniform;
             la.paramFunction = &Construct_MaxSpaceUniform_Params;
         }
     }
@@ -150,6 +150,7 @@ double GetQueryQuality(IOSet *query){
     queryCluster->GetSet(1)->SetId(la.t);
     queryQuality = Mean_Square_Error(queryCluster ,la.K, la.s, la.t);
 }
+
 void OutputFile(vector<NCluster*> &hits){
     //output each hit to a file
     for(int i=0; i < hits.size();i++){
@@ -170,6 +171,7 @@ int main(int argc, char** argv) {
     ProcessCmndLine(argc,argv);
     la.K = MakeSingleRContext(inputFile);
     la.K->ComputeStdDevs();
+    la.K->ComputeRanges();
     ReadQueryFile();
     la.K->PrintBasicStats();
     //this may change later

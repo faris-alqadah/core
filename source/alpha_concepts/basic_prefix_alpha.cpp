@@ -296,7 +296,6 @@ vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix, IOS
     list<IOSet*>::iterator supSetIt = supportSets.begin();
     list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
     for (int i = 0; i < otherObjs->Size(); i++) {
-
         if ((*supSetIt)->Size() >= supSet->Size()) {
             IOSet *supSetRslt = new IOSet;
             NCluster *minMaxRslt = new NCluster;
@@ -346,6 +345,7 @@ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<I
     tailIt++;
     tailSupIt++;
     minMaxIt++; //advance one to only compute other neighbors since prefix is first memeber of tail
+    int ctr=1;
     while (tailIt != tail.end()) {
         IOSet *currPrefix = (*tailIt);
         IOSet *currSupSet = (*tailSupIt);
@@ -362,6 +362,7 @@ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<I
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
             Range_Intersect(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,K->GetId());
+           // cout<<"\nsup set size: "<<supSetRslt->Size();
             if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()) {
                 //update the curr prefix
                 IOSet *tmp = currPrefix;
@@ -374,7 +375,6 @@ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<I
                 tailItC = RemoveFromList(tail, tailItC);
                 tailSupItC = RemoveFromList(tailSupSet, tailSupItC);
                 minMaxItC = RemoveFromList(tailMinMax, minMaxItC);
-                //cout<<"\ncase1";
 
             } else if (supSetRslt->Size() == currSupSet->Size()) {
                 //update the curr prefix
@@ -421,6 +421,7 @@ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<I
         tailIt = RemoveFromList(tail, tailIt);
         tailSupIt = RemoveFromList(tailSupSet, tailSupIt);
         minMaxIt = RemoveFromList(tailMinMax, minMaxIt);
+        ctr++;
 
     }
     return neighbors;
@@ -571,6 +572,7 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
         lclParamsF.push_back(alpha[ctxId]); //assign the variance for this particlar row / column
         paramFunction(K, commonIdxs, s, t, rowId, lclParamsF);
         //now do consistency check
+        //cout<<"\nrange: "<<range<<"\t"<<consistencyFunction(row, lclParamsF);
         if (range < consistencyFunction(row, lclParamsF)) {
             supSetRslt->Add(rowId);
             supSetRslt->SetQuality(supSetRslt->GetQuality() + range);

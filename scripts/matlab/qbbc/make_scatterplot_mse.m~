@@ -23,6 +23,8 @@
 function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_matrix)
     markers = ['+';'o';'*';'.';'x';'s';'d';'^';'v';'>';'<';'p';'h'];
     colors = ['r';'g';'b';'c';'m';'y';'k'];
+    box_mse = ones(numel(file_dirs),n*max(x));
+    box_mse(find(box_mse)) = NaN;
     for i=1:numel(file_dirs)
         orig_mse = [];
         query_mse = [];
@@ -31,7 +33,7 @@ function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_mat
             % read the query file
             query_file = [query_file_dir num2str(j)];
             query_name_file = [query_file '.query'];
-            [query_c query_c_name] = read_nclusters(query_file,query_name_file);
+            [query_c query_c_name] = read_nclusters(query_file,query_file);
             % compute the original mse
             if numel(query_c{1}{1}) > 1
                 
@@ -42,17 +44,22 @@ function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_mat
                     if fopen(cluster_file_name) > 0
 
                         cluster_name_file_name=[cluster_file_name '.names'];
-                        [cluster cluster_name] = read_nclusters(cluster_file_name,cluster_name_file_name);
+                        [cluster cluster_name] = read_nclusters(cluster_file_name,cluster_file_name);
                         matrix = full_matrix(cluster{1}{2},cluster{1}{1});
                         orig_mse=[orig_mse o_mse];
-                        query_mse = [query_mse mean_square_error_sparse(matrix)];
+                        mm=mean_square_error_sparse(matrix);
+                        query_mse = [query_mse mm];
+                        box_mse(i,j*
                     end
                 end
             end
         end
         % make the plot
-        plot(orig_mse,query_mse,[colors(mod(i,numel(colors))) markers( mod(i,numel(markers))+1)],'MarkerSize',10);
+        figure(1)
+        fprintf('\nPlotting...\n');
+        semilogy(orig_mse,query_mse,[colors(i) markers( i)],'MarkerSize',10);
         hold on;
+        
     end
     xlabel('Seed MSE','FontSize',16);
     ylabel('Bi-cluster MSE','FontSize',16);

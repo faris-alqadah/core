@@ -67,6 +67,8 @@ public:
     void SetQuality(double);
     //!Returns the quality
     double GetQuality();
+    //! Return the range of self
+    double Range();
 private:
     //! size of the RSet
     int size;

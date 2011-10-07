@@ -190,6 +190,10 @@ double RSet::Variance(){
     return (1.0/(size-1.0))*qi;
 }
 
+double RSet::Range(){
+    return GetMaxElement().second - GetMinElement().second;
+}
+
 double RSet::Std_Dev(){
     return sqrt(Variance());
 

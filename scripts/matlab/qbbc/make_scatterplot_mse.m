@@ -23,10 +23,13 @@
 function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_matrix)
     markers = ['+';'o';'*';'.';'x';'s';'d';'^';'v';'>';'<';'p';'h'];
     colors = ['r';'g';'b';'c';'m';'y';'k'];
+    box_mse = ones(numel(file_dirs),n*max(x));
+    box_mse(find(box_mse)) = NaN;
     for i=1:numel(file_dirs)
         orig_mse = [];
         query_mse = [];
         i
+        box_ctr=1;
         for j=1:n
             % read the query file
             query_file = [query_file_dir num2str(j)];
@@ -42,21 +45,30 @@ function make_scatterplot_mse(file_dirs,query_file_dir,n,x,method_names,full_mat
                     if fopen(cluster_file_name) > 0
 
                         cluster_name_file_name=[cluster_file_name '.names'];
-                        [cluster cluster_name] = read_nclusters(cluster_file_name,cluster_name_file_name);
+                        [cluster cluster_name] = read_nclusters(cluster_file_name,cluster_file_name);
                         matrix = full_matrix(cluster{1}{2},cluster{1}{1});
                         orig_mse=[orig_mse o_mse];
-                        query_mse = [query_mse mean_square_error_sparse(matrix)];
+                        mm=mean_square_error(matrix);
+                        query_mse = [query_mse mm];
+                        box_mse(i,box_ctr)=mm;
+                        box_ctr=box_ctr+1;
                     end
                 end
             end
         end
         % make the plot
+        figure(1)
         fprintf('\nPlotting...\n');
         semilogy(orig_mse,query_mse,[colors(i) markers( i)],'MarkerSize',10);
         hold on;
+        
     end
     xlabel('Seed MSE','FontSize',16);
     ylabel('Bi-cluster MSE','FontSize',16);
     legend(method_names);
+    figure(2)
+    boxplot(box_mse',method_names);
+    ylabel('MSE','FontSize',16);
+    set(gca,'YScale','log');
    
 end

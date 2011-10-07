@@ -8,6 +8,8 @@ RContext::RContext(int n1 ,int n2){
     domain2->SetId(1);
     stdDev1 = new RSet();
     stdDev2 = new RSet();
+    range1 = new RSet();
+    range2 = new RSet();
     id =0;
     name="~";
 }
@@ -16,6 +18,8 @@ RContext::RContext( RContext &a){
     domain2->DeepCopy(*a.domain2);
     stdDev1->DeepCopy(a.stdDev1);
     stdDev2->DeepCopy(a.stdDev2);
+    range1->DeepCopy(a.range1);
+    range2->DeepCopy(a.range2);
     id = a.id;
     name = a.name;
 }
@@ -25,6 +29,8 @@ RContext::RContext(NRCluster *d1, NRCluster *d2){
     domain2 = new NRCluster(*d2);
     stdDev1 = new RSet();
     stdDev2 = new RSet();
+    range1 = new RSet();
+    range2 = new RSet();
     id = 0;
     name = "~";
 }
@@ -33,6 +39,8 @@ RContext::~RContext(){
     if (domain2 != NULL) delete domain2;
     if(stdDev1 != NULL) delete stdDev1;
     if(stdDev2 != NULL) delete stdDev2;
+    if(range1 != NULL) delete range1;
+    if(range2 != NULL) delete range2;
     domain1 = NULL;
     domain2 = NULL;
     stdDev1=NULL;
@@ -241,6 +249,35 @@ void RContext::ComputeStdDevs(){
         stdDev2->Add(val);
     }
 }
+
+void RContext::ComputeRanges(){
+    range1->Clear();
+    range2->Clear();
+    for(int i=0; i < domain1->GetN(); i++){
+        pair<int,double> val;
+        val.first = domain1->GetSet(i)->Id();
+        val.second = domain1->GetSet(i)->Range();
+        range1->Add(val);
+    }
+    for(int i=0; i < domain2->GetN(); i++){
+        pair<int,double> val;
+        val.first = domain2->GetSet(i)->Id();
+        val.second = domain2->GetSet(i)->Range();
+        range2->Add(val);
+    }
+}
+
+double RContext::GetRange(int domain, int setNum){
+     assert(setNum >= 0);
+    assert(domain == domain1->GetId() || domain == domain2->GetId());
+    if (domain == domain1->GetId()){
+        return range1->At(setNum).second;
+    }else{
+         return range2->At(setNum).second;
+    }
+
+}
+
 double RContext::GetStdDev(int domain, int setNum){
     assert(setNum >= 0);
     assert(domain == domain1->GetId() || domain == domain2->GetId());

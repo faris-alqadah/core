@@ -106,6 +106,9 @@ public:
     //! Compute the standard deviations of each row and column and store them
     void ComputeStdDevs();
 
+    //!Compute ranges of each row and column and store them
+    void ComputeRanges();
+
     //! Returns an standard deviation of a row / column or object set
     /*!
         \param domain the id of the domain from which the standard deviation will be looked up
@@ -113,6 +116,12 @@ public:
      */
     double GetStdDev(int domain, int setNum);
 
+    //! Returns range a row / column or object set
+    /*!
+        \param domain the id of the domain from which the range will be looked up
+     *  \param setNum the object number in domain for which the range will be looked up
+     */
+    double GetRange(int domain, int setNum);
 
 
     //! Print the RContext in sparse pair style to stdout
@@ -148,6 +157,10 @@ private:
     RSet* stdDev1;
     //! stanard deviations of domain 2 (if computed)
     RSet* stdDev2;
+    //! ranges of domain 1 (if computed)
+    RSet *range1;
+    //! ranges of domain 2 (if computed)
+    RSet *range2;
 
 };
 
