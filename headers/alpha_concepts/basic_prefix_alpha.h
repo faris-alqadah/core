@@ -94,9 +94,10 @@ void Enumerate_Star_Charm(list< list<IOSet*>* > &tails, list< list<IOSet*> *> &t
 
 
 
- //! Compute the "Range Intersection" of two supporting sets for the star charm algorithm 
+ //! Compute the "Range Intersection" of two supporting sets for the star charm algorithm
+ //! Returns the range support
 
- void Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
+double Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
                       IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain, int ctxId);
 
 

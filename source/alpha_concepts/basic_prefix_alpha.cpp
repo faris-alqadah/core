@@ -169,7 +169,8 @@ void BasicPrefix::StarCharm(){
          for(int j=0; j < fullSpace->Size(); j++){
              IOSet *currPfx = new IOSet;
              RSet *currCol = currContext->GetSet(s,j);
-             if(currCol->Size() >= PRUNE_SIZE_VECTOR[i+1]){  //prune small columns from the get go
+             double rs = abs(currCol->Sum()); // range support of single column is simply the sum
+             if(currCol->Size() >= PRUNE_SIZE_VECTOR[i+1] && rs >= PRUNE_SIZE_VECTOR[i+1]){  //prune small columns from the get go
                  currPfx->Add(fullSpace->At(j));
                  currPfx->SetId(fullSpace->At(j));
                  currPfx->SetQuality(0);
@@ -634,7 +635,7 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
      return true;
  }
 
-void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
+double BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCluster* minMax1, NCluster* minMax2,
                       IOSet *supSetRslt, NCluster* minMaxRslt, int otherDomain,int ctxId){
 
 //    cout<<"\nIntersecting: \n"; supSet1->Output(); cout<<"\n"; supSet2->Output(); cout.flush();
@@ -646,6 +647,7 @@ void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCl
     //first intersect the indices
      IOSet *commonIdxs = Intersect(supSet1, supSet2);
     // cout<<"\n"<<commonIdxs->Size()<<"\t"<<PRUNE_SIZE_VECTOR[otherDomain-1];
+     double rangeSupport=0.0;
      if (commonIdxs->Size() >= PRUNE_SIZE_VECTOR[otherDomain-1]){
     //update min max results for each index compute range and add sets that meet range requirement
          for (int i = 0; i < commonIdxs->Size(); i++) {
@@ -675,6 +677,7 @@ void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCl
                 minMax->Add(maxx);
                 minMax->SetId(rowId);
                 minMaxRslt->AddSet(minMax);
+                rangeSupport += minVal;
             }
         }
      }
@@ -683,6 +686,7 @@ void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCl
     //else supSetRslt->SetQuality(-1);
     delete commonIdxs;
    // cout<<"\nresult: \n"; supSetRslt->Output(); cout<<"\n"; minMaxRslt->Output();
+    return abs(rangeSupport);
  }
 
 
@@ -1051,11 +1055,11 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
             //first perform intersection then all cases follow
             //cout<<"\nrange intersecting....\n";
             //cout.flush();
-            Range_Intersect_Star_Charm(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,otherDomain,NETWORK->GetRContext(1,otherDomain)->GetId());
+          double rs=  Range_Intersect_Star_Charm(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,otherDomain,NETWORK->GetRContext(1,otherDomain)->GetId());
             //now implement each case....
             //cout<<"\ntesting "<<supSetRslt->Size()<<"\t"<<PRUNE_SIZE_VECTOR[otherDomain-1];
             //cout.flush();
-            if (supSetRslt->Size() >=  PRUNE_SIZE_VECTOR[otherDomain-1]){
+            if (supSetRslt->Size() >=  PRUNE_SIZE_VECTOR[otherDomain-1] && rs >= PRUNE_SIZE_VECTOR[otherDomain-1]){
                 if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()) {
                     //update the curr prefix
                     IOSet *tmp = (*tailIt);
