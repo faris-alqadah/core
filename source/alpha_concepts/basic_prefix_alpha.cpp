@@ -678,7 +678,7 @@ void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCl
             }
         }
      }
-     cout<<"\nsupSetRslt size: "<<supSetRslt->Size();
+   //  cout<<"\nsupSetRslt size: "<<supSetRslt->Size();
     //if (supSetRslt->Size() > 0) supSetRslt->SetQuality(supSetRslt->GetQuality() / (double) supSetRslt->Size());
     //else supSetRslt->SetQuality(-1);
     delete commonIdxs;
