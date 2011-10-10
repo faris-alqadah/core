@@ -5,14 +5,17 @@
 %
 %  Inputs:
 %         
-%           -bicluster: a matrix representing the bi-cluster
+%           -bicluster: a cell array of the row idxs and col idxs of the
+%                   bi-cluster in the original data matrix
+%           -rownames: names of the rows
+%           -colnames: names of the columns
+%           -matrix: the original data matrix
 %
-%                          
-function plot_bicluster(bicluster)
-    figure(1)
-    plot(bicluster','-x','MarkerSize',16);
-    figure(2)
-    image(bicluster*100);
+function plot_bicluster(bicluster,rownames,colnames,matrix)
+    plot(matrix(bicluster{1},bicluster{2})','-x','MarkerSize',16);
+   % legend(rownames(bicluster{1}));
+   % set(gca,'XTick',1:length(bicluster{2}));
+   % set(gca,'XTickLabel',colnames(bicluster{2}));
     
 
 end

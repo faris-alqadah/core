@@ -181,7 +181,8 @@ void ProcessCmndLine(int argc, char ** argv){
 
 
 void OutputStats(){
-    ofstream outStat("stats");
+    ofstream outStat("stats",ios_base::app);
+    outStat<<ComputeTime()<<"\n";
     outStat.close();
 
 }
@@ -205,7 +206,10 @@ int main(int argc, char** argv) {
     la.NETWORK->ComputeRange();
     la.NETWORK->Print();
     la.s = 1; //central domain assumed to be first domain listed
+    StartTiming();
     la.StarCharm();
+    EndTiming();
+    OutputStats();
     if(la.enumerationMode == la.ENUM_TOPK_FILE){
         cout<<"\nOutputing clusters to file....\n";
         sort(la.CONCEPTS.begin(),la.CONCEPTS.end(),Compare_Quality_NCluster);

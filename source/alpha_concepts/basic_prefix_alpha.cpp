@@ -19,6 +19,8 @@ void BasicPrefix::Qbbc(IOSet *query, vector<NCluster*> &hits) {
             NCluster *bicluster = new NCluster(*CONCEPTS[0]);
             cout << "\nbi cluster: \n";
             bicluster->Output();
+            cout<<"\nGetting closure and neighbors...\n";
+            cout.flush();
             vector<NCluster*> *neighbors = Range_Closure_Charm_Neighbors(bicluster->GetSetById(s), bicluster->GetSetById(t), minMax);
             // cout<<"\ndone\n";
             // delete minMax;
@@ -303,6 +305,8 @@ vector<NCluster*>* BasicPrefix::Range_Closure_Charm_Neighbors(IOSet *prefix, IOS
     list<IOSet*>::iterator supSetIt = supportSets.begin();
     list<NCluster*>::iterator minMaxIt = minMaxIdxs.begin();
     for (int i = 0; i < otherObjs->Size(); i++) {
+        //cout<<"\non closure: "<<i<<"\t"<<otherObjs->Size();
+       // cout.flush();
         if ((*supSetIt)->Size() >= supSet->Size()) {
             IOSet *supSetRslt = new IOSet;
             NCluster *minMaxRslt = new NCluster;
@@ -346,6 +350,7 @@ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<I
     if (tail.size() == 0) {
         return neighbors;
     }
+   // cout<<"\nUppers to check "<<tail.size();
     list<IOSet*>::iterator tailIt = tail.begin();
     list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
     list<NCluster*>::iterator minMaxIt = tailMinMax.begin();
@@ -354,6 +359,8 @@ vector<NCluster*> * BasicPrefix::Charm_UpperNeighbors(list<IOSet*> &tail, list<I
     minMaxIt++; //advance one to only compute other neighbors since prefix is first memeber of tail
     int ctr=1;
     while (tailIt != tail.end()) {
+        //cout<<"\nneighbor: "<<ctr<<"\tof\t"<<tail.size();
+        //cout.flush();
         IOSet *currPrefix = (*tailIt);
         IOSet *currSupSet = (*tailSupIt);
         NCluster *currMinMax = (*minMaxIt);
