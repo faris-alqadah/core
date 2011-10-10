@@ -606,24 +606,30 @@ void BasicPrefix::Range_Intersect(IOSet *supSet1, IOSet *supSet2, NCluster* minM
      list<IOSet*>::iterator tailIt = tail.begin();
      list<IOSet*>::iterator tailSupIt = tailSupSet.begin();
      list<NCluster*>::iterator minMaxIt = tailMinMax.begin();
+     int ctr=1;
      while (tailIt != tail.end()) {
+         //cout<<"\nctr\t"<<ctr<<"\t"<<tail.size();
          IOSet *commonIdxs = (*tailSupIt);
-         NCluster *currMinMax = (*minMaxIt);
-          for (int i = 0; i < commonIdxs->Size(); i++) {
-            int rowId = commonIdxs->At(i);
-            RSet *row = k->GetSet(tt, rowId);
-            double range = k->GetSet(tt, rowId)->At(currMinMax->GetSetById(rowId)->At(1)).second - k->GetSet(tt, rowId)->At(currMinMax->GetSetById(rowId)->At(0)).second;
-            vector<double> lclParamsF; //construct parameter vector for the consistency function, make alpha the first element though
-            lclParamsF.push_back(alpha[k->GetId()]); //assign the variance for this particlar row / column
-            paramFunction(k, commonIdxs, ss, tt, rowId, lclParamsF);
-            //now do consistency check
-            if (range > consistencyFunction(row, lclParamsF)*0.5){
-               return false;
-            }
-          }
+         if((*tailIt)->Size() >= 2){
+             NCluster *currMinMax = (*minMaxIt);
+              for (int i = 0; i < commonIdxs->Size(); i++) {
+                int rowId = commonIdxs->At(i);
+                RSet *row = k->GetSet(tt, rowId);
+                double range = k->GetSet(tt, rowId)->At(currMinMax->GetSetById(rowId)->At(1)).second - k->GetSet(tt, rowId)->At(currMinMax->GetSetById(rowId)->At(0)).second;
+                vector<double> lclParamsF; //construct parameter vector for the consistency function, make alpha the first element though
+                lclParamsF.push_back(alpha[k->GetId()]); //assign the variance for this particlar row / column
+                paramFunction(k, commonIdxs, ss, tt, rowId, lclParamsF);
+                //now do consistency check
+               // cout<<"\nrange: "<<range;
+                if (range > consistencyFunction(row, lclParamsF)*0.5){
+                   return false;
+                }
+              }
+         }
         tailIt++;
         tailSupIt++;
         minMaxIt++;
+        ctr++;
      }
      return true;
  }
@@ -639,6 +645,7 @@ void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCl
      //supSetRslt->SetQuality(0.0);
     //first intersect the indices
      IOSet *commonIdxs = Intersect(supSet1, supSet2);
+    // cout<<"\n"<<commonIdxs->Size()<<"\t"<<PRUNE_SIZE_VECTOR[otherDomain-1];
      if (commonIdxs->Size() >= PRUNE_SIZE_VECTOR[otherDomain-1]){
     //update min max results for each index compute range and add sets that meet range requirement
          for (int i = 0; i < commonIdxs->Size(); i++) {
@@ -671,6 +678,7 @@ void BasicPrefix::Range_Intersect_Star_Charm(IOSet *supSet1, IOSet *supSet2, NCl
             }
         }
      }
+     cout<<"\nsupSetRslt size: "<<supSetRslt->Size();
     //if (supSetRslt->Size() > 0) supSetRslt->SetQuality(supSetRslt->GetQuality() / (double) supSetRslt->Size());
     //else supSetRslt->SetQuality(-1);
     delete commonIdxs;
@@ -1032,14 +1040,22 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
     tailItC++;
     tailSupItC++;
     minMaxItC++;
+   // cout<<"\nchecking half condition....\n";
+   // cout.flush();
     bool flg = Satisfy_Half_Condition(tail,tailSupSet, tailMinMax,NETWORK->GetRContext(1,otherDomain),1,otherDomain);
+    int ctr=1;
     while (tailItC != tail.end()){
             IOSet *supSetRslt = new IOSet;
             NCluster* minMaxRslt = new NCluster;
+            //cout<<"\nctr\t"<<ctr<<"\t"<<tail.size();
             //first perform intersection then all cases follow
+            //cout<<"\nrange intersecting....\n";
+            //cout.flush();
             Range_Intersect_Star_Charm(currSupSet, (*tailSupItC), currMinMax, (*minMaxItC), supSetRslt, minMaxRslt,otherDomain,NETWORK->GetRContext(1,otherDomain)->GetId());
             //now implement each case....
-            if (supSetRslt->Size() > 0){
+            //cout<<"\ntesting "<<supSetRslt->Size()<<"\t"<<PRUNE_SIZE_VECTOR[otherDomain-1];
+            //cout.flush();
+            if (supSetRslt->Size() >=  PRUNE_SIZE_VECTOR[otherDomain-1]){
                 if (supSetRslt->Size() == currSupSet->Size() && supSetRslt->Size() == (*tailSupItC)->Size()) {
                     //update the curr prefix
                     IOSet *tmp = (*tailIt);
@@ -1122,6 +1138,7 @@ void BasicPrefix::Star_Charm_Step(list<IOSet*> &tail, list<IOSet*> &tailSupSet, 
                 tailSupItC++;
                 minMaxItC++;
             }
+            ctr++;
         }
 }
 
