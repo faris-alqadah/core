@@ -1,0 +1,32 @@
+% Author: Faris Alqadah
+%
+% Compute z-support of a subspace in a data matrix. Assumes K is a full
+% matrix.
+% 
+% See "A Pattern-Based Approach to Multi-way Clustering" by Alqadah et al.
+%   for details
+%
+%  Inputs:
+%         -K: the data matrix
+%         -sub: an array {G,M} that contains two vectors representing the
+%               subpsace
+%         -dist: the assumed row distribution (currently only
+%                supports 'normal'
+%               options are:
+%                        - 'normal'
+%          
+%  Returns: 
+%           -z_sup: the z support of the subspace
+%
+%
+function z_sup = z_support(K,sub,dist)
+    
+    if strcmp(dist,'normal')
+        for i=1:nume
+        
+    else
+        fprintf('\nUnknown distribution\n');
+        z_sup=0;
+    end
+   
+end
