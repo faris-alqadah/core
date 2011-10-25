@@ -11,7 +11,7 @@
 %           -colnames: names of the columns
 %           -matrix: the original data matrix
 %
-function plot_bicluster(bicluster,rownames,colnames,matrix)
+function plot_bicluster(bicluster,matrix)
     plot(matrix(bicluster{1},bicluster{2})','-x','MarkerSize',16);
    % legend(rownames(bicluster{1}));
    % set(gca,'XTick',1:length(bicluster{2}));
