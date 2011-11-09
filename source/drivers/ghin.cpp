@@ -16,7 +16,7 @@
 #include "../../headers/ghin/Framework.h"
 
 
-int numArgs=7;
+int numArgs=6;
 
 float enumConceptsTime;
 float simMatTime;
@@ -34,7 +34,7 @@ void DisplayUsage(){
         <<"\nREQUIRED: "
         <<"\n-i <inputFile>"
         <<"\n-w <weight of zeros>"
-        <<"\n-reward 1- simple weighted 2- expected satisfaction"
+        <<"\n-reward 1- simple weighted 2- Hypogeometric expected satisfaction"
         <<"\nOPTIONAL (use in this order):  "
         <<"\n-tiring (use tiring party goers mode)"
         <<"\n-prog display progress"
@@ -75,11 +75,11 @@ void CheckArguments(){
     
     if (framework.rewardMode == framework.SIMPLE_WEIGHTED){
          cout<<"\nReward function is: SIMPLE WEIGHTED with w= "<<framework.w;
-         framework.RewardFunc = &Ghin::Simple_Weighted_Score;
+         framework.RewardFunc = &Simple_Weighted_Score;
 
-     }else if(framework.rewardMode == framework.EXPECTED_SAT){
-             cout<<"\nReward function is: EXPECTED SATISFACTION with w= "<<framework.w;
-              framework.RewardFunc = &Ghin::Exp_Sat_Score;
+     }else if(framework.rewardMode == framework.EXPECTED_HYPGEO_SAT){
+             cout<<"\nReward function is: HYPO-GEOMETRIC EXPECTED SATISFACTION with w= "<<framework.w;
+              framework.RewardFunc = &Exp_Sat_HypGeo_Score;
      }
      if(framework.tiredMode == true)
          cout<<"\nTiring mode enabled";

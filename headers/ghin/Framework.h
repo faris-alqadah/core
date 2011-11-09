@@ -15,8 +15,10 @@
 #ifndef FRAMEWORK_H
 #define	FRAMEWORK_H
 
-#include "../core/BasicStats.h"
-#include "../core/LatticeAlgos.h"
+
+#include "Z_Rewards.h"
+#include "Count_Rewards.h"
+
 using namespace std;
 
 class Ghin : public LatticeAlgos{
@@ -89,7 +91,7 @@ void GHIN_Alg();
 //! Pointer to reward function
 //! the two integers specify the domains for which the reward function is computed
 //! these are naive implementations of reward functions
-double (Ghin::*RewardFunc)(NCluster*,int,int);
+double (*RewardFunc)(NCluster*,int,int,double,RelationGraph*);
 
 //! weight value that is used in conjuction with different reward functions
 double w;
@@ -102,7 +104,7 @@ bool tiredMode;
 //! The simple weighted zeros reward function
 static const int SIMPLE_WEIGHTED=1;
 //! Expected satisfaction reward function using hyper-geomtric distribution
-static const int EXPECTED_SAT=2;
+static const int EXPECTED_HYPGEO_SAT=2;
 
 ///////////////////////Data Structs/////////////////////////////////////////////
 //! pointer to a hin
@@ -118,6 +120,7 @@ double totalCands;
 //! avg number of iterations to find a nash equalibrium or fail...
 double avgNashIters;
 
+
 /////////////////////////REWARD FUNCTIONS///////////////////////////////////////
 
 ///*!
@@ -131,14 +134,7 @@ double avgNashIters;
 //void Compute_Score(NCluster *a);
 
 
-/*!
- Computes the simple weighted score. See Alqadah et al. in KDD '11 for details
- \params a the ncluster to compute score for
- \param obj the object id to compute for
- \param doamin the domain id for which to compute the score with respect to
 
- */
-double Simple_Weighted_Score(NCluster *a, int obj, int domain);
 
 
 /*!
@@ -152,14 +148,6 @@ void InitTiring();
  */
 void UpdateTired(NCluster *c);
 
-
-/*!
-  Computes the expected satasfaction score. See Alqadah et al. in KDD '11 for details
- \params a the ncluster to compute score for
- \param obj the object id to compute for
- \param doamin the domain id for which to compute the score with respect to
- */
-double Exp_Sat_Score(NCluster *a, int obj, int domain);
 
 /*!
  Returns the set of objects not currently in the cluster whose addition increases the reward function for the specified domain

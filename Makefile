@@ -55,7 +55,9 @@ ALPHA_CONCEPTS_OBJECTS = $(OBJ)/$(ALPHA_CONCEPTS)/consistency.o \
 #nclusters
 NCLUSTERS_OBJECTS = $(OBJ)/$(NCLUSTERS)/Berry.o
 #ghin
-GHIN_OBJECTS = $(OBJ)/$(GHIN)/Framework.o
+GHIN_OBJECTS = $(OBJ)/$(GHIN)/Framework.o \
+	       $(OBJ)/$(GHIN)/Z_Rewards.o \
+	       $(OBJ)/$(GHIN)/Count_Rewards.o 
 #driver make programs
 NCLU_OBJ	=	$(OBJ)/$(NCLUSTERS)/nclu.o
 QBBC_OBJ =	$(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o
@@ -179,3 +181,7 @@ $(OBJ)/$(GHIN)/Framework.o: $(SOURCE)/$(GHIN)/Framework.cpp
 		$(CC) $(CFLAGS) -c  $(SOURCE)/$(GHIN)/Framework.cpp -o $@
 $(OBJ)/$(GHIN)/ghin.o: $(SOURCE)/$(DRIVERS)/ghin.cpp
 		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/ghin.cpp -o $@
+$(OBJ)/$(GHIN)/Z_Rewards.o: $(SOURCE)/$(GHIN)/Z_Rewards.cpp
+		$(CC) $(CFLAGS) -c $(SOURCE)/$(GHIN)/Z_Rewards.cpp -o $@
+$(OBJ)/$(GHIN)/Count_Rewards.o: $(SOURCE)/$(GHIN)/Count_Rewards.cpp
+		$(CC) $(CFLAGS) -c $(SOURCE)/$(GHIN)/Count_Rewards.cpp -o $@

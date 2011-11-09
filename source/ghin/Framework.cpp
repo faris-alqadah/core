@@ -53,12 +53,25 @@ NCluster* Ghin::MakeDeal(NCluster *candidate){
     //clear
     random_shuffle(order.begin(),order.end());
     int no_change_cnt=0;
+
+    //tracking variabled delete later
+    int num_add_iters=0;
+    int num_remove_iters=0;
+    /////////done tracking/////////////
     while (no_change_cnt < 2 && cnt < max_iters ){
         vector<IOSet*> changedSets(N+1);
         change=false;
         //randomize the order of deal making
        // cout<<"\ncandidate: \n"; candidate->Output(); cout.flush();
+        //tracking remove later
+            if (add)
+                num_add_iters++;
+            else
+                num_remove_iters++;
+            //////////done tracking//////////
+
         for(int i=0; i < N; i++){
+            
             changedSets[order[i]] = new IOSet(candidate->GetSetById(order[i]));
             bool currChange = MaximizeDomain(candidate,changedSets[order[i]],order[i],add);
             change = change || currChange;
@@ -81,6 +94,8 @@ NCluster* Ghin::MakeDeal(NCluster *candidate){
     NCluster *ret = new NCluster(N);
     ret->DeepCopy(*candidate);
     if(no_change_cnt > 1 && cnt < max_iters){
+        cout<<"\nadd iters: "<<num_add_iters;
+        cout<<"\nremove iters: "<<num_remove_iters;
         ret->SetQuality(1.0);
     }else{
         ret->SetQuality(0.0);
@@ -91,6 +106,7 @@ NCluster* Ghin::MakeDeal(NCluster *candidate){
 bool Ghin::MaximizeDomain(NCluster *a, IOSet *c, int domain,bool add ){
     bool ret=false;
     if(!add){
+       // cout<<"\nRemoving";
         IOSet *removed = RemoveSet_Reward(a,domain);
         if( removed != NULL){
             IOSet *diff = Difference(c,removed);
@@ -102,6 +118,10 @@ bool Ghin::MaximizeDomain(NCluster *a, IOSet *c, int domain,bool add ){
         }
     }else{
         IOSet *add = AddSet_Reward(a,domain);
+        if(add)
+            cout<<"\n( "<<domain<<") Added "<<add->Size()<<" objects";
+        else
+            cout<<"\nAdded 0 objects";
         if ( add != NULL){
             IOSet *unin = Union(c,add);
             unin->SetId(domain);
@@ -114,28 +134,8 @@ bool Ghin::MaximizeDomain(NCluster *a, IOSet *c, int domain,bool add ){
     return ret;
 }
 
-////////////////////////////////Reward Funtions/////////////////////////////////
 
-double Ghin::Simple_Weighted_Score(NCluster *a, int obj, int domain){
 
-    IOSet *neighbors = hin->GetNeighbors(domain);
-    double score = 0.0;
-    for(int i=0; i < neighbors->Size(); i++){
-        double B= a->GetSetById( neighbors->At(i))->Size() ;
-        if(B > 0){
-            Context *currContext = hin->GetContext(domain,neighbors->At(i));
-            IOSet *tmp = Intersect(currContext->GetSet(domain,obj),a->GetSetById( neighbors->At(i) ));
-            IOSet *tmp1 = Difference(a->GetSetById( neighbors->At(i) ),currContext->GetSet(domain,obj));
-            double zeros =  tmp1->Size();
-            double ones = tmp->Size();
-            score += (ones - w*zeros) / B;
-            delete tmp;
-            delete tmp1;
-        }
-    }
-    delete neighbors;
-    return score;
-}
 
 
 void Ghin::InitTiring(){
@@ -157,31 +157,7 @@ void Ghin::UpdateTired(NCluster *c){
 
 
 
-double Ghin::Exp_Sat_Score(NCluster *a, int obj, int domain){
 
-    IOSet *neighbors = hin->GetNeighbors(domain);
-    double score = 0.0;
-    for(int i=0; i < neighbors->Size(); i++){
-        double B= a->GetSetById( neighbors->At(i))->Size() ;
-        if(B > 0){
-            Context *currContext = hin->GetContext(domain,neighbors->At(i));
-            IOSet *tmp = Intersect(currContext->GetSet(domain,obj),a->GetSetById( neighbors->At(i) ));
-            int n = a->GetSetById( neighbors->At(i) )->Size();
-            int m = currContext->GetSet(domain,obj)->Size();
-            int NN =currContext->GetNumSets(neighbors->At(i));
-            double expected = Hypgeo_Mean(n,m,NN);
-            double std = Hypgeo_Dev(n,m,NN);
-            double ones = tmp->Size();
-            double tfactor = 1.0/pow(tired[domain][obj],1.5);
-            double zscore = Z_Score(ones,expected,std);
-            double z = tfactor*zscore-w;
-            score += z;
-            delete tmp;
-        }
-    }
-    delete neighbors;
-    return score;
-}
 
 
 
@@ -192,7 +168,7 @@ IOSet *Ghin::AddSet_Reward(NCluster *a, int domain){
     delete all;
     IOSet *add = new IOSet;
     for(int i=0; i < test1->Size(); i++){
-        if( (this->*RewardFunc)(a,test1->At(i),domain) > 0)
+        if( (*RewardFunc)(a,test1->At(i),domain,w,hin) > 0)
             add->Add(test1->At(i));
     }
     delete test1;
@@ -207,7 +183,7 @@ IOSet *Ghin::RemoveSet_Reward(NCluster *a, int domain){
    // cout<<"\nremove set a: "; a->Output(); cout.flush();
     IOSet *remove = new IOSet;
     for(int i=0; i < a->GetSetById(domain)->Size(); i++){
-        if( (this->*RewardFunc)(a,a->GetSetById(domain)->At(i),domain) < 0)
+        if( (*RewardFunc)(a,a->GetSetById(domain)->At(i),domain,w,hin) < 0)
             remove->Add(a->GetSetById(domain)->At(i));
     }
     if (remove->Size() > 0) return remove;
@@ -218,18 +194,7 @@ IOSet *Ghin::RemoveSet_Reward(NCluster *a, int domain){
 
 }
 
-//void Ghin::Compute_Score(NCluster *a){
-//
-//    for(int i=0; i < hin->GetNumNodes(); i++){
-//        double quality_cnt=0;
-//        for(int j=0; j < a->GetSet(i)->Size(); j++){
-//            double s=(this->*RewardFunc)(a,a->GetSet(i)->At(j),i+1);
-//           // a->GetSet(i)->SetScore(j,s);
-//            quality_cnt += s;
-//        }
-//        a->GetSet(i)->SetQuality(quality_cnt);
-//    }
-//}
+
 
 void  Ghin::GHIN_Alg(){
     srand ( time(NULL) );
@@ -254,7 +219,6 @@ void  Ghin::GHIN_Alg(){
 
             bool foundCluster=false;
             if (result->GetQuality() == 1 && !CheckRepeat(result)){
-                //Compute_Score(result,RewardFunc);
                 foundCluster=true;
                  CONCEPTS.push_back(result);
                 if(tiredMode){
