@@ -49,20 +49,21 @@ end
 %%%utility functions%%%
 
 %returns the numbers from the curr row
-function [row] = get_curr_row(line,ii)
-    row=[];
+function row = get_curr_row(line,ii)
+    row={};
     i=1;
     [str, remain] = strtok(line); % this is first character, just the index so ignore
     while true
-        [str, remain] = strtok(remain, '\t');
-        if ii == 1
-            row = [row str2num(str)+1];
-        else
-            row = [row str];
-        end
-        if isempty(str)  
+        [tok, remain] = strtok(remain);
+        if isempty(tok)  
             break;  
         end
+        if ii == 1
+            row{i} = str2num(tok)+1;
+        else
+            row{i} = tok;
+        end
+        
         i=i+1;  
     end
 
