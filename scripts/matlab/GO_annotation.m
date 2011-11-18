@@ -32,6 +32,9 @@ function [ annos] = GO_annotation(sgd_file,GO,gene_list,all_genes)
                     cluster_gene_counts(go_ids) = cluster_gene_counts(go_ids)+1;
                 end
             end
+            if mod(i,20) == 0
+                fprintf('\n%d\n',i);
+            end
         end
         % compute p-values
         pvals = hygepdf(cluster_gene_count,max(all_gene_counts),max(cluster_gene_count),all_gene_counts);
