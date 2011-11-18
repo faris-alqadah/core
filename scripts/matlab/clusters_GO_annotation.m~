@@ -1,0 +1,41 @@
+% Author: Faris Alqadah
+% JHU
+% Compute perecentage of clusters that are significantly GO-annotated.
+% 
+% Inputs:
+%         -GO: the GO object
+%         -sgd_file: gene assocation file
+%         - all_gene_counts: back groudn vector with counts of GO terms in
+%               background
+%         -clusters: cell array of clusters
+%         -p_cutoff: pvalue cut off to determine siginifcance
+%  Returns: 
+%           -annos: an array of structs containing 
+%                       -term (the GO term)
+%                       -pval  (the p-value)
+%                       -raw count (raw count of number of genes annotated)
+%                       
+%                       -raw total
+%                       
+%
+function clusters_GO_annotation(GO,sgd_file,all_gene_counts,clusters,p_cutoff)
+    for i=1:numel(clusters)
+        cluster= clusters{i};
+        for j=1:numel{cluster}
+            curr_count= get_GO_counts(GO,sgd_file,cluster{j});
+            annos = GO_annotation(all_gene_counts,curr_)
+        end
+    end
+        
+
+end
+
+function [annotated] = is_annotated(annos,p_cutoff)
+    annotated=0;
+    for i=1:numel(annos)
+        if annos{i}.pval <= p_cutoff
+            annotated=1;
+            break
+        end
+    end
+end
