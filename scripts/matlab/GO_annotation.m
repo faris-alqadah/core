@@ -21,7 +21,7 @@
 %
 
 function [ annos] = GO_annotation(all_gene_counts,cluster_gene_count,GO)
-        clusteannos = {};
+        annos = {};
         pvals = hygepdf(cluster_gene_count,max(all_gene_counts),max(cluster_gene_count),all_gene_counts);
         [dummy idx] = sort(pvals);
         for i=1:10
@@ -30,7 +30,7 @@ function [ annos] = GO_annotation(all_gene_counts,cluster_gene_count,GO)
             s.pval = pvals(idx(i));
             s.raw_count = cluster_gene_count(idx(i));
             s.raw_total = all_gene_counts(idx(i));
-            s.descrip= GO(idx(i)).Term.definition(2:min(end,60));
+            s.descrip='';% GO(idx(i)).Term.definition(2:min(end,60));
             annos{i} = s;
         end
 end

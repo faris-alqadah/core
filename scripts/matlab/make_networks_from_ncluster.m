@@ -24,7 +24,7 @@ function [networks] = make_networks_from_ncluster(ncluster_file,domain_sizes)
     [clusters names] = read_nclusters(ncluster_file,ncluster_file);
     for i=1:numel(clusters)
         for j=1:numel(domain_sizes)-1
-            networks{j}(clusters{i}{1},clusters{i}{j+1})=1;
+            networks{j}(cell2mat(clusters{i}{1}),cell2mat(clusters{i}{j+1}))=1;
         end
     end    
 end

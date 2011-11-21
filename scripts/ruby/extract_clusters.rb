@@ -1,6 +1,7 @@
 require "rubygems"
 require "commandline"
 require "set"
+require "ncluster"
 
 
 
@@ -60,48 +61,8 @@ class App < CommandLine::Application
     end
   end
 
-  ##
-  # returns the domain number of a line assumed to contain the domain number
-  # in an ncluster
-  #
-  def get_domain_num(str)
-     str.gsub!("[","")
-     str.gsub!("]","")
-     return str
-  end
 
-  ##
-  #return a single cluster as hash of arrays. Hash key is domain number
-  #
-  # Input:
-  #     arr: the array containing entire n-cluster file
-  #     ctr: the starting poisition of where to seek next n-cluster
-  #
-  # Output: none
-  #
-  # Returns:
-  #     new_ctr : the new ctr after finding next n-cluster
-  #     nclu: the ncluster as a hash of arrays
-  def get_single_cluster(arr,ctr)
-      nclu = Hash.new
-      lcl_ctr=ctr
-      while true
-        arr[lcl_ctr].gsub!("\n","")
-        arr[lcl_ctr].gsub!("\r","")
-        if arr[lcl_ctr] == ";;;"
-          return lcl_ctr+1, nclu
-        else
-           tkns =  arr[lcl_ctr].split("\t")
-           domain = get_domain_num(tkns[0])
-           lcl_arr = Array.new
-           for i in 1..tkns.size
-             lcl_arr << tkns[i]
-           end
-           nclu[domain] = lcl_arr
-        end
-        lcl_ctr = lcl_ctr + 1
-      end
-  end
+
   ##
   #Outputs an ncluster, according the selected options
   #
@@ -150,8 +111,11 @@ class App < CommandLine::Application
   # Output a domain to a file as an object per line
   #
   def output_domain_lines(out,domain_num,arr)
-      for a in arr
-        out.write("#{a}\n")
+      for i in 0..arr.size-1
+        out.write("#{arr[i]}")
+        unless i == arr.size-1
+          out.write("\n")
+        end
       end
   end
 

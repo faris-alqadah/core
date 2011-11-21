@@ -8,6 +8,7 @@
 %         - all_gene_counts: back groudn vector with counts of GO terms in
 %               background
 %         -clusters: cell array of clusters
+%         -domain: the domain within the cluster to check for annotation
 %         -p_cutoff: pvalue cut off to determine siginifcance
 %  Returns: 
 %           -annos: an array of structs containing 
@@ -18,15 +19,13 @@
 %                       -raw total
 %                       
 %
-function [percent] = clusters_GO_annotation(GO,go_map,all_gene_counts,clusters,p_cutoff)
+function [percent] = clusters_GO_annotation(GO,go_map,all_gene_counts,clusters,domain,p_cutoff)
     anno_vec=[];
     for i=1:numel(clusters)
         cluster= clusters{i};
-        %for j=1:numel(cluster)
-            curr_count= get_GO_counts(GO,go_map,cluster{1});
-            annos = GO_annotation(all_gene_counts,curr_count,GO);
-            anno_vec=[anno_vec is_annotated(annos,p_cutoff)];
-        %end
+        curr_count= get_GO_counts(GO,go_map,cluster{domain});
+        annos = GO_annotation(all_gene_counts,curr_count,GO);
+        anno_vec=[anno_vec is_annotated(annos,p_cutoff)];
     end
     percent = numel(find(anno_vec))/numel(anno_vec);    
 
