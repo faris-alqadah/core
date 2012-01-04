@@ -16,13 +16,13 @@ function [ prob_vector ] = prob_add_gi_gj(GI,GJ,psi_gi,psi_gj)
     for j=0:GJ-1 
         i_vec=[i_vec; hygepdf((0:GI-1),GJ,j,psi_gi)];
     end
-    i_vec = i_vec;
+    size(i_vec)
     % probablity of adding 0:GJ-1 to gj given i objects in i domain
     j_vec=[];
     for i=0:GI-1
-       j_vec = [j_vec hygepdf((0:GJ-1),GI,i,psi_gj)];
+       j_vec = [j_vec; hygepdf((0:GJ-1),GI,i,psi_gj)];
     end
-    
+    size(j_vec)
     tmp = i_vec' .* j_vec;
     prob_vector=tmp(:);
 
