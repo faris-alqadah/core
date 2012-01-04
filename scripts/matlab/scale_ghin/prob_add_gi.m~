@@ -1,0 +1,17 @@
+function [ prob_vector ] = prob_add_gi(Gi,GI,GJ,Gj,psi_gi)
+%prob_add_gi Function to aid in analyzing map_reduce_GHIN which computes
+%probablity of adding Gi+1..GI objects
+%   Compute probablity of adding Gi+1..GI bjects during a map_reduce_GHIN round using a hyper-geometric  
+%   distribution
+%   Input:
+%          Gi: number of objects in subspace of current domain
+%          GI: total number of objects in i domain
+%          GJ: total number of objects in opposite domain (J)
+%          Gj: size of subspace t in opposite domain 
+%          psi_gi: size of psi_gi
+%           
+%
+    prob = hygepdf(0,GJ,Gj,min(Gj,psi_gi));
+    
+end
+

@@ -1,0 +1,18 @@
+function [ output_args ] = make_local_markov_mat(Gi,GI,GJ,Gj,psi_gi)
+%make_local_markov_mat creates a sub-matrix of the markov mat, by fixing
+%one of the domains
+%
+%          Gi: number of objects in subspace of current domain (i)
+%          GI: total number of objects in i domain
+%          GJ: total number of objects in opposite domain (J)
+%          Gj: size of subspace t in opposite domain (j)
+%          psi_gi: size of psi_gi   
+%
+%
+%
+%
+
+
+
+end
+

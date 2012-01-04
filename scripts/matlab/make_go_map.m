@@ -11,7 +11,7 @@
 %          go_map: the map
 %                       
 %
-function [ go_map] = make_go_map(GO,sgd_file)
+function [ go_map] = make_go_map(sgd_file)
       ann = goannotread(sgd_file,'Aspect','F','Fields',{'DB_Object_Symbol','GOid'});
       go_map = Construct_GO_map(ann);
 end

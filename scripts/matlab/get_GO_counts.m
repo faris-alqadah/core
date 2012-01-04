@@ -12,7 +12,6 @@
 %                       
 %
 function [ gene_counts] = get_GO_counts(GO,go_map,gene_list)
-      
         gene_counts =  zeros(GO.Terms(end).id,1);
         for i = 1:numel(gene_list)
             if isKey(go_map,gene_list{i})
@@ -20,6 +19,5 @@ function [ gene_counts] = get_GO_counts(GO,go_map,gene_list)
                 gene_counts(go_ids) = gene_counts(go_ids)+1;
             end
         end
-
 end
 

@@ -1,0 +1,17 @@
+function [ markov_mat ] = make_markov_mat(GI,GJ)
+%Create a tranisition matrix from markov model modeling add rounds in
+%map_reduce_ghin
+%
+%   Create a tranisition matrix from markov model modeling add rounds in
+%   map_reduce_ghin by pairing all possible add states into a single matrix
+%   and computing their transisiton probablity with prob_add_gi
+%
+markov_mat = zeros(GI*GJ,GI*GJ); % pair all states together
+
+for i=1:GI
+    for j=1:GJ
+       makov_mat = [markov_mat; make_local_markov_mat(GI,GJ,j,psi_gi)];
+    end
+end
+    
+end
