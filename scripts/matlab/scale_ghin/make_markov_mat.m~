@@ -1,4 +1,4 @@
-function [ markov_mat ] = make_markov_mat(GI,GJ)
+function [ markov_mat ] = make_markov_mat(GI,GJ,psi_gi,psi_gj)
 %Create a tranisition matrix from markov model modeling add rounds in
 %map_reduce_ghin
 %
@@ -9,8 +9,10 @@ function [ markov_mat ] = make_markov_mat(GI,GJ)
 markov_mat = zeros(GI*GJ,GI*GJ); % pair all states together
 
 for i=1:GI
+    p_a_k_Gi = prob_add_k_Gj(GJ,GI,psi_gj,i); % probablity add k objects to GI given size of Gj=1...GJ
     for j=1:GJ
-       makov_mat = [markov_mat; make_local_markov_mat(GI,GJ,j,psi_gi)];
+         p_a_k_Gj = prob_add_k_Gj(GI,GJ,psi_gi,j); % probablity add k objects to GJ given size of Gi=1...GI
+                                                    % combinte probablities
     end
 end
     
