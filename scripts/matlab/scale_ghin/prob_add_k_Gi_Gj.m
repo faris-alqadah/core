@@ -8,7 +8,7 @@ function [ prob_vector ] = prob_add_k_Gi_Gj(GI,GJ,psi_gi,k)
   
     for i=1:numel(priors)
        % prob_vector(i,1) = binopdf(0,GI-Gi,priors(i));
-        prob_vector(i,:) = binopdf(k,k:-1:1,priors(i));
+        prob_vector(i,:) = binopdf(k,k:GI-1,priors(i));
     end
    % prob_vector = prob_vector';
     prob_vector(find(isnan(prob_vector))) = 0;
