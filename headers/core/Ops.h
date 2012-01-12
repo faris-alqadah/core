@@ -21,6 +21,8 @@
 #include"NCluster.h"
 #include <algorithm>
 #include<list>
+
+
 using namespace std;
 
 
@@ -109,7 +111,14 @@ double GreaterEqualSize(NCluster *a, NCluster *b);
 //! Assumes a is the FIMI representation of a sparse matrix, and transposes it
 NCluster *TransposeFimi(NCluster *a);
 
+//! Randomly select an element from a set given weights associated with each element in the set
+int WeightedUniformDraw(vector<double> &weights);
 
+//! Randomly (uniformly) select a subset from IOSet
+IOSet * UniformSubsetDraw(IOSet *t);
+
+
+unsigned int NChooseK(unsigned int n, unsigned int k);
 /*!
      EXTERNALS
 Use these to keep count of the number of basic set operations used

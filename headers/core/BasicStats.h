@@ -12,6 +12,7 @@
 #include "NRCluster.h"
 
 
+
 /*!
  Computes the mean of a hypergeometrically distributed random varaiable
     \param n see wiki entry of hypergeomtric distribution

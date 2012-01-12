@@ -106,3 +106,52 @@ NCluster *TransposeFimi(NCluster *a){
     }
 
 
+int WeightedUniformDraw(vector<double> &weights){
+    double sum=0;
+    for(int i=0; i < weights.size(); i++) sum += weights[i];
+    for(int i=0; i < weights.size(); i++) weights[i]  /= sum;
+    //srand(time(NULL));
+    double rnd = (double) rand() / RAND_MAX;
+ // cout<<"\nrnd sum: "<<sum;
+    random_shuffle(weights.begin(),weights.end());
+    for(int i=0; i < weights.size(); i++){
+   //   cout<<"\nrnd "<<rnd<<"\tw "<<weights[i];
+        if(rnd <= weights[i])
+            return i;
+        else
+            rnd -= weights[i];
+    }    
+}
+
+IOSet * UniformSubsetDraw(IOSet *t){
+    //randomly select size of subset
+    //first select the size of the subset as weighted size
+   // cout<<"\nset size: "<<t->Size();
+    int rndSize = rand() % t->Size();
+    vector<int> idxs(t->Size());
+    for(int i=0; i < t->Size(); i++){
+        idxs[i] = i;
+    }
+   // cout<<"\nrand select size: "<<rndSize;
+    random_shuffle(idxs.begin(),idxs.end());
+    IOSet *ret = new IOSet;
+    for(int i=0; i < rndSize+1; i++){
+        ret->Add(t->At(idxs[i]));
+    }
+    ret->Sort();
+    return ret;
+    
+}
+
+unsigned int NChooseK(unsigned int n, unsigned int k){
+    if (k > n) {
+        return 0;
+    }
+    unsigned int r = 1;
+    for (unsigned int d = 1; d <= k; ++d) {
+        r *= n--;
+        r /= d;
+    }
+    return r;
+
+}
