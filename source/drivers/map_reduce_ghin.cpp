@@ -151,17 +151,13 @@ int main(int argc, char** argv) {
     double avgS2=0;
     int s=2;
     int t=1;
-    vector<long double> *freqWeights = sampler.GetFreqWeights(framework.hin->GetContext(1), s, t);
-    vector<long double> *areaWeights = sampler.GetAreaWeights(framework.hin->GetContext(1), s, t);
     for(int i=0; i < 1000; i++){
-        NCluster *tmp = sampler.SubspaceFreq(framework.hin->GetContext(1), s, t,*freqWeights);
-        IOSet *sup = Prime(tmp,framework.hin,s,t,1);
-        avgArea += sup->Size()*tmp->GetSet(0)->Size();
-        avgS1 += tmp->GetSet(0)->Size();
-        avgS2 += sup->Size();
-
+        NCluster *tmp = sampler.SubspaceFreqNetwork(framework.hin,s);
+        avgArea += tmp->GetSetById(s)->Size()*tmp->GetSetById(t)->Size();
+        avgS1 += tmp->GetSetById(s)->Size();
+        avgS2 += tmp->GetSetById(t)->Size();
+        cout<<"\nlook: "; tmp->Output(framework.NAME_MAPS);
         delete tmp;
-        delete sup;
     }
      avgArea = avgArea/(double)1000.0;
      avgS1 = avgS1/(double)1000.0;

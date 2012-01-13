@@ -124,8 +124,8 @@ int WeightedUniformDraw(vector<long double> &weights){
 }
 
 IOSet * UniformSubsetDraw(IOSet *t){
-   cout<<"\nt size: "<<t->Size();
-    cout.flush();
+  // cout<<"\nt size: "<<t->Size();
+   // cout.flush();
     int rndSize = rand() % t->Size();
     vector<int> idxs(t->Size());
     for(int i=0; i < t->Size(); i++) idxs[i] = i;
@@ -138,10 +138,13 @@ IOSet * UniformSubsetDraw(IOSet *t){
 IOSet * BinomialSubsetDraw(IOSet *t){
      //first generate weights that correspond to possible size of subset
     int sz = t->Size();// /10;
+    long double sum=0;
      vector<long double> weights(t->Size());
      for(int i=0; i < weights.size(); i++){
-         weights[i] = NChooseK(sz,(double)i+1);
+         weights[i] = NChooseK(sz,(long double)i+1);
+         sum += weights[i];
      }
+     for(int i=0; i < weights.size(); i++) weights[i] /= sum;
      int rndSize = WeightedUniformDraw(weights)+1;
      //cout<<"\nrnd size: "<<rndSize;
      //cout<<"\nt size: "<<t->Size();
@@ -173,7 +176,7 @@ unsigned int NChooseK(unsigned int n, unsigned int k){
     return r;
 
 }
-double NChooseK(double n, double k){
+long double NChooseK(long double n, long double k){
      if (k > n) {
         return 0;
     }

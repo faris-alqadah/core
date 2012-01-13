@@ -35,6 +35,16 @@ void NClusterFreq(RelationGraph *g);
  */
 vector<long double> * GetFreqWeights(Context *c, int s, int t);
 
+//! Compute weights associated with each object in domain t to perform random frequecy based sampling of domain s. However frequency
+//! is computed over a subcontext in whcih objects (t,:) is intersected with sum(t,:).
+/*!
+    \param c the context  which (s,t) should be the domains
+    \params s the domain from which a subspace should be randomly sampled
+    \params t id of other domain in context c
+ *
+ */
+vector<long double> * GetFreqWeightsSub(Context *c, int s, int t,NCluster *sub);
+
 
 //! Compute weights associated with each object in domain t to perform random area based sampling of domain s
 /*!
@@ -53,7 +63,7 @@ vector<long double> * GetAreaWeights(Context *c, int s, int t);
     \params weights the weights corresponding to objects in t
  *
  */
-NCluster* SubspaceFreq(Context *c, int s, int t, vector< long double> &weights);
+IOSet* SubspaceFreq(Context *c, int s, int t, vector< long double> &weights);
 
 //! Randomly a subspace from domain s in context c ~ area
 /*!
@@ -63,9 +73,42 @@ NCluster* SubspaceFreq(Context *c, int s, int t, vector< long double> &weights);
     \params weights the weights corresponding to objects in t
  *
  */
-NCluster* SubspaceArea(Context *c, int s, int t, vector<long double> &weights);
+IOSet* SubspaceArea(Context *c, int s, int t, vector<long double> &weights);
 
-NCluster* SubspaceStarShaped(RelationGraph *g, int s );
+
+//! Randomly select a subspace from a star shaped HIN ~ frequncy or support
+/*!
+   \param g the hin
+   \param s id of the central node in the star shaped HIN
+ */
+
+NCluster* SubspaceStarShapedFreq(RelationGraph *g, int s );
+
+
+//! Randomly select a subspace from a star shaped HIN ~ frequncy or support
+//! However computation is performed over a subcontext in whcih objects (t,:) is intersected (s,:).
+/*!
+   \param g the hin
+   \param s id of the central node in the star shaped HIN
+   \param sample the current sampled n-cluster that should contain objects in domain s
+ */
+NCluster * SubspaceStarShapedFreqSample(RelationGraph *g, int s, NCluster *sample );
+
+//! Randomly select a subspace from a star shaped HIN ~ area
+/*!
+   \param g the hin
+   \param s id of the central node in the star shaped HIN
+ */
+
+NCluster* SubspaceStarShapedArea(RelationGraph *g, int s );
+
+
+//! Randomly select a subspace from a HIN
+/*!
+   \param g the hin
+   \param s id of the central node in the star shaped HIN
+ */
+NCluster * SubspaceFreqNetwork(RelationGraph *g, int s);
 
 };
 #endif	/* _RANDOM_SAMPLE_H */

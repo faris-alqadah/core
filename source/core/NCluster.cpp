@@ -91,6 +91,26 @@ void NCluster::Output(ofstream& out, vector<NameMap*>& nm){
     }
 }
 
+void NCluster::Output(vector<NameMap *>&nm){
+    for(int i=0; i < n; i++){
+        bool found=false;
+        for(int j=0; j < nm.size(); j++){
+            if (nm[j]->GetId() == sets[i]->Id()){
+                cout<<"["<<sets[i]->Id()<<"]\t";
+                sets[i]->Output(nm[j]);
+                found = true;
+                cout<<"\n";
+                break;
+            }
+        }
+        if(!found){
+            cout<<"["<<sets[i]->Id()<<"]\t";
+            sets[i]->Output();
+            cout<<"\n";
+        }
+    }
+}
+
 int NCluster::GetN() {return n;}
 
 

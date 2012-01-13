@@ -52,6 +52,14 @@ public:
      is performed.
      */
     void Output(ofstream&, vector<NameMap *>&nm);
+
+    //! Prints each IOset on a seperate line preceded by the Id of each IOSet to std stream
+    /*!
+     Attempts to match the id of one of the name maps to the id of the sets of self. If
+     the ids match, then then IOSet is output using the name map, otherwise normal printing
+     is performed.
+     */
+    void Output(vector<NameMap *>&nm);
     //! Resurns n, the number of sets in the n-cluster
     int GetN();
     //! Returns a pointer to the ith set

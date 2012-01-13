@@ -123,7 +123,7 @@ IOSet * BinomialSubsetDraw(IOSet *t);
 
 unsigned int NChooseK(unsigned int n, unsigned int k);
 
-double NChooseK(double n, double k);
+long double NChooseK(long double n, long double k);
 /*!
      EXTERNALS
 Use these to keep count of the number of basic set operations used
