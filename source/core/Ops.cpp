@@ -106,16 +106,16 @@ NCluster *TransposeFimi(NCluster *a){
     }
 
 
-int WeightedUniformDraw(vector<double> &weights){
-    double sum=0;
+int WeightedUniformDraw(vector<long double> &weights){
+    long double sum=0;
     for(int i=0; i < weights.size(); i++) sum += weights[i];
-    for(int i=0; i < weights.size(); i++) weights[i]  /= sum;
+    
     //srand(time(NULL));
-    double rnd = (double) rand() / RAND_MAX;
- // cout<<"\nrnd sum: "<<sum;
-    random_shuffle(weights.begin(),weights.end());
+    long double rnd = (long double) rand() / (long double) RAND_MAX;
+   // cout<<"\nrnd sum: "<<sum;
+    //random_shuffle(weights.begin(),weights.end());
     for(int i=0; i < weights.size(); i++){
-   //   cout<<"\nrnd "<<rnd<<"\tw "<<weights[i];
+   //   cout<<"\nrnd "<<rnd<<"\tw "<<weights[i]<<"\ti "<<i;
         if(rnd <= weights[i])
             return i;
         else
@@ -124,23 +124,41 @@ int WeightedUniformDraw(vector<double> &weights){
 }
 
 IOSet * UniformSubsetDraw(IOSet *t){
-    //randomly select size of subset
-    //first select the size of the subset as weighted size
-   // cout<<"\nset size: "<<t->Size();
+   cout<<"\nt size: "<<t->Size();
+    cout.flush();
     int rndSize = rand() % t->Size();
     vector<int> idxs(t->Size());
-    for(int i=0; i < t->Size(); i++){
-        idxs[i] = i;
-    }
-   // cout<<"\nrand select size: "<<rndSize;
+    for(int i=0; i < t->Size(); i++) idxs[i] = i;
     random_shuffle(idxs.begin(),idxs.end());
     IOSet *ret = new IOSet;
-    for(int i=0; i < rndSize+1; i++){
-        ret->Add(t->At(idxs[i]));
-    }
+    for(int i=0; i < rndSize+1; i++)  ret->Add(t->At(idxs[i]));
     ret->Sort();
-    return ret;
-    
+    return ret;   
+}
+IOSet * BinomialSubsetDraw(IOSet *t){
+     //first generate weights that correspond to possible size of subset
+    int sz = t->Size();// /10;
+     vector<long double> weights(t->Size());
+     for(int i=0; i < weights.size(); i++){
+         weights[i] = NChooseK(sz,(double)i+1);
+     }
+     int rndSize = WeightedUniformDraw(weights)+1;
+     //cout<<"\nrnd size: "<<rndSize;
+     //cout<<"\nt size: "<<t->Size();
+     //cout.flush();
+     vector<int> idxs(t->Size());
+     for(int i=0; i < t->Size(); i++) idxs[i] = i;
+     random_shuffle(idxs.begin(),idxs.end());
+     IOSet *ret = new IOSet;
+     for(int i=0; i < rndSize; i++) {
+        // cout<<"\nidx i "<<idxs[i];
+        // cout.flush();
+         int idxx = idxs[i];
+         int tt = t->At(idxx);
+         ret->Add(t->At(idxs[i]));
+     }
+     ret->Sort();
+     return ret;
 }
 
 unsigned int NChooseK(unsigned int n, unsigned int k){
@@ -154,4 +172,15 @@ unsigned int NChooseK(unsigned int n, unsigned int k){
     }
     return r;
 
+}
+double NChooseK(double n, double k){
+     if (k > n) {
+        return 0;
+    }
+    double r = 1;
+    for (unsigned int d = 1; d <= k; ++d) {
+        r *= n--;
+        r /= d;
+    }
+    return r;
 }

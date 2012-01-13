@@ -115,6 +115,9 @@ public:
     //! Return the number of ones / |domain1|*|domain2|
     double GetDensity();
 
+    //! Return the longest set associated with any single object
+    int GetLongestSet();
+
 private:
      //!represent first domain
     NCluster *domain1;

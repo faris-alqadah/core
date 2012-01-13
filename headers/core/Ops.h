@@ -112,13 +112,18 @@ double GreaterEqualSize(NCluster *a, NCluster *b);
 NCluster *TransposeFimi(NCluster *a);
 
 //! Randomly select an element from a set given weights associated with each element in the set
-int WeightedUniformDraw(vector<double> &weights);
+int WeightedUniformDraw(vector<long double> &weights);
 
 //! Randomly (uniformly) select a subset from IOSet
 IOSet * UniformSubsetDraw(IOSet *t);
 
+//! Select a subset from t, with probablity proportional to its size
+IOSet * BinomialSubsetDraw(IOSet *t);
+
 
 unsigned int NChooseK(unsigned int n, unsigned int k);
+
+double NChooseK(double n, double k);
 /*!
      EXTERNALS
 Use these to keep count of the number of basic set operations used

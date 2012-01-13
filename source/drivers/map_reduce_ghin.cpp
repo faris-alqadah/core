@@ -7,6 +7,7 @@
 
 
 #include <stdlib.h>
+#include<cfloat>
 #include "../../headers/core/PreProcess.h"
 #include "../../headers/core/LatticeOps.h"
 #include "../../headers/core/Timing.h"
@@ -140,48 +141,32 @@ int main(int argc, char** argv) {
     framework.hin = MakeRelationGraph(inputFile);
     framework.NAME_MAPS = *framework.hin->GetNameMaps();
     framework.hin->Print();
+    cout<<"\nLongest set in context is : "<<framework.hin->GetContext(1)->GetLongestSet();
     srand(time(NULL));
      cout<<"\nRandomly sampling (freq) from context 1, domain 1....\n";
+     cout<<"\nLong double max: "<<LDBL_MAX;
     //test random generation of n-clusters
-     double avgFreq=0;
+    double avgArea=0;
+    double avgS1=0;
+    double avgS2=0;
+    int s=2;
+    int t=1;
+    vector<long double> *freqWeights = sampler.GetFreqWeights(framework.hin->GetContext(1), s, t);
+    vector<long double> *areaWeights = sampler.GetAreaWeights(framework.hin->GetContext(1), s, t);
     for(int i=0; i < 1000; i++){
-        NCluster *tmp = sampler.SubspaceFreq(framework.hin->GetContext(1), 2, 1);
-       // cout<<"\nGot set: \n";
-       // tmp->Output();
-        //cout<<"\t";
-        //tmp->GetSet(0)->Output(framework.NAME_MAPS[0]);
-      //  cout<<"\nwith supporting set freq: ";
-        IOSet *sup = Prime(tmp,framework.hin,2,1,1);
-       // sup->Output(framework.NAME_MAPS[0]);
-       // cout<<" "<<sup->Size()<<"\t"<<(double) sup->Size() / (double) framework.hin->GetContext(1)->GetLabels(1)->Size();
-        avgFreq += sup->Size();
+        NCluster *tmp = sampler.SubspaceFreq(framework.hin->GetContext(1), s, t,*freqWeights);
+        IOSet *sup = Prime(tmp,framework.hin,s,t,1);
+        avgArea += sup->Size()*tmp->GetSet(0)->Size();
+        avgS1 += tmp->GetSet(0)->Size();
+        avgS2 += sup->Size();
+
         delete tmp;
         delete sup;
     }
-     avgFreq = avgFreq/(double)1000.0;
-     cout<<"\nAvg freq w/sampling: "<<avgFreq;
-     avgFreq=0;
-     //randomly draw items and check out avg freq
-     for(int i=0; i < 1000; i++){
-         int r= rand() % framework.hin->GetContext(1)->GetNumSets(2);
-        NCluster *tmp = new NCluster();
-        tmp->AddSet(new IOSet());
-        tmp->GetSet(0)->Add(r);
-        tmp->GetSet(0)->SetId(2);
-      // cout<<"\nGot set: \n";
-        //tmp->Output();
-        //cout<<"\t";
-        //tmp->GetSet(0)->Output(framework.NAME_MAPS[0]);
-      //  cout<<"\nwith supporting set freq: ";
-        IOSet *sup = Prime(tmp,framework.hin,2,1,1);
-       // sup->Output(framework.NAME_MAPS[0]);
-        //cout<<" "<<sup->Size()<<"\t"<<(double) sup->Size() / (double) framework.hin->GetContext(1)->GetLabels(1)->Size();
-        avgFreq += sup->Size();
-        delete tmp;
-        delete sup;
-    }
-     avgFreq = avgFreq/(double)1000.0;
-     cout<<"\nAvg freq random item: "<<avgFreq;
+     avgArea = avgArea/(double)1000.0;
+     avgS1 = avgS1/(double)1000.0;
+     avgS2 = avgS2/(double)1000.0;
+       cout<<"\nAverage area with freq sampling: "<<avgArea<<" ( "<<avgS1<<" by "<<avgS2<<" )";
     cout<<"\n";
     return (EXIT_SUCCESS);
 }

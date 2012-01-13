@@ -173,3 +173,14 @@ NameMap* Context::GetNameMap(int dId){
         return nameMap2;
     }
 }
+ int Context::GetLongestSet(){
+    int max = 0;
+    for(int i=0; i < domain1->GetN(); i++) 
+        if(domain1->GetSet(i)->Size() > max)
+            max = domain1->GetSet(i)->Size();
+     for(int i=0; i < domain2->GetN(); i++)
+        if(domain2->GetSet(i)->Size() > max)
+            max = domain2->GetSet(i)->Size();
+      return max;
+
+ }
