@@ -122,6 +122,18 @@ int WeightedUniformDraw(vector<long double> &weights){
             rnd -= weights[i];
     }    
 }
+int WeightedUniformDraw(vector<double> &weights){
+    double sum=0;
+    for(int i=0; i < weights.size(); i++) sum += weights[i];
+    double rnd = (double) rand() / (double) RAND_MAX;
+     for(int i=0; i < weights.size(); i++){
+        if(rnd <= weights[i])
+            return i;
+        else
+            rnd -= weights[i];
+    }
+}
+
 
 IOSet * UniformSubsetDraw(IOSet *t){
   // cout<<"\nt size: "<<t->Size();

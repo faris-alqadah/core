@@ -114,6 +114,9 @@ NCluster *TransposeFimi(NCluster *a);
 //! Randomly select an element from a set given weights associated with each element in the set
 int WeightedUniformDraw(vector<long double> &weights);
 
+//! Randomly select an element from a set given weights associated with each element in the set
+int WeightedUniformDraw(vector<double> &weights);
+
 //! Randomly (uniformly) select a subset from IOSet
 IOSet * UniformSubsetDraw(IOSet *t);
 

@@ -24,6 +24,7 @@ ALPHA_CONCEPTS = alpha_concepts
 NCLUSTERS = nclusters
 GHIN = ghin
 MAPGHIN=map_reduce_ghin
+SYN = synthetic
 # objects
 #main objects
 MAIN_OBJECTS =  $(OBJ_CORE)/IOSet.o \
@@ -59,7 +60,9 @@ NCLUSTERS_OBJECTS = $(OBJ)/$(NCLUSTERS)/Berry.o \
 #ghin
 GHIN_OBJECTS = $(OBJ)/$(GHIN)/Framework.o \
 	       $(OBJ)/$(GHIN)/Z_Rewards.o \
-	       $(OBJ)/$(GHIN)/Count_Rewards.o 
+	       $(OBJ)/$(GHIN)/Count_Rewards.o
+
+SYN_OBJECTS = $(OBJ)/$(SYN)/synthetic_hin.o
 
 #driver make programs
 NCLU_OBJ	=	$(OBJ)/$(NCLUSTERS)/nclu.o
@@ -67,12 +70,14 @@ QBBC_OBJ =	$(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o
 STAR_CHARM_OBJ = $(OBJ)/$(ALPHA_CONCEPTS)/starcharm.o
 GHIN_OBJ = $(OBJ)/$(GHIN)/ghin.o
 MAPGHIN_OBJ = $(OBJ)/$(MAPGHIN)/mapghin.o
+SYN_OBJ = $(OBJ)/$(SYN)/synthetic.o
 
 NCLU_TARGET = $(BIN)/nclu
 QBBC_TARGET = $(BIN)/qbbc
 STAR_CHARM_TARGET = $(BIN)/starcharm
 GHIN_TARGET = $(BIN)/ghin
 MAPGHIN_TARGET=$(BIN)/mapghin
+SYN_TARGET = $(BIN)/synthetic
 #targets
 .cpp.o:
 	$(CC) -c $(CFLAGS) -o $@ $<
@@ -90,6 +95,8 @@ ghin:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(GHIN_OBJECTS) $(GHIN_OBJ)
 
 mapghin:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(GHIN_OBJECTS) $(MAPGHIN_OBJ)
 		$(LINK) $(LFLAGS) -o $(MAPGHIN_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(GHIN_OBJECTS) $(MAPGHIN_OBJ) $(LIBS)
+synthetic:  $(MAIN_OBJECTS) $(SYN_OBJECTS) $(SYN_OBJ)
+		$(LINK) $(LFLAGS) -o $(SYN_TARGET) $(MAIN_OBJECTS) $(SYN_OBJECTS) $(SYN_OBJ) $(LIBS)
 
 #install and setup scripts
 install:
@@ -114,6 +121,9 @@ ghin_install:
 		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
 mapghin_install:
 		mkdir -p $(OBJ)/$(MAPGHIN)
+		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
+synthetic_install:
+		mkdir -p $(OBJ)/$(SYN)
 		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
 clean:
 		rm -rf $(OBJ)
@@ -200,3 +210,8 @@ $(OBJ)/$(GHIN)/Count_Rewards.o: $(SOURCE)/$(GHIN)/Count_Rewards.cpp
 #mapghin
 $(OBJ)/$(MAPGHIN)/mapghin.o: $(SOURCE)/$(DRIVERS)/map_reduce_ghin.cpp
 		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/map_reduce_ghin.cpp -o $@
+#synthetic
+$(OBJ)/$(SYN)/synthetic_hin.o: $(SOURCE)/$(SYN)/synthetic_hin.cpp
+		$(CC) $(CFLAGS) -c $(SOURCE)/$(SYN)/synthetic_hin.cpp -o $@
+$(OBJ)/$(SYN)/synthetic.o: $(SOURCE)/$(DRIVERS)/synthetic.cpp
+		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/synthetic.cpp -o $@
