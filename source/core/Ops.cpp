@@ -125,6 +125,7 @@ int WeightedUniformDraw(vector<long double> &weights){
 int WeightedUniformDraw(vector<double> &weights){
     double sum=0;
     for(int i=0; i < weights.size(); i++) sum += weights[i];
+    vector<double> weightsCpy(weights);
     double rnd = (double) rand() / (double) RAND_MAX;
      for(int i=0; i < weights.size(); i++){
         if(rnd <= weights[i])

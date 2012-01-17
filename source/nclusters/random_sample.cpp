@@ -46,11 +46,13 @@ vector<long double> * NClusterRandomSample::GetAreaWeights(Context *c, int s, in
 
 IOSet* NClusterRandomSample::SubspaceFreq(Context *c, int s,int t, vector<long double> &weights){
     //randomly draw object from t
-   // cout<<"\nweights size: "<<weights.size();
+    cout<<"\nweights size: "<<weights.size();
     int randT =  WeightedUniformDraw(weights);
-   //cout<<"\ntransaction selected: "<<randT;
+   cout<<"\ntransaction selected: "<<randT;
+   cout<<"\ntransact had weight "<<weights[randT];
     //uniformly select from power set of psi^t(randT)
-   // cout<<"\t size: "<<c->GetSet(t,randT)->Size();
+    cout<<"\t size: "<<c->GetSet(t,randT)->Size();
+    cout.flush();
     IOSet *ret = UniformSubsetDraw(c->GetSet(t,randT));
     ret->SetId(s);
     return ret;
@@ -136,7 +138,7 @@ NCluster* NClusterRandomSample::SubspaceStarShapedFreqSample(RelationGraph *g, i
                         return NULL;
                     }
                     primeT->SetId(t);
-                    sample->AddSet(primeT);
+                   // sample->AssignSetById(s,primeT);
                   }
         }
         return sample;
@@ -165,7 +167,10 @@ NCluster* NClusterRandomSample::SubspaceStarShapedFreqSample(RelationGraph *g, i
               int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
               if(sample->GetSetById(t)->Size() == 0) { //only perform operation in context not already sampled
                   vector<long double> *currWeights = weightsMap[t];
+                  cout<<"\ncur context of "<<ctxIds.first<<" and "<<ctxIds.second;
+                  cout.flush();
                   IOSet *curr = SubspaceFreq(currContext,s,t, (*currWeights));
+                  cout<<"\ngot the curr: "; curr->Output();cout<<"\nadn the itrsct: "; itrsct->Output();
                   IOSet *tmp = itrsct;
                   if (i == 0)
                       itrsct = curr;
@@ -272,8 +277,7 @@ NCluster * NClusterRandomSample::SubspaceFreqNetwork(RelationGraph *g, int s){
         init->GetSet(i)->SetId(domainIds->At(i));
     }
     NCluster *init1 = SubspaceStarShapedFreq(g,s);
-    cout<<"\nthe init1\n"; init1->Output();
-    cout.flush();
+    
     //copy into init
     for(int i=0; i < init1->GetN(); i++){
         int currId = init1->GetSet(i)->Id();
@@ -284,16 +288,21 @@ NCluster * NClusterRandomSample::SubspaceFreqNetwork(RelationGraph *g, int s){
     //insert all neighboring articulation nodes of s
     IOSet *artDomains = g->GetArtDomains();
     queue<int> q;
+     cout<<"\nthe init1\n"; init->Output();
+    cout.flush();
     IOSet *sNeighbors = g->GetNeighbors(s);
     for(int i=0; i < sNeighbors->Size(); i++){
         if(artDomains->Contains(sNeighbors->At(i)))
             q.push(sNeighbors->At(i));
     }
+    cout<<"\nq size: "<<q.size();
     delete sNeighbors;
     while (!q.empty()){
         int s1 = q.front();
         q.pop();
         init = SubspaceStarShapedFreqSample(g,s1,init);
+        cout<<"\n init after first step with s1 "<<s1<<"\n";
+        init->Output();
         if(init == NULL) return NULL;
         IOSet *sNeighbors = g->GetNeighbors(s);
         for(int i=0; i < sNeighbors->Size(); i++){

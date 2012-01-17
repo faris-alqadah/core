@@ -55,7 +55,7 @@ vector<long double> * GetFreqWeightsSub(Context *c, int s, int t,NCluster *sub);
  */
 vector<long double> * GetAreaWeights(Context *c, int s, int t);
 
-//! Randomly a subspace from domain s in context c ~ frequency or support
+//! Randomly select a subspace from domain s in context c ~ frequency or support
 /*!
     \param c the context  which (s,t) should be the domains
     \params s the domain from which a subspace should be randomly sampled

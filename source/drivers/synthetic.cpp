@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
     ProcessCmndLine(argc, argv);
     cout<<"\nGenerating context....\n";
     srand(time(NULL));
-    MakeSynContext(cardA,cardB,outFile);
+    MakeSynContext_ScaleA_UniformB(cardA,cardB,outFile);
     cout << "\n";
     return (EXIT_SUCCESS);
 }
