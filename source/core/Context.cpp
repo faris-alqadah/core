@@ -19,6 +19,8 @@ Context::Context(NCluster *d1, NCluster *d2){
     assert(d1 != NULL && d2 != NULL);
     domain1 = new NCluster(*d1);
     domain2 = new NCluster(*d2);
+    nameMap1=  new NameMap;
+    nameMap2 = new NameMap;
     id = 0;
     name = "~";
 }
@@ -72,8 +74,7 @@ int Context::GetDomainId(int domain){
     else return domain2->GetId();
 }
 
-
-
+ 
 void Context::PrintAsMatrix(){
     for(int i=0; i < domain1->GetN(); i++){
         IOSet *currRow = domain1->GetSet(i);
@@ -110,14 +111,24 @@ void Context::PrintAsMatrix(ofstream &out){
 
 Context * Context::GetSubContext(IOSet *a, IOSet *b){
     assert(a->Size() > 0 && b->Size() > 0);
-    NCluster* d1 = new NCluster(a->Size());
-    NCluster *d2 = new NCluster(b->Size());
+    assert( (a->Id() == domain1->GetId() && b->Id() == domain2->GetId() )|| (a->Id() == domain2->GetId() && b->Id() == domain1->GetId() ));
+    NCluster *aDomain = a->Id() == domain1->GetId() ? domain1 : domain2;
+    NCluster *bDomain =  b->Id() == domain1->GetId() ? domain1 : domain2;
 
-    for(int i=0; i < a->Size(); i++)  d1->AssignSet(i,Intersect(domain1->GetSet(a->At(i)),b));
-    for(int i=0; i < b->Size(); i++)  d2->AssignSet(i,Intersect(domain2->GetSet(b->At(i)),a));
-    Context *ret= new Context(d1,d2);
-    delete d1;
-    delete d2;
+    NCluster* da = new NCluster(aDomain->GetN());
+    NCluster *db = new NCluster(bDomain->GetN());
+    da->SetId(a->Id());
+    db->SetId(b->Id());
+    for(int i=0; i < a->Size(); i++) {
+        da->AssignSet(a->At(i),Intersect(aDomain->GetSet(a->At(i)),b));
+    }
+    
+    for(int i=0; i < b->Size(); i++){
+        db->AssignSet(b->At(i),Intersect(bDomain->GetSet(b->At(i)),a));
+    }
+    Context *ret= new Context(da,db);
+    delete da;
+    delete db;
     return ret;
 }
 

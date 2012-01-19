@@ -76,11 +76,21 @@ bool IsEdge(int id1,int id2);
 //! Reutnrs true if cId is a context id in the network, false otherwise
     bool IsContextId(int cId);
 
+    //! Reutnrs true if dId is an articulation node in the network, false otherwise
+    bool IsArtNodeId(int dId);
+
 //! Prints the HIN
     void Print();
 
+ //! Returns set of objects in articulation node s that have suport >= 1 in all contexts
+    IOSet * GetCommonObjectsArtNode(int aNode);
+
 //! Returns the context correspoding to the edge (s,t), that is context with domains s and t
     Context* GetContext(int s, int t);
+
+//! Returns ioset of objects in domain dId
+    IOSet *GetDomainObjs(int dId);
+
 
  //! Returns a vector of name map pointers correspoding to each domain of the HIN
  /*!

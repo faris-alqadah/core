@@ -141,9 +141,9 @@ int main(int argc, char** argv) {
     framework.hin = MakeRelationGraph(inputFile);
     framework.NAME_MAPS = *framework.hin->GetNameMaps();
     framework.hin->Print();
-    cout<<"\nLongest set in context is : "<<framework.hin->GetContext(1)->GetLongestSet();
+  //  cout<<"\nLongest set in context is : "<<framework.hin->GetContext(1)->GetLongestSet();
     srand(time(NULL));
-     cout<<"\nRandomly sampling (freq) from context 1, domain 1....\n";
+   //  cout<<"\nRandomly sampling (freq) from context 1, domain 1....\n";
      cout<<"\nLong double max: "<<LDBL_MAX;
     //test random generation of n-clusters
     double avgArea=0;
@@ -153,11 +153,13 @@ int main(int argc, char** argv) {
     int t=1;
     for(int i=0; i < 1000; i++){
         NCluster *tmp = sampler.SubspaceFreqNetwork(framework.hin,s);
-        avgArea += tmp->GetSetById(s)->Size()*tmp->GetSetById(t)->Size();
-        avgS1 += tmp->GetSetById(s)->Size();
-        avgS2 += tmp->GetSetById(t)->Size();
-        cout<<"\nlook: "; tmp->Output(framework.NAME_MAPS);
-        delete tmp;
+        if(tmp !=  NULL){
+            avgArea += tmp->GetSetById(s)->Size()*tmp->GetSetById(t)->Size();
+            avgS1 += tmp->GetSetById(s)->Size();
+            avgS2 += tmp->GetSetById(t)->Size();
+            cout<<"\nlook: "; tmp->Output(framework.NAME_MAPS);
+            delete tmp;
+        }
     }
      avgArea = avgArea/(double)1000.0;
      avgS1 = avgS1/(double)1000.0;

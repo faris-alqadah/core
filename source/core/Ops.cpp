@@ -116,6 +116,7 @@ int WeightedUniformDraw(vector<long double> &weights){
     //random_shuffle(weights.begin(),weights.end());
     for(int i=0; i < weights.size(); i++){
    //   cout<<"\nrnd "<<rnd<<"\tw "<<weights[i]<<"\ti "<<i;
+       // cout<<"\nrnd "<<rnd<<"\t"<<weights[i];
         if(rnd <= weights[i])
             return i;
         else
@@ -125,10 +126,10 @@ int WeightedUniformDraw(vector<long double> &weights){
 int WeightedUniformDraw(vector<double> &weights){
     double sum=0;
     for(int i=0; i < weights.size(); i++) sum += weights[i];
-    vector<double> weightsCpy(weights);
     double rnd = (double) rand() / (double) RAND_MAX;
      for(int i=0; i < weights.size(); i++){
-        if(rnd <= weights[i])
+        // cout<<"\nrnd "<<rnd<<"\t"<<weights[i];
+        if(rnd < weights[i])
             return i;
         else
             rnd -= weights[i];

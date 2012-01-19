@@ -118,6 +118,7 @@ public:
     //! Return the longest set associated with any single object
     int GetLongestSet();
 
+ 
 private:
      //!represent first domain
     NCluster *domain1;

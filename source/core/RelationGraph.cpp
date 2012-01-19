@@ -73,7 +73,6 @@ vector<Context*> * RelationGraph::GetContexts(int domain) {
     } else return NULL;
 }
 
-
 Context * RelationGraph::GetContext(int ctxId) {
     for (int i = 0; i < contexts.size(); i++)
         if (contexts[i]->GetId() == ctxId)
@@ -112,18 +111,19 @@ IOSet * RelationGraph::GetAllDomainIds() {
 bool RelationGraph::IsDomainId(int dId) {
     return domainRelations.ContainsIOSetId(dId);
 }
-int RelationGraph::NumObjsInDomain(int dId){
+
+int RelationGraph::NumObjsInDomain(int dId) {
     assert(IsDomainId(dId));
     vector<Context*> *ctxs = GetContexts(dId);
-    int ret= ctxs->at(0)->GetNumSets(dId);
+    int ret = ctxs->at(0)->GetNumSets(dId);
     delete ctxs;
     return ret;
 }
 
-IOSet * RelationGraph::GetLabels(int dId){
+IOSet * RelationGraph::GetLabels(int dId) {
     assert(IsDomainId(dId));
     vector<Context*> *ctxs = GetContexts(dId);
-    IOSet* ret= ctxs->at(0)->GetLabels(dId);
+    IOSet* ret = ctxs->at(0)->GetLabels(dId);
     delete ctxs;
     return ret;
 }
@@ -135,46 +135,77 @@ bool RelationGraph::IsContextId(int cId) {
     return false;
 }
 
-void RelationGraph::Print(){
+void RelationGraph::Print() {
     //first print context view
-        cout<<"\n\n@@@@@@@@@@@@@@@RELATION GRAPH@@@@@@@@@@@@@@@@\n";
-        cout<<"\n\nCONTEXTS\n\n";
-        for(int i=0; i < contexts.size(); i++){
-            pair<int,int> dIds = contexts[i]->GetDomainIds();
-            cout<<"\n\nContext "<<contexts[i]->GetName()
-                 <<"\n\tId: "<<contexts[i]->GetId()
-                <<"\n\tConnecting domains "<<dIds.first<<" AND "<<dIds.second
-                <<"\n\t Num elements in domain "<<dIds.first<<": "<<contexts[i]->GetNumSets(dIds.first)
-                <<"\n\tNum elements in domain "<<dIds.second<<": "<<contexts[i]->GetNumSets(dIds.second)
-                <<"\n\tDensity: "<<contexts[i]->GetDensity();
+    cout << "\n\n@@@@@@@@@@@@@@@RELATION GRAPH@@@@@@@@@@@@@@@@\n";
+    cout << "\n\nCONTEXTS\n\n";
+    for (int i = 0; i < contexts.size(); i++) {
+        pair<int, int> dIds = contexts[i]->GetDomainIds();
+        cout << "\n\nContext " << contexts[i]->GetName()
+                << "\n\tId: " << contexts[i]->GetId()
+                << "\n\tConnecting domains " << dIds.first << " AND " << dIds.second
+                << "\n\t Num elements in domain " << dIds.first << ": " << contexts[i]->GetNumSets(dIds.first)
+                << "\n\tNum elements in domain " << dIds.second << ": " << contexts[i]->GetNumSets(dIds.second)
+                << "\n\tDensity: " << contexts[i]->GetDensity();
+    }
+    //next print domain relation view
+    cout << "\n\nDOMAIN RELATIONS\n\n";
+    for (int i = 0; i < domainRelations.GetN(); i++) {
+        cout << "\n" << domainRelations.GetSet(i)->Id() << "  ---- ";
+        for (int j = 0; j < domainRelations.GetSet(i)->Size(); j++) {
+            cout << " " << domainRelations.GetSet(i)->At(j);
         }
-        //next print domain relation view
-        cout<<"\n\nDOMAIN RELATIONS\n\n";
-        for(int i=0; i < domainRelations.GetN(); i++){
-            cout<<"\n"<<domainRelations.GetSet(i)->Id()<<"  ---- ";
-            for(int j=0; j < domainRelations.GetSet(i)->Size(); j++){
-                cout<<" "<<domainRelations.GetSet(i)->At(j);
-            }
-        }
+    }
 
 }
 
-    Context* RelationGraph::GetContext(int s, int t){
-        if(IsEdge(s,t)){
-            for(int i=0; i < contexts.size(); i++){
-                pair<int,int> dIds = contexts[i]->GetDomainIds();
-                if( (dIds.first == s && dIds.second == t) || ( dIds.first == t && dIds.second == s))
-                    return contexts[i];
-            }
-        }else return NULL;
-    }
-
-    vector<NameMap*> * RelationGraph::GetNameMaps(){
-        vector<NameMap*> * ret = new vector<NameMap*>;
-        for(int i=0; i < contexts.size(); i++){
-            pair<int,int> dIds = contexts[i]->GetDomainIds();
-            ret->push_back(contexts[i]->GetNameMap(dIds.first));
-            ret->push_back(contexts[i]->GetNameMap(dIds.second));
+Context* RelationGraph::GetContext(int s, int t) {
+    if (IsEdge(s, t)) {
+        for (int i = 0; i < contexts.size(); i++) {
+            pair<int, int> dIds = contexts[i]->GetDomainIds();
+            if ((dIds.first == s && dIds.second == t) || (dIds.first == t && dIds.second == s))
+                return contexts[i];
         }
+    } else return NULL;
+}
+
+vector<NameMap*> * RelationGraph::GetNameMaps() {
+    vector<NameMap*> * ret = new vector<NameMap*>;
+    for (int i = 0; i < contexts.size(); i++) {
+        pair<int, int> dIds = contexts[i]->GetDomainIds();
+        ret->push_back(contexts[i]->GetNameMap(dIds.first));
+        ret->push_back(contexts[i]->GetNameMap(dIds.second));
+    }
+    return ret;
+}
+
+IOSet * RelationGraph::GetCommonObjectsArtNode(int aNode) {
+    assert(IsDomainId(aNode) && IsArtNodeId(aNode));
+    IOSet *ret = new IOSet;
+    vector<Context*> * ctxs = GetContexts(aNode);
+    int numObjs = (*ctxs)[0]->GetNumSets(aNode);
+    for(int i=0; i < numObjs; i++){
+        bool add=true;
+        for(int j=0; j < ctxs->size(); j++){
+            if( (*ctxs)[j]->GetSet(aNode,i)->Size() == 0){
+                add=false;
+                break;
+            }
+        }
+        if(add) ret->Add(i);
+    }
+    return ret;
+}
+
+bool RelationGraph::IsArtNodeId(int dId) {
+    return domainRelations.GetSetById(dId)->Size() > 1;
+}
+
+    IOSet* RelationGraph::GetDomainObjs(int dId){
+        assert(IsDomainId(dId));
+        IOSet *ret = new IOSet;
+        int ctxId = domainContextMap.GetSetById(dId)->At(0);
+        Context *ctx = GetContext(ctxId);
+        for(int i=0; i < ctx->GetNumSets(dId); i++) ret->Add(i);
         return ret;
     }
