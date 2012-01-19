@@ -24,9 +24,22 @@ vector<long double> * NClusterRandomSample::GetFreqWeightsStar(RelationGraph *g,
         long double avgTlength=0;
         for(int j=0; j < ctxs->size(); j++){
             pair<int,int> dIds = (*ctxs)[j]->GetDomainIds();
+			int t= dIds.first == s ? dIds.second: dIds.first;
+			long double currTLength = (*ctxs)[j]->GetSet(s,i)->Size();
+			if (currTLength == 0){
+				avgTlength = 0;
+				break;
+			}else{
+				avgTlength += avgTlength;
+			}
         }
+		avgTlength /= (long double) ctxs->Size();
+		(*weights)[i] = pow(2,avgTlength);
+		
     }
     delete sObjs;
+	for(int i=0; i < weights->size(); i++) (*weights)[i] /= sum;
+    return weights;
 }
 vector<long double> * NClusterRandomSample::GetAreaWeights(Context *c, int s, int t){
     vector< long double> *weights = new vector<long double>(c->GetNumSets(t));
