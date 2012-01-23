@@ -51,9 +51,11 @@ RContext * MakeSingleRContext( string & inputFile);
     \param ctxId id of the context
     \param nm1 pointer to the name map associated with domain1
     \param nm2 pointer to the name map associated with domain2
+    \param sz1 number of elements in domain 1
+    \param sz2 number of elements in domain 2
 
  */
-Context * MakeContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2);
+Context * MakeContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2,int sz1,int sz2);
 
 
 //! Returns a RContext object initialized to all the input variables

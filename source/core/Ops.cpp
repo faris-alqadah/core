@@ -105,17 +105,28 @@ NCluster *TransposeFimi(NCluster *a){
     return ret;
     }
 
+NCluster *TransposeFimi(NCluster *a,int sz1,int sz2){
+     assert(a != NULL && a->GetN() == sz1);
+    NCluster *ret = new NCluster(sz2);
+    for(int i=0; i < a->GetN(); i++)
+        for(int j=0; j < a->GetSet(i)->Size(); j++)
+            ret->GetSet(a->GetSet(i)->At(j))->Add(i);
+     //set ids
+     for(int i=0; i < ret->GetN(); i++) ret->GetSet(i)->SetId(i);
+    return ret;
+}
+
 
 int WeightedUniformDraw(vector<long double> &weights){
     long double sum=0;
     for(int i=0; i < weights.size(); i++) sum += weights[i];
     
     //srand(time(NULL));
-    long double rnd = (long double) rand() / (long double) RAND_MAX;
+    long double rnd = (long double) (rand() ;// / (long double) RAND_MAX;
    // cout<<"\nrnd sum: "<<sum;
     //random_shuffle(weights.begin(),weights.end());
     for(int i=0; i < weights.size(); i++){
-   //   cout<<"\nrnd "<<rnd<<"\tw "<<weights[i]<<"\ti "<<i;
+      //cout<<"\nrnd "<<rnd<<"\tw "<<weights[i]<<"\ti "<<i;
        // cout<<"\nrnd "<<rnd<<"\t"<<weights[i];
         if(rnd <= weights[i])
             return i;

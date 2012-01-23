@@ -36,6 +36,7 @@ RelationGraph* MakeRelationGraph(string &inputFile){
               vector<string> domainNames;
               map<string,int> domainName_id_map;
               vector<NameMap*> nameMaps;
+              map<int,int> domainId_size_map; //map domain number to number of elements
               //get set names and thier name files
               for(int i=0; i < numDomains; i++){
                  getline(myfile,line); //this is the domain name
@@ -44,6 +45,7 @@ RelationGraph* MakeRelationGraph(string &inputFile){
                  getline(myfile,line); //this is the path to the namefile
                  NameMap *nmp = new NameMap(line);
                  nmp->SetId(i+1);
+                 domainId_size_map[i+1] = nmp->GetNumEntries();
                  nameMaps.push_back(nmp);
                }
                //now get contexts and relation graph
@@ -67,7 +69,7 @@ RelationGraph* MakeRelationGraph(string &inputFile){
                   }
                   ctxName = currDomainNames[0]+"__"+currDomainNames[1];
                   getline(myfile,line);  //this line specifies the fimi file
-                  grph->AddContext(MakeContext(line,dId1,dId2,ctxName,i+1,nameMaps[dId1-1],nameMaps[dId2-1]));
+                  grph->AddContext(MakeContext(line,dId1,dId2,ctxName,i+1,nameMaps[dId1-1],nameMaps[dId2-1],domainId_size_map[dId1],domainId_size_map[dId2]));
               }
 	      myfile.close();
               return grph;
@@ -94,6 +96,7 @@ RelationGraphR* MakeRelationGraphR(string &inputFile){
               }
               vector<string> domainNames;
               map<string,int> domainName_id_map;
+              map<int,int> domainId_size_map; //map domain number to number of elements
               vector<NameMap*> nameMaps;
               //get set names and thier name files
               for(int i=0; i < numDomains; i++){
@@ -102,6 +105,7 @@ RelationGraphR* MakeRelationGraphR(string &inputFile){
                  domainName_id_map[line]=i+1;
                  getline(myfile,line); //this is the path to the namefile
                  NameMap *nmp = new NameMap(line);
+                 domainId_size_map[i+1] = nmp->GetNumEntries();
                  nmp->SetId(i+1);
                  nameMaps.push_back(nmp);
                }
@@ -196,10 +200,10 @@ RContext * MakeSingleRContext( string & inputFile){
 	  }
 }
 
-Context * MakeContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2){
+Context * MakeContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2,int sz1, int sz2){
     //first make the nclusters from the fimis
     NCluster *dmn1 = MakeNClusterFromFimi(inputFile);
-    NCluster *dmn2 = TransposeFimi(dmn1);
+    NCluster *dmn2 = TransposeFimi(dmn1,sz1,sz2);
     dmn1->SetId(dId1);
     dmn2->SetId(dId2);
     Context *ret = new Context(dmn1,dmn2);
@@ -238,7 +242,7 @@ NCluster *MakeNClusterFromFimi(string &inputFile){
               if(line == "###" ) break;
 
                 vector<string> entries;
-                 Tokenize(line,entries," ");
+                Tokenize(line,entries," ");
                 IOSet *t = new IOSet;
                 for(int i=0; i < entries.size(); i++) t->Add(atoi(entries[i].c_str()));
                 t->SetId(cnt);

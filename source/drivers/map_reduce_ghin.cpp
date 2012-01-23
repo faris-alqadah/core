@@ -157,7 +157,7 @@ int main(int argc, char** argv) {
             avgArea += tmp->GetSetById(s)->Size()*tmp->GetSetById(t)->Size();
             avgS1 += tmp->GetSetById(s)->Size();
             avgS2 += tmp->GetSetById(t)->Size();
-            cout<<"\nlook: "; tmp->Output(framework.NAME_MAPS);
+         //   cout<<"\nlook: "; tmp->Output(framework.NAME_MAPS);
             delete tmp;
         }
     }

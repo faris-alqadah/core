@@ -20,6 +20,7 @@ vector<long double> * NClusterRandomSample::GetFreqWeightsStar(RelationGraph *g,
     IOSet *sObjs = g->GetLabels(s);
     vector<long double> *weights = new vector<long double>(sObjs->Size());
     vector<Context*> *ctxs = g->GetContexts(s);
+    long double sum=0.0;
     for(int i=0; i < sObjs->Size(); i++){
         long double avgTlength=0;
         for(int j=0; j < ctxs->size(); j++){
@@ -33,12 +34,63 @@ vector<long double> * NClusterRandomSample::GetFreqWeightsStar(RelationGraph *g,
 				avgTlength += avgTlength;
 			}
         }
-		avgTlength /= (long double) ctxs->Size();
+		avgTlength /= (long double) ctxs->size();
 		(*weights)[i] = pow(2,avgTlength);
+                sum += (*weights)[i];
 		
     }
     delete sObjs;
-	for(int i=0; i < weights->size(); i++) (*weights)[i] /= sum;
+    for(int i=0; i < weights->size(); i++) (*weights)[i] /= sum;
+    return weights;
+}
+
+vector<long double> * NClusterRandomSample::GetFreqWeightsStar(RelationGraph *g, int s, NCluster *subSets){
+    IOSet *sObjs = g->GetLabels(s);
+    vector<long double> *weights = new vector<long double>(sObjs->Size());
+    fill(weights->begin(),weights->end(),0.0);
+    IOSet *tmp = sObjs;
+    sObjs = Intersect(sObjs,subSets->GetSetById(s));
+    delete tmp;
+    vector<Context*> *ctxs = g->GetContexts(s);
+    long double sum=0.0;
+    for(int i=0; i < sObjs->Size(); i++){
+        long double avgTlength=0;
+        for(int j=0; j < ctxs->size(); j++){
+            pair<int,int> dIds = (*ctxs)[j]->GetDomainIds();
+			int t= dIds.first == s ? dIds.second: dIds.first;
+                        IOSet *tt =  Intersect( (*ctxs)[j]->GetSet(s,sObjs->At(i)),subSets->GetSetById(t));
+
+			long double currTLength = tt->Size();
+                        //cout<<"\ncurr length "<<currTLength;
+			if (currTLength == 0){
+				avgTlength = 0;
+				break;
+			}else{
+				avgTlength += currTLength;
+			}
+                        delete tt;
+        }
+       // cout<<"\navgT "<<avgTlength;
+                avgTlength /= (long double) ctxs->size();
+                if(avgTlength == 0)
+                    (*weights)[sObjs->At(i)] = (long double)0.0;
+                else
+                    (*weights)[sObjs->At(i)] = (long double)pow(2.0,avgTlength);
+               // cout<<"\nadding weight "<<(*weights)[sObjs->At(i)]<<" at loc: "<<sObjs->At(i);
+                sum += (*weights)[sObjs->At(i)];
+
+    }
+
+    delete sObjs;
+    if (sum == 0){
+      // DstryVector(weights);
+        return NULL;
+    }
+   // for(int i=0; i < weights->size(); i++){
+       
+       // (*weights)[i] /= sum;
+         //cout<<"\nweights ("<<i<<"): "<<(*weights)[i];
+   // }
     return weights;
 }
 vector<long double> * NClusterRandomSample::GetAreaWeights(Context *c, int s, int t){
@@ -80,235 +132,73 @@ IOSet* NClusterRandomSample::SubspaceArea(Context *c, int s, int t, vector<long 
     return ret;
 }
 
-NCluster* NClusterRandomSample::SubspaceStarShapedFreq(RelationGraph *g, int s ){
-     //first construct weights
-    vector<Context*> * sContexts = g->GetContexts(s);
-    map< int,vector<long double>* > weightsMap;
-    //construct weights
-    for(int i=0; i < sContexts->size(); i++){
-        Context *currContext = (*sContexts)[i];
-        pair<int,int> ctxIds = currContext->GetDomainIds();
-        int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-        vector<long double> *currWeights = GetFreqWeights(currContext, s,t);
-        weightsMap.insert( pair<int,vector<long double>* > (t,currWeights));
 
-    }
-    IOSet *itrsct = new IOSet;
-    //randomly draw subspaces ~ frequency until intersection is greater than 1 or max is reached
-    int max=1000;
-    int ctr=0;
-    do{
-        for(int i=0; i < sContexts->size(); i++){
-              Context *currContext = (*sContexts)[i];
-              pair<int,int> ctxIds = currContext->GetDomainIds();
-              int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-              vector<long double> *currWeights = weightsMap[t];
-              cout<<"\nGeting subspace from context "<<currContext->GetId()<<"\t s: "<<s<<"\tt: "<<t;
-              IOSet *curr = SubspaceFreq(currContext,s,t, (*currWeights));
-              IOSet *tmp = itrsct;
-              cout<<"\ngot the curr: "; curr->Output();cout<<"\nadn the itrsct: "; itrsct->Output();
-              if (i == 0)
-                  itrsct = curr;
-              else
-                  itrsct = Intersect(curr,itrsct);
-
-              delete tmp;
-              tmp=NULL;
-         }
-         ctr++;
-    }while(itrsct->Size() <= 0 && ctr < max);
-    //now use prime operator to complete
-    if (ctr < max){
-        itrsct->SetId(s);
-        NCluster *ret= new NCluster();
-        ret->AddSet(itrsct);
-        for(int i=0; i < sContexts->size(); i++){
-                  Context *currContext = (*sContexts)[i];
-                  pair<int,int> ctxIds = currContext->GetDomainIds();
-                  int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-                  IOSet *primeT = Prime(ret,g,s,t,1);
-                  primeT->SetId(t);
-                  ret->AddSet(primeT);
-        }
-        return ret;
-    }else{
-        return NULL;
-    }
-
-}
 
 NCluster* NClusterRandomSample::SubspaceStarShapedFreqSample(RelationGraph *g, int s, NCluster *sample, IOSet *completedDomains ){
     vector<Context*> *ctxs = g->GetContexts(s);
-    //get sub contexts
-    vector<Context*> * sContexts = new vector<Context*>();
-    for(int i=0; i < ctxs->size(); i++){
-        pair<int,int> ctxIds = (*ctxs)[i]->GetDomainIds();
-        int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-        cout<<"\ngetting sub context for domains: "<<s<<"\t"<<t;
-        cout<<"\nsample set sizes are: "<<sample->GetSetById(s)->Size()<<"\t"<<sample->GetSetById(t)->Size();
-        sContexts->push_back(  (*ctxs)[i]->GetSubContext(sample->GetSetById(s),sample->GetSetById(t)) );
-       // cout<<"\noutput sub contexts...\n";
-        //(*sContexts)[i]->PrintAsFIMI();
-    }
-
-    //first construct weights
-    map< int,vector<long double>* > weightsMap;
-    //construct weights
-    for(int i=0; i < sContexts->size(); i++){
-        Context *currContext = (*sContexts)[i];
-        pair<int,int> ctxIds = currContext->GetDomainIds();
-        int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-        if(!completedDomains->Contains(t)) { //only perform operation in context not already sampled
-            vector<long double> *currWeights = GetFreqWeights(currContext, s,t);
-            weightsMap.insert( pair<int,vector<long double>* > (t,currWeights));
-            }
-    }
-    IOSet *itrsct = new IOSet;
-    //randomly draw subspaces ~ frequency until intersection is greater than 1 or max is reached
-    int max=1000;
-    int ctr=0;
-    do{
-        for(int i=0; i < sContexts->size(); i++){
-              Context *currContext = (*sContexts)[i];
+    //assign weights to s-objects based on average frequence in all domains
+    vector<long double> *sWeights = GetFreqWeightsStar(g,s, sample);
+    if (sWeights == NULL)
+        return NULL;
+    //draw an object in s ~ sWeights
+    int randS;
+    cout<<"\nsWeights size: "<<sWeights->size();
+    randS = WeightedUniformDraw(*sWeights);
+    cout<<"\nrandomly drew "<<randS<<" as S object...with weight: "<<(*sWeights)[randS]<<"\nGetting primes...\n";
+    cout.flush();
+    //now do primes
+    NCluster *ret = new NCluster;
+    IOSet *ss = new IOSet;
+        for(int i=0; i < ctxs->size(); i++){
+            Context *currContext = (*ctxs)[i];
               pair<int,int> ctxIds = currContext->GetDomainIds();
               int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
               if(!completedDomains->Contains(t)) { //only perform operation in context not already sampled
-                  vector<long double> *currWeights = weightsMap[t];
-                  cout<<"\ncur context of "<<ctxIds.first<<" and "<<ctxIds.second;
-                  cout.flush();
-                  IOSet *curr = SubspaceFreq(currContext,s,t, (*currWeights));
-                  NCluster *test = new NCluster;
-                  curr->SetId(s);
-                  test->AddSet(curr);
-                  IOSet *thePrime = Prime(test,g,s,t,1);
-                  cout<<"\ngot the curr: "; curr->Output();
-                  cout<<"\ngot the prime: "; thePrime->Output();
-                  cout<<"\nadn the itrsct: "; itrsct->Output();
-                  IOSet *tmp = itrsct;
-                  if (i == 0)
-                      itrsct = curr;
-                  else
-                      itrsct = Intersect(curr,itrsct);
+               //   cout<<"\nprimeing and intersectiong in context "<<t<<"_"<<s;
+                  IOSet *currT = currContext->GetSet(s,randS);
+                //  cout<<"\nbefore intersect: "; currT->Output();
+                  currT = Intersect(currT,sample->GetSetById(t));
+         
+                  //cout<<endl; cout<<"\nafter the intersectt...the curr T: ";currT->Output();
 
-                  delete tmp;
-                  tmp=NULL;
+                  cout.flush();
+                  IOSet *tt= UniformSubsetDraw(currT);
+                  tt->SetId(t);
+                  ret->AddSet(tt);
+                  //now prime into s and take intersection
+                  IOSet *sPrime = Prime(ret,g,t,s,1);
+                  IOSet *tmp = sPrime;
+                  //intersect to get subset
+                  sPrime = Intersect(sPrime,sample->GetSetById(s));
+                   delete tmp;
+                  //now intersection with other s Sets
+                   if(ss->Size() > 0){
+                       tmp =ss;
+                       ss=Intersect(ss,sPrime);
+                       delete tmp;
+                   }else{
+                       ss->DeepCopy(sPrime);
+                   }
+                   delete sPrime;
+                   delete currT;
               }
          }
-         ctr++;
-    }while(itrsct->Size() <= 0 && ctr < max);
-    //now use prime operator to complete
-    if (ctr < max){
-        NCluster *ret = new NCluster;
-        //now update the source by taking intersection with original
-        //IOSet *itrsct2 = Intersect(itrsct,sample->GetSetById(s));
-        //itrsct2->SetId(s);
-        itrsct->SetId(s);
-        ret->AddSet(itrsct);
-        delete itrsct;
-        if(ret->GetSetById(s)->Size() > 0){
-            for(int i=0; i < sContexts->size(); i++){
-                      Context *currContext = (*sContexts)[i];
-                      pair<int,int> ctxIds = currContext->GetDomainIds();
-                      int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-                      if(!completedDomains->Contains(t)){
-                        IOSet *primeT = Prime(ret,g,s,t,1);
-                        if (primeT == NULL){
-                             delete ret;
-                            DstryVector(sContexts);
-                            return NULL;
-                        }
-                        primeT->SetId(t);
-                        ret->AddSet(primeT);
-                      }
-            }
-            //destroy the subcontexts
-            DstryVector( sContexts);
-            //add all completed domains
-            IOSet *neighbors = g->GetNeighbors(s);
-            IOSet *tmp = completedDomains;
-            completedDomains = Union(tmp,completedDomains);
-            completedDomains->Add(s);
-            completedDomains->Sort();
-            delete neighbors; delete tmp;
-            return ret;
-        }
-        delete ret;
-        DstryVector(sContexts);
-        return NULL;
-    }else{
-         DstryVector( sContexts);
-        return NULL;
+    ss->SetId(s);
+    ret->AddSet(ss);
+    return ret;
     }
 
-}
-
-NCluster* NClusterRandomSample::SubspaceStarShapedArea(RelationGraph *g, int s ){
-     //first construct weights
-    vector<Context*> * sContexts = g->GetContexts(s);
-    map< int,vector<long double>* > weightsMap;
-    //construct weights
-    for(int i=0; i < sContexts->size(); i++){
-        Context *currContext = (*sContexts)[i];
-        pair<int,int> ctxIds = currContext->GetDomainIds();
-        int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-        vector<long double> *currWeights = GetAreaWeights(currContext, s,t);
-        weightsMap.insert( pair<int,vector<long double>* > (t,currWeights));
-
-    }
-    IOSet *itrsct = new IOSet;
-    //randomly draw subspaces ~ frequency until intersection is greater than 1 or max is reached
-    int max=1000;
-    int ctr=0;
-    do{
-        for(int i=0; i < sContexts->size(); i++){
-              Context *currContext = (*sContexts)[i];
-              pair<int,int> ctxIds = currContext->GetDomainIds();
-              int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-              vector<long double> *currWeights = weightsMap[t];
-              IOSet *curr = SubspaceArea(currContext,s,t, (*currWeights));
-              IOSet *tmp = itrsct;
-              if (i == 0)
-                  itrsct = curr;
-              else
-                  itrsct = Intersect(curr,itrsct);
-
-              delete tmp;
-              tmp=NULL;
-         }
-         ctr++;
-    }while(itrsct->Size() <= 0 && ctr < max);
-    //now use prime operator to complete
-    if (ctr < max){
-        itrsct->SetId(s);
-        NCluster *ret= new NCluster();
-        ret->AddSet(itrsct);
-        for(int i=0; i < sContexts->size(); i++){
-                  Context *currContext = (*sContexts)[i];
-                  pair<int,int> ctxIds = currContext->GetDomainIds();
-                  int t = ctxIds.first == s ? ctxIds.second : ctxIds.first;
-                  IOSet *primeT = Prime(ret,g,s,t,1);
-                  primeT->SetId(t);
-                  ret->AddSet(primeT);
-        }
-        return ret;
-    }else{
-        return NULL;
-    }
-
-}
 
 NCluster * NClusterRandomSample::SubspaceFreqNetwork(RelationGraph *g, int s){
     //first step is to generate n-cluster in initial star shaped hin
     //as defined by s
     IOSet *completedDomains = new IOSet; // keep tracking of the domains that have already been completed
-    //get the common objects in s to all neighbors
-    IOSet *commonS = g->GetCommonObjectsArtNode(s);
-    commonS->SetId(s);
     IOSet *neighborIds = g->GetNeighbors(s);
-    cout<<"\nsize of commonS: "<<commonS->Size();
     //construct the sample subspace
     NCluster *sampleSubspace = new NCluster;
-    sampleSubspace->AddSet(commonS);
+    IOSet *ss = g->GetDomainObjs(s);
+    ss->SetId(s);
+    sampleSubspace->AddSet(ss);
     for(int i=0; i < neighborIds->Size(); i++){
         IOSet *t = g->GetDomainObjs(neighborIds->At(i));
         t->SetId(neighborIds->At(i));

@@ -44,6 +44,14 @@ vector<long double> * GetFreqWeights(Context *c, int s, int t);
  */
 vector<long double> * GetFreqWeightsStar(RelationGraph *g, int s);
 
+//! Compute weights associated with each objects in a subset of domain s of a star shaped HIN or sub HIN
+/*!
+    \param g the hin
+    \params s domain id of the central node
+ *
+ */
+vector<long double> * GetFreqWeightsStar(RelationGraph *g, int s, NCluster *subSets);
+
 
 
 //! Compute weights associated with each object in domain t to perform random area based sampling of domain s
@@ -76,13 +84,6 @@ IOSet* SubspaceFreq(Context *c, int s, int t, vector< long double> &weights);
 IOSet* SubspaceArea(Context *c, int s, int t, vector<long double> &weights);
 
 
-//! Randomly select a subspace from a star shaped HIN ~ frequncy or support
-/*!
-   \param g the hin
-   \param s id of the central node in the star shaped HIN
- */
-
-NCluster* SubspaceStarShapedFreq(RelationGraph *g, int s );
 
 
 //! Randomly select a subspace from a star shaped HIN ~ frequncy or support

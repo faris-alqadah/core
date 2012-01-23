@@ -111,6 +111,9 @@ double GreaterEqualSize(NCluster *a, NCluster *b);
 //! Assumes a is the FIMI representation of a sparse matrix, and transposes it
 NCluster *TransposeFimi(NCluster *a);
 
+//! Assumes a is the FIMI representation of a sparse matrix, and transposes it
+NCluster *TransposeFimi(NCluster *a,int sz1,int sz2);
+
 //! Randomly select an element from a set given weights associated with each element in the set
 int WeightedUniformDraw(vector<long double> &weights);
 
