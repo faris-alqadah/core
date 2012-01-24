@@ -72,6 +72,8 @@ typename list<t*>::iterator RemoveFromList( list<t*> &v, typename list<t*>::iter
     return v.erase(it);
 }
 
+
+
 //! Set intersection
 IOSet * Intersect( IOSet*, IOSet*);
 

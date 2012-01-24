@@ -91,7 +91,8 @@ bool IsEdge(int id1,int id2);
 //! Returns ioset of objects in domain dId
     IOSet *GetDomainObjs(int dId);
 
-
+//! Return the total number of nodes in the relation graph (i.e. sum of cardinality of all domains)
+    int GetTotalNumObjs();
  //! Returns a vector of name map pointers correspoding to each domain of the HIN
  /*!
   The name maps are not in any specfied order, use the id attribute of each name to figure

@@ -122,7 +122,7 @@ int WeightedUniformDraw(vector<long double> &weights){
     for(int i=0; i < weights.size(); i++) sum += weights[i];
     
     //srand(time(NULL));
-    long double rnd = (long double) (rand() ;// / (long double) RAND_MAX;
+    long double rnd = (long double) rand()  / (long double) RAND_MAX;
    // cout<<"\nrnd sum: "<<sum;
     //random_shuffle(weights.begin(),weights.end());
     for(int i=0; i < weights.size(); i++){

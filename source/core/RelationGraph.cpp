@@ -119,6 +119,13 @@ int RelationGraph::NumObjsInDomain(int dId) {
     delete ctxs;
     return ret;
 }
+  int RelationGraph::GetTotalNumObjs(){
+      IOSet *domains = GetAllDomainIds();
+      int total=0;
+      for(int i=0; i < domains->Size(); i++) total += NumObjsInDomain(domains->At(i));
+      delete domains;
+      return total;
+  }
 
 IOSet * RelationGraph::GetLabels(int dId) {
     assert(IsDomainId(dId));

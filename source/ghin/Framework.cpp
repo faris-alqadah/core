@@ -41,6 +41,23 @@ NCluster* Ghin::SelectInit(int domain, NCluster *sampleSet, NCluster *clustered)
         return NULL;
     }
 }
+NCluster* Ghin::SelectInit_RandomFreq(NCluster *sampleSet){
+    IOSet *artDomains = hin->GetArtDomains();
+    int s;
+    if(artDomains->Size() == 0){
+        s = 1+ rand() % 2; //no articulation domains it is a single context, randomly select
+    }else
+        s = SelectRandomObjectFromSet(artDomains);
+    //cout<<"\ns: "<<s;
+   // cout.flush();
+    NClusterRandomSample sampler;
+    NCluster *ret;
+    ret = sampler.SubspaceFreqNetwork(hin,s,sampleSet);
+
+    delete artDomains;
+    return ret;
+
+}
 
 NCluster* Ghin::MakeDeal(NCluster *candidate){
     int N = hin->GetNumNodes();
@@ -94,8 +111,8 @@ NCluster* Ghin::MakeDeal(NCluster *candidate){
     NCluster *ret = new NCluster(N);
     ret->DeepCopy(*candidate);
     if(no_change_cnt > 1 && cnt < max_iters){
-        cout<<"\nadd iters: "<<num_add_iters;
-        cout<<"\nremove iters: "<<num_remove_iters;
+       // cout<<"\nadd iters: "<<num_add_iters;
+      //  cout<<"\nremove iters: "<<num_remove_iters;
         ret->SetQuality(1.0);
     }else{
         ret->SetQuality(0.0);
@@ -118,10 +135,10 @@ bool Ghin::MaximizeDomain(NCluster *a, IOSet *c, int domain,bool add ){
         }
     }else{
         IOSet *add = AddSet_Reward(a,domain);
-        if(add)
-            cout<<"\n( "<<domain<<") Added "<<add->Size()<<" objects";
-        else
-            cout<<"\nAdded 0 objects";
+        //if(add)
+           // cout<<"\n( "<<domain<<") Added "<<add->Size()<<" objects";
+       // else
+        //    cout<<"\nAdded 0 objects";
         if ( add != NULL){
             IOSet *unin = Union(c,add);
             unin->SetId(domain);
@@ -202,16 +219,22 @@ void  Ghin::GHIN_Alg(){
     //2. Set selection set to everything
     NCluster *selection = MakeInitialSampleSet();
     NCluster *clustered = new NCluster(hin->GetNumNodes());
+    int maxNoSample = hin->GetNumNodes()*2; //stop the algorithm if a random sampling returns NULL this many times in a row
+                                            //this typically indicates that the number of remaining objects is too small to
+                                            //find randomly connected subspaces...hence terminate the algorithm
+    int noSampleCtr=0;
     for(int i=0; i < clustered->GetN(); i++) clustered->GetSet(i)->SetId(i+1);
     //3. Iteratte until selection is not empty
-    while( !SelectEmpty(selection)){
-         //1. select random domain
-        int strtDomain = SelectRandomDomain();
+    while( !SelectEmpty(selection) && totalIters < hin->GetTotalNumObjs()){
+         
         //cout<<"\nstrtDomain: "<<strtDomain;
        // cout.flush();
         //2. Create initial cluster
-        NCluster *init = SelectInit(strtDomain,selection,clustered);
+        //NCluster *init = SelectInit(strtDomain,selection,clustered);
+        NCluster *init = SelectInit_RandomFreq(selection);
+       // cout<<"\ninit: \n"; init->Output();
         if(init != NULL){
+            noSampleCtr=0;
              NCluster *initCopy = new NCluster(*init);
              totalCands++;
             //3. Attempt to make deal
@@ -221,9 +244,13 @@ void  Ghin::GHIN_Alg(){
             if (result->GetQuality() == 1 && !CheckRepeat(result)){
                 foundCluster=true;
                  CONCEPTS.push_back(result);
+                 // cout<<"\nafter deal: !\n";
+                 // result->Output();
                 if(tiredMode){
                     UpdateTired(result);
                 }
+
+
                 UpdateSampleSet(selection,init,clustered);
                 UpdateSampleSet(selection,result,clustered);
             }
@@ -231,8 +258,12 @@ void  Ghin::GHIN_Alg(){
             delete initCopy;
             if (!foundCluster) delete result;
             delete init;
+        }else{
+            noSampleCtr++;
+            if(noSampleCtr > maxNoSample)
+                break;
         }
-        if (dispProgress && (totalIters % 100 == 0)) {
+        if (dispProgress && (totalIters % 1 == 0)) {
                  cout<<"\nProgress...";
                  for(int i=0; i < hin->GetNumNodes(); i++)
                         cout<<"\n"<<selection->GetSet(i)->Size()<<" of "<<hin->NumObjsInDomain(i+1);
@@ -255,7 +286,7 @@ bool Ghin::SelectEmpty(NCluster* select) {
         if (select->GetSet(i)->Size()  < 1)
             emptyCnt++;
     }
-   if (emptyCnt >= hin->GetNumNodes())
+   if (emptyCnt >= 1/*hin->GetNumNodes()*/)
     return true;
   else
     return false;

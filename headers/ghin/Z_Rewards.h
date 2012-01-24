@@ -29,5 +29,17 @@ double Exp_Sat_HypGeo_Score(NCluster *a, int obj, int domain, double w, Relation
 
 
 
+/*!
+  Computes the expected satasfaction score using the beta-binomial distribution
+ \params a the ncluster to compute score for
+ \param obj the object id to compute for
+ \param doamin the domain id for which to compute the score with respect to
+ \param w the weight paramater
+ \param hin the information network
+ */
+double Exp_Sat_BetaBinomail_Score(NCluster *a, int obj, int domain, double w, RelationGraph *hin);
+
+
+
 #endif	/* Z_REWARDS_H */
 

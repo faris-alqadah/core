@@ -33,7 +33,7 @@ void DisplayUsage(){
         <<"\nREQUIRED: "
         <<"\n-i <inputFile>"
         <<"\n-w <weight of zeros>"
-        <<"\n-reward 1- simple weighted 2- Hypogeometric expected satisfaction"
+        <<"\n-reward 1- simple weighted 2- Hypogeometric expected satisfaction 3- Beta-binomial expected satasfaction"
         <<"\nOPTIONAL (use in this order):  "
         <<"\n-tiring (use tiring party goers mode)"
         <<"\n-prog display progress"
@@ -53,7 +53,7 @@ void CheckArguments(){
         cout<<"\nw value is not set!";
         DisplayUsage();
     }
-    if( framework.rewardMode < 1 || framework.rewardMode >= 3){
+    if( framework.rewardMode < 1 || framework.rewardMode >= 4){
         cout<<"\nInvalid reward mode!";
         DisplayUsage();
     }
@@ -79,6 +79,9 @@ void CheckArguments(){
      }else if(framework.rewardMode == framework.EXPECTED_HYPGEO_SAT){
              cout<<"\nReward function is: HYPO-GEOMETRIC EXPECTED SATISFACTION with w= "<<framework.w;
               framework.RewardFunc = &Exp_Sat_HypGeo_Score;
+     }else if(framework.rewardMode == framework.EXPECTED_BETABINOMIAL_SAT){
+             cout<<"\nReward function is: BETA-BINOMIAL EXPECTED SATISFACTION with w= "<<framework.w;
+              framework.RewardFunc = &Exp_Sat_BetaBinomail_Score;
      }
      if(framework.tiredMode == true)
          cout<<"\nTiring mode enabled";
@@ -141,30 +144,14 @@ int main(int argc, char** argv) {
     framework.hin = MakeRelationGraph(inputFile);
     framework.NAME_MAPS = *framework.hin->GetNameMaps();
     framework.hin->Print();
-  //  cout<<"\nLongest set in context is : "<<framework.hin->GetContext(1)->GetLongestSet();
-    srand(time(NULL));
-   //  cout<<"\nRandomly sampling (freq) from context 1, domain 1....\n";
-     cout<<"\nLong double max: "<<LDBL_MAX;
-    //test random generation of n-clusters
-    double avgArea=0;
-    double avgS1=0;
-    double avgS2=0;
-    int s=2;
-    int t=1;
-    for(int i=0; i < 1000; i++){
-        NCluster *tmp = sampler.SubspaceFreqNetwork(framework.hin,s);
-        if(tmp !=  NULL){
-            avgArea += tmp->GetSetById(s)->Size()*tmp->GetSetById(t)->Size();
-            avgS1 += tmp->GetSetById(s)->Size();
-            avgS2 += tmp->GetSetById(t)->Size();
-         //   cout<<"\nlook: "; tmp->Output(framework.NAME_MAPS);
-            delete tmp;
-        }
+   if(framework.tiredMode)
+        framework.InitTiring();
+    StartTiming();
+    framework.GHIN_Alg();
+    EndTiming();
+    if( framework.enumerationMode == framework.ENUM_FILE){
+         OutputClustersFile();
     }
-     avgArea = avgArea/(double)1000.0;
-     avgS1 = avgS1/(double)1000.0;
-     avgS2 = avgS2/(double)1000.0;
-       cout<<"\nAverage area with freq sampling: "<<avgArea<<" ( "<<avgS1<<" by "<<avgS2<<" )";
-    cout<<"\n";
+    cout<<endl;
     return (EXIT_SUCCESS);
 }

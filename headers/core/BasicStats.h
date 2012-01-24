@@ -29,6 +29,25 @@ double Hypgeo_Mean(int n, int m, int NN);
  */
 double Hypgeo_Dev(int n, int m, int NN);
 
+
+/*!
+ Computes the mean of a beta-binomial distributed random varaiable
+    \param n see wiki entry of beta-binomial distribution
+    \param alpha see wiki entry of beta-binomial distribution
+    \param beta see wiki entry of beta-binomial distribution
+ */
+double BetaBinomial_Mean(int n, int alpha, int beta);
+
+/*!
+ Computes the standard devation of a beta-binomial distributed random varaiable
+    \param n see wiki entry of beta-binomial distribution
+    \param alpha see wiki entry of beta-binomial distribution
+    \param beta see wiki entry of beta-binomial distribution
+ */
+double BetaBinomial_Dev(int n, int alpha, int beta);
+
+
+
 /*!
  Computes a z-score
     \param x the value compute z-score for

@@ -86,11 +86,11 @@ vector<long double> * NClusterRandomSample::GetFreqWeightsStar(RelationGraph *g,
       // DstryVector(weights);
         return NULL;
     }
-   // for(int i=0; i < weights->size(); i++){
+    for(int i=0; i < weights->size(); i++){
        
-       // (*weights)[i] /= sum;
+        (*weights)[i] /= sum;
          //cout<<"\nweights ("<<i<<"): "<<(*weights)[i];
-   // }
+    }
     return weights;
 }
 vector<long double> * NClusterRandomSample::GetAreaWeights(Context *c, int s, int t){
@@ -142,10 +142,10 @@ NCluster* NClusterRandomSample::SubspaceStarShapedFreqSample(RelationGraph *g, i
         return NULL;
     //draw an object in s ~ sWeights
     int randS;
-    cout<<"\nsWeights size: "<<sWeights->size();
+   // cout<<"\nsWeights size: "<<sWeights->size();
     randS = WeightedUniformDraw(*sWeights);
-    cout<<"\nrandomly drew "<<randS<<" as S object...with weight: "<<(*sWeights)[randS]<<"\nGetting primes...\n";
-    cout.flush();
+  //  cout<<"\nrandomly drew "<<randS<<" as S object...with weight: "<<(*sWeights)[randS]<<"\nGetting primes...\n";
+   // cout.flush();
     //now do primes
     NCluster *ret = new NCluster;
     IOSet *ss = new IOSet;
@@ -160,15 +160,22 @@ NCluster* NClusterRandomSample::SubspaceStarShapedFreqSample(RelationGraph *g, i
                   currT = Intersect(currT,sample->GetSetById(t));
          
                   //cout<<endl; cout<<"\nafter the intersectt...the curr T: ";currT->Output();
-
-                  cout.flush();
                   IOSet *tt= UniformSubsetDraw(currT);
                   tt->SetId(t);
                   ret->AddSet(tt);
                   //now prime into s and take intersection
                   IOSet *sPrime = Prime(ret,g,t,s,1);
+                  if(sPrime == NULL){
+                      delete ret;
+                      delete ss;
+                      delete currT;
+                      delete sWeights;
+                      return NULL;
+                  }
                   IOSet *tmp = sPrime;
                   //intersect to get subset
+                 // cout<<"\nsprime: "; sPrime->Output();
+                 // cout.flush();
                   sPrime = Intersect(sPrime,sample->GetSetById(s));
                    delete tmp;
                   //now intersection with other s Sets
@@ -185,65 +192,76 @@ NCluster* NClusterRandomSample::SubspaceStarShapedFreqSample(RelationGraph *g, i
          }
     ss->SetId(s);
     ret->AddSet(ss);
+    delete sWeights;
     return ret;
     }
 
 
-NCluster * NClusterRandomSample::SubspaceFreqNetwork(RelationGraph *g, int s){
+NCluster * NClusterRandomSample::SubspaceFreqNetwork(RelationGraph *g, int s,NCluster *subspace){
     //first step is to generate n-cluster in initial star shaped hin
     //as defined by s
     IOSet *completedDomains = new IOSet; // keep tracking of the domains that have already been completed
-    IOSet *neighborIds = g->GetNeighbors(s);
     //construct the sample subspace
-    NCluster *sampleSubspace = new NCluster;
-    IOSet *ss = g->GetDomainObjs(s);
-    ss->SetId(s);
-    sampleSubspace->AddSet(ss);
-    for(int i=0; i < neighborIds->Size(); i++){
-        IOSet *t = g->GetDomainObjs(neighborIds->At(i));
-        t->SetId(neighborIds->At(i));
-        sampleSubspace->AddSet(t);
-    }
+    NCluster *sampleSubspace = new NCluster(*subspace);
      NCluster *init1 = SubspaceStarShapedFreqSample(g,s,sampleSubspace,completedDomains);
-     cout<<"\ngot init1...\n";
-     if (init1 != NULL)
-         init1->Output();
-     else
-         cout<<"\ninit is null";
-//
-//    //copy into init
-//    for(int i=0; i < init1->GetN(); i++){
-//        int currId = init1->GetSet(i)->Id();
-//        init->GetSetById( currId)->DeepCopy(init1->GetSet(i));
-//    }
-//    delete init1;
-//    //do a BFS using SubspaceStarShapedFreqSample
-//    //insert all neighboring articulation nodes of s
-//    IOSet *artDomains = g->GetArtDomains();
-//    queue<int> q;
+   //  cout<<"\ngot init1...\n";
+     if (init1 == NULL){
+         delete completedDomains;
+         delete sampleSubspace;
+         return NULL;
+     }
+     NCluster *ret = new NCluster;
+     AdjustSampleSubspace(sampleSubspace,init1,ret,completedDomains);
+     delete init1;
+     //cout<<"\nsample subspace: \n";
+     //sampleSubspace->Output();
+    //do a BFS using SubspaceStarShapedFreqSample
+    //insert all neighboring articulation nodes of s
+    IOSet *artDomains = g->GetArtDomains();
+    queue<int> q;
 //     cout<<"\nthe init1\n"; init->Output();
 //    cout.flush();
-//    IOSet *sNeighbors = g->GetNeighbors(s);
-//    for(int i=0; i < sNeighbors->Size(); i++){
-//        if(artDomains->Contains(sNeighbors->At(i)))
-//            q.push(sNeighbors->At(i));
-//    }
-//    cout<<"\nq size: "<<q.size();
-//    delete sNeighbors;
-//    while (!q.empty()){
-//        int s1 = q.front();
-//        q.pop();
-//        init = SubspaceStarShapedFreqSample(g,s1,init);
-//        cout<<"\n init after first step with s1 "<<s1<<"\n";
-//        init->Output();
-//        if(init == NULL) return NULL;
-//        IOSet *sNeighbors = g->GetNeighbors(s);
-//        for(int i=0; i < sNeighbors->Size(); i++){
-//            int id = sNeighbors->At(i);
-//            if(artDomains->Contains(sNeighbors->At(i)) && init->GetSetById(id)->Size() == 0)
-//                q.push(sNeighbors->At(i));
-//        }
-//        delete sNeighbors;
-//     }
-    return init1;
+    IOSet *sNeighbors = g->GetNeighbors(s);
+    for(int i=0; i < sNeighbors->Size(); i++){
+        if(artDomains->Contains(sNeighbors->At(i)))
+            q.push(sNeighbors->At(i));
+    }
+  // cout<<"\nq size: "<<q.size();
+    delete sNeighbors;
+    while (!q.empty()){
+        int s1 = q.front();
+        q.pop();
+        NCluster *init1 = SubspaceStarShapedFreqSample(g,s1,sampleSubspace,completedDomains);
+        if(init1 == NULL){
+           // cout<<"\ninit 1 was null (q)";
+            delete ret;
+            delete completedDomains;
+            delete sampleSubspace;
+            return NULL;
+        }
+     //   cout<<"\ngot init1: \n"; init1->Output();
+        AdjustSampleSubspace(sampleSubspace,init1,ret,completedDomains);
+        delete init1;
+        sNeighbors = g->GetNeighbors(s1);
+        for(int i=0; i < sNeighbors->Size(); i++){
+            int id = sNeighbors->At(i);
+            if(artDomains->Contains(sNeighbors->At(i)) && !completedDomains->Contains(sNeighbors->At(i)))
+                q.push(sNeighbors->At(i));
+        }
+        delete sNeighbors;
+    }
+    delete completedDomains;
+    delete sampleSubspace;
+    return ret;
+}
+
+void NClusterRandomSample::AdjustSampleSubspace(NCluster *sampleSubspace, NCluster *sample, NCluster *ret, IOSet *completedDomains){
+    for(int i=0; i < sample->GetN(); i++){
+        int currId = sample->GetSet(i)->Id();
+        IOSet *tt = new IOSet(sample->GetSetById(currId));
+        ret->AddSet(tt);
+        completedDomains->Add(currId);
+        IOSet *currSample =sampleSubspace->GetSetById(currId);
+        currSample->DeepCopy(sample->GetSetById(currId));
+    }
 }

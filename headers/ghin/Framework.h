@@ -18,6 +18,7 @@
 
 #include "Z_Rewards.h"
 #include "Count_Rewards.h"
+#include "../nclusters/random_sample.h"
 
 using namespace std;
 
@@ -45,6 +46,15 @@ Ghin():LatticeAlgos() {
  */
 NCluster* SelectInit(int domain, NCluster *sampleSet, NCluster *clustered);
 
+
+/*!
+ Select the initial cluster (or party) that a deal will tried to be worked out with
+ This method samples connected n-clusters across the hin by using random sampling of itemsets
+ ~ to frequency or support
+  \param sampleSet the sample set from which to draw objects
+
+ */
+NCluster* SelectInit_RandomFreq(NCluster *sampleSet);
 
 /*!
   Iterate until a nash equalibrium is reached or return NULL
@@ -105,6 +115,8 @@ bool tiredMode;
 static const int SIMPLE_WEIGHTED=1;
 //! Expected satisfaction reward function using hyper-geomtric distribution
 static const int EXPECTED_HYPGEO_SAT=2;
+//! Expected satisfaction reward function using beta-binomial distibution
+static const int EXPECTED_BETABINOMIAL_SAT=3;
 
 ///////////////////////Data Structs/////////////////////////////////////////////
 //! pointer to a hin

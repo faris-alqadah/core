@@ -26,5 +26,8 @@
  */
 double Simple_Weighted_Score(NCluster *a, int obj, int domain, double w, RelationGraph *hin);
 
+
+
+
 #endif	/* COUNT_REWARDS_H */
 

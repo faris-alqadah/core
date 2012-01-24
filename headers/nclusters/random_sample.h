@@ -105,12 +105,18 @@ NCluster * SubspaceStarShapedFreqSample(RelationGraph *g, int s, NCluster *sampl
 NCluster* SubspaceStarShapedArea(RelationGraph *g, int s );
 
 
-//! Randomly select a subspace from a HIN
+//! Randomly select a subspace from a HIN or over a subspace of the HIN
 /*!
    \param g the hin
    \param s id of the central node in the star shaped HIN
+   \param subspace indicates that these objects should only be included during the sampling process
  */
-NCluster * SubspaceFreqNetwork(RelationGraph *g, int s);
+NCluster * SubspaceFreqNetwork(RelationGraph *g, int s,NCluster *subspace);
+
+//! Helper function for SubspaceFreqNetwork sampling that copies sample IOSets into ret and marks those domains in completedDomains
+//! Also adjusts sampleSubpace to reflect sample
+
+void AdjustSampleSubspace(NCluster *sampleSubspace, NCluster *sample, NCluster *ret, IOSet *completedDomains);
 
 };
 #endif	/* _RANDOM_SAMPLE_H */

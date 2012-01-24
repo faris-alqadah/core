@@ -21,3 +21,11 @@ double Hypgeo_Dev(int n, int m, int NN){
 double Z_Score(double x, double mean, double std){
     return (x-mean)/std;
 }
+
+double BetaBinomial_Mean(int n, int alpha, int beta){
+    return (double)(n*alpha)  / (double)(alpha+beta);
+}
+
+double BetaBinomial_Dev(int n, int alpha, int beta){
+    return sqrt(   (double)( n*alpha*beta*(alpha+beta+n)   )     / (double)(  (pow(alpha+beta,2))*(alpha+beta+1) )       );
+}
