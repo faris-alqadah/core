@@ -16,15 +16,9 @@ HEADER = headers
 OBJ_CORE = $(OBJ)/core
 SOURCE_CORE = $(SOURCE)/core
 HEADER_CORE = $(HEADER)/core
-BIN = bin
-DRIVERS = drivers
+
 
 ALGOS_HELPERS = algos_helpers
-ALPHA_CONCEPTS = alpha_concepts
-NCLUSTERS = nclusters
-GHIN = ghin
-MAPGHIN=map_reduce_ghin
-SYN = synthetic
 # objects
 #main objects
 MAIN_OBJECTS =  $(OBJ_CORE)/IOSet.o \
@@ -44,90 +38,23 @@ MAIN_OBJECTS =  $(OBJ_CORE)/IOSet.o \
 		$(OBJ_CORE)/RelationGraphR.o \
 		$(OBJ_CORE)/BasicStats.o \
 		$(OBJ_CORE)/Timing.o
-#algos helpers
-ALGOS_HELPER_OBJECTS = $(OBJ)/$(ALGOS_HELPERS)/basic.o \
-			$(OBJ)/$(ALGOS_HELPERS)/topk.o
-#alpha concepts
-ALPHA_CONCEPTS_OBJECTS = $(OBJ)/$(ALPHA_CONCEPTS)/consistency.o \
-			$(OBJ)/$(ALPHA_CONCEPTS)/dispersion.o \
-			$(OBJ)/$(ALPHA_CONCEPTS)/basic_prefix_alpha.o \
-			$(OBJ)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.o \
-			$(OBJ_CORE)/RLatticeOps.o \
-			$(OBJ)/$(ALPHA_CONCEPTS)/helpers.o
-#nclusters
-NCLUSTERS_OBJECTS = $(OBJ)/$(NCLUSTERS)/Berry.o \
-		$(OBJ)/$(NCLUSTERS)/random_sample.o
-#ghin
-GHIN_OBJECTS = $(OBJ)/$(GHIN)/Framework.o \
-	       $(OBJ)/$(GHIN)/Z_Rewards.o \
-	       $(OBJ)/$(GHIN)/Count_Rewards.o
 
-SYN_OBJECTS = $(OBJ)/$(SYN)/synthetic_hin.o
 
-#driver make programs
-NCLU_OBJ	=	$(OBJ)/$(NCLUSTERS)/nclu.o
-QBBC_OBJ =	$(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o
-STAR_CHARM_OBJ = $(OBJ)/$(ALPHA_CONCEPTS)/starcharm.o
-GHIN_OBJ = $(OBJ)/$(GHIN)/ghin.o
-MAPGHIN_OBJ = $(OBJ)/$(MAPGHIN)/mapghin.o
-SYN_OBJ = $(OBJ)/$(SYN)/synthetic.o
 
-NCLU_TARGET = $(BIN)/nclu
-QBBC_TARGET = $(BIN)/qbbc
-STAR_CHARM_TARGET = $(BIN)/starcharm
-GHIN_TARGET = $(BIN)/ghin
-MAPGHIN_TARGET=$(BIN)/mapghin
-SYN_TARGET = $(BIN)/synthetic
+
 #targets
 .cpp.o:
 	$(CC) -c $(CFLAGS) -o $@ $<
 
-nclu: $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(NCLU_OBJ)
-		$(LINK) $(LFLAGS) -o $(NCLU_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(NCLU_OBJ) $(LIBS)
-
-qbbc:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(QBBC_OBJ)
-		$(LINK) $(LFLAGS) -o $(QBBC_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(QBBC_OBJ) $(LIBS)
-
-starcharm:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(STAR_CHARM_OBJ)
-		$(LINK) $(LFLAGS) -o $(STAR_CHARM_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(ALPHA_CONCEPTS_OBJECTS) $(STAR_CHARM_OBJ) $(LIBS)
-ghin:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(GHIN_OBJECTS) $(GHIN_OBJ)
-		$(LINK) $(LFLAGS) -o $(GHIN_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(GHIN_OBJECTS) $(GHIN_OBJ) $(LIBS)
-
-mapghin:  $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(GHIN_OBJECTS) $(MAPGHIN_OBJ)
-		$(LINK) $(LFLAGS) -o $(MAPGHIN_TARGET) $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS) $(NCLUSTERS_OBJECTS) $(GHIN_OBJECTS) $(MAPGHIN_OBJ) $(LIBS)
-synthetic:  $(MAIN_OBJECTS) $(SYN_OBJECTS) $(SYN_OBJ)
-		$(LINK) $(LFLAGS) -o $(SYN_TARGET) $(MAIN_OBJECTS) $(SYN_OBJECTS) $(SYN_OBJ) $(LIBS)
+core_lib: $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS)
+	ar cr libcorelib.a $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS)
 
 #install and setup scripts
 install:
-		mkdir -p $(OBJ) 
 		mkdir -p $(OBJ_CORE)
-		mkdir -p $(SOURCE_CORE)
-		mkdir -p $(HEADER_CORE)
-		mkdir -p $(BIN)
-qbbc_install:
-		mkdir -p $(OBJ)/$(ALPHA_CONCEPTS) 
-		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
 
-starcharm_install:
-		mkdir -p $(OBJ)/$(ALPHA_CONCEPTS)
-		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
-
-nclu_install:
-		mkdir -p $(OBJ)/$(NCLUSTERS)
-		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
-ghin_install:
-		mkdir -p $(OBJ)/$(GHIN)
-		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
-mapghin_install:
-		mkdir -p $(OBJ)/$(MAPGHIN)
-		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
-synthetic_install:
-		mkdir -p $(OBJ)/$(SYN)
-		mkdir -p $(OBJ)/$(ALGOS_HELPERS)
 clean:
-		rm -rf $(OBJ)
-		rm -rf $(BIN)
+		rm -rf $(OBJ_CORE)
 # main data structures and functionality
 
 $(OBJ_CORE)/IOSet.o: $(SOURCE_CORE)/IOSet.cpp
@@ -174,44 +101,6 @@ $(OBJ)/$(ALGOS_HELPERS)/basic.o: $(SOURCE)/$(ALGOS_HELPERS)/basic.cpp
 $(OBJ)/$(ALGOS_HELPERS)/topk.o: $(SOURCE)/$(ALGOS_HELPERS)/topk.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE)/$(ALGOS_HELPERS)/topk.cpp -o $@
 
-#ncluster algorithms
-$(OBJ)/$(NCLUSTERS)/Berry.o: $(SOURCE)/$(NCLUSTERS)/berry.cpp
-		$(CC) $(CFLAGS) -c  $(SOURCE)/$(NCLUSTERS)/berry.cpp -o $@
-$(OBJ)/$(NCLUSTERS)/nclu.o: $(SOURCE)/$(DRIVERS)/nclu.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/nclu.cpp -o $@
-$(OBJ)/$(NCLUSTERS)/random_sample.o: $(SOURCE)/$(NCLUSTERS)/random_sample.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(NCLUSTERS)/random_sample.cpp -o $@
 
-#qbbc algorithms
-$(OBJ)/$(ALPHA_CONCEPTS)/consistency.o: $(SOURCE)/$(ALPHA_CONCEPTS)/consistency.cpp
-		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/consistency.cpp -o $@
-$(OBJ)/$(ALPHA_CONCEPTS)/dispersion.o: $(SOURCE)/$(ALPHA_CONCEPTS)/dispersion.cpp
-		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/dispersion.cpp -o $@
-$(OBJ)/$(ALPHA_CONCEPTS)/helpers.o: $(SOURCE)/$(ALPHA_CONCEPTS)/helpers.cpp
-		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/helpers.cpp -o $@
-$(OBJ)/$(ALPHA_CONCEPTS)/basic_prefix_alpha.o: $(SOURCE)/$(ALPHA_CONCEPTS)/basic_prefix_alpha.cpp
-		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/basic_prefix_alpha.cpp -o $@
-$(OBJ)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.o: $(SOURCE)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.cpp
-		$(CC) $(CFLAGS) -c  $(SOURCE)/$(ALPHA_CONCEPTS)/alpha_concepts_algos.cpp -o $@
-$(OBJ)/$(ALPHA_CONCEPTS)/qbbc.o: $(SOURCE)/$(DRIVERS)/qbbc.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/qbbc.cpp -o $@	  
-#starcharm algorithm
-$(OBJ)/$(ALPHA_CONCEPTS)/starcharm.o: $(SOURCE)/$(DRIVERS)/star_charm.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/star_charm.cpp -o $@
-#ghin algorithm
-$(OBJ)/$(GHIN)/Framework.o: $(SOURCE)/$(GHIN)/Framework.cpp
-		$(CC) $(CFLAGS) -c  $(SOURCE)/$(GHIN)/Framework.cpp -o $@
-$(OBJ)/$(GHIN)/ghin.o: $(SOURCE)/$(DRIVERS)/ghin.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/ghin.cpp -o $@
-$(OBJ)/$(GHIN)/Z_Rewards.o: $(SOURCE)/$(GHIN)/Z_Rewards.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(GHIN)/Z_Rewards.cpp -o $@
-$(OBJ)/$(GHIN)/Count_Rewards.o: $(SOURCE)/$(GHIN)/Count_Rewards.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(GHIN)/Count_Rewards.cpp -o $@
-#mapghin
-$(OBJ)/$(MAPGHIN)/mapghin.o: $(SOURCE)/$(DRIVERS)/map_reduce_ghin.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/map_reduce_ghin.cpp -o $@
-#synthetic
-$(OBJ)/$(SYN)/synthetic_hin.o: $(SOURCE)/$(SYN)/synthetic_hin.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(SYN)/synthetic_hin.cpp -o $@
-$(OBJ)/$(SYN)/synthetic.o: $(SOURCE)/$(DRIVERS)/synthetic.cpp
-		$(CC) $(CFLAGS) -c $(SOURCE)/$(DRIVERS)/synthetic.cpp -o $@
+
+

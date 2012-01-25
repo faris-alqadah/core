@@ -1,0 +1,5 @@
+ Several data structures and utility functions that are used by a wide varietey of data mining algorithms
+
+Run make core_lib to generate the libcorelib.a file for use in algorithms. Also be sure to include core.h
+
+Also includes scripts in both ruby and matlab for misc tasks....
