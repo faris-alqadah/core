@@ -26,10 +26,10 @@ function prec_rec_ROC_curve(prec,rcl,tpr,fpr,curve_num)
     %axis([0 1 0 1]);
     figure(2);
     hold on;
-    plot(fpr,tpr,get_plot_style(curve_num),'MarkerSize',10,'LineWidth',2)
+    plot(fpr,tpr,get_plot_style(curve_num),'MarkerSize',5,'LineWidth',2)
     hold on;
-    plot([0 1],[0 1],'k','LineWidth',3);
+    %plot([0 1],[0 1],'k','LineWidth',3);
     xlabel('FPR');
     ylabel('TPR');
-    %axis([0 1 0 1])
+    axis([0 0.1 0 1])
 end

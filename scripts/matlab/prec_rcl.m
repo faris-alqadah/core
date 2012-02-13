@@ -14,10 +14,10 @@ function [prec,rcl,fpr,tpr] = prec_rcl(actual,predict)
     predict = logical(predict);
     tp= numel(find(actual(predict)==1));
     fp = numel(find(actual(predict)==0));
-    tn = numel(find(actual(~predict)==0));
-    fn =  numel(find(actual(~predict)==1));
-    P = numel(find(actual));%tp+fn;
-    N = fp+tn;
+    %tn = numel(find(actual(~predict)==0));
+    %fn =  numel(find(actual(~predict)==1));
+    P = numel(find(actual == 1));%tp+fn;
+    N = numel(find(actual==0));%fp+tn;
     prec = tp/(tp+fp);
     rcl = tp/(P);
     tpr =tp/(P);

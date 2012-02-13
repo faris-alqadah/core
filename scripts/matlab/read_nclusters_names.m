@@ -10,10 +10,11 @@
 %    Returns:
 %           clusters:
 %               a cell-array of cell arrays representing each n-cluster
+%           names:
+%               a cell-array of the names of the objects for all clusters
 %
 %
-%
-function [clusters] = read_nclusters(file)
+function [clusters] = read_nclusters_names(file)
     fid(1) = fopen(file,'r');
     clusters = {};
     names={};
@@ -34,7 +35,7 @@ function [clusters] = read_nclusters(file)
                 lcl_cnt=1;
                 lcl_cluster={};
             else
-                lcl_cluster{lcl_cnt} = get_curr_row(line,i);
+                lcl_cluster{lcl_cnt} = get_curr_row(line,2);
                 lcl_cnt = lcl_cnt+1;
             end
             line = fgetl(fid(i));
