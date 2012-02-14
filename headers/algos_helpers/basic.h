@@ -45,5 +45,9 @@ void OutputCluster(NCluster *c, ofstream &out);
 //! Writes c to the file pointed to by out using the namemap vectors and flushes the buffer for instant writing
 void OutputCluster(NCluster *c, ofstream &out, vector<NameMap*> &);
 
+
+//! Adds the the entries of bicluster c into the boolean matrix mat
+void AddBiCluster_Matrix(NCluster *c,int id1, int id2, bool mat[][]);
+
 #endif	/* BASIC_H */
 

@@ -32,3 +32,11 @@ void OutputCluster(NCluster *c, ofstream &out, vector<NameMap*> &nms){
     out<<";;;\n";
     out.flush();
 }
+
+void AddBiCluster_Matrix(NCluster *c,int id1, int id2, bool mat[][]){
+    for(int i=0; i < c->GetSetById(id1)->Size(); i++)
+        for(int j=0; j < c->GetSetById(id2)->Size(); j++)
+            mat[c->GetSetById(id1)->At(i)][c->GetSetById(id2)->At(j)] = 1;
+    
+
+}
