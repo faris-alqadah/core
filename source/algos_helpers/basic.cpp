@@ -60,3 +60,11 @@ void AddBiCluster_Edges(NCluster *c,int id1, int id2, map<int, pair<int,int> > &
         }
     }
 }
+
+void OutputEdges( map<int, pair<int,int> > &theMap, ofstream &out, NameMap *nm1, NameMap *nm2){
+    map<int,pair<int,int> >::iterator it;
+    for ( it=theMap.begin() ; it != theMap.end(); it++ ){
+        pair<int,int> currEdge=(*it).second;
+        out << nm1->GetName(currEdge.first) << " " << nm2->GetName(currEdge.second) << endl;
+    }
+}

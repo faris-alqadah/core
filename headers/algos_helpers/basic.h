@@ -51,5 +51,8 @@ void OutputCluster(NCluster *c, ofstream &out, vector<NameMap*> &);
 //! c=(A,B) A=a1...an B=b1...bm all ai_bj are added as edges
 void AddBiCluster_Edges(NCluster *c,int id1, int id2, map<int, pair<int,int> > &theMap);
 
+//! Output the edges in the basic cytoscape pairs format
+void OutputEdges( map<int, pair<int,int> > &theMap, ofstream &out);
+
 #endif	/* BASIC_H */
 
