@@ -61,6 +61,8 @@ bool dispProgress;
 //Data structures and files
 //! data structure to hold the enumerated clusters in memory during algorithm exectuion
 vector<NCluster*> CONCEPTS;
+//! map to hold edges (pairs) if pair enumeration mode is selected
+map<int, pair<int,int> > EDGES;
  //! vector of name maps to be used to output clusters
 vector<NameMap*> NAME_MAPS;
 //! if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts
@@ -80,6 +82,8 @@ static const int ENUM_FILE=2;
 static const int ENUM_TOPK_FILE=3;
 //! Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory
 static const int ENUM_TOPK_MEM=4;
+//! Enumeration mode that specifies to algorithms to store only edges that occur in clusters and will output these edges
+static const int ENUM_EDGES=5;
 //! Users will set this variable to indicate the enumeration mode
 int enumerationMode;
 

@@ -14,6 +14,7 @@
 
 
 
+
 //! adds a new copy of to v
 void StoreCluster(vector<NCluster*> &v, NCluster *c);
 
@@ -46,8 +47,9 @@ void OutputCluster(NCluster *c, ofstream &out);
 void OutputCluster(NCluster *c, ofstream &out, vector<NameMap*> &);
 
 
-//! Adds the the entries of bicluster c into the boolean matrix mat
-void AddBiCluster_Matrix(NCluster *c,int id1, int id2, bool mat[][]);
+//! Adds "edges" from this bi-cluster in the hash table of edges as
+//! c=(A,B) A=a1...an B=b1...bm all ai_bj are added as edges
+void AddBiCluster_Edges(NCluster *c,int id1, int id2, map<int, pair<int,int> > &theMap);
 
 #endif	/* BASIC_H */
 

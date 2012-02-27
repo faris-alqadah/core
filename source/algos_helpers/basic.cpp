@@ -1,4 +1,8 @@
 
+
+
+
+
 #include "../../headers/algos_helpers/basic.h"
 
 void StoreCluster(vector<NCluster*> &v, NCluster *c){
@@ -33,10 +37,26 @@ void OutputCluster(NCluster *c, ofstream &out, vector<NameMap*> &nms){
     out.flush();
 }
 
-void AddBiCluster_Matrix(NCluster *c,int id1, int id2, bool mat[][]){
-    for(int i=0; i < c->GetSetById(id1)->Size(); i++)
-        for(int j=0; j < c->GetSetById(id2)->Size(); j++)
-            mat[c->GetSetById(id1)->At(i)][c->GetSetById(id2)->At(j)] = 1;
-    
-
+void AddBiCluster_Edges(NCluster *c,int id1, int id2, map<int, pair<int,int> > &theMap){
+    IOSet *a = c->GetSetById(id1);
+    IOSet *b = c->GetSetById(id2);
+    if(a != NULL && b != NULL){
+        for(int i=0; i < a->Size(); i++){
+            int k1 = a->At(i);
+            for(int j=0; j < b->Size(); j++){
+                //make the cantor number
+                pair<int,int> thePair;
+                thePair.first=k1;
+                thePair.second=b->At(j);
+                int k2=thePair.second;
+                int cantor = 0.5*(k1+k2)*(k1+k2+1)+k2;
+                if( theMap.count(cantor) < 1){
+                    pair<int, pair<int,int> > insrtPair;
+                    insrtPair.first=cantor;
+                    insrtPair.second = thePair;
+                    theMap.insert(insrtPair);
+                }
+            }
+        }
+    }
 }
