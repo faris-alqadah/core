@@ -1,9 +1,9 @@
 #include "../../headers/core/OpsR.h"
 
 
-NRCluster *TransposeSparse(NRCluster *a){
-    assert(a != NULL);
-    NRCluster *ret = new NRCluster(a->GetMaxIdx()+1);
+NRCluster *TransposeSparse(NRCluster *a,int sz1,int sz2){
+    assert(a != NULL && a->GetN() == sz1);
+    NRCluster *ret = new NRCluster(sz2);
     for(int i=0; i < a->GetN(); i++){
         IOSet *idxs = a->GetSet(i)->GetIdxs();
         for(int j=0; j < idxs->Size(); j++){

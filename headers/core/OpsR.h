@@ -17,7 +17,7 @@
 using namespace std;
 
 //! Assumes a is the sparse representation of a sparse matrix, and transposes it
-NRCluster *TransposeSparse(NRCluster *a);
+NRCluster *TransposeSparse(NRCluster *a,int sz1, int sz2);
 
 //! Returns a the set of idxs that are common to both a and b
 IOSet *Common_Idxs(RSet *a, RSet *b);

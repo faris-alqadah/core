@@ -34,13 +34,7 @@ RelationGraph * MakeRelationGraph(string &inputFile);
  */
 RelationGraphR * MakeRelationGraphR(string &inputFile);
 
-//! Reads an input file that only specifies a single real-valued context and stores it in memory as RContext object
-/*!
- See the README file for the format of the input file.
- \param inputFile the path to the input file
- \sa RContext, MakeRContext
- */
-RContext * MakeSingleRContext( string & inputFile);
+
 
 //! Returns a context object initialized to all the input variables
 /*!
@@ -67,16 +61,24 @@ Context * MakeContext(string &inputFile,int dId1, int dId2, string &name, int ct
     \param ctxId id of the context
     \param nm1 pointer to the name map associated with domain1
     \param nm2 pointer to the name map associated with domain2
+    \param sz1 number of elements in domain 1
+    \param sz2 number of elements in domain 2
 
  */
 
-RContext * MakeRContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2);
+RContext * MakeRContext(string &inputFile,int dId1, int dId2, string &name, int ctxId, NameMap *nm1, NameMap *nm2,int sz1, int sz2);
 
 //! Returns an Ncluster representing the FIMI file in inputFile
-NCluster *MakeNClusterFromFimi(string &inputFile);
+/*!
+    \param sz number of elements in "rows"
+ */
+NCluster *MakeNClusterFromFimi(string &inputFile, int sz);
 
 //! Reutrns an NRCluster from a file in spare matrix format
-NRCluster *MakeNRClusterFromSparseFile(string &inputFile);
+/*!
+    \param sz number of elements in "rows"
+ */
+NRCluster *MakeNRClusterFromSparseFile(string &inputFile, int sz);
 
 
 //! Tokenizes the string into a vector of string based on token

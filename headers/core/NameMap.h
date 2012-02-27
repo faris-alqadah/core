@@ -28,7 +28,7 @@ public:
     //! Alternate constructor that passes in the file name and constructs the actual name map
     NameMap(string &file);
     //! Alternate constructor that passes in the file name and constructs the actual name map but only upto the nth entry
-    NameMap(string, unsigned int n);
+    NameMap(string &, unsigned int n);
     //! Returns the file name from which the name map was constructed
     string GetFileName();
     //! returns the string mapped to i
