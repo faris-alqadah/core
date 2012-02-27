@@ -42,6 +42,7 @@ public:
     ovlpThresh=0.25;  //this is the overlap threshold...setting default
     topKK = 100;      //this is "K" for top k enumerations...setting default
     pruneMode=1; //defaults
+    outputEdges=false; //defaults (do not output the edges)
 }
 
 
@@ -66,11 +67,15 @@ map<int, pair<int,int> > EDGES;
  //! vector of name maps to be used to output clusters
 vector<NameMap*> NAME_MAPS;
 //! if ENUM_FILE or ENUM_TOPK_FILE is selected then this file is used to output the concepts
-string OUTFILE; 
+string OUTFILE;
+//! if output edges flag enabled use this file
+string EDGES_FILE;
 //!ofstream used to output to OUTFILE.concepts
 ofstream OUT1;
  //!ofsteram used to output to OUTFILE.concept.names
-ofstream OUT2; 
+ofstream OUT2;
+//! ofstream used to output edges
+ofstream EDGES_OUT;
 
 
 /////////////////////////////////Enumeation Modes///////////////////////////////
@@ -82,10 +87,10 @@ static const int ENUM_FILE=2;
 static const int ENUM_TOPK_FILE=3;
 //! Enumeration mode that specifies to algorithms to mine only the top K clusters and store in memory
 static const int ENUM_TOPK_MEM=4;
-//! Enumeration mode that specifies to algorithms to store only edges that occur in clusters and will output these edges
-static const int ENUM_EDGES=5;
 //! Users will set this variable to indicate the enumeration mode
 int enumerationMode;
+//! set this flag to true of enumerated edges should be output to the edges file
+bool outputEdges;
 
 /////////////////////////////////Quality Modes///////////////////////////////
 //! quality mode that indicates to use the area of a concept as its quality measure
