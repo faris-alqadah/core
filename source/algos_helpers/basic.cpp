@@ -76,7 +76,7 @@ void OutputEdges( map<int, pair<int,int> > &theMap, ofstream &out,int id1, int i
         map<int,pair<int,int> >::iterator it;
         for ( it=theMap.begin() ; it != theMap.end(); it++ ){
            pair<int,int> currEdge=(*it).second;
-            out <<currEdge.first << " " <<currEdge.second<< endl;
+            out <<nm1->GetName(currEdge.first) << " " <<nm2->GetName(currEdge.second)<< endl;
         }
     }else{
         out<<"\nName maps could not be found for specified domain ids "<<id1<<" and "<<id2;
