@@ -170,3 +170,10 @@ void RelationGraphR::Print(){
         }
         return ret;
     }
+    int RelationGraphR::NumObjsInDomain(int dId){
+         assert(IsDomainId(dId));
+         vector<RContext*> *ctxs = GetContexts(dId);
+         int ret = ctxs->at(0)->GetNumSets(dId);
+         delete ctxs;
+         return ret;
+    }

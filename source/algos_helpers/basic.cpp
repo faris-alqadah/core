@@ -49,7 +49,7 @@ void AddBiCluster_Edges(NCluster *c,int id1, int id2, map<int, pair<int,int> > &
                 thePair.first=k1;
                 thePair.second=b->At(j);
                 int k2=thePair.second;
-                int cantor = 0.5*(k1+k2)*(k1+k2+1)+k2;
+                int cantor = CantorPairing(k1,k2);//0.5*(k1+k2)*(k1+k2+1)+k2;
                 if( theMap.count(cantor) < 1){
                     pair<int, pair<int,int> > insrtPair;
                     insrtPair.first=cantor;
@@ -80,5 +80,21 @@ void OutputEdges( map<int, pair<int,int> > &theMap, ofstream &out,int id1, int i
         }
     }else{
         out<<"\nName maps could not be found for specified domain ids "<<id1<<" and "<<id2;
+    }
+}
+
+void OutputEdgesBinaryMatrix( map<int, pair<int,int> > &theMap, ofstream &out, int sz1, int sz2){
+    for(int i=0; i < sz1; i++){
+        for(int j=0; j < sz2; j++){
+            int key = CantorPairing(i,j);
+            if(j > 0)
+                out<<" ";
+            if(theMap.count(key)>0)
+                out<<"1";
+            else
+                out<<"0";
+        }
+        if(i != sz1-1)
+            out<<"\n";
     }
 }

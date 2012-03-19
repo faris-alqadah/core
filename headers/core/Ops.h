@@ -132,6 +132,14 @@ IOSet * BinomialSubsetDraw(IOSet *t);
 unsigned int NChooseK(unsigned int n, unsigned int k);
 
 long double NChooseK(long double n, long double k);
+
+/*!
+ * Pairing function is a process to uniquely encode two natural numbers into a single natural number
+ *
+ *
+ */
+int CantorPairing(const unsigned int k1, const unsigned int k2);
+
 /*!
      EXTERNALS
 Use these to keep count of the number of basic set operations used

@@ -212,3 +212,6 @@ long double NChooseK(long double n, long double k){
     }
     return r;
 }
+int CantorPairing(const unsigned int k1, const unsigned int k2){
+     return 0.5*(k1+k2)*(k1+k2+1)+k2;
+}
