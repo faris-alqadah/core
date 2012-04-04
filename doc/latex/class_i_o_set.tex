@@ -50,6 +50,11 @@ void \hyperlink{class_i_o_set_ae8a565049da3d6912e5da49af796d457}{Output} (ofstre
 \label{class_i_o_set_ae8a565049da3d6912e5da49af796d457}
 
 \begin{DoxyCompactList}\small\item\em Prints contents of the \hyperlink{class_i_o_set}{IOSet} as space sperated intergers to ofstream. \item\end{DoxyCompactList}\item 
+\hypertarget{class_i_o_set_acf92e6034304bd135a7bd42b7b9f9799}{
+void \hyperlink{class_i_o_set_acf92e6034304bd135a7bd42b7b9f9799}{Output} (\hyperlink{class_name_map}{NameMap} $\ast$n)}
+\label{class_i_o_set_acf92e6034304bd135a7bd42b7b9f9799}
+
+\begin{DoxyCompactList}\small\item\em Prints contents of the \hyperlink{class_i_o_set}{IOSet} as space sperated names to std stream using namemap to map the integers to names. \item\end{DoxyCompactList}\item 
 \hypertarget{class_i_o_set_a7c47a724e56e8502f8b0225c471d8592}{
 void \hyperlink{class_i_o_set_a7c47a724e56e8502f8b0225c471d8592}{Output} (ofstream \&f, \hyperlink{class_name_map}{NameMap} $\ast$n)}
 \label{class_i_o_set_a7c47a724e56e8502f8b0225c471d8592}
@@ -66,7 +71,7 @@ void \hyperlink{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}{SetSize} (int x
 void \hyperlink{class_i_o_set_a31b2d68680061f676892b70954b55102}{Resize} (int x)}
 \label{class_i_o_set_a31b2d68680061f676892b70954b55102}
 
-\begin{DoxyCompactList}\small\item\em Resize the \hyperlink{class_i_o_set}{IOSet} to x, this will physically re-\/allocate and de-\/allocate memory unlike \hyperlink{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}{SetSize()} \item\end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Resize the \hyperlink{class_i_o_set}{IOSet} to x, this will physically re-\/allocate and de-\/allocate memory unlike \hyperlink{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}{SetSize()}. \item\end{DoxyCompactList}\item 
 \hypertarget{class_i_o_set_adf73ea0bebbddbb1136d26fc9f6dddba}{
 bool \hyperlink{class_i_o_set_adf73ea0bebbddbb1136d26fc9f6dddba}{Equal} (\hyperlink{class_i_o_set}{IOSet} \&)}
 \label{class_i_o_set_adf73ea0bebbddbb1136d26fc9f6dddba}
@@ -92,6 +97,11 @@ void \hyperlink{class_i_o_set_a7e135f27326a102ab45ec56b33f8c5c3}{FindRemove} (in
 \label{class_i_o_set_a7e135f27326a102ab45ec56b33f8c5c3}
 
 \begin{DoxyCompactList}\small\item\em Find and remove the specified element if it exists. \item\end{DoxyCompactList}\item 
+\hypertarget{class_i_o_set_a8514a3475a49e427eece152dca282a8c}{
+int \hyperlink{class_i_o_set_a8514a3475a49e427eece152dca282a8c}{GetIndex} (int)}
+\label{class_i_o_set_a8514a3475a49e427eece152dca282a8c}
+
+\begin{DoxyCompactList}\small\item\em Return the index of the specified element and -\/1 if element does not exist. \item\end{DoxyCompactList}\item 
 \hypertarget{class_i_o_set_aa840da94162188f037e18152b7ddbc5d}{
 void \hyperlink{class_i_o_set_aa840da94162188f037e18152b7ddbc5d}{Sort} ()}
 \label{class_i_o_set_aa840da94162188f037e18152b7ddbc5d}
@@ -131,7 +141,17 @@ bool \hyperlink{class_i_o_set_a09d93330dd883be32508b7858c1ec3df}{GetMarked} ()}
 int \hyperlink{class_i_o_set_a99b1856d8b320d7cf3bc3d5e1352d8c6}{GetMaxElement} ()}
 \label{class_i_o_set_a99b1856d8b320d7cf3bc3d5e1352d8c6}
 
-\begin{DoxyCompactList}\small\item\em Returns the largest element in the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns the largest element in the \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\item 
+\hypertarget{class_i_o_set_a7a12cfa9ea07e4a027a53c3556280569}{
+double \hyperlink{class_i_o_set_a7a12cfa9ea07e4a027a53c3556280569}{GetQuality} ()}
+\label{class_i_o_set_a7a12cfa9ea07e4a027a53c3556280569}
+
+\begin{DoxyCompactList}\small\item\em Returns the quality. \item\end{DoxyCompactList}\item 
+\hypertarget{class_i_o_set_a4bacb2fdc24b9e399b03221264a22793}{
+void \hyperlink{class_i_o_set_a4bacb2fdc24b9e399b03221264a22793}{SetQuality} (double)}
+\label{class_i_o_set_a4bacb2fdc24b9e399b03221264a22793}
+
+\begin{DoxyCompactList}\small\item\em Set the qualuty. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -154,7 +174,12 @@ vector$<$ unsigned int $>$ \hyperlink{class_i_o_set_a606a04e94980958d24457389170
 bool \hyperlink{class_i_o_set_a3fad9f242ab3609cb303f12482fcc772}{marked}}
 \label{class_i_o_set_a3fad9f242ab3609cb303f12482fcc772}
 
-\begin{DoxyCompactList}\small\item\em has this ioset been marked for whatever reason?? \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em has this ioset been marked for whatever reason?? \item\end{DoxyCompactList}\item 
+\hypertarget{class_i_o_set_a6321260797f9825e7b17bfcf26abd43e}{
+double \hyperlink{class_i_o_set_a6321260797f9825e7b17bfcf26abd43e}{quality}}
+\label{class_i_o_set_a6321260797f9825e7b17bfcf26abd43e}
+
+\begin{DoxyCompactList}\small\item\em the quality of the ioset \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -168,11 +193,7 @@ Definition at line 34 of file IOSet.h.
 \hypertarget{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}{
 \index{IOSet@{IOSet}!SetSize@{SetSize}}
 \index{SetSize@{SetSize}!IOSet@{IOSet}}
-\subsubsection[{SetSize}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::SetSize (
-\begin{DoxyParamCaption}
-\item[{int}]{x}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{SetSize}]{\setlength{\rightskip}{0pt plus 5cm}void IOSet::SetSize (int {\em x})}}
 \label{class_i_o_set_a45a883dcdfae7eafbc303039727bdf49}
 
 
@@ -180,11 +201,11 @@ Assigns the private size variable of the \hyperlink{class_i_o_set}{IOSet} withou
 
 This operation should mainly be used by set operation algorithms where size of the \hyperlink{class_i_o_set}{IOSet} may not be known a-\/priori. 
 
-Definition at line 42 of file IOSet.cpp.
+Definition at line 54 of file IOSet.cpp.
 
 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-headers/IOSet.h\item 
-source/IOSet.cpp\end{DoxyCompactItemize}
+headers/core/IOSet.h\item 
+source/core/IOSet.cpp\end{DoxyCompactItemize}

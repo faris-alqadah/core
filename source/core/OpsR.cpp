@@ -51,7 +51,18 @@ RSet *Union(RSet *a, RSet *b){
         
     }
 }
-
+double Spearman_Rank_Correlation(RSet *a, RSet *b,IOSet *idxs ){
+    //first sort according to a(idxs)
+    map<int,int> * aRanking = a->GetRankIdxs(idxs);
+    map<int,int> *bRanking = b->GetRankIdxs(idxs);
+    double diSquare=0;
+    for(int i=0; i < idxs->Size(); i++)
+        diSquare += pow((int) (*aRanking)[idxs->At(i)] - (int)(*bRanking)[idxs->At(i)],2);
+    int numPairs = idxs->Size()*(pow(idxs->Size(),2)-1);
+    delete aRanking;
+    delete bRanking;
+    return 1- ( (6*diSquare)/(double) numPairs  );
+}
 
 //!Compute the mean of an RSet
 double Mean(RSet *a);

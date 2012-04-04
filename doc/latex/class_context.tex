@@ -59,7 +59,7 @@ void \hyperlink{class_context_ac7eb147a11e84e49cda654ecc3812fe5}{SetDomainId} (i
 int \hyperlink{class_context_aaa470e3eb23649e665329a5764a16019}{GetDomainId} (int setNum)}
 \label{class_context_aaa470e3eb23649e665329a5764a16019}
 
-\begin{DoxyCompactList}\small\item\em Returns the id of the selected set, (eithier 0 or 1) \item\end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Returns the id of the selected set, (eithier 0 or 1). \item\end{DoxyCompactList}\item 
 \hypertarget{class_context_af7785111a88d3e31d7168e3f9aed2759}{
 void \hyperlink{class_context_af7785111a88d3e31d7168e3f9aed2759}{PrintAsMatrix} ()}
 \label{class_context_af7785111a88d3e31d7168e3f9aed2759}
@@ -96,7 +96,12 @@ int \hyperlink{class_context_a54d9dcce403fb8f8f68118e6d420ce66}{GetNumOnes} ()}
 double \hyperlink{class_context_a1f3efbbcf1693d03bb6c4a8140312c83}{GetDensity} ()}
 \label{class_context_a1f3efbbcf1693d03bb6c4a8140312c83}
 
-\begin{DoxyCompactList}\small\item\em Return the number of ones / $|$domain1$|$$\ast$$|$domain2$|$. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Return the number of ones / $|$domain1$|$$\ast$$|$domain2$|$. \item\end{DoxyCompactList}\item 
+\hypertarget{class_context_a87de3e29afbbfabe11791ed7da7357ed}{
+int \hyperlink{class_context_a87de3e29afbbfabe11791ed7da7357ed}{GetLongestSet} ()}
+\label{class_context_a87de3e29afbbfabe11791ed7da7357ed}
+
+\begin{DoxyCompactList}\small\item\em Return the longest set associated with any single object. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -145,12 +150,7 @@ Definition at line 18 of file Context.h.
 \hypertarget{class_context_a7c09cf1cce283bf24fed475e7084c294}{
 \index{Context@{Context}!Context@{Context}}
 \index{Context@{Context}!Context@{Context}}
-\subsubsection[{Context}]{\setlength{\rightskip}{0pt plus 5cm}Context::Context (
-\begin{DoxyParamCaption}
-\item[{int}]{num1, }
-\item[{int}]{num2}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{Context}]{\setlength{\rightskip}{0pt plus 5cm}Context::Context (int {\em num1}, \/  int {\em num2})}}
 \label{class_context_a7c09cf1cce283bf24fed475e7084c294}
 
 
@@ -158,11 +158,7 @@ Default constructor that sets the number of objects in the first and second doma
 
 
 \begin{DoxyParams}{Parameters}
-{\em num1} & the number of objects in the first domain \\
-\hline
-{\em num2} & the number of objects in the second domain \\
-\hline
-\end{DoxyParams}
+\item[{\em num1}]the number of objects in the first domain \item[{\em num2}]the number of objects in the second domain \end{DoxyParams}
 
 
 Definition at line 4 of file Context.cpp.
@@ -170,11 +166,7 @@ Definition at line 4 of file Context.cpp.
 \hypertarget{class_context_ac0423f54b36186488e04d7723c52fee4}{
 \index{Context@{Context}!Context@{Context}}
 \index{Context@{Context}!Context@{Context}}
-\subsubsection[{Context}]{\setlength{\rightskip}{0pt plus 5cm}Context::Context (
-\begin{DoxyParamCaption}
-\item[{{\bf Context} \&}]{a}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{Context}]{\setlength{\rightskip}{0pt plus 5cm}Context::Context ({\bf Context} \& {\em a})}}
 \label{class_context_ac0423f54b36186488e04d7723c52fee4}
 
 
@@ -182,9 +174,7 @@ Copy constructor.
 
 
 \begin{DoxyParams}{Parameters}
-{\em a} & another context to be deep copied \\
-\hline
-\end{DoxyParams}
+\item[{\em a}]another context to be deep copied \end{DoxyParams}
 
 
 Definition at line 12 of file Context.cpp.
@@ -192,12 +182,7 @@ Definition at line 12 of file Context.cpp.
 \hypertarget{class_context_ae66f36043dcffe09e73765eed28eb782}{
 \index{Context@{Context}!Context@{Context}}
 \index{Context@{Context}!Context@{Context}}
-\subsubsection[{Context}]{\setlength{\rightskip}{0pt plus 5cm}Context::Context (
-\begin{DoxyParamCaption}
-\item[{{\bf NCluster} $\ast$}]{d1, }
-\item[{{\bf NCluster} $\ast$}]{d2}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{Context}]{\setlength{\rightskip}{0pt plus 5cm}Context::Context ({\bf NCluster} $\ast$ {\em d1}, \/  {\bf NCluster} $\ast$ {\em d2})}}
 \label{class_context_ae66f36043dcffe09e73765eed28eb782}
 
 
@@ -205,11 +190,7 @@ Constructor that takes in the actual full domains.
 
 
 \begin{DoxyParams}{Parameters}
-{\em d1} & n-\/cluster representing the \char`\"{}rows\char`\"{} or domain1 in FIMI form \\
-\hline
-{\em d2} & n-\/cluster representing the \char`\"{}columns\char`\"{} or domain2 in FIMI form \\
-\hline
-\end{DoxyParams}
+\item[{\em d1}]n-\/cluster representing the \char`\"{}rows\char`\"{} or domain1 in FIMI form \item[{\em d2}]n-\/cluster representing the \char`\"{}columns\char`\"{} or domain2 in FIMI form \end{DoxyParams}
 
 
 Definition at line 18 of file Context.cpp.
@@ -220,11 +201,7 @@ Definition at line 18 of file Context.cpp.
 \hypertarget{class_context_a980ed3eb69cc388465263025203cf1c8}{
 \index{Context@{Context}!GetLabels@{GetLabels}}
 \index{GetLabels@{GetLabels}!Context@{Context}}
-\subsubsection[{GetLabels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ Context::GetLabels (
-\begin{DoxyParamCaption}
-\item[{int}]{domain}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{GetLabels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ Context::GetLabels (int {\em domain})}}
 \label{class_context_a980ed3eb69cc388465263025203cf1c8}
 
 
@@ -232,21 +209,15 @@ Returns an \hyperlink{class_i_o_set}{IOSet} with all the labels or object-\/ids 
 
 
 \begin{DoxyParams}{Parameters}
-{\em domain} & the id of the domain from which the object-\/ids will be returned \\
-\hline
-\end{DoxyParams}
+\item[{\em domain}]the id of the domain from which the object-\/ids will be returned \end{DoxyParams}
 
 
-Definition at line 46 of file Context.cpp.
+Definition at line 48 of file Context.cpp.
 
 \hypertarget{class_context_af00dbb1f5b5fa02eea8e2e326e297bb9}{
 \index{Context@{Context}!GetNameMap@{GetNameMap}}
 \index{GetNameMap@{GetNameMap}!Context@{Context}}
-\subsubsection[{GetNameMap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NameMap} $\ast$ Context::GetNameMap (
-\begin{DoxyParamCaption}
-\item[{int}]{dId}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{GetNameMap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NameMap} $\ast$ Context::GetNameMap (int {\em dId})}}
 \label{class_context_af00dbb1f5b5fa02eea8e2e326e297bb9}
 
 
@@ -254,22 +225,15 @@ Returns a pointer to the name map associated with one of the domains.
 
 
 \begin{DoxyParams}{Parameters}
-{\em dId} & the id of the domain for which the name map will be returned \\
-\hline
-\end{DoxyParams}
+\item[{\em dId}]the id of the domain for which the name map will be returned \end{DoxyParams}
 
 
-Definition at line 169 of file Context.cpp.
+Definition at line 180 of file Context.cpp.
 
 \hypertarget{class_context_adeeca59fd329ad829de527c37489e7b8}{
 \index{Context@{Context}!GetSet@{GetSet}}
 \index{GetSet@{GetSet}!Context@{Context}}
-\subsubsection[{GetSet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ Context::GetSet (
-\begin{DoxyParamCaption}
-\item[{int}]{domain, }
-\item[{int}]{setNum}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{GetSet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf IOSet} $\ast$ Context::GetSet (int {\em domain}, \/  int {\em setNum})}}
 \label{class_context_adeeca59fd329ad829de527c37489e7b8}
 
 
@@ -277,24 +241,15 @@ Returns an object-\/set from the context.
 
 
 \begin{DoxyParams}{Parameters}
-{\em domain} & the id of the domain from which the object-\/set will be returned \\
-\hline
-{\em setNum} & the object number in domain for which the object-\/set or prime will be returned \\
-\hline
-\end{DoxyParams}
+\item[{\em domain}]the id of the domain from which the object-\/set will be returned \item[{\em setNum}]the object number in domain for which the object-\/set or prime will be returned \end{DoxyParams}
 
 
-Definition at line 35 of file Context.cpp.
+Definition at line 37 of file Context.cpp.
 
 \hypertarget{class_context_a8bfdcf16db7537122236cab328358e8d}{
 \index{Context@{Context}!GetSubContext@{GetSubContext}}
 \index{GetSubContext@{GetSubContext}!Context@{Context}}
-\subsubsection[{GetSubContext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Context} $\ast$ Context::GetSubContext (
-\begin{DoxyParamCaption}
-\item[{{\bf IOSet} $\ast$}]{a, }
-\item[{{\bf IOSet} $\ast$}]{b}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{GetSubContext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Context} $\ast$ Context::GetSubContext ({\bf IOSet} $\ast$ {\em a}, \/  {\bf IOSet} $\ast$ {\em b})}}
 \label{class_context_a8bfdcf16db7537122236cab328358e8d}
 
 
@@ -302,24 +257,15 @@ Resturns a sub-\/context of the original context.
 
 Constructs a sub context based on the objects in the paramaters a and b 
 \begin{DoxyParams}{Parameters}
-{\em a} & set of objects from domain1 that will form the \char`\"{}rows\char`\"{} or first domain of the sub-\/context \\
-\hline
-{\em b} & set of objects from domain2 that will form the \char`\"{}columns\char`\"{} or second domain of the sub-\/context \\
-\hline
-\end{DoxyParams}
+\item[{\em a}]set of objects from domain1 that will form the \char`\"{}rows\char`\"{} or first domain of the sub-\/context \item[{\em b}]set of objects from domain2 that will form the \char`\"{}columns\char`\"{} or second domain of the sub-\/context \end{DoxyParams}
 
 
-Definition at line 111 of file Context.cpp.
+Definition at line 112 of file Context.cpp.
 
 \hypertarget{class_context_ac7eb147a11e84e49cda654ecc3812fe5}{
 \index{Context@{Context}!SetDomainId@{SetDomainId}}
 \index{SetDomainId@{SetDomainId}!Context@{Context}}
-\subsubsection[{SetDomainId}]{\setlength{\rightskip}{0pt plus 5cm}void Context::SetDomainId (
-\begin{DoxyParamCaption}
-\item[{int}]{setNum, }
-\item[{int}]{id}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{SetDomainId}]{\setlength{\rightskip}{0pt plus 5cm}void Context::SetDomainId (int {\em setNum}, \/  int {\em id})}}
 \label{class_context_ac7eb147a11e84e49cda654ecc3812fe5}
 
 
@@ -327,24 +273,15 @@ Set the domain id of either set1 or set2.
 
 
 \begin{DoxyParams}{Parameters}
-{\em setNum} & the set to which the id will be assigned, this should be eithier 0 or 1 \\
-\hline
-{\em id} & will be assigned to be the domainId of the selected set \\
-\hline
-\end{DoxyParams}
+\item[{\em setNum}]the set to which the id will be assigned, this should be eithier 0 or 1 \item[{\em id}]will be assigned to be the domainId of the selected set \end{DoxyParams}
 
 
-Definition at line 64 of file Context.cpp.
+Definition at line 66 of file Context.cpp.
 
 \hypertarget{class_context_afb2aabeb42abb6e561a9ea898520baef}{
 \index{Context@{Context}!SetNameMap@{SetNameMap}}
 \index{SetNameMap@{SetNameMap}!Context@{Context}}
-\subsubsection[{SetNameMap}]{\setlength{\rightskip}{0pt plus 5cm}void Context::SetNameMap (
-\begin{DoxyParamCaption}
-\item[{int}]{dId, }
-\item[{{\bf NameMap} $\ast$}]{nm}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{SetNameMap}]{\setlength{\rightskip}{0pt plus 5cm}void Context::SetNameMap (int {\em dId}, \/  {\bf NameMap} $\ast$ {\em nm})}}
 \label{class_context_afb2aabeb42abb6e561a9ea898520baef}
 
 
@@ -352,18 +289,14 @@ Assign a name map to one of the domains.
 
 
 \begin{DoxyParams}{Parameters}
-{\em dId} & the id of the domain to assign the name map to \\
-\hline
-{\em nm} & pointer to the name map to be assigned to the domain \\
-\hline
-\end{DoxyParams}
+\item[{\em dId}]the id of the domain to assign the name map to \item[{\em nm}]pointer to the name map to be assigned to the domain \end{DoxyParams}
 
 
-Definition at line 161 of file Context.cpp.
+Definition at line 172 of file Context.cpp.
 
 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-headers/Context.h\item 
-source/Context.cpp\end{DoxyCompactItemize}
+headers/core/Context.h\item 
+source/core/Context.cpp\end{DoxyCompactItemize}

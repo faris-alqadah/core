@@ -1,3 +1,5 @@
+#include <map>
+
 #include "../../headers/core/RSet.h"
 
 RSet::RSet(){
@@ -103,6 +105,15 @@ RSet::~RSet(){}
             if (itt != vals.end()) ret->Add((*itt));
         }
         return ret;
+    }
+
+
+    map<int,int> *RSet::GetRankIdxs(IOSet *theIdxs){
+      map<int,int> *idxRanking = new map<int,int>();
+        sort(theIdxs->GetBegin(),theIdxs->GetEnd(),IdxSorter(this));
+        for(int i=0; i < theIdxs->Size(); i++)
+            idxRanking->insert(pair<int,int>(theIdxs->At(i),i));
+        return idxRanking;
     }
     pair<int,int> RSet::GetMinMaxSubspaceIdxs(IOSet *idxs){
         RSet *tmp = GetSubspace(idxs);

@@ -26,6 +26,13 @@ int \hyperlink{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}{GetNumNod
 \label{class_relation_graph_adeb2d25e6c30b397daec5179473ba122}
 
 \begin{DoxyCompactList}\small\item\em Returns the number of nodes (domains) in the network. \item\end{DoxyCompactList}\item 
+int \hyperlink{class_relation_graph_aea7dcd0adc08075a0b2e70854349f77c}{NumObjsInDomain} (int dId)
+\item 
+\hypertarget{class_relation_graph_a8aa78353932ce1b41e74b48318425482}{
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_a8aa78353932ce1b41e74b48318425482}{GetLabels} (int dId)}
+\label{class_relation_graph_a8aa78353932ce1b41e74b48318425482}
+
+\begin{DoxyCompactList}\small\item\em Return an \hyperlink{class_i_o_set}{IOSet} of all objects in the specifed domain. \item\end{DoxyCompactList}\item 
 bool \hyperlink{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}{IsEdge} (int id1, int id2)
 \begin{DoxyCompactList}\small\item\em Returns true if the ids are an edge in the network, false otherwise. \item\end{DoxyCompactList}\item 
 \hypertarget{class_relation_graph_acd16774976073a33da14d8461ba4165d}{
@@ -68,16 +75,36 @@ bool \hyperlink{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}{IsContex
 \label{class_relation_graph_adbbbff1b919cf1c4f86620a0bd925cc4}
 
 \begin{DoxyCompactList}\small\item\em Reutnrs true if cId is a context id in the network, false otherwise. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_ade2826ead12d3490011e878957140e59}{
+bool \hyperlink{class_relation_graph_ade2826ead12d3490011e878957140e59}{IsArtNodeId} (int dId)}
+\label{class_relation_graph_ade2826ead12d3490011e878957140e59}
+
+\begin{DoxyCompactList}\small\item\em Reutnrs true if dId is an articulation node in the network, false otherwise. \item\end{DoxyCompactList}\item 
 \hypertarget{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}{
 void \hyperlink{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}{Print} ()}
 \label{class_relation_graph_a1a3279bf6ed14795cf41124f9cc730ac}
 
 \begin{DoxyCompactList}\small\item\em Prints the HIN. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_aafd5077de89b1c01d1170581123f8566}{
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_aafd5077de89b1c01d1170581123f8566}{GetCommonObjectsArtNode} (int aNode)}
+\label{class_relation_graph_aafd5077de89b1c01d1170581123f8566}
+
+\begin{DoxyCompactList}\small\item\em Returns set of objects in articulation node s that have suport $>$= 1 in all contexts. \item\end{DoxyCompactList}\item 
 \hypertarget{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}{
 \hyperlink{class_context}{Context} $\ast$ \hyperlink{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}{GetContext} (int s, int t)}
 \label{class_relation_graph_aed7ec9b885e3f3cba079232e0a59b027}
 
 \begin{DoxyCompactList}\small\item\em Returns the context correspoding to the edge (s,t), that is context with domains s and t. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_afc38e287452ec3c9c9fc779146c490de}{
+\hyperlink{class_i_o_set}{IOSet} $\ast$ \hyperlink{class_relation_graph_afc38e287452ec3c9c9fc779146c490de}{GetDomainObjs} (int dId)}
+\label{class_relation_graph_afc38e287452ec3c9c9fc779146c490de}
+
+\begin{DoxyCompactList}\small\item\em Returns ioset of objects in domain dId. \item\end{DoxyCompactList}\item 
+\hypertarget{class_relation_graph_ad5d7fc6f4ff141685902663b732768a7}{
+int \hyperlink{class_relation_graph_ad5d7fc6f4ff141685902663b732768a7}{GetTotalNumObjs} ()}
+\label{class_relation_graph_ad5d7fc6f4ff141685902663b732768a7}
+
+\begin{DoxyCompactList}\small\item\em Return the total number of nodes in the relation graph (i.e. sum of cardinality of all domains). \item\end{DoxyCompactList}\item 
 vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ $\ast$ \hyperlink{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}{GetNameMaps} ()
 \begin{DoxyCompactList}\small\item\em Returns a vector of name map pointers correspoding to each domain of the HIN. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Private Attributes}
@@ -118,11 +145,7 @@ Definition at line 21 of file RelationGraph.h.
 \hypertarget{class_relation_graph_a5c1bd71649ec9c19f28b3fe0abda9540}{
 \index{RelationGraph@{RelationGraph}!AddContext@{AddContext}}
 \index{AddContext@{AddContext}!RelationGraph@{RelationGraph}}
-\subsubsection[{AddContext}]{\setlength{\rightskip}{0pt plus 5cm}void RelationGraph::AddContext (
-\begin{DoxyParamCaption}
-\item[{{\bf Context} $\ast$}]{c}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{AddContext}]{\setlength{\rightskip}{0pt plus 5cm}void RelationGraph::AddContext ({\bf Context} $\ast$ {\em c})}}
 \label{class_relation_graph_a5c1bd71649ec9c19f28b3fe0abda9540}
 
 
@@ -130,9 +153,7 @@ Adds context c to the network.
 
 Add a context to the network. This method assumes the ids of the domains of the context are well defined, and will use these ids to construct the topplogy of the network. 
 \begin{DoxyParams}{Parameters}
-{\em c} & the context to add to the network, \\
-\hline
-\end{DoxyParams}
+\item[{\em c}]the context to add to the network, \end{DoxyParams}
 
 
 Definition at line 10 of file RelationGraph.cpp.
@@ -140,11 +161,7 @@ Definition at line 10 of file RelationGraph.cpp.
 \hypertarget{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}{
 \index{RelationGraph@{RelationGraph}!GetNameMaps@{GetNameMaps}}
 \index{GetNameMaps@{GetNameMaps}!RelationGraph@{RelationGraph}}
-\subsubsection[{GetNameMaps}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf NameMap} $\ast$ $>$ $\ast$ RelationGraph::GetNameMaps (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{GetNameMaps}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf NameMap} $\ast$ $>$ $\ast$ RelationGraph::GetNameMaps ()}}
 \label{class_relation_graph_a79d93b2f1cb9226aa4a3fcbbe423588b}
 
 
@@ -157,17 +174,12 @@ The name maps are not in any specfied order, use the id attribute of each name t
 \end{DoxySeeAlso}
 
 
-Definition at line 156 of file RelationGraph.cpp.
+Definition at line 179 of file RelationGraph.cpp.
 
 \hypertarget{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}{
 \index{RelationGraph@{RelationGraph}!IsEdge@{IsEdge}}
 \index{IsEdge@{IsEdge}!RelationGraph@{RelationGraph}}
-\subsubsection[{IsEdge}]{\setlength{\rightskip}{0pt plus 5cm}bool RelationGraph::IsEdge (
-\begin{DoxyParamCaption}
-\item[{int}]{id1, }
-\item[{int}]{id2}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{IsEdge}]{\setlength{\rightskip}{0pt plus 5cm}bool RelationGraph::IsEdge (int {\em id1}, \/  int {\em id2})}}
 \label{class_relation_graph_a647ab3afb7708f13e5ec480462dedb39}
 
 
@@ -177,9 +189,18 @@ Returns true if there exists a context in the network that has domains with id1 
 
 Definition at line 58 of file RelationGraph.cpp.
 
+\hypertarget{class_relation_graph_aea7dcd0adc08075a0b2e70854349f77c}{
+\index{RelationGraph@{RelationGraph}!NumObjsInDomain@{NumObjsInDomain}}
+\index{NumObjsInDomain@{NumObjsInDomain}!RelationGraph@{RelationGraph}}
+\subsubsection[{NumObjsInDomain}]{\setlength{\rightskip}{0pt plus 5cm}int RelationGraph::NumObjsInDomain (int {\em dId})}}
+\label{class_relation_graph_aea7dcd0adc08075a0b2e70854349f77c}
+Return the number of elements in this domain 
+
+Definition at line 115 of file RelationGraph.cpp.
+
 
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-headers/RelationGraph.h\item 
-source/RelationGraph.cpp\end{DoxyCompactItemize}
+headers/core/RelationGraph.h\item 
+source/core/RelationGraph.cpp\end{DoxyCompactItemize}

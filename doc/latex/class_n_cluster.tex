@@ -43,6 +43,8 @@ void \hyperlink{class_n_cluster_afb92f84876326645c2d3e46c011c6fdf}{Output} (ofst
 \begin{DoxyCompactList}\small\item\em Prints each IOset on a seperate line preceded by the Id of each \hyperlink{class_i_o_set}{IOSet} to ofstream. \item\end{DoxyCompactList}\item 
 void \hyperlink{class_n_cluster_a5f75034c596cda89b823bb842f54019e}{Output} (ofstream \&, vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ \&nm)
 \begin{DoxyCompactList}\small\item\em Prints each IOset on a seperate line preceded by the Id of each \hyperlink{class_i_o_set}{IOSet} to ofstream. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_cluster_a762a3beaf5aa389d8afccabe227d30e3}{Output} (vector$<$ \hyperlink{class_name_map}{NameMap} $\ast$ $>$ \&nm)
+\begin{DoxyCompactList}\small\item\em Prints each IOset on a seperate line preceded by the Id of each \hyperlink{class_i_o_set}{IOSet} to std stream. \item\end{DoxyCompactList}\item 
 \hypertarget{class_n_cluster_a5e91f8c38a0122031c3f921b94e3a688}{
 int \hyperlink{class_n_cluster_a5e91f8c38a0122031c3f921b94e3a688}{GetN} ()}
 \label{class_n_cluster_a5e91f8c38a0122031c3f921b94e3a688}
@@ -112,7 +114,17 @@ bool \hyperlink{class_n_cluster_acf1d8f02e7b8ec537225e896ae26534c}{ContainsIOSet
 int \hyperlink{class_n_cluster_a35ad64188494aec6b0b5a255217ba11b}{GetMaxElement} ()}
 \label{class_n_cluster_a35ad64188494aec6b0b5a255217ba11b}
 
-\begin{DoxyCompactList}\small\item\em Returns the value of the largest element in all sets of self. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns the value of the largest element in all sets of self. \item\end{DoxyCompactList}\item 
+\hypertarget{class_n_cluster_a3cea2ce61b20d00b751041984660eba5}{
+void \hyperlink{class_n_cluster_a3cea2ce61b20d00b751041984660eba5}{RemoveSet} (int i)}
+\label{class_n_cluster_a3cea2ce61b20d00b751041984660eba5}
+
+\begin{DoxyCompactList}\small\item\em Remove the \hyperlink{class_i_o_set}{IOSet} at index i. \item\end{DoxyCompactList}\item 
+\hypertarget{class_n_cluster_a977c14300769c0146dbb5b0fa8773a08}{
+void \hyperlink{class_n_cluster_a977c14300769c0146dbb5b0fa8773a08}{SortSets} ()}
+\label{class_n_cluster_a977c14300769c0146dbb5b0fa8773a08}
+
+\begin{DoxyCompactList}\small\item\em Sort the sets by the quality variables of each \hyperlink{class_i_o_set}{IOSet}. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -154,11 +166,7 @@ Definition at line 13 of file NCluster.h.
 \hypertarget{class_n_cluster_ac6460cead5fb2cf1a46354ab26f36e0a}{
 \index{NCluster@{NCluster}!NCluster@{NCluster}}
 \index{NCluster@{NCluster}!NCluster@{NCluster}}
-\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (
-\begin{DoxyParamCaption}
-\item[{unsigned int}]{n}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (unsigned int {\em n})}}
 \label{class_n_cluster_ac6460cead5fb2cf1a46354ab26f36e0a}
 
 
@@ -166,9 +174,7 @@ Alternate constructor.
 
 Allocates n sets and sets size to n 
 \begin{DoxyParams}{Parameters}
-{\em n} & number of sets to allocate \\
-\hline
-\end{DoxyParams}
+\item[{\em n}]number of sets to allocate \end{DoxyParams}
 
 
 Definition at line 9 of file NCluster.cpp.
@@ -176,12 +182,7 @@ Definition at line 9 of file NCluster.cpp.
 \hypertarget{class_n_cluster_ad64a3005375dd6aad2848f227ce92ef6}{
 \index{NCluster@{NCluster}!NCluster@{NCluster}}
 \index{NCluster@{NCluster}!NCluster@{NCluster}}
-\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (
-\begin{DoxyParamCaption}
-\item[{unsigned int}]{n, }
-\item[{bool}]{allocate}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (unsigned int {\em n}, \/  bool {\em allocate})}}
 \label{class_n_cluster_ad64a3005375dd6aad2848f227ce92ef6}
 
 
@@ -189,11 +190,7 @@ Alternate constructor.
 
 Makes the n-\/cluster of size n, but does not allocate the memory 
 \begin{DoxyParams}{Parameters}
-{\em n} & size of the n-\/cluster \\
-\hline
-{\em allocate} & this value does not matter, if its true or false, its just to inidcate that no memory should be allocated \\
-\hline
-\end{DoxyParams}
+\item[{\em n}]size of the n-\/cluster \item[{\em allocate}]this value does not matter, if its true or false, its just to inidcate that no memory should be allocated \end{DoxyParams}
 
 
 Definition at line 27 of file NCluster.cpp.
@@ -201,12 +198,7 @@ Definition at line 27 of file NCluster.cpp.
 \hypertarget{class_n_cluster_a5ef4833105e769e289f7e9dbf570dcef}{
 \index{NCluster@{NCluster}!NCluster@{NCluster}}
 \index{NCluster@{NCluster}!NCluster@{NCluster}}
-\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (
-\begin{DoxyParamCaption}
-\item[{unsigned int}]{n, }
-\item[{vector$<$ {\bf IOSet} $\ast$ $>$ \&}]{aa}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{NCluster}]{\setlength{\rightskip}{0pt plus 5cm}NCluster::NCluster (unsigned int {\em n}, \/  vector$<$ {\bf IOSet} $\ast$ $>$ \& {\em aa})}}
 \label{class_n_cluster_a5ef4833105e769e289f7e9dbf570dcef}
 
 
@@ -219,15 +211,23 @@ Definition at line 17 of file NCluster.cpp.
 
 
 \subsection{Member Function Documentation}
+\hypertarget{class_n_cluster_a762a3beaf5aa389d8afccabe227d30e3}{
+\index{NCluster@{NCluster}!Output@{Output}}
+\index{Output@{Output}!NCluster@{NCluster}}
+\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::Output (vector$<$ {\bf NameMap} $\ast$ $>$ \& {\em nm})}}
+\label{class_n_cluster_a762a3beaf5aa389d8afccabe227d30e3}
+
+
+Prints each IOset on a seperate line preceded by the Id of each \hyperlink{class_i_o_set}{IOSet} to std stream. 
+
+Attempts to match the id of one of the name maps to the id of the sets of self. If the ids match, then then \hyperlink{class_i_o_set}{IOSet} is output using the name map, otherwise normal printing is performed. 
+
+Definition at line 94 of file NCluster.cpp.
+
 \hypertarget{class_n_cluster_a5f75034c596cda89b823bb842f54019e}{
 \index{NCluster@{NCluster}!Output@{Output}}
 \index{Output@{Output}!NCluster@{NCluster}}
-\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::Output (
-\begin{DoxyParamCaption}
-\item[{ofstream \&}]{out, }
-\item[{vector$<$ {\bf NameMap} $\ast$ $>$ \&}]{nm}
-\end{DoxyParamCaption}
-)}}
+\subsubsection[{Output}]{\setlength{\rightskip}{0pt plus 5cm}void NCluster::Output (ofstream \& {\em out}, \/  vector$<$ {\bf NameMap} $\ast$ $>$ \& {\em nm})}}
 \label{class_n_cluster_a5f75034c596cda89b823bb842f54019e}
 
 
@@ -241,5 +241,5 @@ Definition at line 73 of file NCluster.cpp.
 
 The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-headers/NCluster.h\item 
-source/NCluster.cpp\end{DoxyCompactItemize}
+headers/core/NCluster.h\item 
+source/core/NCluster.cpp\end{DoxyCompactItemize}
