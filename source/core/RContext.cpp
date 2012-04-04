@@ -125,6 +125,33 @@ void RContext::PrintAsMatrix(ofstream &out){
         out<<"\n";
     }
 }
+RContext *RContext::PrintSubSpace(IOSet *a, IOSet *b, int dId1, int dId2){
+    pair<int,int> dIds = GetDomainIds();
+    assert( dId1 == dIds.first || dId1 == dIds.second);
+    assert(dId2 == dIds.second || dId2 == dIds.first);
+    assert( dId1 != dId2);
+    assert(a != NULL && b!= NULL);
+    NRCluster *rows = dId1 == dIds.first ? domain1 : domain2;
+    for(int i=0; i < a->Size(); i++){
+        RSet *currRow = rows->GetSetById(a->At(i));
+        int colIdx=0;
+        int rowIdx=0;
+        while( colIdx < b->Size()){
+            pair<int,double> currPair = currRow->At(rowIdx);
+            if(currPair.first == b->At(colIdx) ){
+                printf("\t%.2f",currPair.second);
+                ++colIdx;
+                ++rowIdx;
+            }else if (currPair.first > b->At(colIdx)){
+                ++colIdx;
+                 cout<<"\t"<<"NaN";
+            }else{
+               ++rowIdx;
+            }
+        }
+        cout<<"\n";
+    }
+}
 
 RContext * RContext::GetSubRContext(IOSet *a, IOSet *b){
     assert(a->Size() > 0 && b->Size() > 0);

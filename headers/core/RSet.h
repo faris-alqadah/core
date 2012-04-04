@@ -31,6 +31,8 @@ public:
     void Output(ofstream& f);
     //! Prints contents of the RSet as space sperated pairs of names and values to ofstream using namemap to map the integers to names
     void Output(ofstream &f, NameMap *n);
+
+
    //! Adds pair to the end of the RSet, increasing the size of the RSet
     void Add(pair<int,double>);
     //! Make a deep copy of the input RSet and assign it to self

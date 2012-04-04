@@ -41,6 +41,7 @@ RSet::~RSet(){}
            out<<nm->GetName((*it).first)<<","<<(*it).second<<"\t";
        }
    }
+ 
 
     void RSet::Add(pair<int,double> a){
        assert(a.first >= 0);
