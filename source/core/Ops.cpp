@@ -215,8 +215,10 @@ long double NChooseK(long double n, long double k){
 int CantorPairing(const unsigned int k1, const unsigned int k2){
      return 0.5*(k1+k2)*(k1+k2+1)+k2;
 }
-pair<int,int> InverseCantor(int cantor){
-    int w = floor( (sqrt(8*cantor+1) - 1)/2);
-    int t = (pow(w,2)+2)/2;
-    return pair<int,int>(cantor-t,w-(cantor-t));
+pair<int,int> InverseCantor(int z){
+    int w =  (sqrt(8*z+1) - 1)/2;
+    int t = (pow(w,2)+w)/2;
+    int y = z-t;
+    int x=w-y;
+    return pair<int,int>(x,y);
 }
