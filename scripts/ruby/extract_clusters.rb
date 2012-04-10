@@ -11,7 +11,7 @@ class App < CommandLine::Application
   def initialize
     author    "Faris Alqadah"
     copyright "Faris Alqadah, 2011"
-    synopsis  "cluster_file output_base_name [--domains][d1 d2 ... dn][--lines][--sfiles][--mapping][mapping_file]"
+    synopsis  "cluster_file output_base_name [--domains][d1 d2 ... dn][--lines][--sfiles][--merge][--mapping][mapping_file]"
     short_description "Read an n-cluster file produce by DMRC package and split it into n files, one file per cluster. Option to extract only specific domains in each cluster"
     long_description "Read an n-cluster file produce by DMRC package and split it into n files, one file per cluster. Option to extract only specific domains in each cluster"
     options :help
@@ -33,6 +33,12 @@ class App < CommandLine::Application
       :opt_found => get_args,
       :opt_not_found => false,
       :opt_description => "Objects of each domain will be placed in seperate file"
+
+    option :flag,
+      :names => "--merge",
+      :opt_found => get_args,
+      :opt_not_found => false,
+      :opt_description => "Merge objects in selected domains into single cluster"
 
     option :names => "--mapping",
        :arity => [1,1],
@@ -189,6 +195,7 @@ class App < CommandLine::Application
     def get_single_cluster(arr,ctr)
       nclu = Hash.new
       lcl_ctr=ctr
+      merge_domain_id ="1" # use this id if merge option is enabled
       while true
         arr[lcl_ctr].gsub!("\n","")
         arr[lcl_ctr].gsub!("\r","")
@@ -201,7 +208,16 @@ class App < CommandLine::Application
            for i in 1..tkns.size-1
              lcl_arr << tkns[i]
            end
-           nclu[domain] = lcl_arr
+           if opt["--merge"]
+              if nclu.has_key?(merge_domain_id)
+               nclu[merge_domain_id] = nclu[merge_domain_id] + lcl_arr
+              else
+                nclu[merge_domain_id] = lcl_arr
+            end
+           else
+              nclu[domain] = lcl_arr
+           end
+          
         end
         lcl_ctr = lcl_ctr + 1
       end

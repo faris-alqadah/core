@@ -23,12 +23,16 @@ function [percent] = clusters_GO_annotation(GO,go_map,all_gene_counts,clusters,d
     anno_vec=[];
     for i=1:numel(clusters)
         cluster= clusters{i};
-        curr_count= get_GO_counts(GO,go_map,cluster{domain});
+        curr_count= get_GO_counts(GO,go_map,cluster);
         annos = GO_annotation(all_gene_counts,curr_count,GO);
+        fprintf('\ncluster %d ',i);
+        for i=1:numel(annos)
+            fprintf('\n\t%s\t%s',annos{i}.term,annos{i}.descrip);
+        end
         anno_vec=[anno_vec is_annotated(annos,p_cutoff)];
     end
     percent = numel(find(anno_vec))/numel(anno_vec);    
-
+    fprintf('\n');
 end
 
 function [annotated] = is_annotated(annos,p_cutoff)

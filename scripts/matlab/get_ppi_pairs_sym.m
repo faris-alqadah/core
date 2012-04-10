@@ -1,4 +1,4 @@
-function data_logical_idxs = get_ppi_pairs_sym(row_names,edges,data_mat)
+function data_logical_idxs = get_ppi_pairs_sym(row_names,edges,data_mat,make_nan)
              
     % create map of row names to idxs
      map = containers.Map;
@@ -18,6 +18,8 @@ function data_logical_idxs = get_ppi_pairs_sym(row_names,edges,data_mat)
          
      end
      % mark all NaNs
-    nan_idxs = find(isnan(data_mat));
-    data_logical_idxs(nan_idxs)=NaN;
+     if make_nan == 1
+        nan_idxs = find(isnan(data_mat));
+        data_logical_idxs(nan_idxs)=NaN;
+     end
 end
