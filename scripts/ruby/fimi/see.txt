@@ -1,0 +1,8 @@
+reading pairs file...
+undefined method `<<' for {}:Hash
+pairs_to_fimi.rb:57:in `main'
+pairs_to_fimi.rb:33:in `each'
+pairs_to_fimi.rb:33:in `main'
+/Users/alqadaf/.rvm/gems/ruby-1.8.6-p420/gems/commandline-0.7.10/lib/commandline/application.rb:251:in `run'
+/Users/alqadaf/.rvm/gems/ruby-1.8.6-p420/gems/commandline-0.7.10/lib/commandline/application.rb:270:in `__set_auto_run'
+pairs_to_fimi.rb:25
