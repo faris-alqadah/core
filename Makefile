@@ -9,6 +9,8 @@ LIBS	=
 
 ####### Directories
 
+SOURCES=
+
 OBJ = objs
 SOURCE = source
 HEADER = headers
@@ -47,7 +49,7 @@ ALGOS_HELPER_OBJECTS = $(OBJ_CORE)/basic.o \
 
 #targets
 .cpp.o:
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) $< -o $@
 
 core_lib: $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS)
 	ar cr libcorelib.a $(MAIN_OBJECTS) $(ALGOS_HELPER_OBJECTS)
@@ -92,7 +94,6 @@ $(OBJ_CORE)/OpsR.o: $(SOURCE_CORE)/OpsR.cpp
 	 $(CC) $(CFLAGS) -c  $(SOURCE_CORE)/OpsR.cpp -o $@
 $(OBJ_CORE)/NCluster.o: $(SOURCE_CORE)/NCluster.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE_CORE)/NCluster.cpp -o $@
-
 $(OBJ_CORE)/PreProcess.o: $(SOURCE_CORE)/PreProcess.cpp
 	$(CC) $(CFLAGS) -c $(SOURCE_CORE)/PreProcess.cpp -o $@
 $(OBJ_CORE)/BasicStats.o: $(SOURCE_CORE)/BasicStats.cpp

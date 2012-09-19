@@ -10,108 +10,65 @@
 
 $LOAD_PATH << '../lib'
 require "rubygems"
-require "commandline"
+require "trollop"
 require "set"
 require "fimi"
 
 
-class App < CommandLine::Application
 
+opts = Trollop::options do
+  version "pairs_to_fimi 2012 Faris Alqadah"
+  banner <<-EOS
+Converts a pairs or triples file representing a sparse matrix to the 'fimi' sparse matrix representation. Also creates a 'name' file for the rows and columns
 
-  def initialize
-    author    "Faris Alqadah"
-    copyright "Faris Alqadah, 2012"
-    synopsis  "pairs_file output_file name_file [--weights_matrix]"
-    short_description "Reads a file that consists of pairs of objects (these represent edges of a graph) and converts the graph into a fimi file graph representation"
-    long_description  "Reads a file that consists of pairs of objects (these represent edges of a graph) and converts the graph into a fimi file graph representation"
-    options :help
+Usage:
+       pairs_to_fimi [options] <pairs_file> <out_file>
+where [options] are:
+EOS
 
-    option :flag,
-      :names => "--weights_matrix",
-      :opt_found => get_args,
-      :opt_not_found => false,
-      :opt_description => "Pairs have weights associated with them. Setting this flag will read these weights and output the corresponding matrix to the fimi file with weights"
+  opt :weights, "Pairs file containts triples, so the matrix is non-binary"
 
-    expected_args :pairs_file, :out_file, :name_file
+end
 
-  end
-
-def main
   begin
+      @pairs_file = ARGV[0]
+      @out_file = ARGV[1]
       file_arr = File.open(@pairs_file,"r").readlines
-      @fimi_map = Hash.new
-      @id_node_map = Hash.new
-      @node_id_map = Hash.new
-      @id_ctr=0
-      if opt["--weights_matrix"]
+      @fimi_map = Hash.new # store {A_id => [list of B_ids]}, A_id corresponds to line counter
+      if opts[:weights] == true
         puts "weights matrix option enabled"
         @fimi_weights_map = Hash.new
       end
       puts "reading pairs file..."
+      max_row_id=0
       for f in file_arr
         f.gsub!("\n","")
         f.gsub!("\r","")
-        tkns = f.split(" ")
-        g1 = tkns[0]
-        g2 = tkns[1]
-        if opt["--weights_matrix"]
-          weight = tkns[2]
-        end
-        if !@node_id_map.has_key?(g1)
-          @node_id_map[g1] = @id_ctr
-          @id_node_map[@id_ctr] = g1
-          @id_ctr = @id_ctr+1
-        end
-        if !@node_id_map.has_key?(g2)
-          @node_id_map[g2] = @id_ctr
-          @id_node_map[@id_ctr] = g2
-          @id_ctr = @id_ctr+1
+        tkns = f.split("\t")
+        g1 = tkns[0].to_i
+        g2 = tkns[1].to_i
+        if opts[:weights] == true
+          weight = tkns[2].to_f
         end
         if !@fimi_map.has_key?(g1)
           @fimi_map[g1] = Array.new
-          if opt["--weights_matrix"]
-              @fimi_weights_map[g1] = Array.new
+          if opts[:weights]
+              @fimi_weights_map[g1] = Hash.new
           end
         end
-        if !@fimi_map.has_key?(g2)
-          @fimi_map[g2] = Array.new
-          if opt["--weights_matrix"]
-              @fimi_weights_map[g2] = Array.new
-          end
+        @fimi_map[g1] <<g2
+        if opts[:weights] == true
+           @fimi_weights_map[g1][g2] = weight
         end
-        a1 = @fimi_map[g1]
-        a2 = @fimi_map[g2]
-        if opt["--weights_matrix"]
-            a1_weights = @fimi_weights_map[g1]
-            a2_weights = @fimi_weights_map[g2]
-            a1_lcl = Array.new
-            a1_lcl[0] = @node_id_map[g2]
-            a1_lcl[1] = weight
-            a2_lcl = Array.new
-            a2_lcl[0] = @node_id_map[g1]
-            a2_lcl[1] = weight
-            a1_weights << a1_lcl
-            a2_weights << a2_lcl
-            @fimi_weights_map[g1] = a1_weights
-            @fimi_weights_map[g2] = a2_weights
-        else
-           a1 << @node_id_map[g2]
-           a2 << @node_id_map[g1]
+        if g1 > max_row_id
+          max_row_id = g1
         end
-        @fimi_map[g1] = a1
-        @fimi_map[g2] = a2
       end
       puts "writing fimi file..."
-      Fimi.wirte_fimi_from_hash(@out_file,@fimi_map,@id_node_map)
-      puts "writing name file..."
-      name_out = File.open(@name_file,"w")
-      for i in 0..@id_ctr-1
-        name_out.puts @id_node_map[i]
-      end
-      name_out.close
-      if opt["--weights_matrix"]
-        puts "wiriting weights matrix"
-        Fimi.write_fimi_as_matrix(@name_file+".weights_matrix",@fimi_weights_map,@id_node_map)
+      if opts[:weights] == true
+        Fimi.write_weighted_fimi_from_hash(@out_file,@fimi_map,@fimi_weights_map,max_row_id)
+      else
+         Fimi.wirte_fimi_from_hash(@out_file,@fimi_map,max_row_id)
       end
       puts "done!"
   rescue => err
@@ -119,10 +76,9 @@ def main
     puts err.backtrace
   end
 
-end
 
 
 
 
 
-end
+#end

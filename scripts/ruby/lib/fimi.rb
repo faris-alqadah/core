@@ -41,24 +41,27 @@ module Fimi
     end
   end
 
-  # Writes the contents of the hash map hsh as a fimi file. In hsh, a string
-  # is associated with an integer list (representing neighboring nodes). node_map
-  # is a hash map that associates integers 0...n-1 with their string equivalent
+
+  # Writes the contents of the hash map hsh as a fimi file. 
+  # hsh has format {row_id => [col_id_1,col_id_2,...,col_id_n]}
+  # max_row_id is the largest id in hsh
   #
-  def Fimi.wirte_fimi_from_hash(file,hsh,node_map)
+  def Fimi.wirte_fimi_from_hash(file,hsh,max_row_id)
     begin
       out_str = File.open(file,"w")
-      for i in 0..node_map.length-1
-         aa = hsh[node_map[i]]
-         aa.sort!
-         for j in 0..aa.length-1
+      for i in 0..max_row_id
+         if hsh.has_key?(i)
+          aa = hsh[i]
+          aa.sort!
+          for j in 0..aa.length-1
            unless j==0
               out_str.write(" ")
            end
            out_str.write("#{aa[j]}")
-         end
-         unless i == node_map.length-1
-           out_str.write("\n")
+          end
+          unless i == max_row_id
+            out_str.write("\n")
+          end
          end
       end
       out_str.close
@@ -67,7 +70,36 @@ module Fimi
       puts err.backtrace
     end
   end
-
+  
+  # Writes the contents of the hash map hsh and weight_hsh as a weighted fimi file. 
+  # hsh has format {row_id => [col_id_1,col_id_2,...,col_id_n]}
+  # weight_hsh has format {row_id => {{ col_id => weight}}
+  # max_row_id is the largest id in hsh
+  #
+  def Fimi.write_weighted_fimi_from_hash(file,hsh,weight_hsh,max_row_id)
+    begin
+      out_str = File.open(file,"w")
+      for i in 0..max_row_id
+         if hsh.has_key?(i)
+          aa = hsh[i]
+          aa.sort!
+          for j in 0..aa.length-1
+           unless j==0
+              out_str.write(",")
+           end
+           out_str.write("#{aa[j]} #{weight_hsh[i][aa[j]]}")
+          end
+          unless i == max_row_id
+            out_str.write("\n")
+          end
+         end
+      end
+      out_str.close
+    rescue => err
+      puts err.to_s
+      puts err.backtrace
+    end
+  end
 
   # Writes the contents of the hash map hsh as a binary matrix. In hsh, a string
   # is associated with an integer list (representing neighboring nodes). node_map
