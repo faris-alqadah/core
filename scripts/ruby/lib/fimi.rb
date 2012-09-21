@@ -34,6 +34,7 @@ module Fimi
            out_str.write("\n")
          end
       end
+      out_str.write("\n###")
       out_str.close
     rescue => err
       puts err.to_s
@@ -62,8 +63,11 @@ module Fimi
           unless i == max_row_id
             out_str.write("\n")
           end
+         else
+           out_str.write("\n")  # blank line since id is missing
          end
       end
+      out_str.write("\n###")
       out_str.close
     rescue => err
       puts err.to_s
@@ -92,6 +96,8 @@ module Fimi
           unless i == max_row_id
             out_str.write("\n")
           end
+         else
+            out_str.write("\n")  # blank line since id is missing
          end
       end
       out_str.close
