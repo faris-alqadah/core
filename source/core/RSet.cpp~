@@ -110,6 +110,7 @@ RSet::~RSet(){}
       it = vals.find(idx);
       if (it != vals.end()) return true;
       return false;
+     
     }
 
     IOSet *RSet::GetIdxs(){

@@ -22,6 +22,8 @@ void  LatticeHash::MakeHashKey(NCluster*a, int t, string &theKey){
       LatticeHashNode *node = new LatticeHashNode();
       node->concept=new NCluster(*a);
       latticeMap[hshKey] = node;
+     }else{
+      cout<<"\na repeate!!"; 
      }
   }
 

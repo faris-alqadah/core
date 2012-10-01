@@ -106,6 +106,10 @@ module Fimi
       puts err.backtrace
     end
   end
+  
+
+  
+  
 
   # Writes the contents of the hash map hsh as a binary matrix. In hsh, a string
   # is associated with an integer list (representing neighboring nodes). node_map

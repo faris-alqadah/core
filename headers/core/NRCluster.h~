@@ -96,8 +96,7 @@ public:
     pair<int,double> GetMaxElement();
     //! Returns the largest index of all RSets in self
     int GetMaxIdx();
-    //!Sort the sets by the quality variables of each RSet
-    void SortSets();
+
 protected:
     //! degree of the cluster
     unsigned int n;
