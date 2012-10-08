@@ -19,7 +19,7 @@ def HitRate.make_arr(line,top_n)
    begin
         line.gsub!("\n","")
         line.gsub!("\r","")
-        tkns = line.split(" ")
+        tkns = line.split(' ')
         ret = Array.new
         cntr=0
         for t in tkns

@@ -57,7 +57,7 @@ end
           if col_id > max_col_id
             max_col_id = col_id
           end
-          out_str.write(row_id.to_s+"\t"+col_id.to_s)
+          out_str.write(row_id.to_s+"\t"+col_id.to_s+"\t1")
           t_cnt += 1
         end
         row_cnt += 1
