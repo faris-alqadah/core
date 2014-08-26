@@ -30,6 +30,13 @@ IOSet::~IOSet(){}
        }
 
    }
+   void IOSet::GenerateLabel(string &labelStr){
+	   for(int i=0; i < size; i++){
+		   labelStr += "__";
+		   labelStr += to_string(d[i]);
+	      }
+   }
+
    void IOSet::Output(ofstream& out){
        assert(out.is_open());
        for(int i=0; i < size; i++){

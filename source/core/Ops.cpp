@@ -106,7 +106,9 @@ NCluster *TransposeFimi(NCluster *a){
     }
 
 NCluster *TransposeFimi(NCluster *a,int sz1,int sz2){
-     assert(a != NULL && a->GetN() == sz1);
+    cerr<<"\n[TRANSPOSE FIMI] sz1: "<<sz1<<"\taN: "<<a->GetN();
+    cerr<<"\n";
+	assert(a != NULL && a->GetN() == sz1);
     NCluster *ret = new NCluster(sz2);
     for(int i=0; i < a->GetN(); i++)
         for(int j=0; j < a->GetSet(i)->Size(); j++)

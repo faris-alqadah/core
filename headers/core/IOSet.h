@@ -23,6 +23,7 @@
 #include <utility>
 #include <numeric>
 #include <assert.h>
+#include <sstream>
 
 #include "NameMap.h"
 using namespace std;
@@ -99,6 +100,8 @@ public:
     double GetQuality();
     //! Set the qualuty
     void SetQuality(double);
+    //! generate a label for the ioset
+    void GenerateLabel(string &labelStr);
 
 private:
     //! size of the ioset

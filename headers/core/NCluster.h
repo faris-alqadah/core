@@ -60,6 +60,14 @@ public:
      is performed.
      */
     void Output(vector<NameMap *>&nm);
+
+
+
+    //! get as json string with names
+     void AsJson(string &json,vector<NameMap*>&nm);
+     //! generate a label for the ncluster
+     void GenerateLabel(string &labelStr);
+
     //! Resurns n, the number of sets in the n-cluster
     int GetN();
     //! Returns a pointer to the ith set

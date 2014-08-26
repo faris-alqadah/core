@@ -70,6 +70,7 @@ void NCluster::Output(ofstream &out){
         out<<"\n";
     }
 }
+
 void NCluster::Output(ofstream& out, vector<NameMap*>& nm){
     assert(out.is_open());
     for(int i=0; i < n; i++){
@@ -90,6 +91,46 @@ void NCluster::Output(ofstream& out, vector<NameMap*>& nm){
         } 
     }
 }
+
+void NCluster::GenerateLabel(string &labelStr){
+	if (sets[0] != NULL)
+		sets[0]->GenerateLabel(labelStr);
+}
+
+void NCluster::AsJson(string &json,vector<NameMap*>&nm){
+	//get the generate id
+	json += "\"cluster_id\": \"";
+	string labelString;
+	GenerateLabel(labelString);
+	json += labelString;
+	json += "\",";
+	//get the element names
+
+
+	for(int i=0; i < n; i++){
+	        bool found=false;
+	        for(int j=0; j < nm.size(); j++){
+	            if (nm[j]->GetId() == sets[i]->Id()){
+	            	json += to_string(j);
+	            	json += "\": [";
+	            	for(int k=0; k < sets[i]->Size(); k++){
+	            		json += "\"";
+	            		json += nm[j]->GetName(sets[i]->At(k));
+	            		json += "\",";
+	            	}
+	            	json += "],";
+	                found = true;
+	                break;
+	            }
+	        }
+//	        if(!found){
+//	            out<<"["<<sets[i]->Id()<<"]\t";
+//	            sets[i]->Output(out);
+//	            out<<"\n";
+//	        }
+	    }
+}
+
 
 void NCluster::Output(vector<NameMap *>&nm){
     for(int i=0; i < n; i++){

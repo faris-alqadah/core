@@ -127,6 +127,33 @@ void  LatticeHash::MakeHashKey(NCluster*a, int t, string &theKey){
     return lowers;  
  }
     
+  void LatticeHash::OutputNode(NCluster *a,int t, ofstream& out,vector<NameMap*>&nm){
+	  //make label and identifiers for a
+	  string nclusterJson;
+	  a->AsJson(nclusterJson,nm);
+	  nclusterJson += "\"upper_neighbors\" : [";
+	  //create identifier arrays for neighbors
+	  vector<NCluster*> * upperNeighbors =  GetUpperNeighbors(a,t);
+	  for (int i = 0; i < upperNeighbors->size(); i++) {
+		  string label;
+		  upperNeighbors->at(i)->GenerateLabel(label);
+		  nclusterJson += "\"";
+		  nclusterJson += label;
+		  nclusterJson += "\",";
+	  }
+	  nclusterJson += "],";
+	  vector<NCluster*>* lowerNeighbors =  GetLowerNeighbors(a,t);
+	  for (int i = 0; i < lowerNeighbors->size(); i++) {
+	  		  string label;
+	  		  lowerNeighbors->at(i)->GenerateLabel(label);
+	  		  nclusterJson += "\"";
+	  		  nclusterJson += label;
+	  		  nclusterJson += "\",";
+	  	  }
+	  nclusterJson += "]}";
+	  out << nclusterJson <<",\n";
+   }
+
 
 
 
