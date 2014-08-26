@@ -1,7 +1,7 @@
 ####### Compiler, tools and options
 
 CC	=	g++
-CFLAGS	=	-O3 -g -Wno-deprecated
+CFLAGS	=	-O3 -g -Wno-deprecated -std=c++11
 INCPATH	=	
 LINK	=	g++
 LFLAGS	=	
