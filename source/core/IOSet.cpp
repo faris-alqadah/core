@@ -31,6 +31,10 @@ IOSet::~IOSet(){}
 
    }
    void IOSet::GenerateLabel(string &labelStr){
+	   if (size == 0){
+		   labelStr = "__";
+		   return;
+	   }
 	   for(int i=0; i < size; i++){
 		   labelStr += "__";
 		   labelStr += to_string(d[i]);

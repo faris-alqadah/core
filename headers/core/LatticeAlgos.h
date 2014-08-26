@@ -165,7 +165,7 @@ class LatticeHash{
     //! add a node to the hash
     void AddNode(NCluster *a);
     
-    void OutputNode(NCluster *a,int t, ofstream& out,vector<NameMap*>&nm);
+    void OutputNode(NCluster *a,int t, ofstream& out,vector<NameMap*> &nm);
 
     //!update upper neighbors of a to include (the upper), both concepts are assumed to exist in the hash
     void UpdateUppers(NCluster *a, NCluster *theUpper);

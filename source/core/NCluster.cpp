@@ -88,7 +88,7 @@ void NCluster::Output(ofstream& out, vector<NameMap*>& nm){
             out<<"["<<sets[i]->Id()<<"]\t";
             sets[i]->Output(out);
             out<<"\n";
-        } 
+        }
     }
 }
 
@@ -106,13 +106,15 @@ void NCluster::AsJson(string &json,vector<NameMap*>&nm){
 	json += "\",";
 	//get the element names
 
-
 	for(int i=0; i < n; i++){
 	        bool found=false;
 	        for(int j=0; j < nm.size(); j++){
+	        	//cerr<<"\nHERE JSON FIRST! "<<j<<"\t"<<nm[j]->GetId()<<"\t"<<sets[i]->Id();
 	            if (nm[j]->GetId() == sets[i]->Id()){
-	            	json += to_string(j);
-	            	json += "\": [";
+	            	string idStr = to_string(nm[j]->GetId());
+	            	json += "\"";
+	            	json += idStr;
+	            	json +="\": [";
 	            	for(int k=0; k < sets[i]->Size(); k++){
 	            		json += "\"";
 	            		json += nm[j]->GetName(sets[i]->At(k));
@@ -124,9 +126,15 @@ void NCluster::AsJson(string &json,vector<NameMap*>&nm){
 	            }
 	        }
 //	        if(!found){
-//	            out<<"["<<sets[i]->Id()<<"]\t";
-//	            sets[i]->Output(out);
-//	            out<<"\n";
+//	        	json += to_string(i);
+//				json += "\": [";
+//				cerr<<"\nHERE JSON FIRST! "<<<<"\t"<<nm[i]->GetId()<<"\t"<<sets[i]->Id();
+//				for(int k=0; k < sets[i]->Size(); k++){
+//					json += "\"";
+//					json += nm[i]->GetName(sets[i]->At(k));
+//					json += "\",";
+//				}
+//				json += "],";
 //	        }
 	    }
 }
@@ -158,7 +166,7 @@ int NCluster::GetN() {return n;}
 
 
 
-IOSet * NCluster::GetSet(int idx){ 
+IOSet * NCluster::GetSet(int idx){
     assert(idx >= 0 && idx < n);
     return sets[idx];
 }
