@@ -119,10 +119,7 @@ void  LatticeHash::MakeHashKey(NCluster*a, int t, string &theKey){
 	       currLower->DeepCopy(*latticeMap[currLowerId]->concept);
 	       lowers->push_back(currLower );
 	    }
-
 	  }
-
-	   
 	}
     return lowers;  
  }
@@ -141,6 +138,9 @@ void  LatticeHash::MakeHashKey(NCluster*a, int t, string &theKey){
 		  nclusterJson += label;
 		  nclusterJson += "\",";
 	  }
+
+	  DstryVector(upperNeighbors);
+
 	  nclusterJson += "],";
 	  nclusterJson += "\"lower_neighbors\" : [";
 	  vector<NCluster*>* lowerNeighbors =  GetLowerNeighbors(a,t);
@@ -153,6 +153,7 @@ void  LatticeHash::MakeHashKey(NCluster*a, int t, string &theKey){
 	  	  }
 	  nclusterJson += "]}";
 	  out << nclusterJson <<",\n";
+	  DstryVector(lowerNeighbors);
    }
 
 
