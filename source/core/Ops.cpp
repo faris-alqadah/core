@@ -121,32 +121,49 @@ NCluster *TransposeFimi(NCluster *a,int sz1,int sz2){
 
 int WeightedUniformDraw(vector<long double> &weights){
     long double sum=0;
-    for(int i=0; i < weights.size(); i++) sum += weights[i];
-    
-    //srand(time(NULL));
+    //for(int i=0; i < weights.size(); i++) sum += weights[i];
+    //cout<<"\nsum of weights: "<<sum;
     long double rnd = (long double) rand()  / (long double) RAND_MAX;
-   // cout<<"\nrnd sum: "<<sum;
-    //random_shuffle(weights.begin(),weights.end());
+    double upto = 0.0;
     for(int i=0; i < weights.size(); i++){
-      //cout<<"\nrnd "<<rnd<<"\tw "<<weights[i]<<"\ti "<<i;
-       // cout<<"\nrnd "<<rnd<<"\t"<<weights[i];
-        if(rnd <= weights[i])
+    	//cout<<i<<": "<<upto<<" + "<<weights[i]<<" = "<<upto+weights[i]<<" | "<<rnd<<"\n";
+        if(upto + weights[i] >= rnd){
             return i;
-        else
-            rnd -= weights[i];
-    }    
+        }
+         upto += weights[i];
+    }
+    //cout<<"\ngot to the end of weighted draw...";
 }
+int WeightedUniformDraw(vector<int> &weights){
+    int sum=0;
+    for(int i=0; i < weights.size(); i++) sum += weights[i];
+    //cout<<"\nsum of weights: "<<sum;
+    int rnd =  rand()  % sum;
+    int upto = 0;
+    for(int i=0; i < weights.size(); i++){
+    	cout<<i<<": "<<upto<<" + "<<weights[i]<<" = "<<upto+weights[i]<<" | "<<rnd<<"\n";
+        if(upto + weights[i] >= rnd){
+            return i;
+        }
+         upto += weights[i];
+    }
+   // cout<<"\ngot to the end of weighted draw...";
+}
+
 int WeightedUniformDraw(vector<double> &weights){
     double sum=0;
-    for(int i=0; i < weights.size(); i++) sum += weights[i];
+    //for(int i=0; i < weights.size(); i++) sum += weights[i];
+    //cout<<"\nsum of weights: "<<sum;
     double rnd = (double) rand() / (double) RAND_MAX;
-     for(int i=0; i < weights.size(); i++){
-        // cout<<"\nrnd "<<rnd<<"\t"<<weights[i];
-        if(rnd < weights[i])
-            return i;
-        else
-            rnd -= weights[i];
+    double upto  = 0;
+    for(int i=0; i < weights.size(); i++){
+    	//cout<<i<<" : "<<upto+weights[i]<<" | "<<rnd;
+    	 if( (upto + weights[i]) >= rnd){
+    		 return i;
+    	 }
+    	 upto += weights[i];
     }
+   // cout<<"\ngot to the end of weighted draw...";
 }
 
 
